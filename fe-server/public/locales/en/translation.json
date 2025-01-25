@@ -3,6 +3,9 @@
   "navbar": {
     "home": "Home",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "avatar_menu": {
+      "dark_mode": "Dark Mode"
+    }
   }
 }

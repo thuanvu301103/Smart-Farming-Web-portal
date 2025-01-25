@@ -1,70 +1,222 @@
-# Getting Started with Create React App
+# React.js-project-for-Front-end-server
+A basic React.js project sample for Front-end-server
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Start React.js project
 
-## Available Scripts
+- Open your terminal: Navigate to the directory where you cloned the repository
+```bash
+cd path/to/your/directory/React.js-project-for-Front-end-server/fe-server
+```
+- Install dependencies: Run the following command to install all the necessary dependencies
+```bash
+npm install
+```
+- Start the development server: Once the dependencies are installed, start the development server with
+```bash
+npm start
+```
 
-In the project directory, you can run:
+## Kill process (server) running on specific port:
+- Find PID of server running on port:
+```bash
+netstat -ano | findstr :<Port number>
+```
+- Kill that process:
+```bash
+taskkill /F /PID <PID>
+```
 
-### `npm start`
+## Change Server port
+The port for the React development server is determined by the ```react-scripts``` package, which is part of ```Create React App```. By default, it runs on port ```3000```. However, you can change the port by creating a ```.env``` file in the root directory of your project and adding the following line:
+```bash
+PORT=3001
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Install Material-UI
+- Material-UI is a popular React UI framework that implements Google's Material Design principles.
+- Run the following command to install Material-UI and its dependencies:
+```bash
+npm install @mui/material @emotion/react @emotion/styled --save-dev
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Basic structure for a React.js Front-end server
 
-### `npm test`
+```
+fe-server/
+├── node_modules/
+├── public/
+│   ├── index.html
+│   ├── favicon.ico
+│   └── manifest.json
+├── src/
+│   ├── assets/
+│   │   ├── images/
+│   │   └── styles/
+│   ├── components/
+│   │   ├── Header.js
+│   │   ├── Footer.js
+│   │   └── ...
+│   ├── pages/
+│   │   ├── Home.js
+│   │   ├── About.js
+│   │   └── …
+│   ├── context/
+│   │   ├── DarkoModeContext.js
+│   │   └── ...
+│   ├── App.js
+│   ├── index.js
+│   └── serviceWorker.js
+│   └── theme.js
+├── .env
+├── .gitignore
+├── package.json
+└── README.md
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+Explanation:
+- ```node_modules/```: Contains all the ```npm``` packages installed for the project.
+- ```public/```: Contains static files like ```index.html```, which is the entry point of the React application.
+- ```src/```: Contains the source code of the React application.
+- ```assets/```: Contains assets like images and styles.
+- ```components/```: Contains reusable components like Header, Footer, etc.
+- ```pages/```: Contains page components like Home, About, etc.
+- ```context/```: Contains all your context-related files
+- ```App.js```: The main component that includes all other components.
+- ```index.js```: The entry point of the React application.
+- ```serviceWorker.js```: Used for progressive web app features.
+- ```.gitignore```: Specifies which files and directories to ignore in version control.
+- ```.env```: a simple text file used to store environment variables for your project.
+- ```package.json```: Contains metadata about the project and its dependencies.
+- ```README.md```: A markdown file with information about the project.
 
-### `npm run build`
+## Theme Color
+- Create a Theme File: Create a new file called ```theme.js``` in the ```src``` directory and define your custom themes for both light and dark modes.
+- Apply the Theme: Wrap your application with the ```ThemeProvider``` component to apply the custom themes. Update your ```index.js``` file
+```javascript
+import React, {useState} from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { lightTheme, darkTheme } from './theme';
+import CssBaseline from '@mui/material/CssBaseline';
+import Switch from '@mui/material/Switch';
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+function App() {
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    /* Handle Dark mode */
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    // Get savedMode from localStorage
+    const [darkMode, setDarkMode] = useState(() => {/*...*/});
 
-### `npm run eject`
+    // Handle Theme Change function - Save the change to localStorage
+    const handleThemeChange = () => {
+        setDarkMode((prevMode) => {/*...*/});
+    };
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    return (
+        <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+            <Switch checked={darkMode} onChange={handleThemeChange} />
+            <CssBaseline />
+        </ThemeProvider>
+  );
+}
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+export default App;
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Handle multiple Languages
+- Handling multiple languages in a React front-end app can be achieved using a library like ```react-i18next```. This library provides powerful and flexible internationalization (```i18n```) support for React applications
+- Install ```react-i18next``` and ```i18next```
+```bash
+npm install react-i18next i18next --save-dev
+```
+- Create a Translation Configuration File: Create a file called ```i18n.js``` in the ```src``` directory and configure ```i18next```.
+- Create Translation Files: Create translation files for each language in the ```public/locales``` directory. For example, create ```public/locales/en/translation.json``` and ```public/locales/vi/translation.json```.
+- Initialize i18next in Your App: Import and initialize ```i18next``` in your ```index.js``` file
+- Use Translations in Your Components: Use the ```useTranslation``` hook to access translations in your components
+```javascript
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+const Navbar = () => {
+  const { t } = useTranslation();
 
-## Learn More
+  return (
+    <nav>
+      <ul>
+        <li>{t('navbar.home')}</li>
+        <li>{t('navbar.about')}</li>
+        <li>{t('navbar.contact')}</li>
+      </ul>
+    </nav>
+  );
+};
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+export default Navbar;
+```
+- Add a Language Switcher: Create a language switcher component to allow users to change the language.
+```javascript
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+const LanguageSwitcher = () => {
+  const { i18n } = useTranslation();
 
-### Code Splitting
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  return (
+    <div>
+      <button onClick={() => changeLanguage('en')}>English</button>
+      <button onClick={() => changeLanguage('vi')}>Tiếng Việt</button>
+    </div>
+  );
+};
 
-### Analyzing the Bundle Size
+export default LanguageSwitcher;
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Context
+- Context in React.jsis a way to pass data through the component tree without having to pass props down manually at every level. It allows you to share values like themes, user preferences, authentication statuses, and more between different components without the need for prop drilling
+- Create Context:
+```javascript
+import React, { createContext } from 'react';
 
-### Making a Progressive Web App
+// Create a context with default value
+const MyContext = createContext(defaultValue);
+```
+- Provide Context: Wrap your component tree with a provider component and pass the current value of the context to it.
+```javascript
+import React from 'react';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+const App = () => {
+  const [value, setValue] = React.useState('Hello World');
 
-### Advanced Configuration
+  return (
+    <MyContext.Provider value={value}>
+      <MyComponent />
+    </MyContext.Provider>
+  );
+}
+```
+- Consume Context: Use the ```useContext``` hook or the ```Consumer``` component to access the context value in your components.
+	- Using ```useContext``` hook:
+```javascript
+import React, { useContext } from 'react';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+const MyComponent = () => {
+  const contextValue = useContext(MyContext);
+  return <div>{contextValue}</div>;
+};
+```
+	- Using ```Consumer``` component:
+```javascript
+import React from 'react';
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+const MyComponent = () => {
+  return (
+    <MyContext.Consumer>
+      {value => <div>{value}</div>}
+    </MyContext.Consumer>
+  );
+};
+```

@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './i18n'; // Import the i18n configuration
+import { DarkModeProvider } from './context/DarkModeContext';
 
 const Root = () => {
 
     return (
-        <App />
+        <DarkModeProvider>
+            <App />
+        </DarkModeProvider>
     );
 };
 

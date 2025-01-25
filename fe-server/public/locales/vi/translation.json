@@ -3,6 +3,9 @@
   "navbar": {
     "home": "Trang chủ",
     "about": "Giới thiệu",
-    "contact": "Liên hệ"
+    "contact": "Liên hệ",
+    "avatar_menu": {
+      "dark_mode":  "Chế độ tối"
+    }
   }
 }
