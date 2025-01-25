@@ -3,10 +3,11 @@
     "",
     "\\public",
     "\\public\\locales",
-    "\\public\\locales\\vi",
     "\\src",
-    "\\src\\components"
+    "\\src\\components",
+    "\\src\\context",
+    "\\src\\language"
   ],
-  "SelectedNode": "\\src\\components\\Navbar.js",
+  "SelectedNode": "\\src\\theme.js",
   "PreviewInSolutionExplorer": false
 }

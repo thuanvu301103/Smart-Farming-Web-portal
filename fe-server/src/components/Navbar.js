@@ -10,6 +10,7 @@ import {
 import Switch from '@mui/material/Switch';
 import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import TranslateIcon from '@mui/icons-material/Translate';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useTranslation } from 'react-i18next';
 
@@ -39,9 +40,59 @@ const AvatarMenu = ({ anchorEl, handleClose, t}) => {
 
 }
 
+// Language Selected Menu
+const LngSelectedMenu = ({ anchorEl, handleClose, handleMenuItemClick, options, selectedIndex, t }) => {
+
+    return (
+        <Menu
+            id="lock-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            MenuListProps={{
+                'aria-labelledby': 'lock-button',
+                role: 'listbox',
+            }}
+        >
+            {Object.entries(options).map(([key, value], index) => (
+                <MenuItem
+                    key={key}
+                    selected={key === selectedIndex}
+                    onClick={(event) => handleMenuItemClick(event, key)}
+                >
+                    {value}
+                </MenuItem>
+            ))}
+        </Menu>
+    );
+}
+
+// Navigate Bar
 const Navbar = () => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const options = {
+        vi: t('navbar.language_menu.vi'),
+        en: t('navbar.language_menu.en'),
+    };
+
+    // Language Selected Menu
+    const [lngAnchorEl, setLngAnchorEl] = useState(null);
+    const [selectedLngIndex, setSelectedLngIndex] = useState(localStorage.getItem('i18nextLng'));    // Selected language
+    const handleLngList = (event) => {
+        setLngAnchorEl(event.currentTarget);
+    };
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+    const handleLngItemClick = (event, index) => {  // Handling clicking a Language Menu Item
+        setSelectedLngIndex(index);
+        changeLanguage(index);
+        setLngAnchorEl(null);
+    };
+    const handleLngClose = () => {  // Handling closing Language Menu
+        setLngAnchorEl(null);
+    };
 
     // Avatar Menu anchor
     const [avatarAnchorEl, setAvatarAnchorEl] = useState (null);
@@ -50,10 +101,10 @@ const Navbar = () => {
     };
     const handleAvatarClose = () => {
         setAvatarAnchorEl(null);
-    };
+    };   
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: 'black' }}>
+        <AppBar position="static" sx={{ backgroundColor: 'green' }}>
             <Toolbar>
                 <IconButton edge="start" color="inherit" aria-label="menu">
                     <MenuIcon />
@@ -65,6 +116,21 @@ const Navbar = () => {
                 <Typography variant="h6" style={{ flexGrow: 1 }}>
                     username / project name
                 </Typography>
+
+                {/* Language Selected Button */}
+                <Button variant="contained" startIcon={<TranslateIcon />} onClick={handleLngList}>
+                    {options[selectedLngIndex]}
+                </Button>
+                {/* Language Selected Menu */}
+                <LngSelectedMenu
+                    anchorEl={lngAnchorEl}
+                    handleClose={handleLngClose}
+                    handleMenuItemClick={handleLngItemClick}
+                    options={options}
+                    selectedIndex={selectedLngIndex}
+                    t={t}
+                />
+
                 <Button color="inherit">{t('navbar.home')}</Button>
                 <Button color="inherit">{t('navbar.about')}</Button>
                 <Button color="inherit">{t('navbar.contact')}</Button>

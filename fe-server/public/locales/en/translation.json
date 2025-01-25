@@ -1,6 +1,10 @@
 {
   "welcome": "Welcome",
   "navbar": {
+    "language_menu": {
+      "en": "English",
+      "vi": "Vietnamese"
+    },
     "home": "Home",
     "about": "About",
     "contact": "Contact",

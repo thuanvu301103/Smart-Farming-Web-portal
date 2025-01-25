@@ -10,9 +10,9 @@ i18n
     .init({
         supportedLngs: ['en', 'vi'], // Add your supported languages here
         fallbackLng: 'en',
-        detection: {
-            order: ['queryString', 'cookie'],
-            cache: ['cookie']
+        detection: {    // Detect language in LocalStorage
+            order: ['localStorage', 'queryString', 'cookie'],
+            cache: ['localStorage']
         },
         backend: {
             loadPath: '/locales/{{lng}}/translation.json'

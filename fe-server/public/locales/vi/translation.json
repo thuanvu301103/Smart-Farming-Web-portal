@@ -1,11 +1,15 @@
 ﻿{
   "welcome": "Chào mừng",
   "navbar": {
+    "language_menu": {
+      "en": "Tiếng Anh",
+      "vi":  "Tiếng Việt"
+    },
     "home": "Trang chủ",
     "about": "Giới thiệu",
     "contact": "Liên hệ",
     "avatar_menu": {
-      "dark_mode":  "Chế độ tối"
+      "dark_mode": "Chế độ tối"
     }
   }
 }
