@@ -118,7 +118,7 @@ const Navbar = () => {
                 </Typography>
 
                 {/* Language Selected Button */}
-                <Button variant="contained" startIcon={<TranslateIcon />} onClick={handleLngList}>
+                <Button color="primary" variant="contained" startIcon={<TranslateIcon />} onClick={handleLngList}>
                     {options[selectedLngIndex]}
                 </Button>
                 {/* Language Selected Menu */}
@@ -131,7 +131,7 @@ const Navbar = () => {
                     t={t}
                 />
 
-                <Button color="inherit">{t('navbar.home')}</Button>
+                <Button color="white">{t('navbar.home')}</Button>
                 <Button color="inherit">{t('navbar.about')}</Button>
                 <Button color="inherit">{t('navbar.contact')}</Button>
 
