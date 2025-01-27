@@ -14,5 +14,8 @@
   },
   "list": {
     "search_for": "Tìm kiếm..."
+  },
+  "button": {
+    "new": "Tạo mới"
   }
 }

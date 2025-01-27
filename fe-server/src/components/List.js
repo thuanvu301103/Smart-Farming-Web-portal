@@ -3,8 +3,11 @@ import {
     List, Pagination,
     Box,
     TextField,
+    Button,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import AddIcon from '@mui/icons-material/Add';
+
 
 const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 30, search }) => {
 
@@ -32,7 +35,7 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 30, search })
                 <TextField
                     label={t("list.search_for")}
                     variant="filled"
-                    color="background.paper"
+                    color="success"
                     fullWidth
                     margin="normal"
                     value={searchTerm}
@@ -40,6 +43,10 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 30, search })
                     size="small"
                 /> : null
             }
+            <Button variant="contained" color="success" size="small" startIcon={<AddIcon />}>
+                {t("button.new")}
+            </Button>
+
             <List>
                 {paginatedItems.map((item, index) => (
                     <ListItemComponents item={item} />

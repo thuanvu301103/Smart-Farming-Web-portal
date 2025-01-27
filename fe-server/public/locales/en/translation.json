@@ -13,6 +13,9 @@
     }
   },
   "list": {
-    "search_for": "Search for..." 
+    "search_for": "Search for..."
+  },
+  "button": {
+    "new":  "New"
   }
 }
