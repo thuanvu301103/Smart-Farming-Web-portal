@@ -3,7 +3,7 @@
   "navbar": {
     "language_menu": {
       "en": "Tiếng Anh",
-      "vi":  "Tiếng Việt"
+      "vi": "Tiếng Việt"
     },
     "home": "Trang chủ",
     "about": "Giới thiệu",
@@ -11,5 +11,8 @@
     "avatar_menu": {
       "dark_mode": "Chế độ tối"
     }
+  },
+  "list": {
+    "search_for": "Tìm kiếm..."
   }
 }

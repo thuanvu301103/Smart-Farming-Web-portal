@@ -10,7 +10,7 @@ const lightTheme = createTheme({
             main: '#dc004e', // Secondary color
         },
         background: {
-            default: '#f5f5f5', // Background color
+            default: '#FAFAFA', // Background color
         },
         text: {
             primary: '#000000', // Primary text color

@@ -11,5 +11,8 @@
     "avatar_menu": {
       "dark_mode": "Dark Mode"
     }
+  },
+  "list": {
+    "search_for": "Search for..." 
   }
 }

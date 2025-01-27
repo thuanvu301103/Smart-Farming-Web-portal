@@ -31,7 +31,7 @@ function App() {
             <div className="main-content">
                 <Navbar />
                 <div>
-                    <PaginatedList ListItemComponents={ScriptListItem} items={items} />
+                    <PaginatedList ListItemComponents={ScriptListItem} items={items} search={'name'} />
                 </div>
                 <div>
                     <FileStructListItem name="Magic.py" isFile={true} />
