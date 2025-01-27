@@ -5,6 +5,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { ScriptListItem, FileStructListItem } from './components/ListItem';
+import { PaginatedList } from './components/List';
 
 import { ThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from './theme';
@@ -17,7 +18,12 @@ function App() {
     // Handle Dark Mode
     const { darkMode } = useDarkMode();
 
-    /* Handle Language */
+    // Dump script items list
+    const items = [
+        { name: "Magic 1", description: "This is a simple item 1" },
+        { name: "Magic 2", description: "This is a simple item 2" },
+        { name: "Magic 3", description: "This is a simple item 3" },
+    ];
 
     return (
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -25,11 +31,12 @@ function App() {
             <div className="main-content">
                 <Navbar />
                 <div>
-                    <ScriptListItem name="This is a simple name of Peoject" description="This is a simple description" />
+                    <PaginatedList ListItemComponents={ScriptListItem} items={items} />
                 </div>
                 <div>
                     <FileStructListItem name="Magic.py" isFile={true} />
                 </div>
+
                 <Footer />
             </div>
         </ThemeProvider>

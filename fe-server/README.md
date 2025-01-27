@@ -200,23 +200,25 @@ const App = () => {
 ```
 - Consume Context: Use the ```useContext``` hook or the ```Consumer``` component to access the context value in your components.
 	- Using ```useContext``` hook:
-```javascript
-import React, { useContext } from 'react';
+	```javascript
+	import React, { useContext } from 'react';
 
-const MyComponent = () => {
-  const contextValue = useContext(MyContext);
-  return <div>{contextValue}</div>;
-};
-```
+	const MyComponent = () => {
+  		const contextValue = useContext(MyContext);
+  		return <div>{contextValue}</div>;
+	};
+	```
 	- Using ```Consumer``` component:
-```javascript
-import React from 'react';
+	```javascript
+	import React from 'react';
 
-const MyComponent = () => {
-  return (
-    <MyContext.Consumer>
-      {value => <div>{value}</div>}
-    </MyContext.Consumer>
-  );
-};
-```
+	const MyComponent = () => {
+ 		return (
+    			<MyContext.Consumer>
+      				{value => <div>{value}</div>}
+    			</MyContext.Consumer>
+  		);
+	};
+	```
+## [Components](src/components)
+Contains reusable React.js components 

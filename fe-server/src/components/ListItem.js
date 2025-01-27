@@ -6,13 +6,13 @@ import {
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import FolderIcon from '@mui/icons-material/Folder';
 
-const ScriptListItem = ({ name, description }) => {
+const ScriptListItem = ({ item }) => {
     return (
         <Box sx={
             {
                 bgcolor: 'background.paper',
                 boxShadow: '0px 2px 2px rgba(0, 128, 0, 0.5)',
-                m: 2,
+                m: 0.5,
                 borderRadius: '8px'
             }}
         >
@@ -24,25 +24,25 @@ const ScriptListItem = ({ name, description }) => {
                             variant="h6"
                             style={{ color: 'green', textDecoration: 'none', fontWeight: 'bold' }}
                         >
-                            {name}
+                            {item?.name ? item.name : null}
                         </Link>
                     }
-                    secondary={description}
+                    secondary={item?.description ? item.description : null}
                 />
             </ListItem>
         </Box>
         );
 }
 
-const FileStructListItem = ({ name, isFile }) => {
+const FileStructListItem = ({ item }) => {
     return (
         <Box sx={{ bgcolor: 'background.paper', m: 2}}>
             <ListItem>
                 <ListItemIcon>
-                    {isFile ? <InsertDriveFileOutlinedIcon /> : <FolderIcon />}
+                    {item?.isFile ? <InsertDriveFileOutlinedIcon /> : <FolderIcon />}
                 </ListItemIcon>
                 <ListItemText
-                    primary={name}
+                    primary={item?.name ? item.name : null}
                 />
             </ListItem>
         </Box>
