@@ -31,22 +31,30 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 30, search })
 
     return (
         <Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end', // Align items to the right
+                    alignItems: 'center', // Center align items vertically
+                    gap: 2, // Add space between items
+                }}
+            >
             {search? 
                 <TextField
                     label={t("list.search_for")}
                     variant="outlined"
                     color="success"
-                    fullWidth
+                    sx={{ flexGrow: 1 }}
                     margin="normal"
                     value={searchTerm}
                     onChange={handleSearchChange}
                     size="small"
                 /> : null
             }
-            <Button variant="contained" color="success" size="small" startIcon={<AddIcon />}>
+            <Button variant="contained" color="success" size="large" startIcon={<AddIcon />}>
                 {t("button.new")}
             </Button>
-
+            </Box>
             <List>
                 {paginatedItems.map((item, index) => (
                     <ListItemComponents item={item} />
