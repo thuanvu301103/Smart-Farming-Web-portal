@@ -24,9 +24,9 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 30, search })
         setPage(1); // Reset to first page on search
     };
 
-    const filteredItems = items.filter(item =>
+    const filteredItems = search ? items.filter(item =>
         item[search].toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    ) : items;
     const paginatedItems = filteredItems.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
     return (
@@ -34,7 +34,7 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 30, search })
             {search? 
                 <TextField
                     label={t("list.search_for")}
-                    variant="filled"
+                    variant="outlined"
                     color="success"
                     fullWidth
                     margin="normal"

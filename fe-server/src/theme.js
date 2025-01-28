@@ -7,13 +7,10 @@ const lightTheme = createTheme({
             main: '#E2EAF4', // Primary color
         },
         secondary: {
-            main: '#dc004e', // Secondary color
+            main: '#FE9900', // Secondary color
         },
         success: {
             main: "#32AA02"
-        },
-        meta: {
-            main: "#FE9900"
         },
         background: {
             default: '#FAFAFA', // Background color
@@ -32,13 +29,10 @@ const darkTheme = createTheme({
             main: '#FFFFFF', // Primary color
         },
         secondary: {
-            main: '#f48fb1', // Secondary color
+            main: '#FFDE59', // Secondary color
         },
         success: {
             main: "#7DDA58"
-        },
-        meta: {
-            main: "#FE9900"
         },
         background: {
             default: '#121212', // Background color

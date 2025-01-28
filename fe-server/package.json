@@ -8,6 +8,7 @@
     "i18next-http-backend": "^3.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^6.28.2",
     "react-scripts": "5.0.1"
   },
   "scripts": {
@@ -38,6 +39,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.1",
+    "@mui/lab": "^6.0.0-beta.24",
     "@mui/material": "^6.4.1",
     "i18next": "^24.2.1",
     "react-i18next": "^15.4.0",

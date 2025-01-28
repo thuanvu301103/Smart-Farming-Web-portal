@@ -12,6 +12,10 @@
       "dark_mode": "Chế độ tối"
     }
   },
+  "tab": {
+    "overview": "Tổng quan",
+    "script": "Kịch bản tưới"
+  },
   "list": {
     "search_for": "Tìm kiếm..."
   },

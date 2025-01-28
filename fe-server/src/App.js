@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import './App.css';
 // Import from components
 import Navbar from './components/Navbar';
@@ -8,14 +8,22 @@ import { ScriptListItem, FileStructListItem } from './components/ListItem';
 import { PaginatedList } from './components/List';
 
 import { Tab, Tabs } from '@mui/material';
-
+// React Router DOM
+import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
+// Import for theme and Dark Mode
 import { ThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from './theme';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useDarkMode } from './context/DarkModeContext';
-
+// Import Icons
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
+// Translation
+import { useTranslation } from 'react-i18next';
 
 function App() {
+
+    const { t } = useTranslation();
 
     // Handle Dark Mode
     const { darkMode } = useDarkMode();
@@ -27,30 +35,71 @@ function App() {
         { name: "Magic 3", description: "This is a simple item 3" },
     ];
 
+    // Tab value
+    const [value, setValue] = useState('overview');
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+    /*
+    const location = useLocation();
+    useEffect(() => {
+        const lastSegment = location.pathname.split('/').filter(Boolean).pop();
+        setValue(lastSegment || 'overview'); // Default to 'overview' if no segment
+    }, [location]);
+    */
+
     return (
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             <CssBaseline />
-            <div className="main-content">
-                <Navbar />
-                <Tabs
-                    value={null}
-                    onChange={null}
-                    textColor="success"
-                    indicatorColor="success"
-                    aria-label="secondary tabs example"
-                >
-                    <Tab value="one" label="Item One" />
-                    <Tab value="two" label="Item Two" />
-                    <Tab value="three" label="Item Three" />
-                </Tabs>
-                <div>
-                    <PaginatedList ListItemComponents={ScriptListItem} items={items} search={'name'} />
-                </div>
-                <div>
-                    <FileStructListItem name="Magic.py" isFile={true} />
-                </div>
-
-                <Footer />
+            <div className="full-page">
+                <Router>
+                    <Navbar />
+                    <div className="main-content">
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        indicatorColor="secondary"
+                        textColor="inherit"
+                        aria-label="secondary tabs example"
+                        size="small"
+                        sx={{
+                            '& .MuiTab-root': {
+                                textTransform: 'none', // Disable uppercase text
+                                minHeight: '45px', // Adjust the minimum height of the tab
+                            },
+                        }}
+                    >
+                        <Tab
+                            icon={<ImportContactsOutlinedIcon />} iconPosition="start"
+                            value="overview"
+                            component={Link} to="/overview"
+                            label={t("tab.overview")}
+                        />
+                        <Tab
+                            icon={<DescriptionOutlinedIcon />} iconPosition="start"
+                            value="script"
+                            component={Link} to="/script"
+                            label={t("tab.script")}
+                        />
+                    </Tabs>
+                    <Routes>
+                        <Route
+                            path="/overview"
+                            element={<FileStructListItem name="Magic.py" isFile={true} />}
+                        />
+                        <Route
+                            path="/script"
+                            element={
+                                <PaginatedList
+                                    ListItemComponents={ScriptListItem}
+                                    items={items} search={'name'}
+                                />
+                            }
+                        />
+                        </Routes>
+                    </div>
+                    <Footer />
+                </Router>
             </div>
         </ThemeProvider>
     );

@@ -12,6 +12,10 @@
       "dark_mode": "Dark Mode"
     }
   },
+  "tab": {
+    "overview":  "Overview",
+    "script": "Irrigation Script"
+  },
   "list": {
     "search_for": "Search for..."
   },

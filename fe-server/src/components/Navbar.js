@@ -131,7 +131,7 @@ const Navbar = () => {
                     t={t}
                 />
 
-                <Button color="white">{t('navbar.home')}</Button>
+                <Button color="background.paper">{t('navbar.home')}</Button>
                 <Button color="inherit">{t('navbar.about')}</Button>
                 <Button color="inherit">{t('navbar.contact')}</Button>
 
