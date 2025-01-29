@@ -6,7 +6,11 @@ export class ScriptsController {
     constructor(private readonly scriptsService: ScriptsService) { }
 
     @Get()
-    findAll(): string {
-        return this.scriptsService.findAll();
+    async findAll() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(this.scriptsService.findAll());
+            }, 5000); // Delay response by 5 seconds
+        });
     }
 }

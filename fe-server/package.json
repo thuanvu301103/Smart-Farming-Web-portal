@@ -41,6 +41,7 @@
     "@mui/icons-material": "^6.4.1",
     "@mui/lab": "^6.0.0-beta.24",
     "@mui/material": "^6.4.1",
+    "axios": "^1.7.9",
     "i18next": "^24.2.1",
     "react-i18next": "^15.4.0",
     "web-vitals": "^4.2.4"

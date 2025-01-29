@@ -63,6 +63,22 @@ import {ScriptsService} from './scripts.service';
 export class ScriptsModule {}
 ```
 
+## Cross-Origin Resource Sharing
+`CORS`, or Cross-Origin Resource Sharing, is a security feature implemented by web browsers to control how resources on a web page can be requested from another domain outside the domain from which the resource originated. In simpler terms, it allows or restricts web applications running at one origin (domain) from interacting with resources from a different origin
+NestJS provides a simple way to enable CORS using the `enableCors` method. You can enable CORS in your `main.ts file:
+```typescript
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  // Enable CORS
+  app.enableCors();
+
+  await app.listen(3000);}
+bootstrap();
+```
+
 ## Run the application
 Start the NestJS application:
 ```bash

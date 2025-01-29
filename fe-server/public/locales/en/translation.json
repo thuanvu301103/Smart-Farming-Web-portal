@@ -25,5 +25,7 @@
   "privacy": {
     "public": "Public",
     "private": "Private"
-  }
+  },
+  "loading": "Loading Data...",
+  "no_data": "No Data"
 }

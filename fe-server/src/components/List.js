@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+// Import components
 import {
     List, Pagination,
     Box,
-    TextField,
+    TextField, Typography,
     Button,
+    CircularProgress,
 } from '@mui/material';
+// Translation
 import { useTranslation } from 'react-i18next';
+// Import Icons
 import AddIcon from '@mui/icons-material/Add';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
-
-const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 30, search }) => {
+const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 15, search, loading }) => {
 
     const { t } = useTranslation();
     // Handle pagination
@@ -56,9 +60,22 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 30, search })
             </Button>
             </Box>
             <List>
-                {paginatedItems.map((item, index) => (
-                    <ListItemComponents item={item} />
-                ))}
+                {loading ? (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '30vh' }}>
+                        <CircularProgress />
+                        <Typography variant="caption" sx={{ mt: 2 }}>{t("loading")}</Typography>
+                    </Box>
+                ) : paginatedItems.length === 0 ? (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '30vh' }}>
+                            <FolderOpenIcon sx={{ fontSize: 90 }} />
+                        <Typography variant="h6" sx={{ mt: 2 }}>{t("no_data")}</Typography>
+                    </Box>
+                ) : (
+                    paginatedItems.map((item, index) => (
+                        <ListItemComponents key={index} item={item} />
+                    ))
+                )}
+
             </List>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
                 <Pagination

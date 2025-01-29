@@ -26,7 +26,7 @@ const ScriptListItem = ({ item }) => {
             {
                 bgcolor: 'background.paper',
                 boxShadow: '0px 2px 2px rgba(0, 128, 0, 0.5)',
-                m: 0.5,
+                m: 1,
                 borderRadius: '8px'
             }}
         >

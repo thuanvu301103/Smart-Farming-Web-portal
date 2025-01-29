@@ -8,8 +8,9 @@
     "\\src",
     "\\src\\components",
     "\\src\\context",
-    "\\src\\language"
+    "\\src\\language",
+    "\\src\\pages"
   ],
-  "SelectedNode": "\\src\\App.css",
+  "SelectedNode": "\\src\\components\\List.js",
   "PreviewInSolutionExplorer": false
 }

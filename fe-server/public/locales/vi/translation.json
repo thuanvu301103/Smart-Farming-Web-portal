@@ -24,6 +24,8 @@
   },
   "privacy": {
     "public": "Công khai",
-    "private":  "Riêng tư"
-  }
+    "private": "Riêng tư"
+  },
+  "loading": "Đang tải dữ liệu...",
+  "no_data":  "Không có dữ liệu"
 }
