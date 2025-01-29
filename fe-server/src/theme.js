@@ -12,6 +12,12 @@ const lightTheme = createTheme({
         success: {
             main: "#32AA02"
         },
+        info: {
+            main: "#01C7CE"
+        },
+        warning: {
+            main: "#F59504"
+        },
         background: {
             default: '#FAFAFA', // Background color
         },
@@ -33,6 +39,12 @@ const darkTheme = createTheme({
         },
         success: {
             main: "#7DDA58"
+        },
+        info: {
+            main: "#5DE2E7"
+        },
+        warning: {
+            main: "#FEA011"
         },
         background: {
             default: '#121212', // Background color

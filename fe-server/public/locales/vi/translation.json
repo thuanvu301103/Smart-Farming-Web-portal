@@ -21,5 +21,9 @@
   },
   "button": {
     "new": "Tạo mới"
+  },
+  "privacy": {
+    "public": "Công khai",
+    "private":  "Riêng tư"
   }
 }

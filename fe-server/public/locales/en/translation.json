@@ -13,13 +13,17 @@
     }
   },
   "tab": {
-    "overview":  "Overview",
+    "overview": "Overview",
     "script": "Irrigation Script"
   },
   "list": {
     "search_for": "Search for..."
   },
   "button": {
-    "new":  "New"
+    "new": "New"
+  },
+  "privacy": {
+    "public": "Public",
+    "private": "Private"
   }
 }
