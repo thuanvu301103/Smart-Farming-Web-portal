@@ -25,7 +25,6 @@ const Tabnav = ({data}) => {
             <Tabs
                 value={value}
                 onChange={handleChange}
-                indicatorColor="secondary"
                 textColor="inherit"
                 aria-label="secondary tabs example"
                 size="small"
@@ -33,6 +32,9 @@ const Tabnav = ({data}) => {
                     '& .MuiTab-root': {
                         textTransform: 'none', // Disable uppercase text
                         minHeight: '45px', // Adjust the minimum height of the tab
+                    },
+                    '& .MuiTabs-indicator': {
+                        backgroundColor: 'orange', // Custom color
                     },
                 }}
             >

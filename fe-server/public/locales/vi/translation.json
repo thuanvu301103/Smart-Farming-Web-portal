@@ -12,6 +12,10 @@
       "dark_mode": "Chế độ tối"
     }
   },
+  "profile": {
+    "following": "Đang theo dõi",
+    "follower": "Người theo dõi"
+  },
   "tab": {
     "overview": "Tổng quan",
     "script": "Kịch bản tưới"
@@ -20,12 +24,13 @@
     "search_for": "Tìm kiếm..."
   },
   "button": {
-    "new": "Tạo mới"
+    "new": "Tạo mới",
+    "edit_profile": "Chỉnh sửa hồ sơ"
   },
   "privacy": {
     "public": "Công khai",
     "private": "Riêng tư"
   },
   "loading": "Đang tải dữ liệu...",
-  "no_data":  "Không có dữ liệu"
+  "no_data": "Không có dữ liệu"
 }

@@ -126,7 +126,7 @@ export class ScriptsService {
     ];
 
     findAll() {
-        //return this.items;
-        return [];
+        return this.items;
+        //return [];
     }
 }

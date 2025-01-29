@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import AddIcon from '@mui/icons-material/Add';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
-const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 15, search, loading }) => {
+const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, loading }) => {
 
     const { t } = useTranslation();
     // Handle pagination
@@ -79,7 +79,7 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 15, search, l
             </List>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
                 <Pagination
-                    count={Math.ceil(items.length / itemsPerPage)}
+                    count={Math.ceil(filteredItems.length / itemsPerPage)}
                     page={page}
                     onChange={handleChange}
                     color="primary"

@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Tabnav from './components/Tabnav';
 // Import pages
 import ScriptList from './pages/ScriptList';
+import Overview from './pages/Overview';
 // React Router DOM
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 // Import for theme and Dark Mode
@@ -34,6 +35,7 @@ function App() {
             value: "overview",
             path: "/overview",
             label: t("tab.overview"),
+            element: <Overview />
         },
         {
             icon: <DescriptionOutlinedIcon />,

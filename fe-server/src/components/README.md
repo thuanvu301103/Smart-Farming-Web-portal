@@ -79,3 +79,13 @@ import { FList } from './components/List';
 import { FileStructListItem } from './components/ListItem';
 <FList ListItemComponents={FileStructListItem} items={items} />
 ```
+
+### Link Icon - ```LinkIcon```
+- **Description**: A component that represents the Icon of a link.
+- **Props**:
+	- `type` (string): can have value: `"mail"`, `"link"`
+- **Usage**:
+```javascript
+import LinkIcon from './components/LinkIcon';
+<LinkIcon type={"mail"} />
+```
