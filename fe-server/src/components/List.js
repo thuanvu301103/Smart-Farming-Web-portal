@@ -89,6 +89,36 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, l
     );
 };
 
+const ExpanableList = ({ ListItemComponents, items, loading }) => {
+
+    const { t } = useTranslation();
+
+    return (
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <List>
+                {loading ? (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '30vh' }}>
+                        <CircularProgress />
+                        <Typography variant="caption" sx={{ mt: 2 }}>{t("loading")}</Typography>
+                    </Box>
+                ) : (
+                    items.map((item, index) => (
+                        <ListItemComponents key={index} item={item} />
+                    ))
+                )}
+
+            </List>
+            <Button href="#text-buttons" variant="contained"
+                size="small"
+                color="success"
+                sx={{ flexGrow: 1, mt: 2, boxShadow: 'none' }}
+            >
+                Show more
+            </Button>
+        </Box>
+    );
+};
+
 const FList = ({ ListItemComponents, items }) => {
     return (
         <List>
@@ -99,4 +129,4 @@ const FList = ({ ListItemComponents, items }) => {
     );
 }
 
-export { FList, PaginatedList };
+export { FList, PaginatedList, ExpanableList };

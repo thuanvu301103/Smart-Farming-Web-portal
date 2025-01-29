@@ -14,23 +14,45 @@
   },
   "profile": {
     "following": "Following",
-    "follower":  "Follower"
+    "follower": "Follower"
   },
   "tab": {
     "overview": "Overview",
-    "script": "Irrigation Script"
+    "script": "Irrigation Script",
+    "model": "Irrigation Model"
   },
   "list": {
-    "search_for": "Search for..."
+    "search_for": "Search for...",
+    "show_more": "Show more"  
   },
   "button": {
     "new": "New",
-    "edit_profile":  "Edit profile"
+    "edit_profile": "Edit profile"
   },
   "privacy": {
     "public": "Public",
     "private": "Private"
   },
+  "overview": {
+    "activity": "Activity"
+  },
   "loading": "Loading Data...",
-  "no_data": "No Data"
+  "no_data": "No Data",
+  "create": "Create",
+  "script": "Irrigation script(s)",
+  "model": "Smart Irrigation model(s)",
+  "time": {
+    "Jan": "January",
+    "Feb": "February",
+    "Mar": "March",
+    "Apr": "April",
+    "May": "May",
+    "Jun": "June",
+    "Jul": "July",
+    "Aug": "August",
+    "Sep": "September",
+    "Oct": "October",
+    "Nov": "November",
+    "Dec": "December"
+  }
 }

@@ -50,6 +50,9 @@ import { FileStructListItem } from './components/ListItem';
 <FileStructListItem item={item} />
 ```
 
+### Activity List Item - ```ActivityListItem```
+Incomplete
+
 ## List - ```List```
 
 ### List with Pagination - ```PaginatedList```

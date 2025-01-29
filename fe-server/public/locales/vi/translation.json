@@ -18,10 +18,12 @@
   },
   "tab": {
     "overview": "Tổng quan",
-    "script": "Kịch bản tưới"
+    "script": "Kịch bản tưới",
+    "model": "Mô hình tưới"
   },
   "list": {
-    "search_for": "Tìm kiếm..."
+    "search_for": "Tìm kiếm...",
+    "show_more": "Hiển thị thêm"
   },
   "button": {
     "new": "Tạo mới",
@@ -31,6 +33,26 @@
     "public": "Công khai",
     "private": "Riêng tư"
   },
+  "overview": {
+    "activity": "Hoạt động"
+  },
   "loading": "Đang tải dữ liệu...",
-  "no_data": "Không có dữ liệu"
+  "no_data": "Không có dữ liệu",
+  "create": "Tạo mới",
+  "script": "kịch bản tưới",
+  "model":  "mô hình tưới",
+  "time": {
+    "Jan": "Tháng 1,",
+    "Feb": "Tháng 2,",
+    "Mar": "Tháng 3,",
+    "Apr": "Tháng 4,",
+    "May": "Tháng 5,",
+    "Jun": "Tháng 6,",
+    "Jul": "Tháng 7,",
+    "Aug": "Tháng 8,",
+    "Sep": "Tháng 9,",
+    "Oct": "Tháng 10,",
+    "Nov": "Tháng 11,",
+    "Dec": "Tháng 12,"
+  }
 }

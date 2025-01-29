@@ -4,13 +4,13 @@ const lightTheme = createTheme({
     palette: {
         mode: 'light',
         primary: {
-            main: '#E2EAF4', // Primary color
+            main: '#EDF9F8', // Primary color
         },
         secondary: {
             main: '#FE9900', // Secondary color
         },
         success: {
-            main: "#32AA02"
+            main: "#92D654"
         },
         info: {
             main: "#00A1FE"
@@ -19,7 +19,7 @@ const lightTheme = createTheme({
             main: "#F59504"
         },
         background: {
-            default: '#FAFAFA', // Background color
+            default: '#F3FFFE', // Background color
         },
         text: {
             primary: '#000000', // Primary text color
@@ -38,7 +38,7 @@ const darkTheme = createTheme({
             main: '#FFDE59', // Secondary color
         },
         success: {
-            main: "#7DDA58"
+            main: "#A8F761"
         },
         info: {
             main: "#5DE2E7"

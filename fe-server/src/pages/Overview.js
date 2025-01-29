@@ -3,6 +3,8 @@ import {
     Grid, Avatar, Typography, Link, Button, Box
 } from '@mui/material';
 import LinkIcon from '../components/LinkIcon';
+import { ExpanableList } from '../components/List';
+import { ActivityListItem } from '../components/ListItem';
 // Icons
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -12,7 +14,8 @@ import { useTranslation } from 'react-i18next';
 const Overview = () => {
 
     const { t } = useTranslation();
-
+    const loading = false;
+    // Dump data
     const profile = {
         username: "KatBOT",
         follower: 2,
@@ -24,9 +27,33 @@ const Overview = () => {
         ]
     }
 
+    const activities = [
+        {
+            time: "Jan 2025",
+            activities: {
+                create_script: ["#link1", "#link2"],
+                create_model: ["#link1", "#link2"],
+            }
+        },
+        {
+            time: "Dec 2024",
+            activities: {
+                create_script: ["#link1", "#link2"],
+                create_model: ["#link1", "#link2"],
+            }
+        },
+        {
+            time: "Nov 2024",
+            activities: {
+                create_script: ["#link1", "#link2"],
+                create_model: ["#link1", "#link2"],
+            }
+        },
+    ]
+
     return (
         <div className="main-content">
-            <Grid container alignItems="center" mt={1} mb={1}>
+            <Grid container alignItems="start" mt={1} mb={1}>
                 <Grid item xs={3}>
                     {/*Avatar*/}
                     <Avatar
@@ -80,12 +107,13 @@ const Overview = () => {
                     })
                         : null}
                     {/*Edit profile Button */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', ml: '2' }}>
                         <Button
                             variant="contained"
                             size="small"
                             color="success"
-                            sx={{ flexGrow: 1, mt: 2 }}
+                            sx={{ flexGrow: 1, mt: 2, boxShadow: 'none' }}
+
                         >
                             {t("button.edit_profile")}
                         </Button>
@@ -93,7 +121,22 @@ const Overview = () => {
                     
                 </Grid>
                 <Grid item xs={9}>
-                    Contribution...
+                    <Box
+                        sx={{
+                            display: 'flex', flexDirection: 'column',
+                            ml: 2, p: 2,
+                        }}
+                    >
+                        {/*Activity Panel*/}
+                        <Typography variant="h6" >
+                            {t("overview.activity")}
+                        </Typography>
+                        <ExpanableList
+                                ListItemComponents={ActivityListItem}
+                                items={activities}
+                                loading={loading}
+                            />
+                    </Box>
                 </Grid>
             </Grid>
         </div>

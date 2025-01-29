@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 // Import Icons
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
+import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
 
 function App() {
 
@@ -42,6 +43,13 @@ function App() {
             value: "script",
             path: "/script",
             label: t("tab.script"),
+            element: <ScriptList />
+        },
+        {
+            icon: <ModelTrainingOutlinedIcon />,
+            value: "model",
+            path: "/model",
+            label: t("tab.model"),
             element: <ScriptList />
         },
     ];

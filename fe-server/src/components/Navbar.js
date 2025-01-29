@@ -104,7 +104,7 @@ const Navbar = () => {
     };   
 
     return (
-        <AppBar position="static" color="success">
+        <AppBar position="static" color="success" sx={{ boxShadow: 'none' }}>
             <Toolbar>
                 <IconButton edge="start" color="inherit" aria-label="menu">
                     <MenuIcon />
