@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 // Import from components
-import { ScriptListItem, FileStructListItem } from './ListItem';
-import { PaginatedList } from './List';
-
 import { Tab, Tabs } from '@mui/material';
 // React Router DOM
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
@@ -19,7 +16,7 @@ const Tabnav = ({data}) => {
         const lastSegment = location.pathname.split('/').filter(Boolean).pop();
         setValue(lastSegment || 'overview'); // Default to 'overview' if no segment
     }, [location]);
-
+    console.log(data);
     return (
         <div>
             <Tabs
@@ -47,14 +44,7 @@ const Tabnav = ({data}) => {
                     />
                 )) : null}
             </Tabs>
-            <Routes>
-                {data ? data.map((item, index) => (
-                    <Route
-                        path={item?.path ? item.path : null}
-                        element={item?.element ? item.element : null}
-                    />
-                )) : null}
-            </Routes>
+            
         </div>
         );
 }

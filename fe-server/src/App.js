@@ -1,15 +1,10 @@
-import logo from './logo.svg';
 import React from 'react';
 import './App.css';
 // Import from components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Tabnav from './components/Tabnav';
 // Import pages
-import BookmarkList from './pages/BookmarkList';
-import ScriptList from './pages/ScriptList';
-import ModelList from './pages/ModelList';
-import Overview from './pages/Overview';
+import User from './pages/User';
 // React Router DOM
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 // Import for theme and Dark Mode
@@ -17,61 +12,11 @@ import { ThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from './theme';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useDarkMode } from './context/DarkModeContext';
-// Translation
-import { useTranslation } from 'react-i18next';
-// Import Icons
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
-import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-import TravelExploreOutlinedIcon from '@mui/icons-material/TravelExploreOutlined';
 
 function App() {
 
-    const { t } = useTranslation();
-
     // Handle Dark Mode
     const { darkMode } = useDarkMode();
-
-    // Tab data
-    const tabdata = [
-        {
-            icon: <ImportContactsOutlinedIcon />,
-            value: "overview",
-            path: "/overview",
-            label: t("tab.overview"),
-            element: <Overview />
-        },
-        {
-            icon: <DescriptionOutlinedIcon />,
-            value: "script",
-            path: "/script",
-            label: t("tab.script"),
-            element: <ScriptList />
-        },
-        {
-            icon: <ModelTrainingOutlinedIcon />,
-            value: "model",
-            path: "/model",
-            label: t("tab.model"),
-            element: <ModelList />
-        },
-        {
-            icon: <BookmarkBorderOutlinedIcon />,
-            value: "bookmark",
-            path: "/bookmark",
-            label: t("tab.bookmark"),
-            element: <BookmarkList />
-        },
-        {
-            icon: <TravelExploreOutlinedIcon />,
-            value: "explore",
-            path: "/explore",
-            label: t("tab.explore"),
-            element: <BookmarkList />
-        },
-    ];
-
 
     return (
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -80,7 +25,9 @@ function App() {
                 <Router>
                     <div>
                         <Navbar />
-                        <Tabnav data={tabdata} />
+                        <Routes>
+                            <Route path="/:userId/*" element={<User />} />
+                        </Routes>
                     </div>
                     <Footer />
                 </Router>

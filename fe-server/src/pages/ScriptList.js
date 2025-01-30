@@ -3,33 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { PaginatedList } from '../components/List';
 import { ScriptListItem } from '../components/ListItem';
 
-import axios from 'axios';
-
-const ScriptList = () => {
-
-    const [scripts, setScripts] = useState([]);
-    const [loading, setLoading] = useState(true); // Add loading state
-
-    useEffect(() => {
-        const fetchScripts = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/scripts');
-                setScripts(response.data);
-            } catch (error) {
-                console.error('Error fetching scripts:', error);
-            } finally {
-                setLoading(false); // Set loading to false after fetching data
-            }
-        };
-
-        fetchScripts();
-    }, []);
+const ScriptList = ({data, loading}) => {
 
     return (
         <div className="main-content">
             <PaginatedList
                 ListItemComponents={ScriptListItem}
-                items={scripts}
+                items={data}
                 search={'name'}
                 loading={loading}
                 />

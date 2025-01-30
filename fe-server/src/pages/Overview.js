@@ -11,21 +11,10 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 // Translation
 import { useTranslation } from 'react-i18next';
 
-const Overview = () => {
+const Overview = ({profile}) => {
 
     const { t } = useTranslation();
     const loading = false;
-    // Dump data
-    const profile = {
-        username: "KatBOT",
-        follower: 2,
-        following: 5,
-        link: [
-            { type: "link", link: "https://yotube"},
-            { type: "link", link: "https://meo" },
-            { type: "mail", link: "katbot345@gmail.com" },
-        ]
-    }
 
     const activities = [
         {
@@ -86,7 +75,7 @@ const Overview = () => {
                         </Grid>
                     </Grid>
                     {/*Links*/}
-                    {profile?.link ? profile.link.map((item, index) => {
+                    {profile?.links ? profile.links.map((item, index) => {
                         return (
                             <Grid container alignItems="center" >
                                 <Grid item xs={1} container alignItems="center">

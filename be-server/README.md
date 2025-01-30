@@ -120,6 +120,9 @@ Explanation:
 	- `database/`: Database configuration module and service.
 - `test/`: Directory for test-related files.
 
+## (Database connection) [be-server/src/database]
+We use MongoDB
+
 ## Run the application
 Start the NestJS application:
 ```bash

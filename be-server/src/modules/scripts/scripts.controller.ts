@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ScriptsService } from './scripts.service';
 
-@Controller('scripts')
+@Controller(':userId/scripts')
 export class ScriptsController {
     constructor(private readonly scriptsService: ScriptsService) { }
 
     @Get()
-    findAll(): string {
-        return this.scriptsService.findAll();
+    async findAllScripts(@Param('userId') userId: string):
+        Promise<{
+            name: string;
+            description: string;
+            privacy: string
+        }[]>
+    {
+        //console.log(userId);
+        return this.scriptsService.findAllScripts(userId);
     }
 }
