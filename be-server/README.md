@@ -63,21 +63,62 @@ import {ScriptsService} from './scripts.service';
 export class ScriptsModule {}
 ```
 
-## Cross-Origin Resource Sharing
-`CORS`, or Cross-Origin Resource Sharing, is a security feature implemented by web browsers to control how resources on a web page can be requested from another domain outside the domain from which the resource originated. In simpler terms, it allows or restricts web applications running at one origin (domain) from interacting with resources from a different origin
-NestJS provides a simple way to enable CORS using the `enableCors` method. You can enable CORS in your `main.ts file:
-```typescript
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
-  // Enable CORS
-  app.enableCors();
-
-  await app.listen(3000);}
-bootstrap();
+## Basic structure of a Back-end Server
 ```
+nestjs-backend/
+├── src/
+│   ├── app.module.ts
+│   ├── main.ts
+│   ├── common/
+│   │   ├── filters/
+│   │   ├── guards/
+│   │   ├── interceptors/
+│   │   ├── pipes/
+│   ├── modules/
+│   │   ├── users/
+│   │   │   ├── users.module.ts
+│   │   │   ├── users.controller.ts
+│   │   │   ├── users.service.ts
+│   │   │   ├── schemas/
+│   │   │   │   ├── user.schema.ts
+│   │   ├── auth/
+│   │   │   ├── auth.module.ts
+│   │   │   ├── auth.controller.ts
+│   │   │   ├── auth.service.ts
+│   │   │   ├── strategies/
+│   │   │   │   ├── jwt.strategy.ts
+│   │   │   │   ├── local.strategy.ts
+│   ├── config/
+│   │   ├── config.module.ts
+│   │   ├── config.service.ts
+│   ├── database/
+│   │   ├── database.module.ts
+│   │   ├── database.service.ts
+├── test/
+│   ├── app.e2e-spec.ts
+│   ├── jest-e2e.json
+├── .env
+├── .gitignore
+├── nest-cli.json
+├── package.json
+├── tsconfig.json
+```
+Explanation:
+- `src/`: Main source directory.
+	- `app.module.ts`: Root module.
+	- `main.ts`: Entry point of the application.
+	- `common/`: Directory for common utilities like filters, guards, interceptors, and pipes.
+	- `modules/`: Directory for feature-specific modules.
+		- `users/`: Users feature module.
+			- `users.module.ts`: Defines the users module.
+			- `users.controller.ts`: Handles users-related requests.
+			- `users.service.ts`: Contains business logic for users.
+			- `schemas/`: Directory for Mongoose schemas (optional).
+				- `user.schema.ts`: Mongoose schema for user entity.
+		- `auth/`: Authentication module…
+	- `config/`: Configuration files for the application.
+	- `database/`: Database configuration module and service.
+- `test/`: Directory for test-related files.
 
 ## Run the application
 Start the NestJS application:
