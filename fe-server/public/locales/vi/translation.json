@@ -19,7 +19,9 @@
   "tab": {
     "overview": "Tổng quan",
     "script": "Kịch bản tưới",
-    "model": "Mô hình tưới"
+    "model": "Mô hình tưới",
+    "bookmark": "Dấu trang",
+    "explore": "Khám phá"
   },
   "list": {
     "search_for": "Tìm kiếm...",

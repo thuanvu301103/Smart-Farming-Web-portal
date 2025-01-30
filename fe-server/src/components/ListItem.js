@@ -119,7 +119,7 @@ const ActivityListItem = ({ item }) => {
                         <Link
                             href={val}
                             underline="hover"
-                            sx={{ ml: 1 }}
+                            sx={{ ml: 4 }}
                             color="info"
                         >
                             {val}

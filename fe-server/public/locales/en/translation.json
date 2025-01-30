@@ -19,7 +19,9 @@
   "tab": {
     "overview": "Overview",
     "script": "Irrigation Script",
-    "model": "Irrigation Model"
+    "model": "Irrigation Model",
+    "bookmark": "Bookmark",
+    "explore": "Explore" 
   },
   "list": {
     "search_for": "Search for...",
