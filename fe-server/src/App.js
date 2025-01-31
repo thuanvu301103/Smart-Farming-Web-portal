@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 // Import pages
 import User from './pages/User';
+import NewScript from './pages/NewScript';
 // React Router DOM
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 // Import for theme and Dark Mode
@@ -18,6 +19,9 @@ function App() {
     // Handle Dark Mode
     const { darkMode } = useDarkMode();
 
+    // User Info - after login
+    const userId = "679b765e8496f00b99063cb8";
+
     return (
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             <CssBaseline />
@@ -27,6 +31,7 @@ function App() {
                         <Navbar />
                         <Routes>
                             <Route path="/:userId/*" element={<User />} />
+                            <Route path="/new-script" element={<NewScript userId={userId}/>} />
                         </Routes>
                     </div>
                     <Footer />

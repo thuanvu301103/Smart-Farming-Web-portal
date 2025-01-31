@@ -16,6 +16,15 @@
     "following": "Đang theo dõi",
     "follower": "Người theo dõi"
   },
+  "new-script": {
+    "title": "Tạo một kịch bản tưới mới",
+    "script-name": "Tên kịch bản",
+    "description": "Mô tả",
+    "public": "Công khai",
+    "public-note": "Bất kì ai trên internet đều có thể truy cập kịch bản này.",
+    "private": "Riêng tư",
+    "private-note":  "Bạn có thể chọn ai có quyền truy cập vào kịch bản này."
+  },
   "tab": {
     "overview": "Tổng quan",
     "script": "Kịch bản tưới",
@@ -29,7 +38,8 @@
   },
   "button": {
     "new": "Tạo mới",
-    "edit_profile": "Chỉnh sửa hồ sơ"
+    "edit_profile": "Chỉnh sửa hồ sơ",
+    "create_script":  "Tạo kịch bản"
   },
   "privacy": {
     "public": "Công khai",

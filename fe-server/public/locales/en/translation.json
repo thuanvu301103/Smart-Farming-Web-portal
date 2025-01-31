@@ -16,20 +16,30 @@
     "following": "Following",
     "follower": "Follower"
   },
+  "new-script": {
+    "title": "Create a new Irrigation Script",
+    "script-name": "Script name",
+    "description": "Description",
+    "public": "Public",
+    "public-note": "Anyone on the internet can see this script.",
+    "private": "Private",
+    "private-note": "You choose who can access this script."
+  },
   "tab": {
     "overview": "Overview",
     "script": "Irrigation Script",
     "model": "Irrigation Model",
     "bookmark": "Bookmark",
-    "explore": "Explore" 
+    "explore": "Explore"
   },
   "list": {
     "search_for": "Search for...",
-    "show_more": "Show more"  
+    "show_more": "Show more"
   },
   "button": {
     "new": "New",
-    "edit_profile": "Edit profile"
+    "edit_profile": "Edit profile",
+    "create_script": "Create script"
   },
   "privacy": {
     "public": "Public",

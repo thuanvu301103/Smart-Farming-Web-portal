@@ -55,7 +55,10 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, l
                     size="small"
                 /> : null
             }
-            <Button variant="contained" color="success" size="large" startIcon={<AddIcon />}>
+                <Button variant="contained" color="success" size="large"
+                    startIcon={<AddIcon />}
+                    href="/new-script"
+                >
                 {t("button.new")}
             </Button>
             </Box>
