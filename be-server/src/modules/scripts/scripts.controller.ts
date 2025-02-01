@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { ScriptsService } from './scripts.service';
 import { Script } from './schemas/script.schema';
 
@@ -39,5 +39,10 @@ export class ScriptsController {
     @Put(':scriptId')
     async updateScript(@Param('scriptId') scriptId: string, @Body() updatedData: any) {
         return await this.scriptsService.updateScriptInfo(scriptId, updatedData);
+    }
+
+    @Delete(':scriptId')
+    async deleteScript(@Param('scriptId') scriptId: string) {
+        return await this.scriptsService.deleteScript(scriptId);
     }
 }

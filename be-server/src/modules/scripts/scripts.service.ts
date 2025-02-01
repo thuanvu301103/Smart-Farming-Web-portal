@@ -62,4 +62,19 @@ export class ScriptsService {
             message: 'Script updated successfully',
         };
     }
+
+    // Delete script
+    async deleteScript(scriptId: string) {
+        try {
+            const result = await this.scriptModel.deleteOne({ _id: new Types.ObjectId(scriptId) }).exec();
+            if (result.deletedCount === 1) {
+                return { success: true, message: 'Document deleted successfully' };
+            } else {
+                return { success: false, message: 'No document found with the given ID' };
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            return { success: false, message: 'Error deleting document' };
+        }
+    }
 }

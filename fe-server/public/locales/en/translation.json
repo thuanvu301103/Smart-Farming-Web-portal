@@ -28,6 +28,11 @@
   "edit-script": {
     "title": "Edit the irrigation script"
   },
+
+  "delete-script": {
+    "title": "Delete irrigation script",
+    "note": "Arre you sure you want to delete this script?"
+  },
   "script-detail": {
     "about": "About",
     "no-description": "No description about this irrigation script"

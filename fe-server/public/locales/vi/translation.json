@@ -28,6 +28,10 @@
   "edit-script": {
     "title": "Chỉnh sửa kịch bản tưới"
   },
+  "delete-script": {
+    "title": "Xóa kịch bản tưới",
+    "note":  "Bạn có chắc chắn muốn xóa kịch bản tưới này?"
+  },
   "script-detail": {
     "about": "Thông tin",
     "no-description": "Không có mô tả nào về kịch bản tưới này"
@@ -48,7 +52,7 @@
     "new": "Tạo mới",
     "edit": "Chỉnh sửa",
     "confirm": "Xác nhận",
-    "delete":  "Xóa",
+    "delete": "Xóa",
     "edit_profile": "Chỉnh sửa hồ sơ",
     "create_script": "Tạo kịch bản"
   },
