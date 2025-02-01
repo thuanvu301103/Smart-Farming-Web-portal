@@ -23,14 +23,22 @@
     "public": "Công khai",
     "public-note": "Bất kì ai trên internet đều có thể truy cập kịch bản này.",
     "private": "Riêng tư",
-    "private-note":  "Bạn có thể chọn ai có quyền truy cập vào kịch bản này."
+    "private-note": "Bạn có thể chọn ai có quyền truy cập vào kịch bản này."
+  },
+  "edit-script": {
+    "title": "Chỉnh sửa kịch bản tưới"
+  },
+  "script-detail": {
+    "about": "Thông tin",
+    "no-description": "Không có mô tả nào về kịch bản tưới này"
   },
   "tab": {
     "overview": "Tổng quan",
     "script": "Kịch bản tưới",
     "model": "Mô hình tưới",
     "bookmark": "Dấu trang",
-    "explore": "Khám phá"
+    "explore": "Khám phá",
+    "code": "Mã nguồn"
   },
   "list": {
     "search_for": "Tìm kiếm...",
@@ -38,8 +46,11 @@
   },
   "button": {
     "new": "Tạo mới",
+    "edit": "Chỉnh sửa",
+    "confirm": "Xác nhận",
+    "delete":  "Xóa",
     "edit_profile": "Chỉnh sửa hồ sơ",
-    "create_script":  "Tạo kịch bản"
+    "create_script": "Tạo kịch bản"
   },
   "privacy": {
     "public": "Công khai",
@@ -52,7 +63,7 @@
   "no_data": "Không có dữ liệu",
   "create": "Tạo mới",
   "script": "kịch bản tưới",
-  "model":  "mô hình tưới",
+  "model": "mô hình tưới",
   "time": {
     "Jan": "Tháng 1,",
     "Feb": "Tháng 2,",

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, Param } from '@nestjs/common';
 import { ScriptsService } from './scripts.service';
 import { Script } from './schemas/script.schema';
 
@@ -18,6 +18,12 @@ export class ScriptsController {
         return this.scriptsService.findAllScripts(userId);
     }
 
+    @Get(':scriptId')
+    async getScript(@Param('scriptId') scriptId: string):
+        Promise<Script> {
+        return this.scriptsService.getScript(scriptId);
+    }
+
     @Post()
     async createScript(
         @Body() data: { name: string; description: string; privacy: string },
@@ -28,5 +34,10 @@ export class ScriptsController {
             userId, data.name, data.description, data.privacy
         );
         return { _id: newScriptId};
+    }
+
+    @Put(':scriptId')
+    async updateScript(@Param('scriptId') scriptId: string, @Body() updatedData: any) {
+        return await this.scriptsService.updateScriptInfo(scriptId, updatedData);
     }
 }

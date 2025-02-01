@@ -38,7 +38,7 @@ const ScriptListItem = ({ item }) => {
                         <ListItemText
                             primary={
                                 <Link
-                                    href="#"
+                                    href={`scripts/${item?._id ? item._id : '#'}/code`}
                                     variant="h6"
                                     color="success"
                                     style={{ textDecoration: 'none', fontWeight: 'bold' }}

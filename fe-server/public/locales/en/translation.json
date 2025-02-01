@@ -25,12 +25,20 @@
     "private": "Private",
     "private-note": "You choose who can access this script."
   },
+  "edit-script": {
+    "title": "Edit the irrigation script"
+  },
+  "script-detail": {
+    "about": "About",
+    "no-description": "No description about this irrigation script"
+  },
   "tab": {
     "overview": "Overview",
     "script": "Irrigation Script",
     "model": "Irrigation Model",
     "bookmark": "Bookmark",
-    "explore": "Explore"
+    "explore": "Explore",
+    "code": "Code"
   },
   "list": {
     "search_for": "Search for...",
@@ -38,6 +46,9 @@
   },
   "button": {
     "new": "New",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "delete": "Delete",
     "edit_profile": "Edit profile",
     "create_script": "Create script"
   },

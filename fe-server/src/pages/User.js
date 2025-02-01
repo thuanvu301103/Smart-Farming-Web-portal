@@ -17,18 +17,14 @@ import { useTranslation } from 'react-i18next';
 // React Router DOM
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const User = () => {
 
     const { t } = useTranslation();
 
     // Get userId
-    const [userId, setUserId] = useState('');
-    const location = useLocation();
-    useEffect(() => {
-        const lastSegment = location.pathname.split('/').filter(Boolean).pop();
-        setUserId(lastSegment || ''); //
-    }, [location]);
+    const { userId } = useParams();
 
     // Fetch scripts List
     const [scripts, setScripts] = useState([]);
@@ -37,7 +33,7 @@ const User = () => {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/679b765e8496f00b99063cb8/scripts');
+                const response = await axios.get(`http://localhost:3000/${userId}/scripts`);
                 setScripts(response.data);
             } catch (error) {
                 console.error('Error fetching scripts:', error);
@@ -77,8 +73,8 @@ const User = () => {
         },
         {
             icon: <DescriptionOutlinedIcon />,
-            value: "script",
-            path: "./script",
+            value: "scripts",
+            path: "./scripts",
             label: t("tab.script"),
             element: <ScriptList data={scripts} loading={scriptLoading}/>
         },

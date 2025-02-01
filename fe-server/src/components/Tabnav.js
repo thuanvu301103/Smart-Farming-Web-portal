@@ -16,7 +16,7 @@ const Tabnav = ({data}) => {
         const lastSegment = location.pathname.split('/').filter(Boolean).pop();
         setValue(lastSegment || 'overview'); // Default to 'overview' if no segment
     }, [location]);
-    console.log(data);
+    //console.log(data);
     return (
         <div>
             <Tabs

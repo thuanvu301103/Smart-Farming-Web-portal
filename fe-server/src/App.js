@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 // Import pages
 import User from './pages/User';
+import Script from './pages/Script';
 import NewScript from './pages/NewScript';
 // React Router DOM
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
@@ -31,6 +32,7 @@ function App() {
                         <Navbar />
                         <Routes>
                             <Route path="/:userId/*" element={<User />} />
+                            <Route path="/:userId/scripts/:scriptId/*" element={<Script />} />
                             <Route path="/new-script" element={<NewScript userId={userId}/>} />
                         </Routes>
                     </div>
