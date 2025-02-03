@@ -7,9 +7,8 @@
     "\\src\\modules\\scripts",
     "\\src\\modules\\scripts\\schemas",
     "\\src\\modules\\users",
-    "\\src\\modules\\users\\schemas",
     "\\test"
   ],
-  "SelectedNode": "\\src\\modules\\scripts\\scripts.controller.ts",
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }

@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "10f72d19-6212-4991-b3d1-910a8a3c4c02",
+		"name": "Smart-farming",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31365044"
+	},
+	"item": [
+		{
+			"name": "scripts",
+			"item": [
+				{
+					"name": "http://localhost:3000/:userId/scripts/:scriptId",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/:userId/scripts/:scriptId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "679b8b928496f00b99063cbb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/:userId/scripts/:scriptId",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nothing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/:userId/scripts/:scriptId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "679b8b928496f00b99063cbb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/:userId/scripts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Kich bản tưới cây bưới\",\r\n    \"description\": \"Đây là một kịch bản tưới cây đỉnh nóc kịch trần\",\r\n    \"privacy\": \"public\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/:userId/scripts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								":userId",
+								"scripts"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8",
+									"description": "Id of user"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/:userId/scripts/:scriptId",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/:userId/scripts/:scriptId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "679b8bf48496f00b99063cbc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "http://localhost:3000/:userId/scripts",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/:userId/scripts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						":userId",
+						"scripts"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "679b765e8496f00b99063cb8",
+							"description": "Id of user"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,16 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
-    "\\public\\locales",
-    "\\public\\locales\\en",
-    "\\public\\locales\\vi",
-    "\\src",
-    "\\src\\components",
-    "\\src\\context",
-    "\\src\\language",
-    "\\src\\pages"
+    "\\src"
   ],
-  "SelectedNode": "\\src\\pages\\NewScript.js",
+  "SelectedNode": "\\src\\theme.js",
   "PreviewInSolutionExplorer": false
 }
