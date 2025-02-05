@@ -128,6 +128,14 @@ const NewScript = ({ userId}) => {
                     />
                 </RadioGroup>
             </FormControl>
+
+            <input
+                type="file"
+                webkitdirectory="true" // Enable folder selection
+                directory="true" // Allow selecting directories in the file dialog
+                multiple
+                onChange={null}
+            />
             {/*Submit Button*/}
             <Button
                 type="submit"

@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\pages"
   ],
-  "SelectedNode": "\\src\\theme.js",
+  "SelectedNode": "\\src\\pages\\NewScript.js",
   "PreviewInSolutionExplorer": false
 }

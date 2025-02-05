@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "10f72d19-6212-4991-b3d1-910a8a3c4c02",
+		"_postman_id": "77a7558c-eed8-43a9-8617-ad010b380518",
 		"name": "Smart-farming",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31365044"
@@ -10,7 +10,7 @@
 			"name": "scripts",
 			"item": [
 				{
-					"name": "http://localhost:3000/:userId/scripts/:scriptId",
+					"name": "Get info of a script",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -18,12 +18,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/:userId/scripts/:scriptId",
+							"raw": "http://{{be-server}}/:userId/scripts/:scriptId",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{be-server}}"
 							],
-							"port": "3000",
 							"path": [
 								":userId",
 								"scripts",
@@ -32,7 +31,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
+									"value": ""
 								},
 								{
 									"key": "scriptId",
@@ -44,7 +43,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:3000/:userId/scripts/:scriptId",
+					"name": "Change info of a script",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -61,12 +60,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/:userId/scripts/:scriptId",
+							"raw": "http://{{be-server}}/:userId/scripts/:scriptId",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{be-server}}"
 							],
-							"port": "3000",
 							"path": [
 								":userId",
 								"scripts",
@@ -87,7 +85,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:3000/:userId/scripts",
+					"name": "Create new script",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -101,12 +99,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/:userId/scripts",
+							"raw": "http://{{be-server}}/:userId/scripts",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{be-server}}"
 							],
-							"port": "3000",
 							"path": [
 								":userId",
 								"scripts"
@@ -123,7 +120,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:3000/:userId/scripts/:scriptId",
+					"name": "Delete a script",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -131,12 +128,11 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/:userId/scripts/:scriptId",
+							"raw": "http://{{be-server}}/:userId/scripts/:scriptId",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{be-server}}"
 							],
-							"port": "3000",
 							"path": [
 								":userId",
 								"scripts",
@@ -150,6 +146,133 @@
 								{
 									"key": "scriptId",
 									"value": "679b8bf48496f00b99063cbc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "files",
+			"item": [
+				{
+					"name": "Upload files or create Folder path",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/E:/BlockChain/main.py"
+								},
+								{
+									"key": "remote_path",
+									"value": "/thuan_vu/chanh/v2.1/action/new/",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{be-server}}/files/upload",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a File",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{be-server}}/files/deleteFile?path=/thuan_vu/chanh/v2.1/action/new/main.py",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"deleteFile"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "/thuan_vu/chanh/v2.1/action/new/main.py"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Folder and its contents",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{be-server}}/files/deleteFolder?path=/thuan_vu/chanh/v2.1/action/new",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"deleteFolder"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "/thuan_vu/chanh/v2.1/action/new"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get folder's contents",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{be-server}}/files/folder-contents/:folder-path",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"folder-contents",
+								":folder-path"
+							],
+							"variable": [
+								{
+									"key": "folder-path",
+									"value": "thuan_vu%2Fchanh%2Fv2.1%2Faction%2Fnew%2Fnew"
 								}
 							]
 						}

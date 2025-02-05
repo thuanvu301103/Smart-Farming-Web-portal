@@ -2,13 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\database",
     "\\src\\modules",
-    "\\src\\modules\\scripts",
-    "\\src\\modules\\scripts\\schemas",
-    "\\src\\modules\\users",
-    "\\test"
+    "\\src\\modules\\files"
   ],
-  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }
