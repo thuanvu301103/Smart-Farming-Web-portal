@@ -1,0 +1,35 @@
+[{
+  "_id": {
+    "$oid": "679bb9f38496f00b99063cca"
+  },
+  "description": "Đây là một kịch bản tưới đơn gainr cho cây trồng thuộc họ chanh. Được thực hiện ở tỉnh Hà Giang.",
+  "name": "Kịch bản tưới cho cây chanh (Nháp)",
+  "privacy": "private",
+  "owner_id": {
+    "$oid": "679bb9cb8496f00b99063cc8"
+  }
+},
+{
+  "_id": {
+    "$oid": "67a0254144896ec3613a8ce2"
+  },
+  "name": "chanh",
+  "description": "Một kịch bản chăm sóc cây dâu tây từ Đà Lạt",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67a0283844896ec3613a8cff"
+  },
+  "name": "bueowr",
+  "description": "",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "__v": 0
+}]

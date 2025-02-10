@@ -278,6 +278,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get a file",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{be-server}}/files/file-content/:path",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"file-content",
+								":path"
+							],
+							"variable": [
+								{
+									"key": "path",
+									"value": "thuan_vu%2Fchanh%2Fv2.1%2Faction%2Fnew%2Fnew%2Fmain.py"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

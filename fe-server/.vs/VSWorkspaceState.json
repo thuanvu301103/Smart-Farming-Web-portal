@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\geoData",
     "\\src\\pages"
   ],
-  "SelectedNode": "\\src\\pages\\NewScript.js",
+  "SelectedNode": "\\src\\theme.js",
   "PreviewInSolutionExplorer": false
 }

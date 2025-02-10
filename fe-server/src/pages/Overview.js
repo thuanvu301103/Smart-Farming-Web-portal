@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 // Import components
 import {
     Grid, Avatar, Typography, Link, Button, Box
@@ -11,7 +12,7 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 // Translation
 import { useTranslation } from 'react-i18next';
 
-const Overview = ({profile}) => {
+const Overview = ({ profile }) => {
 
     const { t } = useTranslation();
     const loading = false;
@@ -128,6 +129,7 @@ const Overview = ({profile}) => {
                     </Box>
                 </Grid>
             </Grid>
+
         </div>
     );
 }

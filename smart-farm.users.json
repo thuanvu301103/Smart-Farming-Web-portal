@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "username": "Katbot301",
+  "links": [
+    {
+      "type": "link",
+      "link": "https://yotube"
+    },
+    {
+      "type": "link",
+      "link": "https://meo"
+    },
+    {
+      "type": "mail",
+      "link": "katbot345@gmail.com"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "679bb9cb8496f00b99063cc8"
+  },
+  "username": "tho7mau2465",
+  "links": [
+    {
+      "type": "link",
+      "link": "https://yotube"
+    },
+    {
+      "type": "link",
+      "link": "https://meo"
+    },
+    {
+      "type": "mail",
+      "link": "katbot345@gmail.com"
+    }
+  ]
+}]

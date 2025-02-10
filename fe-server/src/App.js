@@ -8,7 +8,7 @@ import User from './pages/User';
 import Script from './pages/Script';
 import NewScript from './pages/NewScript';
 // React Router DOM
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 // Import for theme and Dark Mode
 import { ThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from './theme';
