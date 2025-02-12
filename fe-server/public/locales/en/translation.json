@@ -55,7 +55,8 @@
     "confirm": "Confirm",
     "delete": "Delete",
     "edit_profile": "Edit profile",
-    "create_script": "Create script"
+    "create_script": "Create script",
+    "cancel": "Cancel"
   },
   "privacy": {
     "public": "Public",
@@ -64,6 +65,7 @@
   "overview": {
     "activity": "Activity"
   },
+  "invalid_file_name": "Invalid file name",
   "loading": "Loading Data...",
   "no_data": "No Data",
   "create": "Create",
