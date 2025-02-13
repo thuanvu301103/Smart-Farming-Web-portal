@@ -54,7 +54,8 @@
     "confirm": "Xác nhận",
     "delete": "Xóa",
     "edit_profile": "Chỉnh sửa hồ sơ",
-    "create_script": "Tạo kịch bản"
+    "create_script": "Tạo kịch bản",
+    "cancel": "Hủy"
   },
   "privacy": {
     "public": "Công khai",
@@ -63,6 +64,7 @@
   "overview": {
     "activity": "Hoạt động"
   },
+  "invalid_file_name": "Tên file không hợp lệ",
   "loading": "Đang tải dữ liệu...",
   "no_data": "Không có dữ liệu",
   "create": "Tạo mới",

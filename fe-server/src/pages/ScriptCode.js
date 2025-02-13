@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
     Grid, Avatar, Typography, Link, Button, Box, Modal,
     FormControl, FormControlLabel, TextField, Radio, RadioGroup,
+    FormHelperText
 } from '@mui/material';
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
@@ -11,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const EditScriptModel = ({ open, handleClose, oldData }) => {
 
@@ -275,6 +277,131 @@ const DeleteScriptModel = ({ open, handleClose, oldData }) => {
     );
 }
 
+const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
+
+    const { t } = useTranslation();
+    const navigate = useNavigate();
+
+    const { scriptId } = useParams();
+
+    const [fileNameCheck, setFileNameCheck] = useState(false);
+    const [fileData, setFileData] = useState(null);
+    
+    const handleFileChange = (event) => {
+        const files = event.target.files;
+        setFileData(files)
+    };
+
+    useEffect(() => {
+        // console.log("New:", newFileName);
+        // console.log("Old:", oldFileName);
+        if(fileData === null) return;
+
+        const fileNames = Array.from(fileData).map(file => file.name);
+
+        if (fileNames[0] !== oldFileName) {
+            setFileNameCheck(false);
+        } else {
+            setFileNameCheck(true);
+        }
+    }, [fileData, oldFileName]);
+
+    // Handle Cofirm
+    const handleConfirm = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("files", fileData[0]); // Append file
+        formData.append("remote_path", `/${oldData.owner_id}/${scriptId}/v1.0`);
+
+        // Call Edit api
+        try {
+            const response = await axios.post(`http://localhost:3000/files/upload`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            console.log('Response:', response.data);
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+        // Close Model
+        setFileData(null);
+        setFileNameCheck(false);
+        handleClose();
+        navigate(`/${oldData.owner_id}/scripts`);
+    }
+
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 1000,
+        bgcolor: 'background.paper',
+        border: '2px',
+        boxShadow: 24,
+        borderRadius: '10px',
+        p: 4,
+    };
+
+
+    return (
+        <Modal
+            open={open}
+            onClose={() => {
+                setFileData(null);
+                setFileNameCheck(false);
+                handleClose();
+            }}
+        >
+            <Box sx={style} gap={2} display="flex" flexDirection="column"
+                component="form"
+                onSubmit={handleConfirm}
+            >
+                <input
+                    type="file"
+                    directory="true" // Allow selecting directories in the file dialog
+                    multiple
+                    onChange={handleFileChange}
+                />
+
+                {!fileNameCheck && fileData && (
+                    <FormHelperText>{t("invalid_file_name")}</FormHelperText>
+                )}
+            
+
+                <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <Button
+                        type="button"
+                        variant="contained"
+                        color="error"
+                        size="small"
+                        onClick={() => {
+                            setFileData(null);
+                            setFileNameCheck(false);
+                            handleClose();
+                        }}
+                    >
+                        {t("button.cancel")}
+                    </Button>
+
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="success"
+                        size="small"
+                        disabled={!fileNameCheck}
+                    >
+                        {t("button.confirm")}
+                    </Button>
+                </Box>
+            </Box>
+        </Modal>
+    );
+}
+
 const ScriptCode = ({ scriptInfo }) => {
     const { t } = useTranslation();
     
@@ -287,6 +414,45 @@ const ScriptCode = ({ scriptInfo }) => {
     const [openDelete, setOpenDelete] = useState(false);
     const handleOpenDelete = () => setOpenDelete(true);
     const handleCloseDelete = () => setOpenDelete(false);
+
+    //Handle Edit Fife
+    const [openEditFile, setOpenEditFile] = useState(false);
+    const handleOpenEditFile = () => setOpenEditFile(true);
+    const handleCloseEditFile = () => setOpenEditFile(false);
+
+    const [fileContent, setFileContent] = useState("");
+    const [fileName, setFileName] = useState("");
+
+    const { scriptId } = useParams();
+    
+    useEffect(() => {
+        if (!scriptInfo.owner_id || !scriptId) return;
+
+        const getFileName = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/files/folder-contents/${scriptInfo.owner_id}%2F${scriptId}%2Fv1.0`) 
+                setFileName(response.data.contents[0].name);
+            } catch (error) {
+                console.error('Error getting file name:', error);
+            }
+        }
+        getFileName();
+    }, [scriptInfo.owner_id, scriptId])
+
+    useEffect(() => {
+        if (!scriptInfo.owner_id || !scriptId || !fileName) return;
+
+        const getFileContent = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/files/file-content/${scriptInfo.owner_id}%2F${scriptId}%2Fv1.0%2F${fileName}`) 
+                setFileContent(response.data);
+            } catch (error) {
+                console.error('Error getting file content:', error);
+            }
+        }
+        getFileContent();
+    }, [scriptInfo.owner_id, scriptId, fileName])
+
 
     return (
         <div className="main-content">
@@ -308,9 +474,27 @@ const ScriptCode = ({ scriptInfo }) => {
             </Box>
             <Grid container alignItems="start" mt={1} mb={1}>
                 {/*File and Folder*/}
-                <Grid item xs={9}>
-
+                <Grid item xs={9} gap={2} display={'flex'} flexDirection={'column'} justifyContent={'center'}>
+                    <TextField
+                    multiline
+                    fullWidth
+                    minRows={6}
+                    value={fileContent}
+                    variant="outlined"
+                    margin="normal"
+                    InputProps={{
+                        style: { whiteSpace: "pre-wrap" }, // Preserves new lines
+                        readOnly: true,
+                    }}
+                    />
+                    <Grid item>
+                    <Button variant="outlined" color='info' onClick={handleOpenEditFile}>
+                        {t("button.edit")}
+                    </Button>
+                    <EditFileModal open={openEditFile} handleClose={handleCloseEditFile} oldData={scriptInfo} oldFileName={fileName}/>
                 </Grid>
+            </Grid>
+                
                 {/*Script Info*/}
                 <Grid item xs={3}>
                     <Box
