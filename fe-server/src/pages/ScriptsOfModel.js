@@ -18,9 +18,8 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import { PaginatedList } from '../components/List';
-import { ScriptListItem, ScriptModelListItem } from '../components/ListItem';
+import { ScriptModelListItem } from '../components/ListItem';
 const EditModelModal = ({ open, handleClose, oldData }) => {
 
     const { t } = useTranslation();
@@ -182,17 +181,17 @@ const DeleteModelModal = ({ open, handleClose, oldData }) => {
         // Call Edit api
         try {
             const response = await axios.delete(
-                `http://localhost:3000/${formData.owner_id}/scripts/${formData._id}`,
+                `http://localhost:3000/${formData.owner_id}/models/${formData._id}`,
             );
             console.log('Response:', response.data);
             
         } catch (error) {
             console.error('Error submitting form:', error);
         }
-        // Close Model
+        // Close Modal
         
+        navigate(-1);
         handleClose();
-        navigate(`/${formData.owner_id}/scripts`);
     }
 
     const style = {
