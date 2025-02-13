@@ -224,7 +224,7 @@ const DeleteScriptModel = ({ open, handleClose, oldData }) => {
         // Close Model
         
         handleClose();
-        navigate(`/${formData.owner_id}/scripts`);
+        navigate(-1);
     }
 
     const style = {
