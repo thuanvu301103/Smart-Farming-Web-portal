@@ -1,0 +1,99 @@
+[{
+  "_id": {
+    "$oid": "67ad7db648588ac08535042e"
+  },
+  "name": "Kich bản tưới cây bưới",
+  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ad978c5c0ac61e251f52ba"
+  },
+  "name": "Kich bản tưới cây dâu tây",
+  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ad97b75c0ac61e251f52bc"
+  },
+  "name": "Kich bản tưới cây dưa hấu",
+  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ad9b087fbd427b0f97413e"
+  },
+  "name": "Kich bản tưới cây dưa hấu",
+  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": {
+    "$oid": "67ad5d4436fd81f06d8818db"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ad9b237fbd427b0f974140"
+  },
+  "name": "Kich bản tưới cây dâu tằm",
+  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": {
+    "$oid": "67ad5d4436fd81f06d8818db"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ad9cf0ba6e69372ba87128"
+  },
+  "name": "Kich bản tưới cây dậu bắp",
+  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": {
+    "$oid": "67ad5d4436fd81f06d8818db"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ad9cfeba6e69372ba8712a"
+  },
+  "name": "Kich bản tưới cây hoa cải",
+  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": {
+    "$oid": "67ad5d4436fd81f06d8818db"
+  },
+  "__v": 0
+}]
