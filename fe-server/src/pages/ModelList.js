@@ -5,11 +5,11 @@ import { ScriptListItem } from '../components/ListItem';
 
 import axios from 'axios';
 
-const ModelList = () => {
-
-    const [scripts, setScripts] = useState([]);
+const ModelList = ({data, loading}) => {
+    
+    /*
+    const [scripts, setScripts] = useState(data);
     const [loading, setLoading] = useState(true); // Add loading state
-
     useEffect(() => {
         const fetchScripts = async () => {
             try {
@@ -24,17 +24,18 @@ const ModelList = () => {
 
         fetchScripts();
     }, []);
+    */
 
     return (
-        <div className="main-content">
-            <PaginatedList
-                ListItemComponents={ScriptListItem}
-                items={scripts}
-                search={'name'}
-                loading={loading}
-            />
-        </div>
-    );
+            <div className="main-content">
+                <PaginatedList
+                    ListItemComponents={ScriptListItem}
+                    items={data}
+                    search={'name'}
+                    loading={loading}
+                    />
+            </div>
+        );
 }
 
 export default ModelList;

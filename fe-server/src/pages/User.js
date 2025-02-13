@@ -82,14 +82,14 @@ const User = () => {
         {
             icon: <ModelTrainingOutlinedIcon />,
             value: "model",
-            path: "/model",
+            path: "./model",
             label: t("tab.model"),
-            element: <ModelList />
+            element: <ModelList data={scripts} loading={scriptLoading}/>
         },
         {
             icon: <BookmarkBorderOutlinedIcon />,
             value: "bookmark",
-            path: "/bookmark",
+            path: "./bookmark",
             label: t("tab.bookmark"),
             element: <BookmarkList />
         },
