@@ -63,6 +63,24 @@ const User = () => {
         fetch();
     }, [userId]);
 
+    // Fetch Models Data
+    const [models, setModels] = useState([]);
+    const [modelLoading, setModelLoading] = useState(true); // Add loading state
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/${userId}/models`);
+                setModels(response.data);
+            } catch (error) {
+                console.error('Error fetching models:', error);
+            } finally {
+                setModelLoading(false); // Set loading to false after fetching data
+            }
+        };
+        fetch();
+    }, [userId, models]);
+
     // Tab data
     const tabdata = [
         {
@@ -82,14 +100,14 @@ const User = () => {
         {
             icon: <ModelTrainingOutlinedIcon />,
             value: "model",
-            path: "/model",
+            path: "./model",
             label: t("tab.model"),
-            element: <ModelList />
+            element: <ModelList data={models} loading={modelLoading}/>
         },
         {
             icon: <BookmarkBorderOutlinedIcon />,
             value: "bookmark",
-            path: "/bookmark",
+            path: "./bookmark",
             label: t("tab.bookmark"),
             element: <BookmarkList />
         },

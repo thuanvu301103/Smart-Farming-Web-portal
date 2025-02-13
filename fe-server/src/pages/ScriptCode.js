@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // Import components
 import {
-    Grid, Avatar, Typography, Link, Button, Box, Modal,
+    Grid, Typography, Button, Box, Modal,
     FormControl, FormControlLabel, TextField, Radio, RadioGroup,
     FormHelperText
 } from '@mui/material';

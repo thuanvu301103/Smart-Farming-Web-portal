@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import AddIcon from '@mui/icons-material/Add';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
-const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, loading }) => {
+const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, loading, addHref=null }) => {
 
     const { t } = useTranslation();
     // Handle pagination
@@ -55,14 +55,14 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, l
                     size="small"
                 /> : null
             }
-                <Button variant="contained" color="success" size="large"
+            {addHref ? <Button variant="contained" color="success" size="large"
                     startIcon={<AddIcon />}
-                    href="/new-script"
+                    href={addHref}
                 >
                 {t("button.new")}
-            </Button>
+            </Button> : null}
             </Box>
-            <List>
+            <List sx = {{display: 'grid', gap: '16px', gridTemplateColumns: '1fr'}}>
                 {loading ? (
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '30vh' }}>
                         <CircularProgress />
@@ -81,12 +81,12 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, l
 
             </List>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
-                <Pagination
+                {items.length > itemsPerPage ? <Pagination
                     count={Math.ceil(filteredItems.length / itemsPerPage)}
                     page={page}
                     onChange={handleChange}
                     color="primary"
-                />
+                /> : <></>}
             </Box>
         </Box>
     );

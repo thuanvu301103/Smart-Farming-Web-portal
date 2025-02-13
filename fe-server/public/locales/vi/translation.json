@@ -36,6 +36,23 @@
     "about": "Thông tin",
     "no-description": "Không có mô tả nào về kịch bản tưới này"
   },
+  "new-model": {
+    "title": "Tạo một mô hình tưới mới",
+    "model-name": "Tên mô hình",
+    "description": "Mô tả mô hình"
+  },
+  "edit-model": {
+    "title": "Chỉnh sửa thông tin mô hình tưới"
+  },
+  "delete-model": {
+    "title": "Xóa mô hình tưới",
+    "note":  "Bạn có chắc chắn muốn xóa mô hình tưới này không?"
+  },
+  "model-detail": {
+    "about": "Thông tin",
+    "no-description": "Không có mô tả nào về mô hình tưới này",
+    "favorite": "Yêu thích"
+  },
   "tab": {
     "overview": "Tổng quan",
     "script": "Kịch bản tưới",
@@ -49,6 +66,7 @@
     "show_more": "Hiển thị thêm"
   },
   "button": {
+    "favorite": "Yêu thích",
     "new": "Tạo mới",
     "edit": "Chỉnh sửa",
     "confirm": "Xác nhận",
