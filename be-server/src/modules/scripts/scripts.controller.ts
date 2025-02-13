@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { ScriptsService } from './scripts.service';
-import { Script } from './schemas/script.schema';
+import { Script } from '../../schemas/scripts.schema';
 
 @Controller(':userId/scripts')
 export class ScriptsController {

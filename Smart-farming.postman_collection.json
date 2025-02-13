@@ -10,6 +10,34 @@
 			"name": "scripts",
 			"item": [
 				{
+					"name": "Get all scripts that belong to a user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{be-server}}/:userId/scripts",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get info of a script",
 					"request": {
 						"auth": {
@@ -91,7 +119,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Kich bản tưới cây bưới\",\r\n    \"description\": \"Đây là một kịch bản tưới cây đỉnh nóc kịch trần\",\r\n    \"privacy\": \"public\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Kich bản tưới cây dưa hấu\",\r\n    \"description\": \"Đây là một kịch bản tưới cây đỉnh nóc kịch trần\",\r\n    \"privacy\": \"public\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -158,6 +186,64 @@
 			"name": "files",
 			"item": [
 				{
+					"name": "Get folder's contents",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{be-server}}/files/folder-contents/:folder-path",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"folder-contents",
+								":folder-path"
+							],
+							"variable": [
+								{
+									"key": "folder-path",
+									"value": "thuan_vu%2Fchanh%2Fv2.1%2Faction%2Fnew%2Fnew"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a file",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{be-server}}/files/file-content/:path",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"file-content",
+								":path"
+							],
+							"variable": [
+								{
+									"key": "path",
+									"value": "thuan_vu%2Fchanh%2Fv2.1%2Faction%2Fnew%2Fnew%2Fmain.py"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Upload files or create Folder path",
 					"request": {
 						"auth": {
@@ -171,7 +257,7 @@
 								{
 									"key": "files",
 									"type": "file",
-									"src": "/E:/BlockChain/main.py"
+									"src": "/E:/try.py"
 								},
 								{
 									"key": "remote_path",
@@ -249,9 +335,96 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "models",
+			"item": [
+				{
+					"name": "models.scripts",
+					"item": [
+						{
+							"name": "Get all scripts that belong to a model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{be-server}}/:userId/models/:modelId/scripts",
+									"protocol": "http",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										":modelId",
+										"scripts"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "679b765e8496f00b99063cb8"
+										},
+										{
+											"key": "modelId",
+											"value": "67ad5d4436fd81f06d8818db"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create new script",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Kich bản tưới cây hoa cải\",\r\n    \"description\": \"Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh\",\r\n    \"privacy\": \"public\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{be-server}}/:userId/models/:modelId/scripts",
+									"protocol": "http",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										":modelId",
+										"scripts"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "679b765e8496f00b99063cb8"
+										},
+										{
+											"key": "modelId",
+											"value": "67ad5d4436fd81f06d8818db"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
-					"name": "Get folder's contents",
+					"name": "Get all models that belong to a user",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -259,20 +432,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/files/folder-contents/:folder-path",
+							"raw": "http://{{be-server}}/:userId/models",
 							"protocol": "http",
 							"host": [
 								"{{be-server}}"
 							],
 							"path": [
-								"files",
-								"folder-contents",
-								":folder-path"
+								":userId",
+								"models"
 							],
 							"variable": [
 								{
-									"key": "folder-path",
-									"value": "thuan_vu%2Fchanh%2Fv2.1%2Faction%2Fnew%2Fnew"
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
 								}
 							]
 						}
@@ -280,7 +452,7 @@
 					"response": []
 				},
 				{
-					"name": "Get a file",
+					"name": "Get info of a model",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -288,20 +460,136 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/files/file-content/:path",
+							"raw": "http://{{be-server}}/:userId/models/:modelId",
 							"protocol": "http",
 							"host": [
 								"{{be-server}}"
 							],
 							"path": [
-								"files",
-								"file-content",
-								":path"
+								":userId",
+								"models",
+								":modelId"
 							],
 							"variable": [
 								{
-									"key": "path",
-									"value": "thuan_vu%2Fchanh%2Fv2.1%2Faction%2Fnew%2Fnew%2Fmain.py"
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "modelId",
+									"value": "67ad585036fd81f06d8818d0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new model",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Model tưới cây dâu tây\",\r\n    \"description\": \"Đây là một model đỉnh nóc kịch trần\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{be-server}}/:userId/models",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change info of a model",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Một model hoàn thiện\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{be-server}}/:userId/models/:modelId",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								":modelId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "modelId",
+									"value": "67ad585036fd81f06d8818d0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unassign a model",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{be-server}}/:userId/models/:modelId",
+							"protocol": "http",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								":modelId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "modelId",
+									"value": "67ad585036fd81f06d8818d0"
 								}
 							]
 						}
@@ -309,36 +597,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "http://localhost:3000/:userId/scripts",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/:userId/scripts",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						":userId",
-						"scripts"
-					],
-					"variable": [
-						{
-							"key": "userId",
-							"value": "679b765e8496f00b99063cb8",
-							"description": "Id of user"
-						}
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }

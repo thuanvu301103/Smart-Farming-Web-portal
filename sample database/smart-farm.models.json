@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "67ad5d4436fd81f06d8818db"
+  },
+  "description": "Đây là một model thông minh hỗ trợ cho việc tạo các kịch bản tưới tự động",
+  "name": "Model tạo kịch bản tưới cho cây táo",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  }
+},
+{
+  "_id": {
+    "$oid": "67ad5f620320612926a1db4f"
+  },
+  "name": "Model tưới cây dâu tây",
+  "description": "Đây là một model đỉnh nóc kịch trần",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "__v": 0
+}]
