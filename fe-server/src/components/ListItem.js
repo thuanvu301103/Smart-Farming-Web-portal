@@ -1,8 +1,10 @@
 import {
     ListItem, ListItemText, ListItemIcon,
-    Link, Box, Typography, Grid,
+    Link, Box, Typography, Grid, Button,
+    Chip
 } from '@mui/material';
 // Import Icons
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import FolderIcon from '@mui/icons-material/Folder';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
@@ -70,6 +72,94 @@ const ScriptListItem = ({ item }) => {
                 </Grid>
             </ListItem>
         </Box>
+        );
+}
+
+const ScriptModelListItem = ({ item }) => {
+
+    const { t } = useTranslation();
+
+    return (
+        <ListItem sx={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                bgcolor: 'background.paper',
+                padding: '16px',
+                border: '1px solid #3D444D',
+                borderRadius: '6px',
+                gap: '16px',
+                alignItems: 'center',
+            }}
+        >
+                <ListItemText
+                    sx = {{display: 'flex', flexDirection: 'column', flex: '1 1 0%'}}
+                    primary={
+                        <Link
+                            href={`scripts/${item?._id ? item._id : '#'}/code`}
+                            color='success'
+                            sx={{ textDecoration: 'none', fontWeight: 'bold' }}
+                        >
+                            {item?.name ? item.name : null}
+                        </Link>
+                    }
+                    secondary={
+                        <Typography
+                        sx={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 3, // Limit text to 3 lines
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                          }}
+                        >{item?.description}</Typography>
+                    }
+                />
+                <Chip 
+                label={item?.privacy ? t("privacy." + item.privacy) : null} variant="outlined" />
+        </ListItem>
+        );
+}
+
+const ModelListItem = ({ item }) => {
+
+    const { t } = useTranslation();
+
+    return (
+        <ListItem sx={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                bgcolor: 'background.paper',
+                padding: '16px',
+                border: '1px solid #3D444D',
+                borderRadius: '6px',
+                gap: '16px'
+            }}
+        >
+                <ListItemText
+                    sx = {{display: 'flex', flexDirection: 'column', flex: '1 1 0%'}}
+                    primary={
+                        <Link
+                            href={`models/${item?._id ? item._id : '#'}/code`}
+                            color='success'
+                            sx={{ textDecoration: 'none', fontWeight: 'bold' }}
+                        >
+                            {item?.name ? item.name : null}
+                        </Link>
+                    }
+                    secondary={
+                        <Typography
+                        sx={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 3, // Limit text to 3 lines
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                          }}
+                        >{item?.description}</Typography>
+                    }
+                />
+                <Button variant='outlined' sx={{textTransform:'initial', padding: '4px 8px'}} startIcon={<BookmarkBorderIcon />}>
+                    {t("button.favorite")}
+                </Button>
+            </ListItem>
         );
 }
 
@@ -146,4 +236,4 @@ const FileStructListItem = ({ item }) => {
         );
 }
 
-export { ScriptListItem, FileStructListItem, ActivityListItem };
+export { ScriptListItem,ScriptModelListItem, ModelListItem, FileStructListItem, ActivityListItem };
