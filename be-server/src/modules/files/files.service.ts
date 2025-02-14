@@ -34,6 +34,10 @@ export class FilesService {
         //console.log(`✅ Connected to FTP: ${this.ftpHost}`);
     }
 
+    private generateNewFilename(originalname: string): string {
+        return `v1.0${path.extname(originalname)}`;
+    }
+
     async uploadFilesToFTP(files: Express.Multer.File[], remote_path: string) {
         try {
             await this.connectToFTP();
@@ -45,7 +49,7 @@ export class FilesService {
             for (const file of files) {
                 const localPath = path.join(__dirname, "./../uploads", file.filename);
                 //const remotePath = `${this.ftpUploadDir}/${file.originalname}`;
-                const remotePath = `${remote_path}/${file.originalname}`;
+                const remotePath = `${remote_path}/${this.generateNewFilename(file.originalname)}`;
 
                 // Upload file to FTP
                 await this.ftpClient.uploadFrom(localPath, remotePath);
