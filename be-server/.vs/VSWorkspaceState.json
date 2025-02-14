@@ -4,10 +4,10 @@
     "\\src",
     "\\src\\database",
     "\\src\\modules",
+    "\\src\\modules\\files",
     "\\src\\modules\\models",
     "\\src\\modules\\scripts",
     "\\src\\schemas"
   ],
-  "SelectedNode": "\\src\\modules\\scripts\\scripts.service.ts",
   "PreviewInSolutionExplorer": false
 }
