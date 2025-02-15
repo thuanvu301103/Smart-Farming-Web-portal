@@ -7,11 +7,12 @@ import { UsersModule } from './modules/users/users.module';
 import { DatabaseModule } from './database/database.module';
 import { FilesModule } from './modules/files/files.module';
 import { ModelsModule } from './modules/models/models.module';
+import { CommentsModule } from './modules/comments/comments.module';
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }), // Import ConfigModule at the root level
-        DatabaseModule, ScriptsModule, UsersModule, FilesModule, ModelsModule
+        DatabaseModule, ScriptsModule, UsersModule, FilesModule, ModelsModule, CommentsModule
     ],
     controllers: [AppController],
     providers: [AppService],

@@ -24,6 +24,20 @@ export class Script extends Document {
         default: null
     })
     model_id: Types.ObjectId | null;
+
+    @Prop({
+        type: [{
+            type: Types.ObjectId,
+            ref: 'User'
+        }]
+    })
+    share_id: Types.ObjectId[];
+
+    @Prop({type: [String]})
+    location: string[];
+
+    @Prop({ type: [String] })
+    plant_type: string[];
 }
 
 export const ScriptSchema = SchemaFactory.createForClass(Script);

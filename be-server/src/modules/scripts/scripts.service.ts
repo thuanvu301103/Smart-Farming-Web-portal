@@ -20,6 +20,18 @@ export class ScriptsService {
         return result;
     }
 
+    // Find all script with locations
+    async findScriptsByLocations(locations: string[]):
+        Promise<{
+            name: string;
+            description: string;
+            privacy: string
+        }[]> {
+        const result = this.scriptModel.find({ location: { $in: locations } })
+            .select('name description privacy').lean().exec();
+        return result;
+    }
+
     // Add new script
     async createScript(
         userId: string,

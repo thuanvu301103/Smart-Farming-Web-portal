@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query } from '@nestjs/common';
 import { ScriptsService } from './scripts.service';
 import { Script } from '../../schemas/scripts.schema';
 
@@ -16,6 +16,19 @@ export class ScriptsController {
     {
         //console.log(userId);
         return this.scriptsService.findAllScripts(userId);
+    }
+
+    @Get('search')
+    async searchScripts(
+        @Query('loc') locations: string | string[]
+    ):
+        Promise<{
+            name: string;
+            description: string;
+            privacy: string
+        }[]> {
+        const locationsArray = Array.isArray(locations) ? locations : locations.split(',');
+        return this.scriptsService.findScriptsByLocations(locationsArray);
     }
 
     @Get(':scriptId')

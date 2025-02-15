@@ -2,12 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\database",
     "\\src\\modules",
-    "\\src\\modules\\files",
-    "\\src\\modules\\models",
     "\\src\\modules\\scripts",
     "\\src\\schemas"
   ],
+  "SelectedNode": "\\src\\schemas\\scripts.schema.ts",
   "PreviewInSolutionExplorer": false
 }
