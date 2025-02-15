@@ -18,8 +18,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/:userId/scripts",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/scripts",
 							"host": [
 								"{{be-server}}"
 							],
@@ -46,8 +45,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/:userId/scripts/:scriptId",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/scripts/:scriptId",
 							"host": [
 								"{{be-server}}"
 							],
@@ -63,6 +61,40 @@
 								},
 								{
 									"key": "scriptId",
+									"value": "679b8b928496f00b99063cbb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search scripts by locations",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/search?loc=VN-44,VN-55",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								"search"
+							],
+							"query": [
+								{
+									"key": "loc",
+									"value": "VN-44,VN-55"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
 									"value": "679b8b928496f00b99063cbb"
 								}
 							]
@@ -88,8 +120,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{be-server}}/:userId/scripts/:scriptId",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/scripts/:scriptId",
 							"host": [
 								"{{be-server}}"
 							],
@@ -127,8 +158,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{be-server}}/:userId/scripts",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/scripts",
 							"host": [
 								"{{be-server}}"
 							],
@@ -156,8 +186,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/:userId/scripts/:scriptId",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/scripts/:scriptId",
 							"host": [
 								"{{be-server}}"
 							],
@@ -194,8 +223,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/files/folder-contents/:folder-path",
-							"protocol": "http",
+							"raw": "{{be-server}}/files/folder-contents/:folder-path",
 							"host": [
 								"{{be-server}}"
 							],
@@ -223,8 +251,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/files/file-content/:path",
-							"protocol": "http",
+							"raw": "{{be-server}}/files/file-content/:path",
 							"host": [
 								"{{be-server}}"
 							],
@@ -257,18 +284,17 @@
 								{
 									"key": "files",
 									"type": "file",
-									"src": "/E:/try.py"
+									"src": "/E:/Github-Project/Smart-Farming-Web-portal/README.md"
 								},
 								{
 									"key": "remote_path",
-									"value": "/thuan_vu/chanh/v2.1/action/new/",
+									"value": "/679b765e8496f00b99063cb8/67aecd1e0d59336166486c10/",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://{{be-server}}/files/upload",
-							"protocol": "http",
+							"raw": "{{be-server}}/files/upload",
 							"host": [
 								"{{be-server}}"
 							],
@@ -289,8 +315,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/files/deleteFile?path=/thuan_vu/chanh/v2.1/action/new/main.py",
-							"protocol": "http",
+							"raw": "{{be-server}}/files/deleteFile?path=/thuan_vu/chanh/v2.1/action/new/main.py",
 							"host": [
 								"{{be-server}}"
 							],
@@ -317,8 +342,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/files/deleteFolder?path=/thuan_vu/chanh/v2.1/action/new",
-							"protocol": "http",
+							"raw": "{{be-server}}/files/deleteFolder?path=/thuan_vu/chanh/v2.1/action/new",
 							"host": [
 								"{{be-server}}"
 							],
@@ -353,8 +377,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://{{be-server}}/:userId/models/:modelId/scripts",
-									"protocol": "http",
+									"raw": "{{be-server}}/:userId/models/:modelId/scripts",
 									"host": [
 										"{{be-server}}"
 									],
@@ -396,8 +419,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://{{be-server}}/:userId/models/:modelId/scripts",
-									"protocol": "http",
+									"raw": "{{be-server}}/:userId/models/:modelId/scripts",
 									"host": [
 										"{{be-server}}"
 									],
@@ -432,8 +454,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/:userId/models",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/models",
 							"host": [
 								"{{be-server}}"
 							],
@@ -460,8 +481,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/:userId/models/:modelId",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/models/:modelId",
 							"host": [
 								"{{be-server}}"
 							],
@@ -502,8 +522,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{be-server}}/:userId/models",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/models",
 							"host": [
 								"{{be-server}}"
 							],
@@ -539,8 +558,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{be-server}}/:userId/models/:modelId",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/models/:modelId",
 							"host": [
 								"{{be-server}}"
 							],
@@ -572,8 +590,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://{{be-server}}/:userId/models/:modelId",
-							"protocol": "http",
+							"raw": "{{be-server}}/:userId/models/:modelId",
 							"host": [
 								"{{be-server}}"
 							],
@@ -590,6 +607,210 @@
 								{
 									"key": "modelId",
 									"value": "67ad585036fd81f06d8818d0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "Get all comments of a script",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad7db648588ac08535042e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all sub-comments of a comment",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments/:commentId/subcomments",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments",
+								":commentId",
+								"subcomments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad7db648588ac08535042e"
+								},
+								{
+									"key": "commentId",
+									"value": "67aff7eb7ecb3d630c6feb03"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new comment",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Đây là một sub comment ví dụ\",\r\n    \"ownerId\": \"679b765e8496f00b99063cb8\",\r\n    \"subCommentId\": \"67aff7eb7ecb3d630c6feb03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad7db648588ac08535042e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update comment's content",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Đây là một ví dụ về sub comment đã được thay đổi nội dung\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments/:commentId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad7db648588ac08535042e"
+								},
+								{
+									"key": "commentId",
+									"value": "67affbbd77872deb81f30017"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a comment (and all its sub-comments)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments/:commentId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad7db648588ac08535042e"
+								},
+								{
+									"key": "commentId",
+									"value": "67aff7eb7ecb3d630c6feb03"
 								}
 							]
 						}

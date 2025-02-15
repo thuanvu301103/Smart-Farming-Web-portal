@@ -3,9 +3,10 @@
     "",
     "\\public",
     "\\src",
+    "\\src\\components",
     "\\src\\geoData",
     "\\src\\pages"
   ],
-  "SelectedNode": "\\src\\App.js",
+  "SelectedNode": "\\src\\components\\List.js",
   "PreviewInSolutionExplorer": false
 }
