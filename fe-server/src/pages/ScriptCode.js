@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 // Import components
 import {
-    Grid, Typography, Button, Box, Modal,
+    Grid, Typography, Button, Box, Modal, Avatar,
     FormControl, FormControlLabel, TextField, Radio, RadioGroup,
     FormHelperText
 } from '@mui/material';
+import { PaginatedList } from '../components/List';
+import { UserListItem } from '../components/ListItem';
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -17,6 +19,29 @@ import { useParams } from 'react-router-dom';
 const EditScriptModel = ({ open, handleClose, oldData }) => {
 
     const { t } = useTranslation();
+
+    // Handle Accessible users
+    const [sharedUsers, setSharedUsers] = useState([]);
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:3000/users`,
+                    {
+                        params: {
+                            ids: oldData.share_id.join(',')
+                        }
+                    }
+                );
+                console.log("Share id: ", response.data);
+                setSharedUsers(response.data);
+            } catch (error) {
+                console.error('Error fetching script:', error);
+            }
+        };
+        fetch();
+    }, [oldData]);
+
     // Form Data
     const [formData, setFormData] = useState({
         _id: '',
@@ -74,11 +99,14 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
         transform: 'translate(-50%, -50%)',
         width: 1000,
         bgcolor: 'background.paper',
-        border: '2px',
+        border: '2px solid #000',
         boxShadow: 24,
         borderRadius: '10px',
         p: 4,
+        maxHeight: '80vh', // Set a maximum height for the modal
+        overflowY: 'auto', // Enable vertical scrolling
     };
+
 
 
     return (
@@ -131,8 +159,16 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
                         onChange={handleChange}
                         variant="outlined"
                         size="small"
+                        multiline={true}
+                        rows={3}
                     />
                     {/*Privacy*/}
+                    <Typography
+                        variant="body1" gutterBottom
+                        sx={{ mt: 1 }}
+                    >
+                        {t("new-script.privacy")}
+                    </Typography>
                     <RadioGroup
                         aria-labelledby="demo-controlled-radio-buttons-group"
                         name="privacy"
@@ -167,6 +203,21 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
                             }
                         />
                     </RadioGroup>
+                    {/*Granted access IDs*/}
+                    <Typography
+                        variant="body1" gutterBottom
+                        sx={{ mt: 1 }}
+                    >
+                        {t("new-script.shared-user")}
+                    </Typography>
+                    <PaginatedList
+                        ListItemComponents={UserListItem}
+                        items={sharedUsers}
+                        search={'username'}
+                        loading={false}
+                        addHref={'/new-script'}
+                    />
+
                 </FormControl>
                 {/*Submit Button*/}
                 <Button
@@ -340,11 +391,14 @@ const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
         transform: 'translate(-50%, -50%)',
         width: 1000,
         bgcolor: 'background.paper',
-        border: '2px',
+        border: '2px solid #000',
         boxShadow: 24,
         borderRadius: '10px',
         p: 4,
+        maxHeight: '10vh', // Set a maximum height for the modal
+        overflowY: 'auto', // Enable vertical scrolling
     };
+
 
 
     return (
@@ -404,7 +458,7 @@ const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
 
 const ScriptCode = ({ scriptInfo }) => {
     const { t } = useTranslation();
-    
+            
     // Handle Edit Modal
     const [openEdit, setOpenEdit] = useState(false);
     const handleOpenEdit = () => setOpenEdit(true);

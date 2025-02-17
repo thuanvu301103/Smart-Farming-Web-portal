@@ -1,6 +1,6 @@
 import {
     ListItem, ListItemText, ListItemIcon,
-    Link, Box, Typography, Grid, Button,
+    Link, Box, Typography, Grid, Button, Avatar, 
     Chip
 } from '@mui/material';
 // Import Icons
@@ -117,6 +117,49 @@ const ScriptModelListItem = ({ item }) => {
                 label={item?.privacy ? t("privacy." + item.privacy) : null} variant="outlined" />
         </ListItem>
         );
+}
+
+const UserListItem = ({ item }) => {
+
+    const { t } = useTranslation();
+
+    return (
+        <ListItem sx={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            bgcolor: 'background.paper',
+            padding: '16px',
+            border: '1px solid #3D444D',
+            borderRadius: '6px',
+            gap: '16px',
+            alignItems: 'center',
+        }}
+        >
+            <Avatar alt="User Avatar" src="/logo192.png" />
+            <ListItemText
+                sx={{ display: 'flex', flexDirection: 'column', flex: '1 1 0%' }}
+                primary={
+                    <Link
+                        href={`scripts/${item?._id ? item._id : '#'}/code`}
+                        color='success'
+                        sx={{ textDecoration: 'none', fontWeight: 'bold' }}
+                    >
+                        {item?.username ? item.username : null}
+                    </Link>
+                }
+                secondary={
+                    <Typography
+                        sx={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 3, // Limit text to 3 lines
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                        }}
+                    >insert user email?</Typography>
+                }
+            />
+        </ListItem>
+    );
 }
 
 const ModelListItem = ({ item }) => {
@@ -236,4 +279,11 @@ const FileStructListItem = ({ item }) => {
         );
 }
 
-export { ScriptListItem,ScriptModelListItem, ModelListItem, FileStructListItem, ActivityListItem };
+export {
+    ScriptListItem,
+    ScriptModelListItem,
+    ModelListItem,
+    UserListItem,
+    FileStructListItem,
+    ActivityListItem
+};

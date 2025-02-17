@@ -20,10 +20,12 @@
     "title": "Tạo một kịch bản tưới mới",
     "script-name": "Tên kịch bản",
     "description": "Mô tả",
+    "privacy":  "Quyền truy cập chung",
     "public": "Công khai",
     "public-note": "Bất kì ai trên internet đều có thể truy cập kịch bản này.",
     "private": "Riêng tư",
-    "private-note": "Bạn có thể chọn ai có quyền truy cập vào kịch bản này."
+    "private-note": "Bạn có thể chọn ai có quyền truy cập vào kịch bản này.",
+    "shared-user":  "Những người có quyền truy cập"
   },
   "edit-script": {
     "title": "Chỉnh sửa kịch bản tưới"

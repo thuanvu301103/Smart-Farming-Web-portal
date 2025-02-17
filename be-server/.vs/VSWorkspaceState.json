@@ -4,10 +4,10 @@
     "\\src",
     "\\src\\modules",
     "\\src\\modules\\comments",
-    "\\src\\modules\\files",
     "\\src\\modules\\scripts",
+    "\\src\\modules\\users",
     "\\src\\schemas"
   ],
-  "SelectedNode": "\\src\\modules\\files\\files.service.ts",
+  "SelectedNode": "\\src\\modules\\scripts\\scripts.controller.ts",
   "PreviewInSolutionExplorer": false
 }

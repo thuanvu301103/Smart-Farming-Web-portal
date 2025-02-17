@@ -20,10 +20,12 @@
     "title": "Create a new Irrigation Script",
     "script-name": "Script name",
     "description": "Description",
+    "privacy": "General Access",
     "public": "Public",
     "public-note": "Anyone on the internet can see this script.",
     "private": "Private",
-    "private-note": "You choose who can access this script."
+    "private-note": "You choose who can access this script.",
+    "shared-user": "Accessible User"
   },
   "edit-script": {
     "title": "Edit the irrigation script"

@@ -1,12 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
     "\\src",
-    "\\src\\components",
-    "\\src\\geoData",
-    "\\src\\pages"
+    "\\src\\components"
   ],
-  "SelectedNode": "\\src\\pages\\NewScript.js",
+  "SelectedNode": "\\src\\components\\Navbar.js",
   "PreviewInSolutionExplorer": false
 }

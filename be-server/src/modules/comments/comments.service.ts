@@ -12,7 +12,7 @@ export class CommentsService {
         Promise<Comment[]> {
         const result = await this.commentModel.find({
             script_id: new Types.ObjectId(scriptId),
-            sub_comment_id: { $ne: null }
+            sub_comment_id: { $eq: null }
         }).lean().exec();
         return result;
     }

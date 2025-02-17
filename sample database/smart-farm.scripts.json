@@ -1,62 +1,8 @@
 [{
   "_id": {
-    "$oid": "67ad7db648588ac08535042e"
-  },
-  "name": "Kich bản tưới cây bưới",
-  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
-  },
-  "model_id": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67ad978c5c0ac61e251f52ba"
-  },
-  "name": "Kich bản tưới cây dâu tây",
-  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
-  },
-  "model_id": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67ad97b75c0ac61e251f52bc"
-  },
-  "name": "Kich bản tưới cây dưa hấu",
-  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
-  },
-  "model_id": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67ad9b087fbd427b0f97413e"
-  },
-  "name": "Kich bản tưới cây dưa hấu",
-  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
-  },
-  "model_id": {
-    "$oid": "67ad5d4436fd81f06d8818db"
-  },
-  "__v": 0
-},
-{
-  "_id": {
     "$oid": "67ad9b237fbd427b0f974140"
   },
-  "name": "Kich bản tưới cây dâu tằm",
+  "name": "Nothing",
   "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
   "privacy": "public",
   "owner_id": {
@@ -65,13 +11,20 @@
   "model_id": {
     "$oid": "67ad5d4436fd81f06d8818db"
   },
-  "__v": 0
+  "__v": 0,
+  "share_id": [
+    "679b765e8496f00b99063cb8",
+    "679bb9cb8496f00b99063cc8",
+    "67b2da71cf902eda12196b15",
+    "67b2da82cf902eda12196b16",
+    "67b2da8fcf902eda12196b17"
+  ]
 },
 {
   "_id": {
     "$oid": "67ad9cf0ba6e69372ba87128"
   },
-  "name": "Kich bản tưới cây dậu bắp",
+  "name": "Kich bản tưới cây đậu bắp",
   "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
   "privacy": "public",
   "owner_id": {
@@ -95,5 +48,109 @@
   "model_id": {
     "$oid": "67ad5d4436fd81f06d8818db"
   },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67aea0de6c7cfcd25bd71538"
+  },
+  "name": "Kịch bản tưới cây lan",
+  "description": "Đây là một kịch bản static",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67aea0e16c7cfcd25bd7153a"
+  },
+  "name": "Kịch bản tưới cây lan",
+  "description": "Đây là một kịch bản static",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67aeccdb0d59336166486c0e"
+  },
+  "name": "Cây mắm trắng",
+  "description": "",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67aecd1e0d59336166486c10"
+  },
+  "name": "Cây mắm đen",
+  "description": "",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67aecec90d59336166486c12"
+  },
+  "name": "Hoàn thiện",
+  "description": "",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67aecfc776e630f9646eaf75"
+  },
+  "name": "Hoàn thiện",
+  "description": "",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67aeef9748c34c725afaf489"
+  },
+  "name": "Cây hoa cải",
+  "description": "Một cây hoa cải",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67aeefc748c34c725afaf48b"
+  },
+  "name": "Cây hoa cải",
+  "description": "Một cây hoa cải",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "model_id": null,
   "__v": 0
 }]

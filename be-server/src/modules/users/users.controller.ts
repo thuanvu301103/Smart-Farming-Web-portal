@@ -1,13 +1,23 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../../schemas/users.schema';
 
-@Controller(':userId')
+@Controller()
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
 
-    @Get('profile')
-    async findAllUsers(@Param('userId') userId: string): Promise<{
+    @Get('users')
+    async findAllUsers(@Query('ids') ids: string | string[]): Promise<{
+        _id: string;
+        username: string
+    }[]
+        > {
+        const userIds = Array.isArray(ids) ? ids : ids.split(',');
+        return this.usersService.getAllUsers(userIds);
+    }
+
+    @Get(':userId/profile')
+    async findUserInfo(@Param('userId') userId: string): Promise<{
         username: string;
         links: {
             type: string;

@@ -1,0 +1,20 @@
+[{
+  "_id": {
+    "$oid": "67b2b52ecc31f19d5572fe91"
+  },
+  "content": "Đây là một sub comment ví dụ",
+  "script_id": {
+    "$oid": "67ad9b237fbd427b0f974140"
+  },
+  "owner_id": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "sub_comment_id": null,
+  "createdAt": {
+    "$date": "2025-02-17T04:03:58.837Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-17T04:03:58.837Z"
+  },
+  "__v": 0
+}]
