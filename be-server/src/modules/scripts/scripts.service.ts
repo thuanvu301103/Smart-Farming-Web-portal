@@ -78,11 +78,9 @@ export class ScriptsService {
     // Delete script
     async deleteScript(scriptId: string) {
         try {
-            const result = await this.scriptModel.deleteOne({ _id: new Types.ObjectId(scriptId) }).exec();
-            if (result.deletedCount === 1) {
-                return { success: true, message: 'Document deleted successfully' };
-            } else {
-                return { success: false, message: 'No document found with the given ID' };
+            const script = await this.scriptModel.findById(scriptId);
+            if (script) {
+                await script.deleteOne();
             }
         } catch (error) {
             console.error('Error deleting user:', error);
