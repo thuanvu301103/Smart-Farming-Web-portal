@@ -24,11 +24,13 @@ const Script = () => {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/${userId}/scripts/${scriptId}`);
+                const response = await axios.get(
+                    `http://localhost:3000/${userId}/scripts/${scriptId}`
+                );
                 //console.log(response.data);
                 setScriptInfo(response.data);
             } catch (error) {
-                console.error('Error fetching script:', error);
+                console.error('Error fetching scripts:', error);
             }
         };
         fetch();

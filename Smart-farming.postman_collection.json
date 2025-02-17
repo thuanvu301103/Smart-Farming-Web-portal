@@ -57,11 +57,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": ""
+									"value": "679b765e8496f00b99063cb8"
 								},
 								{
 									"key": "scriptId",
-									"value": "679b8b928496f00b99063cbb"
+									"value": "67ad9b237fbd427b0f974140"
 								}
 							]
 						}
@@ -112,7 +112,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nothing\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Nothing\",\r\n    \"share_id\": [\"679b765e8496f00b99063cb8\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,7 +136,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "679b8b928496f00b99063cbb"
+									"value": "67ad9b237fbd427b0f974140"
 								}
 							]
 						}
@@ -202,7 +202,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "679b8bf48496f00b99063cbc"
+									"value": "67ad9b087fbd427b0f97413e"
 								}
 							]
 						}
@@ -644,7 +644,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "67ad7db648588ac08535042e"
+									"value": "67ad9b237fbd427b0f974140"
 								}
 							]
 						}
@@ -700,7 +700,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"Đây là một sub comment ví dụ\",\r\n    \"ownerId\": \"679b765e8496f00b99063cb8\",\r\n    \"subCommentId\": \"67aff7eb7ecb3d630c6feb03\"\r\n}",
+							"raw": "{\r\n    \"content\": \"Đây là một sub comment ví dụ\",\r\n    \"ownerId\": \"679b765e8496f00b99063cb8\"\r\n    //\"subCommentId\": \"67b296a77e2b958e79b8d5f1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -725,7 +725,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "67ad7db648588ac08535042e"
+									"value": "67ad9b237fbd427b0f974140"
 								}
 							]
 						}
@@ -810,7 +810,65 @@
 								},
 								{
 									"key": "commentId",
-									"value": "67aff7eb7ecb3d630c6feb03"
+									"value": "67aff7fe7ecb3d630c6feb05"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Get a user profile",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/profile",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"profile"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users by Id(s)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/users?ids=679b765e8496f00b99063cb8,679bb9cb8496f00b99063cc8",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "679b765e8496f00b99063cb8,679bb9cb8496f00b99063cc8"
 								}
 							]
 						}
