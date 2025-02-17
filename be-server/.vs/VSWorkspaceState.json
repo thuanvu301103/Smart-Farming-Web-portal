@@ -3,9 +3,11 @@
     "",
     "\\src",
     "\\src\\modules",
+    "\\src\\modules\\comments",
+    "\\src\\modules\\files",
     "\\src\\modules\\scripts",
     "\\src\\schemas"
   ],
-  "SelectedNode": "\\src\\schemas\\scripts.schema.ts",
+  "SelectedNode": "\\src\\modules\\files\\files.service.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -8,9 +8,12 @@ import {
     Menu, MenuItem, ListItemIcon
 } from '@mui/material';
 import Switch from '@mui/material/Switch';
+// Icons
 import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import TranslateIcon from '@mui/icons-material/Translate';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useTranslation } from 'react-i18next';
 
@@ -94,6 +97,9 @@ const Navbar = () => {
         setLngAnchorEl(null);
     };
 
+    // Notification
+    const notifyActive = true;
+
     // Avatar Menu anchor
     const [avatarAnchorEl, setAvatarAnchorEl] = useState (null);
     const handleAvatarClick = (event) => {
@@ -134,6 +140,12 @@ const Navbar = () => {
                 <Button color="background.paper">{t('navbar.home')}</Button>
                 <Button color="inherit">{t('navbar.about')}</Button>
                 <Button color="inherit">{t('navbar.contact')}</Button>
+
+                {/* Notification button */}
+                <IconButton onClick={handleAvatarClick}>
+                    {notifyActive ? <NotificationsActiveIcon fontSize="small" color="info"/>
+                        : <NotificationsIcon fontSize="small" />}
+                </IconButton>
 
                 {/* Account Avatar Icon Button */}
                 <IconButton onClick={handleAvatarClick}>

@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
+import { Comment } from './comments.schema';
 
 @Schema()
 export class Script extends Document {
@@ -41,3 +42,13 @@ export class Script extends Document {
 }
 
 export const ScriptSchema = SchemaFactory.createForClass(Script);
+
+// Pre hook middle for deleting a script
+ScriptSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
+    const script = this as unknown as Document;
+    console.log("Deleting script ID: ", script._id);
+    // Delete all related comments
+    const commentModel = this.model('Comment');
+    await commentModel.deleteMany({ script_id: script._id });
+    next();
+});
