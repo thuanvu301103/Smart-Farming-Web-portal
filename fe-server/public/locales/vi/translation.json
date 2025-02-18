@@ -60,6 +60,19 @@
     "content": "Bạn có chắc chắn muốn xóa bình luận này không?",
     "success": "Xóa bình luận thành công!"
   },
+  "add-comment": {
+    "placeholder": "Viết bình luận...",
+    "success": "Thêm bình luận thành công!",
+    "error": "Thêm bình luận thất bại!"
+  },
+  "edit-comment": {
+    "success": "Chỉnh sửa bình luận thành công!",
+    "error": "Chỉnh sửa bình luận thất bại!",
+    "history": {
+      "title": "Lịch sử chỉnh sửa",
+      "no-data": "Trống..."
+    }
+  },
   "tab": {
     "overview": "Tổng quan",
     "script": "Kịch bản tưới",

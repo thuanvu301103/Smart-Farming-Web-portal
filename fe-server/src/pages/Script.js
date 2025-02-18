@@ -5,12 +5,14 @@ import Tabnav from '../components/Tabnav';
 import ScriptCode from '../pages/ScriptCode';
 // Import Icons
 import CodeIcon from '@mui/icons-material/Code';
+import CommentIcon from '@mui/icons-material/Comment';
 // Translation
 import { useTranslation } from 'react-i18next';
 // React Router DOM
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import ScriptComment from './ScriptComment';
 
 const Script = () => {
 
@@ -45,6 +47,13 @@ const Script = () => {
             label: t("tab.code"),
             element: <ScriptCode scriptInfo={scriptInfo} />
         },
+        {
+            icon: <CommentIcon />,
+            value: "comment",
+            path: "./comment",
+            label: t("tab.comment"),
+            element: <ScriptComment scriptInfo={scriptInfo} />
+        },
     ];
 
     return (
@@ -53,6 +62,7 @@ const Script = () => {
             <Routes>
                 {tabdata ? tabdata.map((item, index) => (
                     <Route
+                        key={index}
                         path={item?.value ? item.value : null}
                         element={item?.element ? item.element : null}
                     />
