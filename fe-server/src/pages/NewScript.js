@@ -68,7 +68,6 @@ const NewScript = ({ userId}) => {
         } catch (error) {
             console.error("Error uploading file:", error);
         }
-        navigate(-1);
     }
 
 
@@ -92,6 +91,7 @@ const NewScript = ({ userId}) => {
         try {
             const response = await axios.post(`http://localhost:3000/${userId}/scripts`, formData);
             console.log('Response:', response.data);
+            navigate(`/${userId}/scripts`);
             return response.data._id;
         } catch (error) {
             console.error('Error submitting form:', error);
