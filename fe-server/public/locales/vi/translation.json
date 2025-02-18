@@ -55,13 +55,19 @@
     "no-description": "Không có mô tả nào về mô hình tưới này",
     "favorite": "Yêu thích"
   },
+  "delete-comment": {
+    "title": "Xác nhận xóa",
+    "content": "Bạn có chắc chắn muốn xóa bình luận này không?",
+    "success": "Xóa bình luận thành công!"
+  },
   "tab": {
     "overview": "Tổng quan",
     "script": "Kịch bản tưới",
     "model": "Mô hình tưới",
     "bookmark": "Dấu trang",
     "explore": "Khám phá",
-    "code": "Mã nguồn"
+    "code": "Mã nguồn",
+    "comment": "Bình luận"
   },
   "list": {
     "search_for": "Tìm kiếm...",
@@ -84,7 +90,6 @@
   "overview": {
     "activity": "Hoạt động"
   },
-  "invalid_file_name": "Tên file không hợp lệ",
   "loading": "Đang tải dữ liệu...",
   "no_data": "Không có dữ liệu",
   "create": "Tạo mới",
@@ -102,6 +107,7 @@
     "Sep": "Tháng 9,",
     "Oct": "Tháng 10,",
     "Nov": "Tháng 11,",
-    "Dec": "Tháng 12,"
+    "Dec": "Tháng 12,",
+    "at": "lúc"
   }
 }
