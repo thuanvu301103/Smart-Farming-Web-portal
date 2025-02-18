@@ -1,6 +1,6 @@
 import {
     ListItem, ListItemText, ListItemIcon,
-    Link, Box, Typography, Grid, Button, Avatar, 
+    Link, Box, Typography, Grid, Button, IconButton, Avatar,
     Chip
 } from '@mui/material';
 // Import Icons
@@ -9,6 +9,7 @@ import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutl
 import FolderIcon from '@mui/icons-material/Folder';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
+import RemoveIcon from '@mui/icons-material/Remove';
 // Translation
 import { useTranslation } from 'react-i18next';
 
@@ -119,7 +120,10 @@ const ScriptModelListItem = ({ item }) => {
         );
 }
 
-const UserListItem = ({ item }) => {
+const UserListItem = ({
+    item,
+    removeItemFunc = null
+}) => {
 
     const { t } = useTranslation();
 
@@ -158,6 +162,11 @@ const UserListItem = ({ item }) => {
                     >insert user email?</Typography>
                 }
             />
+            <IconButton aria-label="remove" size="medium"
+                onClick={removeItemFunc}
+            >
+                <RemoveIcon fontSize="inherit" />
+            </IconButton>
         </ListItem>
     );
 }

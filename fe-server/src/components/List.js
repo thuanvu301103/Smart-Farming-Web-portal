@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // Import components
 import {
     List, Pagination,
@@ -13,7 +13,15 @@ import { useTranslation } from 'react-i18next';
 import AddIcon from '@mui/icons-material/Add';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
-const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, loading, addHref=null }) => {
+const PaginatedList = ({
+    ListItemComponents,
+    items,
+    itemsPerPage = 10,
+    search,
+    loading,
+    addHref = null,
+    updatedDataHook = null
+}) => {
 
     const { t } = useTranslation();
     // Handle pagination
@@ -32,6 +40,21 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, l
         item[search].toLowerCase().includes(searchTerm.toLowerCase())
     ) : items;
     const paginatedItems = filteredItems.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+    // Processed items data
+    const [processedItems, setProcessedItems] = useState(paginatedItems);
+
+    // Handle delete item
+    const handleDeleteItem = (index) => {
+        //console.log("Call remove item: ", index);
+        const newItems = [...processedItems];
+        newItems.splice(index, 1); // Adjust index for current page
+        setProcessedItems(newItems);
+    };
+
+    // Reture updated data through Hook
+    useEffect(() => {
+        if (updatedDataHook != null) updatedDataHook(processedItems);
+    }, [processedItems]);
 
     return (
         <Box>
@@ -68,15 +91,16 @@ const PaginatedList = ({ ListItemComponents, items, itemsPerPage = 10, search, l
                         <CircularProgress />
                         <Typography variant="caption" sx={{ mt: 2 }}>{t("loading")}</Typography>
                     </Box>
-                ) : paginatedItems.length === 0 ? (
+                ) : processedItems.length === 0 ? (
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '30vh' }}>
-                            <FolderOpenIcon sx={{ fontSize: 90 }} />
+                        <FolderOpenIcon sx={{ fontSize: 90 }} />
                         <Typography variant="h6" sx={{ mt: 2 }}>{t("no_data")}</Typography>
                     </Box>
                 ) : (
-                    paginatedItems.map((item, index) => (
-                        <ListItemComponents key={index} item={item} />
-                    ))
+                    processedItems.map((item, index) => {
+                        //console.log("Index: ", index);
+                        return <ListItemComponents key={index} item={item} removeItemFunc={() => handleDeleteItem(index)} />;
+                    })
                 )}
 
             </List>

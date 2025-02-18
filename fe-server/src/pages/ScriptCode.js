@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // Import components
 import {
-    Grid, Typography, Button, Box, Modal, Avatar,
+    Grid, Typography, Button, Box, Modal,
     FormControl, FormControlLabel, TextField, Radio, RadioGroup,
     FormHelperText
 } from '@mui/material';
@@ -10,6 +10,7 @@ import { UserListItem } from '../components/ListItem';
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import AddIcon from '@mui/icons-material/Add';
 // Translation
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -22,6 +23,7 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
 
     // Handle Accessible users
     const [sharedUsers, setSharedUsers] = useState([]);
+    const [updatedSharedUsers, setUpdatedSharedUsers] = useState([]);
     useEffect(() => {
         const fetch = async () => {
             try {
@@ -81,6 +83,7 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
                     name: formData.name,
                     description: formData.description,
                     privacy: formData.privacy,
+                    share_id: updatedSharedUsers.map((item, index) => item._id)
                 }
             );
             console.log('Response:', response.data);
@@ -106,8 +109,6 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
         maxHeight: '80vh', // Set a maximum height for the modal
         overflowY: 'auto', // Enable vertical scrolling
     };
-
-
 
     return (
         <Modal
@@ -210,12 +211,18 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
                     >
                         {t("new-script.shared-user")}
                     </Typography>
+                    <Button variant="contained" color="success" size="large"
+                        startIcon={<AddIcon />}
+                    >
+                        {t("button.new")}
+                    </Button>
                     <PaginatedList
                         ListItemComponents={UserListItem}
                         items={sharedUsers}
                         search={'username'}
                         loading={false}
                         addHref={'/new-script'}
+                        updatedDataHook={setUpdatedSharedUsers}
                     />
 
                 </FormControl>
