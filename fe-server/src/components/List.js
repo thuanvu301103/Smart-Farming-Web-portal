@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 // Import components
 import {
     List, Pagination,
@@ -41,15 +41,17 @@ const PaginatedList = ({
     ) : items;
     const paginatedItems = filteredItems.slice((page - 1) * itemsPerPage, page * itemsPerPage);
     // Processed items data
-    const [processedItems, setProcessedItems] = useState(paginatedItems);
+    const processedItems = useMemo(() => {
+        return paginatedItems;
+    }, [paginatedItems]);
 
     // Handle delete item
     const handleDeleteItem = (index) => {
-        //console.log("Call remove item: ", index);
-        const newItems = [...processedItems];
-        newItems.splice(index, 1); // Adjust index for current page
-        setProcessedItems(newItems);
-    };
+    const newItems = [...filteredItems]; // Work with filtered data
+    newItems.splice((page - 1) * itemsPerPage + index, 1); // Adjust index for pagination
+    updatedDataHook(newItems); // Ensure the main data source is updated
+};
+
 
     // Reture updated data through Hook
     useEffect(() => {
