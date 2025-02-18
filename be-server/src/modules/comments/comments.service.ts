@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model, Types, Document } from 'mongoose';
 import { Comment } from '../../schemas/comments.schema';
 
 @Injectable()
@@ -24,6 +24,11 @@ export class CommentsService {
         return result;
     }
 
+    async getUpdateHistory(id: string): Promise<any> {
+        const comment = await this.commentModel.findById(id, 'updateHistory').exec();
+        return comment ? comment.updateHistory : null;
+    }
+
     // Add new comment
     async createComment(
         content: string,
@@ -42,18 +47,23 @@ export class CommentsService {
     }
 
     // Update comment
-    async updateContent(commentId: string, newContent: string) {
-        const updatedComment = await this.commentModel.findByIdAndUpdate(
-            commentId,
-            { $set: { content: newContent } },
-            {
-                new: true,
-                runValidators: true,
-            }
-        );
+    async updateContent(id: string, updateData: string) {
+        const comment = await this.commentModel.findById(id).exec();
 
-        if (!updatedComment) {
-            throw new NotFoundException(`Script with ID ${commentId} not found`);
+        if (comment) {
+            comment.content = updateData;
+            /*
+            comment.updateHistory = comment.updateHistory || [];
+            comment.updateHistory.push({
+                updatedAt: new Date(),
+                changes: updateData,
+            });
+            */
+
+            //Object.assign(comment, updateData);
+            comment.save();
+        } else {
+            throw new NotFoundException(`Script with ID ${id} not found`);
         }
 
         return {
@@ -61,6 +71,8 @@ export class CommentsService {
             message: 'Comment updated successfully',
         };
     }
+
+
 
     // Delete script
     async deleteComment(commentId: string) {

@@ -652,6 +652,45 @@
 					"response": []
 				},
 				{
+					"name": "Get history of a comment",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments/:commentId/history",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments",
+								":commentId",
+								"history"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad9b237fbd427b0f974140"
+								},
+								{
+									"key": "commentId",
+									"value": "67b426709e61c8b5e2596d3e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get all sub-comments of a comment",
 					"request": {
 						"auth": {
@@ -742,7 +781,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"Đây là một ví dụ về sub comment đã được thay đổi nội dung\"\r\n}",
+							"raw": "{\r\n    \"content\": \"Đây là một ví dụ về sub comment đã được thay đổi rất OK\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -768,11 +807,11 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "67ad7db648588ac08535042e"
+									"value": "67ad9b237fbd427b0f974140"
 								},
 								{
 									"key": "commentId",
-									"value": "67affbbd77872deb81f30017"
+									"value": "67b426709e61c8b5e2596d3e"
 								}
 							]
 						}

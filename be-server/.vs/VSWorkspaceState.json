@@ -8,6 +8,6 @@
     "\\src\\modules\\users",
     "\\src\\schemas"
   ],
-  "SelectedNode": "\\src\\modules\\scripts\\scripts.controller.ts",
+  "SelectedNode": "\\src\\schemas\\scripts.schema.ts",
   "PreviewInSolutionExplorer": false
 }

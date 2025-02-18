@@ -13,6 +13,12 @@ export class CommentsController {
         return this.commentsService.findAllComments(scriptId);
     }
 
+    @Get(':commentId/history')
+    async getUpdateHistory(@Param('commentId') id: string) {
+        const updateHistory = await this.commentsService.getUpdateHistory(id);
+        return updateHistory;
+    }
+
     @Get(':commentId/subcomments')
     async findAllSubComments(@Param('commentId') commentId: string):
         Promise<Comment[]> {
