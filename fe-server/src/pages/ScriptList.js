@@ -13,7 +13,7 @@ const ScriptList = ({data, loading}) => {
                 search={'name'}
                 loading={loading}
                 addHref={'/new-script'}
-                />
+            />
         </div>
     );
 }

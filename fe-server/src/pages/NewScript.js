@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 // Translation
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -31,6 +32,8 @@ const VisuallyHiddenInput = styled('input')({
 const NewScript = ({ userId}) => {
 
     const { t } = useTranslation();
+
+    const navigate = useNavigate();
 
     const [fileContent, setFileContent] = useState("");
     const [fileName, setFileName] = useState("");
@@ -65,6 +68,7 @@ const NewScript = ({ userId}) => {
         } catch (error) {
             console.error("Error uploading file:", error);
         }
+        navigate(-1);
     }
 
 

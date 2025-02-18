@@ -9,7 +9,9 @@ import { PaginatedList } from '../components/List';
 import { UserListItem } from '../components/ListItem';
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { styled } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 // Translation
 import { useTranslation } from 'react-i18next';
@@ -275,6 +277,12 @@ const DeleteScriptModel = ({ open, handleClose, oldData }) => {
                 `http://localhost:3000/${formData.owner_id}/scripts/${formData._id}`,
             );
             console.log('Response:', response.data);
+
+            const deleteFolderResponse = await axios.delete(
+                `http://localhost:3000/files/deleteFolder`,
+                { params: { path: `${formData.owner_id}/${formData._id}` } }
+            );
+            console.log('Folder Deleted:', deleteFolderResponse.data);
             
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -282,7 +290,8 @@ const DeleteScriptModel = ({ open, handleClose, oldData }) => {
         // Close Model
         
         handleClose();
-        navigate(-1);
+        navigate(`/${oldData.owner_id}/scripts`);
+        // navigate(-1);
     }
 
     const style = {
@@ -335,34 +344,39 @@ const DeleteScriptModel = ({ open, handleClose, oldData }) => {
     );
 }
 
-const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
+
+//Edit File content
+const EditFileModal = ({ open, handleClose, oldData}) => {
 
     const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const { scriptId } = useParams();
-
-    const [fileNameCheck, setFileNameCheck] = useState(false);
     const [fileData, setFileData] = useState(null);
-    
+    const [fileName, setFileName] = useState("");
+    const [fileContent, setFileContent] = useState("");
+
     const handleFileChange = (event) => {
         const files = event.target.files;
         setFileData(files)
+        setFileName(files[0].name);
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            setFileContent(e.target.result);
+        };
+        reader.readAsText(files[0]);
     };
-
-    useEffect(() => {
-        // console.log("New:", newFileName);
-        // console.log("Old:", oldFileName);
-        if(fileData === null) return;
-
-        const fileNames = Array.from(fileData).map(file => file.name);
-
-        if (fileNames[0] !== oldFileName) {
-            setFileNameCheck(false);
-        } else {
-            setFileNameCheck(true);
-        }
-    }, [fileData, oldFileName]);
 
     // Handle Cofirm
     const handleConfirm = async (e) => {
@@ -370,7 +384,7 @@ const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
 
         const formData = new FormData();
         formData.append("files", fileData[0]); // Append file
-        formData.append("remote_path", `/${oldData.owner_id}/${scriptId}/v1.0`);
+        formData.append("remote_path", `/${oldData.owner_id}/${oldData._id}`);
 
         // Call Edit api
         try {
@@ -385,7 +399,8 @@ const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
         }
         // Close Model
         setFileData(null);
-        setFileNameCheck(false);
+        setFileName("");
+        setFileContent("");
         handleClose();
         navigate(`/${oldData.owner_id}/scripts`);
     }
@@ -413,7 +428,8 @@ const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
             open={open}
             onClose={() => {
                 setFileData(null);
-                setFileNameCheck(false);
+                setFileName("");
+                setFileContent("");
                 handleClose();
             }}
         >
@@ -421,15 +437,34 @@ const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
                 component="form"
                 onSubmit={handleConfirm}
             >
-                <input
-                    type="file"
-                    directory="true" // Allow selecting directories in the file dialog
-                    multiple
-                    onChange={handleFileChange}
-                />
+                <Button
+                    component="label"
+                    role={undefined}
+                    variant="contained"
+                    tabIndex={-1}
+                    startIcon={<CloudUploadIcon />}
+                >
+                    Upload files
+                    <VisuallyHiddenInput
+                        type="file"
+                        onChange={handleFileChange}
+                        multiple
+                    />
+                </Button>
 
-                {!fileNameCheck && fileData && (
-                    <FormHelperText>{t("invalid_file_name")}</FormHelperText>
+                {fileName && (
+                    <>
+                        <Typography variant="h6">{fileName}</Typography>
+                        <TextField
+                            label="File Content"
+                            multiline
+                            rows={10}
+                            value={fileContent}
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                        />
+                    </>
                 )}
             
 
@@ -441,7 +476,8 @@ const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
                         size="small"
                         onClick={() => {
                             setFileData(null);
-                            setFileNameCheck(false);
+                            setFileName("");
+                            setFileContent("");
                             handleClose();
                         }}
                     >
@@ -453,7 +489,7 @@ const EditFileModal = ({ open, handleClose, oldData, oldFileName }) => {
                         variant="contained"
                         color="success"
                         size="small"
-                        disabled={!fileNameCheck}
+                        disabled={!fileData}             
                     >
                         {t("button.confirm")}
                     </Button>
@@ -483,36 +519,34 @@ const ScriptCode = ({ scriptInfo }) => {
 
     const [fileContent, setFileContent] = useState("");
     const [fileName, setFileName] = useState("");
-
-    const { scriptId } = useParams();
     
     useEffect(() => {
-        if (!scriptInfo.owner_id || !scriptId) return;
+        if (!scriptInfo.owner_id || !scriptInfo._id) return;
 
         const getFileName = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/files/folder-contents/${scriptInfo.owner_id}%2F${scriptId}%2Fv1.0`) 
+                const response = await axios.get(`http://localhost:3000/files/folder-contents/${scriptInfo.owner_id}%2F${scriptInfo._id}`) 
                 setFileName(response.data.contents[0].name);
             } catch (error) {
                 console.error('Error getting file name:', error);
             }
         }
         getFileName();
-    }, [scriptInfo.owner_id, scriptId])
+    }, [scriptInfo.owner_id, scriptInfo._id])
 
     useEffect(() => {
-        if (!scriptInfo.owner_id || !scriptId || !fileName) return;
+        if (!scriptInfo.owner_id || !scriptInfo._id || !fileName) return;
 
         const getFileContent = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/files/file-content/${scriptInfo.owner_id}%2F${scriptId}%2Fv1.0%2F${fileName}`) 
+                const response = await axios.get(`http://localhost:3000/files/file-content/${scriptInfo.owner_id}%2F${scriptInfo._id}%2F${fileName}`) 
                 setFileContent(response.data);
             } catch (error) {
                 console.error('Error getting file content:', error);
             }
         }
         getFileContent();
-    }, [scriptInfo.owner_id, scriptId, fileName])
+    }, [scriptInfo.owner_id, scriptInfo._id, fileName])
 
 
     return (
@@ -552,7 +586,7 @@ const ScriptCode = ({ scriptInfo }) => {
                     <Button variant="outlined" color='info' onClick={handleOpenEditFile}>
                         {t("button.edit")}
                     </Button>
-                    <EditFileModal open={openEditFile} handleClose={handleCloseEditFile} oldData={scriptInfo} oldFileName={fileName}/>
+                    <EditFileModal open={openEditFile} handleClose={handleCloseEditFile} oldData={scriptInfo}/>
                 </Grid>
             </Grid>
                 
