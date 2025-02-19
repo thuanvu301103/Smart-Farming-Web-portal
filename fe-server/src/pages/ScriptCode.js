@@ -357,7 +357,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 //Edit File content
-const EditFileModal = ({ open, handleClose, oldData}) => {
+const EditFileModal = ({ open, handleClose, oldData, getFileContent}) => {
 
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -394,6 +394,8 @@ const EditFileModal = ({ open, handleClose, oldData}) => {
                 },
             });
             console.log('Response:', response.data);
+            
+            await getFileContent();
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -402,7 +404,7 @@ const EditFileModal = ({ open, handleClose, oldData}) => {
         setFileName("");
         setFileContent("");
         handleClose();
-        navigate(`/${oldData.owner_id}/scripts`);
+        // navigate(`/${oldData.owner_id}/scripts`);
     }
 
 
@@ -417,8 +419,8 @@ const EditFileModal = ({ open, handleClose, oldData}) => {
         boxShadow: 24,
         borderRadius: '10px',
         p: 4,
-        //maxHeight: '10vh', // Set a maximum height for the modal
-        //overflowY: 'auto', // Enable vertical scrolling
+        // maxHeight: '10vh', // Set a maximum height for the modal
+        // overflowY: 'auto', // Enable vertical scrolling
     };
 
 
@@ -534,17 +536,17 @@ const ScriptCode = ({ scriptInfo }) => {
         getFileName();
     }, [scriptInfo.owner_id, scriptInfo._id])
 
+    const getFileContent = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/files/file-content/${scriptInfo.owner_id}%2F${scriptInfo._id}%2F${fileName}`) 
+            setFileContent(response.data);
+        } catch (error) {
+            console.error('Error getting file content:', error);
+        }
+    }
+
     useEffect(() => {
         if (!scriptInfo.owner_id || !scriptInfo._id || !fileName) return;
-
-        const getFileContent = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3000/files/file-content/${scriptInfo.owner_id}%2F${scriptInfo._id}%2F${fileName}`) 
-                setFileContent(response.data);
-            } catch (error) {
-                console.error('Error getting file content:', error);
-            }
-        }
         getFileContent();
     }, [scriptInfo.owner_id, scriptInfo._id, fileName])
 
@@ -586,7 +588,7 @@ const ScriptCode = ({ scriptInfo }) => {
                     <Button variant="outlined" color='info' onClick={handleOpenEditFile}>
                         {t("button.edit")}
                     </Button>
-                    <EditFileModal open={openEditFile} handleClose={handleCloseEditFile} oldData={scriptInfo}/>
+                    <EditFileModal open={openEditFile} handleClose={handleCloseEditFile} oldData={scriptInfo} getFileContent={getFileContent}/>
                 </Grid>
             </Grid>
                 
