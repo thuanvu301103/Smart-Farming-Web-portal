@@ -417,8 +417,8 @@ const EditFileModal = ({ open, handleClose, oldData}) => {
         boxShadow: 24,
         borderRadius: '10px',
         p: 4,
-        maxHeight: '10vh', // Set a maximum height for the modal
-        overflowY: 'auto', // Enable vertical scrolling
+        //maxHeight: '10vh', // Set a maximum height for the modal
+        //overflowY: 'auto', // Enable vertical scrolling
     };
 
 
