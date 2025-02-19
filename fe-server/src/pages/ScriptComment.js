@@ -101,7 +101,7 @@ const ScriptComment = ({ scriptInfo }) => {
         try {
             const newCommentData = {
                 content: newComment,
-                ownerId: '67a5c88954b2c32b92fbd5c8',
+                ownerId: '679b765e8496f00b99063cb8',
                 // owner_id: scriptInfo.owner_id,
             };
             const response = await axios.post(`http://localhost:3000/${scriptInfo.owner_id}/scripts/${scriptInfo._id}/comments`, newCommentData);
