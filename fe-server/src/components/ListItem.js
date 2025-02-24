@@ -9,6 +9,7 @@ import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutl
 import FolderIcon from '@mui/icons-material/Folder';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
+import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 // Translation
 import { useTranslation } from 'react-i18next';
@@ -122,7 +123,10 @@ const ScriptModelListItem = ({ item }) => {
 
 const UserListItem = ({
     item,
-    removeItemFunc = null
+    removeItemFunc = null,
+    addItemFunc = null,
+    disableAdd = false,
+    newLable = false
 }) => {
 
     const { t } = useTranslation();
@@ -149,7 +153,8 @@ const UserListItem = ({
                         sx={{ textDecoration: 'none', fontWeight: 'bold' }}
                     >
                         {item?.username ? item.username : null}
-                    </Link>
+                        {newLable ? <Chip label="new" color="info" size="small" variant="outlined" sx={{}} /> : null}
+                    </Link>   
                 }
                 secondary={
                     <Typography
@@ -162,11 +167,21 @@ const UserListItem = ({
                     >insert user email?</Typography>
                 }
             />
-            <IconButton aria-label="remove" size="medium"
-                onClick={removeItemFunc}
-            >
-                <RemoveIcon fontSize="inherit" />
-            </IconButton>
+            {removeItemFunc ?
+                <IconButton aria-label="remove" size="medium"
+                    onClick={removeItemFunc}
+                >
+                    <RemoveIcon fontSize="inherit" />
+                </IconButton> : null
+            }
+            {addItemFunc ?
+                <IconButton aria-label="remove" size="medium"
+                    onClick={addItemFunc}
+                    disabled={disableAdd}
+                >
+                    <AddIcon fontSize="inherit" />
+                </IconButton> : null
+            }
         </ListItem>
     );
 }

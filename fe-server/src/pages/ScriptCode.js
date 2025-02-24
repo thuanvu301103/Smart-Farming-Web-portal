@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 // Import components
 import {
+    List, ListItem,
     Grid, Typography, Button, Box, Modal,
     FormControl, FormControlLabel, TextField, Radio, RadioGroup,
     FormHelperText
 } from '@mui/material';
-import { PaginatedList } from '../components/List';
+//import { PaginatedList } from '../components/List';
 import { UserListItem } from '../components/ListItem';
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
@@ -17,15 +18,49 @@ import AddIcon from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 
 const EditScriptModel = ({ open, handleClose, oldData }) => {
 
     const { t } = useTranslation();
 
+    // Handle Search user
+    const [searchUserTerm, setSearchUserTerm] = useState();
+    const handleChangeSearchTerm = (e) => {
+        const { value } = e.target;
+        setSearchUserTerm(value);
+    };
+    const [searchUserRes, setSearchUserRes] = useState([]);
+    // Handle Cofirm
+    const handleConfirmSearch = async (e) => {
+        e.preventDefault(); // Prevent default form submission
+        // Call Edit api
+        try {
+            const response = await axios.get(
+                `http://localhost:3000/users/search`,
+                {
+                    params: {
+                        username: searchUserTerm
+                    }
+                }
+            );
+            //console.log('Response search user(s):', response.data);
+            setSearchUserRes(response.data);
+        } catch (error) {
+            console.error('Error submitting form:', error);
+        }
+    }
+
     // Handle Accessible users
     const [sharedUsers, setSharedUsers] = useState([]);
     const [updatedSharedUsers, setUpdatedSharedUsers] = useState([]);
+    const [updatedSharedIds, setUpdatedSharedIds] = useState([]);
+    useEffect(() => {
+        const func = async () => {
+            const ids = updatedSharedUsers.map(user => user._id); // Assuming _id is the ID field
+            setUpdatedSharedIds(ids);
+        };
+        func();
+    }, [updatedSharedUsers]);
     useEffect(() => {
         const fetch = async () => {
             try {
@@ -39,12 +74,20 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
                 );
                 console.log("Share id: ", response.data);
                 setSharedUsers(response.data);
+                setUpdatedSharedUsers(response.data);
             } catch (error) {
                 console.error('Error fetching script:', error);
             }
         };
         fetch();
     }, [oldData]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            setUpdatedSharedUsers(sharedUsers);
+        };
+        fetch();
+    }, [open]);
 
     // Form Data
     const [formData, setFormData] = useState({
@@ -74,6 +117,21 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
             [name]: value
         });
     };
+
+    // Handle delete user
+    const handleDeleteItem = (index) => {
+        const newItems = [...sharedUsers]; // Work with filtered data
+        newItems.splice(index, 1); // Adjust index for pagination
+        setUpdatedSharedUsers(newItems); // Ensure the main data source is updated
+    };
+
+    // Handle add user
+    const handleAddItem = (index) => {
+        const newItem = searchUserRes[index]; // Work with filtered data
+        setUpdatedSharedUsers([...updatedSharedUsers, newItem]); // Ensure the main data source is updated
+        console.log(updatedSharedUsers);
+    };
+
     // Handle Cofirm
     const handleConfirm = async (e) => {
         e.preventDefault(); // Prevent default form submission
@@ -213,19 +271,59 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
                     >
                         {t("new-script.shared-user")}
                     </Typography>
+                    {/*Search*/}
+                    <TextField
+                        label={t("list.search_for")}
+                        variant="outlined"
+                        color="success"
+                        sx={{ flexGrow: 1 }}
+                        margin="normal"
+                        value={searchUserTerm}
+                        onChange={handleChangeSearchTerm}
+                        size="small"
+                    />
                     <Button variant="contained" color="success" size="large"
                         startIcon={<AddIcon />}
+                        onClick={handleConfirmSearch}
                     >
-                        {t("button.new")}
+                        Search
                     </Button>
-                    <PaginatedList
-                        ListItemComponents={UserListItem}
-                        items={sharedUsers}
-                        search={'username'}
-                        loading={false}
-                        addHref={'/new-script'}
-                        updatedDataHook={setUpdatedSharedUsers}
-                    />
+                    {searchUserRes.length != 0 ?
+                        <List sx={{ width: "100%" }}>
+                            {searchUserRes.map((user, index) => (
+                                <ListItem key={index} sx={{ p: 0 }}>
+                                    <UserListItem
+                                        item={user}
+                                        addItemFunc={() => handleAddItem(index)}
+                                        disableAdd={updatedSharedIds.includes(user._id)}
+                                        newLable={!oldData.share_id.includes(user._id)}
+                                    />
+                                </ListItem>
+                            ))}
+                        </List> : null
+                    }
+                    {/*Shared User List*/}
+                    <List sx={{ width: "100%" }}>
+                        {updatedSharedUsers.map((user, index) => (
+                            <ListItem key={index} sx={{ p: 0 }}>
+                                <UserListItem
+                                    item={user}
+                                    removeItemFunc={() => handleDeleteItem(index)}
+                                    newLable={!oldData.share_id.includes(user._id)}
+                                />
+                            </ListItem>
+                        ))}
+                    </List>
+                    {/*
+                        <PaginatedList
+                            ListItemComponents={UserListItem}
+                            items={sharedUsers}
+                            search={'username'}
+                            loading={false}
+                            addHref={'/new-script'}
+                            updatedDataHook={setUpdatedSharedUsers}
+                        />
+                    */}
 
                 </FormControl>
                 {/*Submit Button*/}

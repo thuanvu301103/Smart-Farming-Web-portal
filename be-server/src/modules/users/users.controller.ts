@@ -16,6 +16,14 @@ export class UsersController {
         return this.usersService.getAllUsers(userIds);
     }
 
+    @Get('users/search')
+    async searchUser(@Query('username') partUsername: string) {
+        if (!partUsername) {
+            return { error: 'Username query parameter is required' };
+        }
+        return await this.usersService.searchUser(partUsername);
+    }
+
     @Get(':userId/profile')
     async findUserInfo(@Param('userId') userId: string): Promise<{
         username: string;

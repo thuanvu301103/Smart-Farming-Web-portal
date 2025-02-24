@@ -47,10 +47,10 @@ const PaginatedList = ({
 
     // Handle delete item
     const handleDeleteItem = (index) => {
-    const newItems = [...filteredItems]; // Work with filtered data
-    newItems.splice((page - 1) * itemsPerPage + index, 1); // Adjust index for pagination
-    updatedDataHook(newItems); // Ensure the main data source is updated
-};
+        const newItems = [...filteredItems]; // Work with filtered data
+        newItems.splice((page - 1) * itemsPerPage + index, 1); // Adjust index for pagination
+        updatedDataHook(newItems); // Ensure the main data source is updated
+    };
 
 
     // Reture updated data through Hook
