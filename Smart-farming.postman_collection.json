@@ -913,6 +913,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Search for user(s) by username",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/users/search?username=tho7",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "tho7"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

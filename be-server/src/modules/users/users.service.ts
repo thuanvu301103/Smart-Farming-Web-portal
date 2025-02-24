@@ -30,9 +30,23 @@ export class UsersService {
             type: string;
             link: string
         }[]
-    }>
-    {
+    }> {
         const result = await this.userModel.findOne({ _id: new Types.ObjectId(userId) }).lean().exec();
         return result;
+    }
+
+    async searchUser(partUsername: string): Promise<{
+        _id: string
+        username: string
+    }[]>
+    {
+        try {
+            // Using regex to find users whose usernames contain the partUsername
+            const users = await this.userModel.find({ username: new RegExp(partUsername, 'i') });
+            return users.map(user => ({ _id: user._id.toString(), username: user.username }));
+        } catch (error) {
+            console.error('Error searching users:', error);
+            return [];
+        }
     }
 }
