@@ -123,6 +123,60 @@ Explanation:
 ## (Database connection) [be-server/src/database]
 We use MongoDB
 
+## WebSocket
+A WebSocket is a communication protocol that allows for two-way (full-duplex) data exchange between a client (usually a web browser) and a server. This interaction happens in real-time, meaning that messages can be sent and received instantaneously without the need for repeated HTTP requests.
+
+### Basic steps to establish a WebSocket in back-end server
+- Step 1 - Install the Required Packages:
+```bash
+npm install --save @nestjs/websockets @nestjs/platform-socket.io
+```
+
+- Step 2 - Create a WebSocket Gateway
+Generate a new gateway using the NestJS CLI:
+```bash
+nest generate gateway notify
+```
+
+- Step 3 - Implement the WebSocket Gateway: 
+Open the generated `notify.gateway.ts` file and implement the WebSocket gateway
+```typescript
+import { WebSocketGateway, SubscribeMessage, OnGatewayConnection, OnGatewayDisconnect, WebSocketServer } from '@nestjs/websockets';
+import { Logger } from '@nestjs/common';
+import { Server, Socket } from 'socket.io';
+
+@WebSocketGateway()
+export class NotificationGateway implements OnGatewayConnection, OnGatewayDisconnect {
+  @WebSocketServer() server: Server;
+  private logger: Logger = new Logger('NotificationGateway');
+
+  handleConnection(client: Socket) {
+    this.logger.log(`Client connected: ${client.id}`);
+  }
+
+  handleDisconnect(client: Socket) {
+    this.logger.log(`Client disconnected: ${client.id}`);
+  }
+
+  @SubscribeMessage('sendNotification')
+  handleNotification(client: Socket, payload: any): void {
+    this.server.emit('notification', payload);
+  }
+}
+```
+
+- Step 4 - Configure WebSocket Module: 
+Ensure your `app.module.ts` includes the WebSocket gateway:
+```typescript
+import { Module } from '@nestjs/common';
+import { NotificationGateway } from './notification.gateway';
+
+@Module({
+  providers: [NotificationGateway],
+})
+export class AppModule {}
+```
+
 ## Run the application
 Start the NestJS application:
 ```bash

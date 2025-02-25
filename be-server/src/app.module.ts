@@ -8,13 +8,15 @@ import { DatabaseModule } from './database/database.module';
 import { FilesModule } from './modules/files/files.module';
 import { ModelsModule } from './modules/models/models.module';
 import { CommentsModule } from './modules/comments/comments.module';
+import { NotificationGateway } from './gateway/notify/notify.gateway';
+import { NotificationsModule } from './modules/notifications/notifications.module';
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }), // Import ConfigModule at the root level
-        DatabaseModule, ScriptsModule, UsersModule, FilesModule, ModelsModule, CommentsModule
+        DatabaseModule, ScriptsModule, UsersModule, FilesModule, ModelsModule, CommentsModule, NotificationsModule
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, NotificationGateway],
 })
 export class AppModule {}

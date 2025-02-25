@@ -222,3 +222,30 @@ const App = () => {
 	```
 ## [Components](src/components)
 Contains reusable React.js components 
+
+## Websocket
+A WebSocket is a communication protocol that provides full-duplex, real-time communication between a client (e.g., a web browser) and a server over a single TCP connection. Unlike HTTP, which follows a request-response model, WebSockets allow continuous data exchange without the need for repeated requests.
+
+### Steps to establish web socket
+
+- Step 1 - Install socket.io-client: First, you need to install the `socket.io-client` package to communicate with your WebSocket server.
+```bash
+npm install socket.io-client
+```
+
+- Step 2 - Set Up the WebSocket Connection: Create a file (e.g., `websocket.js`) to handle the WebSocket connection
+```javascript
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3000'); // Replace with your WebSocket server URL
+
+socket.on('connect', () => {
+  console.log('Connected to WebSocket server');
+});
+
+socket.on('disconnect', () => {
+  console.log('Disconnected from WebSocket server');
+});
+
+export default socket;
+```

@@ -942,6 +942,67 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "notification",
+			"item": [
+				{
+					"name": "Get notification sent to a user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/notification?userId=679b765e8496f00b99063cb8",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"notification"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create share notification",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"679bb9cb8496f00b99063cc8\",\r\n    \"to\": \"679b765e8496f00b99063cb8\",\r\n    \"script_id\": \"67ad9b237fbd427b0f974140\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/notification/share",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"notification",
+								"share"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
