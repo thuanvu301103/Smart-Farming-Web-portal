@@ -1,0 +1,44 @@
+[{
+  "_id": {
+    "$oid": "67bd46d38e664c41aece3832"
+  },
+  "type": "share",
+  "from": {
+    "$oid": "679bb9cb8496f00b99063cc8"
+  },
+  "to": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "script_id": {
+    "$oid": "67ad9b237fbd427b0f974140"
+  },
+  "createdAt": {
+    "$date": "2025-02-25T04:28:03.995Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-25T04:28:03.995Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67bd46d58e664c41aece3834"
+  },
+  "type": "share",
+  "from": {
+    "$oid": "679bb9cb8496f00b99063cc8"
+  },
+  "to": {
+    "$oid": "679b765e8496f00b99063cb8"
+  },
+  "script_id": {
+    "$oid": "67ad9b237fbd427b0f974140"
+  },
+  "createdAt": {
+    "$date": "2025-02-25T04:28:05.887Z"
+  },
+  "updatedAt": {
+    "$date": "2025-02-25T04:28:05.887Z"
+  },
+  "__v": 0
+}]

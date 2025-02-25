@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
-    "\\src\\pages"
+    "\\src\\socket"
   ],
-  "SelectedNode": "\\src\\components\\ListItem.js",
+  "SelectedNode": "\\src\\socket\\websocket.js",
   "PreviewInSolutionExplorer": false
 }
