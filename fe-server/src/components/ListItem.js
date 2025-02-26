@@ -1,4 +1,4 @@
-import {
+﻿import {
     ListItem, ListItemText, ListItemIcon,
     Link, Box, Typography, Grid, Button, IconButton, Avatar,
     Chip
@@ -11,6 +11,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import ShareIcon from '@mui/icons-material/Share';
 // Translation
 import { useTranslation } from 'react-i18next';
 
@@ -303,11 +304,33 @@ const FileStructListItem = ({ item }) => {
         );
 }
 
+// Notification ListItem
+const NotificationListItem = ({ item }) => {
+    if (item.type == "share")
+        return(
+            <Box
+                display="flex"
+                flexDirection="column"
+            >
+                <Box
+                    alignItems="center"
+                >
+                    <ShareIcon size="small" color="info" /> {item.script_id.name}
+                </Box>
+                <Box>
+                    Bạn được chia sẻ kịch bản này từ {item.from.username}
+                </Box>
+                
+            </Box>
+        );
+}
+
 export {
     ScriptListItem,
     ScriptModelListItem,
     ModelListItem,
     UserListItem,
     FileStructListItem,
-    ActivityListItem
+    ActivityListItem,
+    NotificationListItem
 };
