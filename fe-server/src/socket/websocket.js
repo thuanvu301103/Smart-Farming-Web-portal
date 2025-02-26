@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3000'); // Replace with your WebSocket server URL
+const socket = io('http://localhost:3004'); // Replace with your WebSocket server URL
 
 socket.on('connect', () => {
     console.log('Connected to WebSocket server');

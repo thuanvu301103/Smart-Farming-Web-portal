@@ -2,6 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\gateway",
     "\\src\\gateway\\notify",
     "\\src\\modules",
     "\\src\\modules\\notifications",
@@ -9,6 +10,6 @@
     "\\src\\schemas",
     "\\test"
   ],
-  "SelectedNode": "\\src\\modules\\scripts\\scripts.controller.ts",
+  "SelectedNode": "\\src\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

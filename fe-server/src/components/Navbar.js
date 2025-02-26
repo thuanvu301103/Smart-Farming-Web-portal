@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// Import component
 import {
     AppBar,     // Create a top-level navigation bar
     Toolbar,    // Create a container for elements within an AppBar
     Typography,
     Button, IconButton,
     Avatar,
-    Menu, MenuItem, ListItemIcon
+    Menu, MenuItem, ListItemIcon, MenuList,
+    List, ListItem,
 } from '@mui/material';
 import Switch from '@mui/material/Switch';
+import { NotificationListItem } from '../components/ListItem';
 // Icons
 import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -16,6 +19,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { useDarkMode } from '../context/DarkModeContext';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+// Socket
+import socket from '../socket/websocket'; // Import file socket.js
 
 // Avatar Menu
 const AvatarMenu = ({ anchorEl, handleClose, t}) => {
@@ -70,6 +76,31 @@ const LngSelectedMenu = ({ anchorEl, handleClose, handleMenuItemClick, options, 
     );
 }
 
+// Notification Menu
+const NotificationMenu = ({ anchorEl, handleClose, data, t }) => {
+    const { darkMode, handleThemeChange } = useDarkMode();
+
+    return (
+        <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+        >         
+            <MenuItem>
+                <List sx={{ width: "100%" }}>
+                    {data.map((item, index) => (
+                        <ListItem key={index} sx={{ p: 0 }}>
+                            <NotificationListItem
+                                item={item}
+                            />
+                        </ListItem>
+                    ))}
+                </List>
+            </MenuItem>
+        </Menu>
+    );
+}
+
 // Navigate Bar
 const Navbar = () => {
 
@@ -97,8 +128,50 @@ const Navbar = () => {
         setLngAnchorEl(null);
     };
 
-    // Notification
-    const notifyActive = true;
+    /* Notification */
+    // Handle Notification realtiem active
+    const [notifyActive, setNotificationActive] = useState(0);
+    useEffect(() => {
+        // Listen message event from Server
+        socket.on('message', (newMessage) => {
+            setNotificationActive((prevCount) => prevCount + 1);
+        });
+
+        // Cleanup when component is unmounted
+        return () => {
+            socket.off('message');
+        };
+    }, []);
+
+    const [notificationData, setNotificationData] = useState([]);
+    // Notification data
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:3000/notification`,
+                    {
+                        params: {
+                            userId: "679b765e8496f00b99063cb8"
+                        }
+                    }
+                );
+                console.log("Notification data: ", response.data);
+                setNotificationData(response.data);
+            } catch (error) {
+                console.error('Error fetching notification data:', error);
+            }
+        };
+        fetch();
+    }, []);
+    // Notification menu handlers
+    const [notifyAnchorEl, setNotifyAnchorEl] = useState(null);
+    const handleNotifyClick = (event) => {
+        setNotifyAnchorEl(event.currentTarget);
+    };
+    const handleNotifyClose = () => {
+        setNotifyAnchorEl(null);
+    };
 
     // Avatar Menu anchor
     const [avatarAnchorEl, setAvatarAnchorEl] = useState (null);
@@ -142,10 +215,17 @@ const Navbar = () => {
                 <Button color="inherit">{t('navbar.contact')}</Button>
 
                 {/* Notification button */}
-                <IconButton onClick={handleAvatarClick}>
-                    {notifyActive ? <NotificationsActiveIcon fontSize="small" color="info"/>
+                <IconButton onClick={handleNotifyClick}>
+                    {(notifyActive != 0) ? <NotificationsActiveIcon fontSize="small" color="info"/>
                         : <NotificationsIcon fontSize="small" />}
                 </IconButton>
+                {/* Notification Mneu */}
+                <NotificationMenu
+                    anchorEl={notifyAnchorEl}
+                    handleClose={handleNotifyClose}
+                    t={t}
+                    data={notificationData}
+                />
 
                 {/* Account Avatar Icon Button */}
                 <IconButton onClick={handleAvatarClick}>

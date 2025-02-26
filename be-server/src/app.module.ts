@@ -14,7 +14,8 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }), // Import ConfigModule at the root level
-        DatabaseModule, ScriptsModule, UsersModule, FilesModule, ModelsModule, CommentsModule, NotificationsModule
+        DatabaseModule, ScriptsModule, UsersModule, FilesModule, ModelsModule, CommentsModule, NotificationsModule,
+        NotificationGateway
     ],
     controllers: [AppController],
     providers: [AppService, NotificationGateway],
