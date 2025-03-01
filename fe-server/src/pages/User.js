@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 // Import components
 import Tabnav from '../components/Tabnav';
+import {
+    Box
+} from '@mui/material';
 // Import pages
 import BookmarkList from '../pages/BookmarkList';
 import ScriptList from '../pages/ScriptList';
 import ModelList from '../pages/ModelList';
-import Overview from '../pages/Overview';
+import Overview from './overview/Overview';
 import Explore from '../pages/Explore';
 // Import Icons
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';

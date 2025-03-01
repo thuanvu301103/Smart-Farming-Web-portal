@@ -1,100 +1,30 @@
 [{
   "_id": {
-    "$oid": "679b765e8496f00b99063cb8"
+    "$oid": "67c2730b1fb713deae4b0689"
   },
-  "username": "Katbot301",
-  "links": [
-    {
-      "type": "link",
-      "link": "https://yotube"
-    },
-    {
-      "type": "link",
-      "link": "https://meo"
-    },
-    {
-      "type": "mail",
-      "link": "katbot345@gmail.com"
-    }
-  ]
+  "username": "Jaja",
+  "links": [],
+  "profile_image": null,
+  "password": "$2b$10$L9VA8Lzz4b9Pm6TWfBfUNeI0JaJSPKsmui5Dmsjd/hAUI.pkMQ.Aq",
+  "__v": 0
 },
 {
   "_id": {
-    "$oid": "679bb9cb8496f00b99063cc8"
+    "$oid": "67c273401fb713deae4b068c"
   },
-  "username": "tho7mau2465",
-  "links": [
-    {
-      "type": "link",
-      "link": "https://yotube"
-    },
-    {
-      "type": "link",
-      "link": "https://meo"
-    },
-    {
-      "type": "mail",
-      "link": "katbot345@gmail.com"
-    }
-  ]
+  "username": "KatBOT",
+  "links": [],
+  "profile_image": null,
+  "password": "$2b$10$e2Zvqh.zNWig5DGc3Ki2su2VohihU6re0twsh5/90QrKOsTFDqvf6",
+  "__v": 0
 },
 {
   "_id": {
-    "$oid": "67b2da71cf902eda12196b15"
+    "$oid": "67c2734d1fb713deae4b068f"
   },
-  "username": "Meow125",
-  "links": [
-    {
-      "type": "link",
-      "link": "https://yotube"
-    },
-    {
-      "type": "link",
-      "link": "https://meo"
-    },
-    {
-      "type": "mail",
-      "link": "katbot345@gmail.com"
-    }
-  ]
-},
-{
-  "_id": {
-    "$oid": "67b2da82cf902eda12196b16"
-  },
-  "username": "Thunder456",
-  "links": [
-    {
-      "type": "link",
-      "link": "https://yotube"
-    },
-    {
-      "type": "link",
-      "link": "https://meo"
-    },
-    {
-      "type": "mail",
-      "link": "katbot345@gmail.com"
-    }
-  ]
-},
-{
-  "_id": {
-    "$oid": "67b2da8fcf902eda12196b17"
-  },
-  "username": "RedRanger456",
-  "links": [
-    {
-      "type": "link",
-      "link": "https://yotube"
-    },
-    {
-      "type": "link",
-      "link": "https://meo"
-    },
-    {
-      "type": "mail",
-      "link": "katbot345@gmail.com"
-    }
-  ]
+  "username": "RedRanger",
+  "links": [],
+  "profile_image": null,
+  "password": "$2b$10$MHRiz2AFtgJp1fyNIl3CKOqHn4xfHUTOJufwdF6voXN/1/SWdMgAG",
+  "__v": 0
 }]

@@ -1,9 +1,17 @@
 {
   "ExpandedNodes": [
     "",
+    "\\public",
+    "\\public\\locales",
+    "\\public\\locales\\vi",
     "\\src",
+    "\\src\\api",
+    "\\src\\components",
+    "\\src\\pages",
+    "\\src\\pages\\login",
+    "\\src\\pages\\overview",
     "\\src\\socket"
   ],
-  "SelectedNode": "\\src\\socket\\websocket.js",
+  "SelectedNode": "\\src\\api\\authAPI.js",
   "PreviewInSolutionExplorer": false
 }

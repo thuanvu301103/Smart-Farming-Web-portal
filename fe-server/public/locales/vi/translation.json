@@ -1,5 +1,16 @@
 ﻿{
   "welcome": "Chào mừng",
+  "login": {
+    "title": "Đăng nhập",
+    "username": "Tên đăng nhập",
+    "username_label": "Nhập tên đăng nhập",
+    "password": "Mật khẩu",
+    "password_label": "Nhập mật khẩu",
+    "error":  "Đăng nhập thất bại. Vui lòng kiểm tra lại Tên đăng nhập hoặc Mật khẩu và thử lại!"
+  },
+  "signup": {
+    "title": "Đăng kí"
+  },
   "navbar": {
     "language_menu": {
       "en": "Tiếng Anh",
@@ -13,26 +24,26 @@
     }
   },
   "profile": {
-    "following": "Đang theo dõi",
+    "following": "Đang Theo dõi",
     "follower": "Người theo dõi"
   },
   "new-script": {
     "title": "Tạo một kịch bản tưới mới",
     "script-name": "Tên kịch bản",
     "description": "Mô tả",
-    "privacy":  "Quyền truy cập chung",
+    "privacy": "Quyền truy cập chung",
     "public": "Công khai",
     "public-note": "Bất kì ai trên internet đều có thể truy cập kịch bản này.",
     "private": "Riêng tư",
     "private-note": "Bạn có thể chọn ai có quyền truy cập vào kịch bản này.",
-    "shared-user":  "Những người có quyền truy cập"
+    "shared-user": "Những người có quyền truy cập"
   },
   "edit-script": {
     "title": "Chỉnh sửa kịch bản tưới"
   },
   "delete-script": {
     "title": "Xóa kịch bản tưới",
-    "note":  "Bạn có chắc chắn muốn xóa kịch bản tưới này?"
+    "note": "Bạn có chắc chắn muốn xóa kịch bản tưới này?"
   },
   "script-detail": {
     "about": "Thông tin",
@@ -48,7 +59,7 @@
   },
   "delete-model": {
     "title": "Xóa mô hình tưới",
-    "note":  "Bạn có chắc chắn muốn xóa mô hình tưới này không?"
+    "note": "Bạn có chắc chắn muốn xóa mô hình tưới này không?"
   },
   "model-detail": {
     "about": "Thông tin",
