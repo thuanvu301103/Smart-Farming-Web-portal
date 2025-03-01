@@ -30,7 +30,8 @@ export class UsersController {
         links: {
             type: string;
             link: string
-        }[]
+        }[];
+        profile_image: string
     }> {
         return this.usersService.getInfoUser(userId);
     }

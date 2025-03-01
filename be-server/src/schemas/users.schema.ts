@@ -8,6 +8,12 @@ export class User extends Document {
 
     @Prop()
     links: { type: string; link: string }[];
+
+    @Prop()
+    profile_image: string;
+
+    @Prop()
+    password: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
