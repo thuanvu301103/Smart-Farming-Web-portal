@@ -10,12 +10,14 @@ import { ModelsModule } from './modules/models/models.module';
 import { CommentsModule } from './modules/comments/comments.module';
 import { NotificationGateway } from './gateway/notify/notify.gateway';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
     imports: [
         ConfigModule.forRoot({ isGlobal: true }), // Import ConfigModule at the root level
         DatabaseModule, ScriptsModule, UsersModule, FilesModule, ModelsModule, CommentsModule, NotificationsModule,
-        NotificationGateway
+        NotificationGateway,
+        AuthModule
     ],
     controllers: [AppController],
     providers: [AppService, NotificationGateway],

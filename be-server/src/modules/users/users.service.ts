@@ -1,11 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { BadRequestException } from "@nestjs/common";
 import { Model, Types, Document} from 'mongoose';
 import { User } from '../../schemas/users.schema';
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UsersService {
     constructor(@InjectModel(User.name) private userModel: Model<User>) { }
+
+    async createUser(
+        username: string,
+        links: {
+            type: string;
+            link: string
+        }[] = [],
+        profile_image: string = null,
+        password: string): Promise<{ message: string; userId: string }>
+    {
+        const existingUser = await this.userModel.findOne({ username }).exec();
+        if (existingUser) {
+            throw new BadRequestException("Username already exists");
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new this.userModel({ username, links, profile_image, password: hashedPassword });
+        const savedUser = await user.save();
+
+        return {
+            message: "User created successfully",
+            userId: savedUser._id.toString(),
+        };
+    }
 
     async getAllUsers(userIds: string[]): Promise<{
         _id: string;
@@ -29,10 +54,15 @@ export class UsersService {
         links: {
             type: string;
             link: string
-        }[]
+        }[];
+        profile_image: string
     }> {
         const result = await this.userModel.findOne({ _id: new Types.ObjectId(userId) }).lean().exec();
         return result;
+    }
+
+    async findOneUser(username: string): Promise<User | null> {
+        return this.userModel.findOne({ username });
     }
 
     async searchUser(partUsername: string): Promise<{
@@ -48,5 +78,14 @@ export class UsersService {
             console.error('Error searching users:', error);
             return [];
         }
+    }
+
+    async validateUser(username: string, password: string): Promise<User | null> {
+        const user = await this.findOneUser(username);
+        //console.log(user);
+        if (user && (await bcrypt.compare(password, user.password))) {
+            return user;
+        }
+        return null;
     }
 }
