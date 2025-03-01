@@ -1,5 +1,15 @@
 {
   "welcome": "Welcome",
+  "login": {
+    "title": "Sign in",
+    "username": "Username",
+    "username_label": "Input username",
+    "password": "Password",
+    "password_label": "Input password"
+  },
+  "signup": {
+    "title": "Sign up"
+  },
   "navbar": {
     "language_menu": {
       "en": "English",
@@ -49,7 +59,7 @@
   },
   "delete-model": {
     "title": "Delete Irrigation Model",
-    "note":  "You sure you want to delete this model?"
+    "note": "You sure you want to delete this model?"
   },
   "model-detail": {
     "about": "About",

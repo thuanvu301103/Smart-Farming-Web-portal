@@ -4,26 +4,31 @@ const lightTheme = createTheme({
     palette: {
         mode: 'light',
         primary: {
-            main: '#EDF9F8', // Primary color
+            main: '#FFFFFF', // Primary color
         },
         secondary: {
-            main: '#FE9900', // Secondary color
+            main: '#FFDE59', // Secondary color
         },
         success: {
-            main: "#92D654"
+            main: "#009688"
         },
         info: {
-            main: "#00A1FE"
+            main: "#29B6F6"
         },
         warning: {
             main: "#F59504"
         },
-        background: {
-            default: '#F3FFFE', // Background color
+        error: {
+            main: '#e53935'
+        },
+       background: {
+            default: '#121212', // Background color
+            trans_black: 'rgba(120, 120, 120, 0.5)'
         },
         text: {
             primary: '#000000', // Primary text color
-            secondary: '#575656', // Secondary text color
+            secondary: '#BDBDBD', // Secondary text color
+            default_white: '#FFFFFF'
         },
     },
 });
@@ -38,20 +43,25 @@ const darkTheme = createTheme({
             main: '#FFDE59', // Secondary color
         },
         success: {
-            main: "#A8F761"
+            main: "#26A69A"
         },
         info: {
-            main: "#5DE2E7"
+            main: "#4FC3F7"
         },
         warning: {
             main: "#FEA011"
         },
+        error: {
+            main: '#e53935'
+        },
         background: {
             default: '#121212', // Background color
+            trans_black: 'rgba(0, 0, 0, 0.5)'
         },
         text: {
             primary: '#FAFAFA', // Primary text color
             secondary: '#CECECE', // Secondary text color
+            default_white: '#FFFFFF'
         },
     },
 });

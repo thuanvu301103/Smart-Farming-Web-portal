@@ -9,6 +9,7 @@ import Script from './pages/Script';
 import Model from './pages/Model';
 import NewScript from './pages/NewScript';
 import NewModel from './pages/NewModel';
+import Login from './pages/login/Login';
 // React Router DOM
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 // Import for theme and Dark Mode
@@ -17,6 +18,8 @@ import { lightTheme, darkTheme } from './theme';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useDarkMode } from './context/DarkModeContext';
 import NewScriptModel from './pages/NewScriptModel';
+// Import Auth
+import { ProtectedRoute } from "./auth";
 
 function App() {
 
@@ -34,7 +37,8 @@ function App() {
                     <div>
                         <Navbar />
                         <Routes>
-                            <Route path="/:userId/*" element={<User />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/:userId/*" element={<ProtectedRoute element={<User />} />} />
                             <Route path="/:userId/scripts/:scriptId/*" element={<Script />} />
                             <Route path="/:userId/models/:modelId/*" element={<Model />} />
                             <Route path="/:userId/models/:modelId/scripts/:scriptId/*" element={<Script />} />

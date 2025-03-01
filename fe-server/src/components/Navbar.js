@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 // Import component
 import {
     AppBar,     // Create a top-level navigation bar
@@ -22,11 +22,22 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 // Socket
 import socket from '../socket/websocket'; // Import file socket.js
+// Auth
+import { isAuthenticated } from "../auth";
+// React DOM
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 // Avatar Menu
 const AvatarMenu = ({ anchorEl, handleClose, t}) => {
-
+    const navigate = useNavigate();
     const { darkMode, handleThemeChange } = useDarkMode();
+
+    const handleSignout = () => {
+        console.log("Sign-OUT")
+        localStorage.removeItem("token");
+        navigate("/login");
+        window.location.reload();
+    }
 
     return (
         <Menu
@@ -42,7 +53,7 @@ const AvatarMenu = ({ anchorEl, handleClose, t}) => {
                 {t('navbar.avatar_menu.dark_mode')}
                 <Switch checked={darkMode} onChange={handleThemeChange} />
             </MenuItem>
-            <MenuItem onClick={handleClose}></MenuItem>
+            <MenuItem onClick={handleSignout}> Đăng xuất</MenuItem>
             <MenuItem onClick={handleClose}></MenuItem>
         </Menu>
     );
@@ -180,21 +191,24 @@ const Navbar = () => {
     };
     const handleAvatarClose = () => {
         setAvatarAnchorEl(null);
-    };   
+    };
+
+    const isAuthed = isAuthenticated();
 
     return (
         <AppBar position="static" color="success" sx={{ boxShadow: 'none' }}>
-            <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="menu">
-                    <MenuIcon />
-                </IconButton>
+            <Toolbar sx={{ justifyContent: 'flex-end' }}>
+                {isAuthed ? <>
+                    <IconButton edge="start" color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
 
-                {/* App logo - Use '/' to get image from public */}
-                <img src="/logo192.png" alt="Logo" style={{ height: '40px', marginRight: '10px' }} />
+                    <img src="/logo192.png" alt="Logo" style={{ height: '40px', marginRight: '10px' }} />
 
-                <Typography variant="h6" style={{ flexGrow: 1 }}>
-                    username / project name
-                </Typography>
+                    <Typography variant="h6" style={{ flexGrow: 1 }}>
+                        username / project name
+                    </Typography>
+                </> : null}
 
                 {/* Language Selected Button */}
                 <Button color="primary" variant="contained" startIcon={<TranslateIcon />} onClick={handleLngList}>
@@ -214,6 +228,7 @@ const Navbar = () => {
                 <Button color="inherit">{t('navbar.about')}</Button>
                 <Button color="inherit">{t('navbar.contact')}</Button>
 
+                {isAuthed ? <>
                 {/* Notification button */}
                 <IconButton onClick={handleNotifyClick}>
                     {(notifyActive != 0) ? <NotificationsActiveIcon fontSize="small" color="info"/>
@@ -225,14 +240,15 @@ const Navbar = () => {
                     handleClose={handleNotifyClose}
                     t={t}
                     data={notificationData}
-                />
+                    />
+                </> : null}
 
                 {/* Account Avatar Icon Button */}
-                <IconButton onClick={handleAvatarClick}>
-                    <Avatar alt="User Avatar" src="/logo192.png" />
-                </IconButton>
-                {/* Avatar Menu */}
-                <AvatarMenu anchorEl={avatarAnchorEl} handleClose={handleAvatarClose} t={t} />
+                    <IconButton onClick={handleAvatarClick}>
+                        <Avatar alt="User Avatar" src="/logo192.png" />
+                    </IconButton>
+                    {/* Avatar Menu */}
+                    <AvatarMenu anchorEl={avatarAnchorEl} handleClose={handleAvatarClose} t={t} />
                
 
             </Toolbar>
