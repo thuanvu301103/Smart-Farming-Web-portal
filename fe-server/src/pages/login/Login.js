@@ -46,6 +46,7 @@ export default function Login() {
             const data = await authApi.login(username, password);
             localStorage.setItem("token", data.access_token);
             localStorage.setItem("userId", data.user_id);
+            localStorage.setItem("profileImage", data.profile_image);
             const userId = localStorage.getItem("userId");
             navigate(`/${userId}/overview`);
             window.location.reload();
