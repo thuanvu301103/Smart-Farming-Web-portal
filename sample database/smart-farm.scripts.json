@@ -6,19 +6,20 @@
   "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
   "privacy": "public",
   "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
+    "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": {
     "$oid": "67ad5d4436fd81f06d8818db"
   },
   "__v": 0,
   "share_id": [
-    "679b765e8496f00b99063cb8",
     "679bb9cb8496f00b99063cc8",
-    "67b2da71cf902eda12196b15",
     "67b2da82cf902eda12196b16",
-    "67b2da8fcf902eda12196b17"
-  ]
+    "67b2da8fcf902eda12196b17",
+    "679b765e8496f00b99063cb8",
+    "67b2da71cf902eda12196b15"
+  ],
+  "like": 1
 },
 {
   "_id": {
@@ -28,12 +29,13 @@
   "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
   "privacy": "public",
   "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
+    "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": {
     "$oid": "67ad5d4436fd81f06d8818db"
   },
-  "__v": 0
+  "__v": 0,
+  "like": 1
 },
 {
   "_id": {
@@ -43,7 +45,7 @@
   "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
   "privacy": "public",
   "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
+    "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": {
     "$oid": "67ad5d4436fd81f06d8818db"
@@ -58,7 +60,7 @@
   "description": "Đây là một kịch bản static",
   "privacy": "public",
   "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
+    "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": null,
   "__v": 0
@@ -71,7 +73,7 @@
   "description": "Đây là một kịch bản static",
   "privacy": "public",
   "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
+    "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": null,
   "__v": 0
@@ -84,7 +86,7 @@
   "description": "",
   "privacy": "public",
   "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
+    "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": null,
   "__v": 0

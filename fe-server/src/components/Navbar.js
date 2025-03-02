@@ -245,7 +245,7 @@ const Navbar = () => {
 
                 {/* Account Avatar Icon Button */}
                     <IconButton onClick={handleAvatarClick}>
-                        <Avatar alt="User Avatar" src="/logo192.png" />
+                        {isAuthed ? <Avatar alt="User Avatar" src="/logo192.png" /> : <Avatar alt="User Avatar" src="/logo192.png" />}
                     </IconButton>
                     {/* Avatar Menu */}
                     <AvatarMenu anchorEl={avatarAnchorEl} handleClose={handleAvatarClose} t={t} />

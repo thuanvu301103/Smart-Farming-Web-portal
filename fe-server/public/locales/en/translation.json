@@ -5,7 +5,9 @@
     "username": "Username",
     "username_label": "Input username",
     "password": "Password",
-    "password_label": "Input password"
+    "password_label": "Input password",
+    "login_failed": "Login failed. Please check your username and password then try again!",
+    "unfilled_fields": "Please enter Username and Password!"
   },
   "signup": {
     "title": "Sign up"
@@ -112,7 +114,14 @@
     "private": "Private"
   },
   "overview": {
-    "activity": "Activity"
+    "activity": "Activity",
+    "top_script": "Popular Scripts",
+    "act_title": {
+      "create": "Create new",
+      "script": "Irrigation Script(s)",
+      "comment": "Script Comment(s)",
+      "model": "Smart Irrigation Model(s)"
+    }
   },
   "loading": "Loading Data...",
   "no_data": "No Data",

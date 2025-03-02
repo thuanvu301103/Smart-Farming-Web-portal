@@ -57,7 +57,8 @@ export class UsersService {
         }[];
         profile_image: string
     }> {
-        const result = await this.userModel.findOne({ _id: new Types.ObjectId(userId) }).lean().exec();
+        const result = await this.userModel.findOne({ _id: new Types.ObjectId(userId) })
+            .select('username links profile_image').lean().exec();
         return result;
     }
 

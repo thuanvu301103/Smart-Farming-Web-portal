@@ -1,6 +1,8 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
 import { ScriptsService } from './scripts.service';
 import { Script } from '../../schemas/scripts.schema';
+import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
+
 
 @Controller(':userId/scripts')
 export class ScriptsController {
@@ -16,6 +18,12 @@ export class ScriptsController {
     {
         //console.log(userId);
         return this.scriptsService.findAllScripts(userId);
+    }
+
+    @Get("/top")
+    @UseGuards(JwtAuthGuard)
+    async getTopPublicScriptsByUser(@Param("userId") userId: string) {
+        return await this.scriptsService.getTopPublicScripts(userId);
     }
 
     @Get('search')

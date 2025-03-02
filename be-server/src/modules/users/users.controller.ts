@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Param, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../../schemas/users.schema';
+import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 
 @Controller()
 export class UsersController {
@@ -25,6 +26,7 @@ export class UsersController {
     }
 
     @Get(':userId/profile')
+    @UseGuards(JwtAuthGuard)
     async findUserInfo(@Param('userId') userId: string): Promise<{
         username: string;
         links: {

@@ -6,7 +6,8 @@
     "username_label": "Nhập tên đăng nhập",
     "password": "Mật khẩu",
     "password_label": "Nhập mật khẩu",
-    "error":  "Đăng nhập thất bại. Vui lòng kiểm tra lại Tên đăng nhập hoặc Mật khẩu và thử lại!"
+    "login_failed": "Đăng nhập thất bại. Vui lòng kiểm tra lại Tên đăng nhập hoặc Mật khẩu và thử lại!",
+    "unfilled_fields":  "Vui lòng nhập đầy đủ Tên đăng nhập và Mật khẩu!"
   },
   "signup": {
     "title": "Đăng kí"
@@ -112,7 +113,14 @@
     "private": "Riêng tư"
   },
   "overview": {
-    "activity": "Hoạt động"
+    "activity": "Hoạt động",
+    "top_script": "Kịch bản phổ biến",
+    "act_title": {
+      "create": "Tạo mới",
+      "script": "Kịch bản tưới",
+      "comment": "Đánh giá kịch bản",
+      "model":  "Mô hình tưới thông minh"
+    }
   },
   "loading": "Đang tải dữ liệu...",
   "no_data": "Không có dữ liệu",
