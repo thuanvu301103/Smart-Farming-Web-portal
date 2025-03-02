@@ -16,6 +16,7 @@ const useFetchProfile = (userId) => {
             try {
                 const data = await userApi.profile(userId);
                 //console.log("Response user's Profile fetch: ", userId, data);
+                localStorage.setItem("curUsername", data.username);
                 setProfile(data);
             } catch (err) {
                 console.error("Error fetching profile:", err);

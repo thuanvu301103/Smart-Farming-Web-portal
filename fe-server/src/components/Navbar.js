@@ -6,8 +6,10 @@ import {
     Typography,
     Button, IconButton,
     Avatar,
-    Menu, MenuItem, ListItemIcon, MenuList,
+    Menu, MenuItem, ListItemIcon,
     List, ListItem,
+    Breadcrumbs, Link,
+    Box,
 } from '@mui/material';
 import Switch from '@mui/material/Switch';
 import { NotificationListItem } from '../components/ListItem';
@@ -35,6 +37,9 @@ const AvatarMenu = ({ anchorEl, handleClose, t}) => {
     const handleSignout = () => {
         console.log("Sign-OUT")
         localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("profileImage");
+        localStorage.removeItem("curUsername");
         navigate("/login");
         window.location.reload();
     }
@@ -197,19 +202,22 @@ const Navbar = () => {
 
     return (
         <AppBar position="static" color="success" sx={{ boxShadow: 'none' }}>
-            <Toolbar sx={{ justifyContent: 'flex-end' }}>
-                {isAuthed ? <>
+            <Toolbar sx={{ display: "flex" }}>
+                {isAuthed ? <Box sx={{ display: "flex", alignItems: "center" }}>
                     <IconButton edge="start" color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
 
-                    <img src="/logo192.png" alt="Logo" style={{ height: '40px', marginRight: '10px' }} />
+                    <Avatar alt="Logo" src="/logo.jpg"/>
+                    {/* Breadcrumbs?????????? */}
+                    <Breadcrumbs aria-label="breadcrumb" ml={2}>
+                        <Link underline="hover" color="text.default_white">
+                            {localStorage.getItem("curUsername")}
+                        </Link>
+                    </Breadcrumbs>
+                </Box> : null}
 
-                    <Typography variant="h6" style={{ flexGrow: 1 }}>
-                        username / project name
-                    </Typography>
-                </> : null}
-
+                <Box sx={{ display: "flex", alignItems: "center", ml: "auto" }}>
                 {/* Language Selected Button */}
                 <Button color="primary" variant="contained" startIcon={<TranslateIcon />} onClick={handleLngList}>
                     {options[selectedLngIndex]}
@@ -245,12 +253,12 @@ const Navbar = () => {
 
                 {/* Account Avatar Icon Button */}
                     <IconButton onClick={handleAvatarClick}>
-                        {isAuthed ? <Avatar alt="User Avatar" src="/logo192.png" /> : <Avatar alt="User Avatar" src="/logo192.png" />}
+                    {isAuthed ? <Avatar alt="User Avatar" src={localStorage.getItem('profileImage')} /> : <Avatar alt="Logo" src="/logo.jpg" />}
                     </IconButton>
                     {/* Avatar Menu */}
                     <AvatarMenu anchorEl={avatarAnchorEl} handleClose={handleAvatarClose} t={t} />
                
-
+                </Box>
             </Toolbar>
         </AppBar>
     );
