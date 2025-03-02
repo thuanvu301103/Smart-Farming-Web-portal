@@ -22,6 +22,8 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+// Hooks
+import { useFetchProfile, useFetchTopScripts} from "../hooks/useFetchUser";
 
 const User = () => {
 
@@ -49,22 +51,10 @@ const User = () => {
     }, [userId]);
 
     // Fetch user's profile
-    const [profile, setProfile] = useState([]);
-    const [profileLoading, setProfileLoading] = useState(true); // Add loading state
+    const { profile, profileLoading, profileError } = useFetchProfile(userId);
 
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/679b765e8496f00b99063cb8/profile');
-                setProfile(response.data);
-            } catch (error) {
-                console.error('Error fetching profile:', error);
-            } finally {
-                setProfileLoading(false); // Set loading to false after fetching data
-            }
-        };
-        fetch();
-    }, [userId]);
+    // Fetch user's top scripts
+    const { topScripts, topScriptsLoading, topScriptsError } = useFetchTopScripts(userId);
 
     // Fetch Models Data
     const [models, setModels] = useState([]);
@@ -91,7 +81,7 @@ const User = () => {
             value: "overview",
             path: "./overview",
             label: t("tab.overview"),
-            element: <Overview profile={profile}/>
+            element: <Overview profile={profile} topScripts={topScripts}/>
         },
         {
             icon: <DescriptionOutlinedIcon />,

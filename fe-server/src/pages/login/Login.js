@@ -12,18 +12,13 @@ import { useTranslation } from 'react-i18next';
 // API
 import authApi from "../../api/authAPI";
 // React Dom
-import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // Auth
-import { ProtectedRoute, isAuthenticated } from "../../auth";
+import { isAuthenticated } from "../../auth";
 // Icon
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const images = [
-    "/image.png",
-    "/image.png",
-    "/image.png",
-];
 
 export default function Login() {
     const { t } = useTranslation();
@@ -34,7 +29,7 @@ export default function Login() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const from = location.state?.from?.pathname || "/new-script";
+    const from = location.state?.from?.pathname || localStorage.getItem("userId");
     if (isAuthenticated()) {
         navigate(from);
         window.location.reload();
@@ -42,13 +37,20 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError(null); // Reset lỗi trước đó
+        setError(null); // Reset previous error
         try {
+            if (username === "" || password === "") {
+                setError("login.unfilled_fields");
+                return;
+            }
             const data = await authApi.login(username, password);
-            localStorage.setItem("token", data.access_token); // Lưu token
-            navigate("/"); // Chuyển hướng sau khi login thành công
+            localStorage.setItem("token", data.access_token);
+            localStorage.setItem("userId", data.user_id);
+            const userId = localStorage.getItem("userId");
+            navigate(`/${userId}/overview`);
+            window.location.reload();
         } catch (err) {
-            setError("Đăng nhập thất bại! Vui lòng kiểm tra lại tài khoản và mật khẩu.");
+            setError("login.login_failed");
         }
     };
 
@@ -95,7 +97,7 @@ export default function Login() {
                     </Typography>
                     {/*Login Form*/}
                     <CardContent>
-                        {error && <Typography variant="body1" color="error" mb={2}>{t("login.error")}</Typography>}
+                        {error && <Typography variant="body1" color="error" mb={2}>{t(error)}</Typography>}
                         <Box
                                 display="flex"
                                 flexDirection="column"

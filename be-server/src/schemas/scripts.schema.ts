@@ -34,6 +34,9 @@ export class Script extends Document {
     })
     share_id: Types.ObjectId[];
 
+    @Prop()
+    like: number;
+
     @Prop({type: [String]})
     location: string[];
 

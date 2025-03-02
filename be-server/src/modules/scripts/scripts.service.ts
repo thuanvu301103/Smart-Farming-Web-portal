@@ -32,6 +32,29 @@ export class ScriptsService {
         return result;
     }
 
+    // Get popular and public scripts if a user
+    async getTopPublicScripts(userId: string) {
+        const userObjectId = new Types.ObjectId(userId);
+
+        const topScripts = await this.scriptModel.aggregate([
+            {
+                $match: {
+                    privacy: "public",
+                    owner_id: userObjectId
+                }
+            }, // Chỉ lấy các script của user và có privacy là "public"
+            { $sort: { like: -1 } }, // Sắp xếp theo số lượt like giảm dần
+            { $limit: 6 }, // Lấy tối đa 6 tài liệu
+            {
+                $project: {
+                    name: 1,
+                    description: 1,
+                }
+            }
+        ]);
+        return topScripts;
+    }
+
     // Add new script
     async createScript(
         userId: string,
