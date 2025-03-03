@@ -18,11 +18,14 @@ export class UsersController {
     }
 
     @Get('users/search')
-    async searchUser(@Query('username') partUsername: string) {
+    @UseGuards(JwtAuthGuard)
+    async searchUser(@Query('username') partUsername: string, @Req() req) {
         if (!partUsername) {
             return { error: 'Username query parameter is required' };
         }
-        return await this.usersService.searchUser(partUsername);
+
+        const currentUserId = req.user.userId;
+        return await this.usersService.searchUser(partUsername, currentUserId);
     }
 
     @Get(':userId/profile')

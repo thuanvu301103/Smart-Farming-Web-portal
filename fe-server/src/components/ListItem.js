@@ -55,7 +55,7 @@ const ScriptListItem = ({ item }) => {
                             variant="h6"
                             color="success"
                             style={{ textDecoration: 'none', fontWeight: 'bold' }}
-                            onClick={() => navigate(`scripts/${item?._id ? item._id : '#'}/code`)}
+                            onClick={() => navigate(`${item?._id ? item._id : '#'}/code`)}
                         >
                             {item?.name ? item.name : null}
                         </Link>
@@ -192,7 +192,7 @@ const UserListItem = ({
             alignItems: 'center',
         }}
         >
-            <Avatar alt="User Avatar" src="/logo192.png" />
+            <Avatar alt="User Avatar" src={item.profile_image} />
             <ListItemText
                 sx={{ display: 'flex', flexDirection: 'column', flex: '1 1 0%' }}
                 primary={
@@ -232,6 +232,57 @@ const UserListItem = ({
                 </IconButton> : null
             }
         </ListItem>
+    );
+}
+
+const UserListItem1 = ({
+    item,
+    removeItemFunc = null,
+    addItemFunc = null,
+    disableAdd = false,
+    newLable = false
+}) => {
+
+    const { t } = useTranslation();
+
+    return (
+        <CardWrapper
+            borderThickness="0px"
+            borderSide="right"
+            borderColor="success"
+        >
+            <Box display="flex" alignItems="center" m={1} justifyContent="space-between" width="90%">
+                {/* Bên trái */}
+                <Box display="flex" alignItems="center" gap={1}>
+                    <Avatar alt="User Avatar" src={item.profile_image} />
+                    <Link
+                        href={`${item?._id ? item._id : '#'}/overview`}
+                        color='warning'
+                        sx={{ textDecoration: 'none', fontWeight: 'bold' }}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {item?.username ? item.username : null}
+                        {newLable ? <Chip label="new" color="info" size="small" variant="outlined" /> : null}
+                    </Link>
+                </Box>
+
+                {/* Bên phải */}
+                <Box display="flex" alignItems="center" gap={1}>
+                    {removeItemFunc && (
+                        <IconButton aria-label="remove" size="medium" onClick={removeItemFunc}>
+                            <RemoveIcon fontSize="inherit" />
+                        </IconButton>
+                    )}
+                    {addItemFunc && (
+                        <IconButton aria-label="add" size="medium" onClick={addItemFunc} disabled={disableAdd}>
+                            <AddIcon fontSize="inherit" />
+                        </IconButton>
+                    )}
+                </Box>
+            </Box>
+        </CardWrapper>
+
     );
 }
 
@@ -378,6 +429,7 @@ export {
     ScriptModelListItem,
     ModelListItem,
     UserListItem,
+    UserListItem1,
     FileStructListItem,
     ActivityListItem,
     NotificationListItem

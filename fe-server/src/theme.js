@@ -34,7 +34,7 @@ const lightTheme = createTheme({
             trans_black: 'rgba(120, 120, 120, 0.5)'
         },
         text: {
-            primary: '#000000', // Primary text color
+            primary: '#212121', // Primary text color
             secondary: '#616161', // Secondary text color
             default_white: '#FFFFFF',
             pink: "#E91E63"

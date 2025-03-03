@@ -17,6 +17,16 @@ const userApi = {
         return response.data;
     },
 
+    searchUser: async (searchUserTerm) => {
+        const response = await axiosInstance.get(`/users/search`, {
+            params: {
+                username: searchUserTerm
+            }
+        })
+        console.log("Search Result: ", response.data);
+        return response.data;
+    },
+
     favoriteScript: async (userId, scriptId, action) => {
         const response = await axiosInstance.put(`/${userId}/favorite`, {
             scriptId: scriptId,

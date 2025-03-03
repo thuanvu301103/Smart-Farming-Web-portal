@@ -70,20 +70,22 @@ export class UsersService {
         return this.userModel.findOne({ username });
     }
 
-    async searchUser(partUsername: string): Promise<{
-        _id: string
-        username: string
-    }[]>
-    {
+    async searchUser(partUsername: string, currentUserId: string): Promise<{ username: string; profile_image: string }[]> {
         try {
-            // Using regex to find users whose usernames contain the partUsername
-            const users = await this.userModel.find({ username: new RegExp(partUsername, 'i') });
-            return users.map(user => ({ _id: user._id.toString(), username: user.username }));
+           
+            const users = await this.userModel.find({
+                username: new RegExp(partUsername, 'i'),
+                _id: { $ne: currentUserId }
+            }).select('username profile_image')
+                .lean().exec();
+
+            return users;
         } catch (error) {
             console.error('Error searching users:', error);
             return [];
         }
     }
+
 
     async validateUser(username: string, password: string): Promise<User | null> {
         const user = await this.findOneUser(username);

@@ -43,7 +43,8 @@
     "public-note": "Anyone on the internet can see this script.",
     "private": "Private",
     "private-note": "You choose who can access this script.",
-    "shared-user": "Accessible User"
+    "shared-user": "Accessible User",
+    "no_name_err": "The script name is not left empty!"
   },
   "edit-script": {
     "title": "Edit the irrigation script"
@@ -113,7 +114,8 @@
     "delete": "Delete",
     "edit_profile": "Edit profile",
     "create_script": "Create script",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "search": "Search"
   },
   "privacy": {
     "public": "Public",

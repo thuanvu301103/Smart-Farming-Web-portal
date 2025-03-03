@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query, Req, UseGuards, ForbiddenException } from '@nestjs/common';
 import { ScriptsService } from './scripts.service';
 import { Script } from '../../schemas/scripts.schema';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
@@ -52,13 +52,21 @@ export class ScriptsController {
     }
 
     @Post()
+    @UseGuards(JwtAuthGuard)
     async createScript(
-        @Body() data: { name: string; description: string; privacy: string },
-        @Param('userId') userId: string
+        @Body() data: { name: string; description: string; privacy: string, share_id: string[] },
+        @Param('userId') userId: string,
+        @Req() req
     ):
         Promise<{ _id: string }> {
+        const currentUserId = req.user.userId; // Get the current user from JWT
+        // Ensure users can only modify their own favorites
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only update your own favorites.');
+        }
+
         const newScriptId = await this.scriptsService.createScript(
-            userId, data.name, data.description, data.privacy
+            userId, data.name, data.description, data.privacy, data.share_id
         );
         return { _id: newScriptId};
     }
