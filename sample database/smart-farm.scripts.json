@@ -2,8 +2,8 @@
   "_id": {
     "$oid": "67ad9b237fbd427b0f974140"
   },
-  "name": "Nothing",
-  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
+  "name": "Magic",
+  "description": "Đây là một trong những loại cây trồng rất hay siopren isopren isolum pren là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
   "privacy": "public",
   "owner_id": {
     "$oid": "67c273401fb713deae4b068c"
@@ -13,13 +13,17 @@
   },
   "__v": 0,
   "share_id": [
-    "679bb9cb8496f00b99063cc8",
-    "67b2da82cf902eda12196b16",
-    "67b2da8fcf902eda12196b17",
-    "679b765e8496f00b99063cb8",
-    "67b2da71cf902eda12196b15"
+    "679b765e8496f00b99063cb8"
   ],
-  "like": 1
+  "location": [
+    "Đà Nẵng",
+    "Trà Vinh"
+  ],
+  "plant_type": [
+    "Táo",
+    "Chanh"
+  ],
+  "favorite": 2
 },
 {
   "_id": {
@@ -35,7 +39,8 @@
     "$oid": "67ad5d4436fd81f06d8818db"
   },
   "__v": 0,
-  "like": 1
+  "location": [],
+  "favorite": 0
 },
 {
   "_id": {
@@ -43,14 +48,16 @@
   },
   "name": "Kich bản tưới cây hoa cải",
   "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
-  "privacy": "public",
+  "privacy": "private",
   "owner_id": {
     "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": {
     "$oid": "67ad5d4436fd81f06d8818db"
   },
-  "__v": 0
+  "__v": 0,
+  "location": [],
+  "favorite": 0
 },
 {
   "_id": {
@@ -63,7 +70,9 @@
     "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": null,
-  "__v": 0
+  "__v": 0,
+  "location": [],
+  "favorite": 0
 },
 {
   "_id": {
@@ -76,7 +85,11 @@
     "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": null,
-  "__v": 0
+  "__v": 1,
+  "favorite": 0,
+  "location": [],
+  "plant_type": [],
+  "share_id": []
 },
 {
   "_id": {
@@ -89,7 +102,8 @@
     "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": null,
-  "__v": 0
+  "__v": 0,
+  "favorite": 0
 },
 {
   "_id": {
@@ -102,7 +116,8 @@
     "$oid": "679b765e8496f00b99063cb8"
   },
   "model_id": null,
-  "__v": 0
+  "__v": 0,
+  "favorite": 0
 },
 {
   "_id": {
@@ -115,7 +130,8 @@
     "$oid": "679b765e8496f00b99063cb8"
   },
   "model_id": null,
-  "__v": 0
+  "__v": 0,
+  "favorite": 0
 },
 {
   "_id": {
@@ -128,31 +144,6 @@
     "$oid": "679b765e8496f00b99063cb8"
   },
   "model_id": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67aeef9748c34c725afaf489"
-  },
-  "name": "Cây hoa cải",
-  "description": "Một cây hoa cải",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
-  },
-  "model_id": null,
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67aeefc748c34c725afaf48b"
-  },
-  "name": "Cây hoa cải",
-  "description": "Một cây hoa cải",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
-  },
-  "model_id": null,
-  "__v": 0
+  "__v": 0,
+  "favorite": 0
 }]

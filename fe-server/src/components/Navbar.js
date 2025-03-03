@@ -16,6 +16,8 @@ import { NotificationListItem } from '../components/ListItem';
 // Icons
 import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import TranslateIcon from '@mui/icons-material/Translate';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
@@ -50,6 +52,13 @@ const AvatarMenu = ({ anchorEl, handleClose, t}) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
         >
+            {/* Profile */}
+            <MenuItem onClick={() => navigate(`/${localStorage.getItem("userId")}/overview`)}>
+                <ListItemIcon>
+                    <AccountCircleIcon fontSize="small" />
+                </ListItemIcon>
+                {t('navbar.avatar_menu.profile')}
+            </MenuItem>
             {/* Dark Mode Switch */}
             <MenuItem>
                 <ListItemIcon>
@@ -58,7 +67,12 @@ const AvatarMenu = ({ anchorEl, handleClose, t}) => {
                 {t('navbar.avatar_menu.dark_mode')}
                 <Switch checked={darkMode} onChange={handleThemeChange} />
             </MenuItem>
-            <MenuItem onClick={handleSignout}> Đăng xuất</MenuItem>
+            <MenuItem onClick={handleSignout}>
+                <ListItemIcon>
+                    <PowerSettingsNewIcon fontSize="small" color="script"/>
+                </ListItemIcon>
+                {t('navbar.avatar_menu.sign_out')}
+            </MenuItem>
             <MenuItem onClick={handleClose}></MenuItem>
         </Menu>
     );

@@ -1,29 +1,35 @@
 ﻿import React from 'react';
 // Import components
 import {
-    Grid, Avatar, Typography, Link, Button, Box,
-    Card, CardContent, ListItem, List, Divider
+    Grid, Typography, Link, Box,
+    CardContent, ListItem, List, Divider
 } from '@mui/material';
-import LinkIcon from '../../components/LinkIcon';
-import { ExpanableList } from '../../components/List';
-import { ActivityListItem } from '../../components/ListItem';
 import { CardWrapper } from '../../components/CardWrapper'
 // Icons
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 // Translation
 import { useTranslation } from 'react-i18next';
 // ProfilePanel
 import { ProfilePanel } from './ProfilePanel';
+// React DOM
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
+
+// Truncate Text function
+const truncateText = (text, maxWords) => {
+    const words = text.split(' ');
+    if (words.length > maxWords) {
+        return words.slice(0, maxWords).join(' ') + '...';
+    }
+    return text;
+};
 
 const Overview = ({ profile, topScripts }) => {
 
+    const navigate = useNavigate();
     const { t } = useTranslation();
-    const loading = false;
 
     const activitiesList = [
         {
@@ -64,6 +70,7 @@ const Overview = ({ profile, topScripts }) => {
                 <Grid container alignItems="start" item direction="row"
                     mt={1} xs={12} md={4}
                 >
+                    {/* Profile Panel */}
                     <ProfilePanel profile={profile}/>
                 </Grid>
                 <Grid item xs={12} md={8}>
@@ -80,13 +87,20 @@ const Overview = ({ profile, topScripts }) => {
                         <Grid container spacing={1}>
                             {topScripts.map((item, index) => (
                                 <Grid item xs={6} key={index}>
-                                    <CardWrapper borderThickness="0px" borderSide="right" height="120px">
-                                        <Typography variant="body1" m={2} color="success" sx={{ fontWeight: "bold" }}>
-                                            {item.name}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary" m={2}>
-                                            {item.description}
-                                        </Typography>
+                                    <CardWrapper borderThickness="0px" borderSide="right" height="130px">
+                                        <CardContent>
+                                            <Link
+                                                variant="body1"
+                                                color="success"
+                                                style={{ textDecoration: 'none', fontWeight: 'bold' }}
+                                                onClick={() => navigate(`scripts/${item?._id ? item._id : '#'}/code`)}
+                                            >
+                                                {item?.name ? item.name : null}
+                                            </Link>
+                                            <Typography variant="body2" color="text.secondary" mt={2}>
+                                                {truncateText(item.description,15)}
+                                            </Typography>
+                                        </CardContent>
                                     </CardWrapper>
                                 </Grid>
                             ))}
@@ -179,12 +193,6 @@ const Overview = ({ profile, topScripts }) => {
                                 </React.Fragment>
                             ))}
                         </List>
-
-                        {/*<ExpanableList
-                            ListItemComponents={ActivityListItem}
-                            items={activities}
-                            loading={loading}
-                        />*/}
                     </Box>
                 </Grid>
             </Grid>

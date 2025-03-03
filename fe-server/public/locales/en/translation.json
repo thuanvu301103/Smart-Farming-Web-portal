@@ -1,4 +1,8 @@
 {
+  "common": {
+    "unknown": "Unknown",
+    "favorite": "Favorite"
+  },
   "welcome": "Welcome",
   "login": {
     "title": "Sign in",
@@ -21,7 +25,9 @@
     "about": "About",
     "contact": "Contact",
     "avatar_menu": {
-      "dark_mode": "Dark Mode"
+      "dark_mode": "Dark Mode",
+      "profile": "Profile",
+      "sign_out": "Sign out"
     }
   },
   "profile": {

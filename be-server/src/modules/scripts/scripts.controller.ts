@@ -1,23 +1,29 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query, Req, UseGuards } from '@nestjs/common';
 import { ScriptsService } from './scripts.service';
 import { Script } from '../../schemas/scripts.schema';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 
-
 @Controller(':userId/scripts')
 export class ScriptsController {
-    constructor(private readonly scriptsService: ScriptsService) { }
+    constructor(
+        private readonly scriptsService: ScriptsService
+    ) { }
 
     @Get()
-    async findAllScripts(@Param('userId') userId: string):
+    @UseGuards(JwtAuthGuard)
+    async findAllScripts(@Param('userId') userId: string, @Req() req):
         Promise<{
             name: string;
             description: string;
-            privacy: string
+            privacy: string;
+            favorite: number;
+            location: string[];
+            plant_type: string[];
+            isFavorite: boolean
         }[]>
     {
-        //console.log(userId);
-        return this.scriptsService.findAllScripts(userId);
+        //console.log(req.user.userId);
+        return this.scriptsService.findAllScripts(userId, req.user.userId);
     }
 
     @Get("/top")

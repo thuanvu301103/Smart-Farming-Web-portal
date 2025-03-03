@@ -113,23 +113,22 @@ export default function Login() {
                                     >
                                         {t("login.username")}
                                     </Typography>
-                                <TextField
-                                    fullWidth
-                                    type="text"
-                                    label={t("login.username_label")}
+                            <TextField
+                                type="text"
+                                label={t("login.username_label")}
                                 variant="filled"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    required
-                                    color="success"
-                                    size="small"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                                color="success"
+                                size="small"
                                 fullWidth
                                 sx={{
                                     '& .MuiInputBase-input': {
                                         color: 'text.default_white',
                                     },
                                 }}
-                                />
+                            />
                             {/*Pasword*/}
                             <Typography
                                 variant="body1"

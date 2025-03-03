@@ -9,10 +9,13 @@ import { CardWrapper } from '../../components/CardWrapper'
 import LinkIcon from '../../components/LinkIcon';
 // Translation
 import { useTranslation } from 'react-i18next';
+// React Router DOM
+import { useParams } from 'react-router-dom';
 
 const ProfilePanel = ({ profile }) => {
 
     const { t } = useTranslation();
+    const { userId } = useParams();
 
     return (
         <CardWrapper borderThickness="9px" borderSide="bottom">
@@ -74,17 +77,19 @@ const ProfilePanel = ({ profile }) => {
                 })
                     : null}
                 {/*Edit profile Button */}
-                <Box mt={2}>
-                    <Button
-                        variant="contained"
-                        size="small"
-                        color="success"
-                        fullWidth
-                        sx={{ borderRadius: '8px' }}
-                    >
-                        {t("button.edit_profile")}
-                    </Button>
-                </Box>
+                {localStorage.getItem("userId") == userId ? 
+                    <Box mt={2}>
+                        <Button
+                            variant="contained"
+                            size="small"
+                            color="success"
+                            fullWidth
+                            sx={{ borderRadius: '8px' }}
+                        >
+                            {t("button.edit_profile")}
+                        </Button>
+                    </Box> 
+                : null}
             </Grid>
         </CardWrapper>
         );

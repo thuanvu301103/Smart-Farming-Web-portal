@@ -1,13 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { BadRequestException } from "@nestjs/common";
 import { Model, Types, Document} from 'mongoose';
 import { User } from '../../schemas/users.schema';
+import { Script } from '../../schemas/scripts.schema';
 import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectModel(User.name) private userModel: Model<User>) { }
+    constructor(
+        @InjectModel(User.name) private userModel: Model<User>,
+        @InjectModel(Script.name) private scriptModel: Model<Script>,
+    ){ }
 
     async createUser(
         username: string,
@@ -88,5 +92,60 @@ export class UsersService {
             return user;
         }
         return null;
+    }
+
+    // Update script
+    async updateUserInfo(userId: string, updatedData: Partial<User>) {
+        const updatedUser = await this.userModel.findByIdAndUpdate(userId, updatedData, {
+            new: true,
+            runValidators: true,
+        });
+
+        if (!updatedUser) {
+            throw new NotFoundException(`Script with ID ${userId} not found`);
+        }
+
+        return {
+            success: true,
+            message: 'User updated successfully',
+        };
+    }
+
+    // Add/remove favorite script
+    async favoriteScript(userId: string, scriptId: string, action: 'add' | 'remove') {
+        // Convert scriptId to ObjectId
+        const scriptObjectId = new Types.ObjectId(scriptId);
+
+        // Find user by userId
+        const user = await this.userModel.findById(userId);
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+
+        // Find script by scriptId
+        const script = await this.scriptModel.findById(scriptId);
+        if (!script) {
+            throw new NotFoundException('Script not found');
+        }
+
+        if (action === 'add') {
+            // Add scriptId to favorite_scripts array (if not already in)
+            if (!user.favorite_scripts.includes(scriptObjectId)) {
+                user.favorite_scripts.push(scriptObjectId);
+                script.favorite = script.favorite + 1;
+            }
+        } else if (action === 'remove') {
+            // Remove scriptId from favorite_scripts array
+            user.favorite_scripts = user.favorite_scripts.filter(id => !id.equals(scriptObjectId));
+            script.favorite = script.favorite - 1;
+        } else {
+            throw new BadRequestException('Invalid action. Use "add" or "remove".');
+        }
+
+        // Save changes
+        await user.save();
+        await script.save();
+
+        return { message: `Script ${action}ed successfully` };
     }
 }

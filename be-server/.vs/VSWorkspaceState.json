@@ -9,6 +9,6 @@
     "\\src\\schemas",
     "\\test"
   ],
-  "SelectedNode": "\\src\\modules\\auth\\auth.controller.ts",
+  "SelectedNode": "\\src\\modules\\auth\\jwt.strategy.ts",
   "PreviewInSolutionExplorer": false
 }
