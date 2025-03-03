@@ -1,8 +1,11 @@
-﻿import {
+﻿// Components
+import {
     ListItem, ListItemText, ListItemIcon,
     Link, Box, Typography, Grid, Button, IconButton, Avatar,
-    Chip
+    Chip, Divider,
+    CardContent,
 } from '@mui/material';
+import { CardWrapper } from './CardWrapper';
 // Import Icons
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
@@ -12,8 +15,14 @@ import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ShareIcon from '@mui/icons-material/Share';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined';
 // Translation
 import { useTranslation } from 'react-i18next';
+// API
+import userApi from "./../api/userAPI";
+// React DOM
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 // Truncate Text function
 const truncateText = (text, maxWords) => {
@@ -25,57 +34,96 @@ const truncateText = (text, maxWords) => {
 };
 
 const ScriptListItem = ({ item }) => {
-
+    const navigate = useNavigate();
     const { t } = useTranslation();
 
+    const handleFavorite = async () => {
+        let action = item.isFavorite ? "remove" : "add";
+        await userApi.favoriteScript(localStorage.getItem("userId"), item._id, action);
+        item.isFavorite = !item.isFavorite;
+        if (action == "add") item.favorite++;
+        else item.favorite--;
+    }
+
     return (
-        <Box sx={
-            {
-                bgcolor: 'background.paper',
-                borderBottom: '2px solid', borderColor: '#A1C038',
-                m: 1,
-                borderRadius: '8px'
-            }}
-        >
-            <ListItem>
-                <Grid container alignItems="center">
+        <CardWrapper borderThickness="10px" borderSide="right" borderColor="success">
+            <CardContent>
+                <Grid container>
+                    {/* Script Info */}
                     <Grid item xs={9}>
-                        <ListItemText
-                            primary={
-                                <Link
-                                    href={`scripts/${item?._id ? item._id : '#'}/code`}
-                                    variant="h6"
-                                    color="success"
-                                    style={{ textDecoration: 'none', fontWeight: 'bold' }}
-                                >
-                                    {item?.name ? item.name : null}
-                                </Link>
-                            }
-                            secondary={item?.description ? truncateText(item.description, 30) : null}
-                        />
+                        <Link
+                            variant="h6"
+                            color="success"
+                            style={{ textDecoration: 'none', fontWeight: 'bold' }}
+                            onClick={() => navigate(`scripts/${item?._id ? item._id : '#'}/code`)}
+                        >
+                            {item?.name ? item.name : null}
+                        </Link>
+                        <Typography variant="body2" color="text.secondary" mt={1}>
+                            {truncateText(item.description, 100)}
+                        </Typography>
+                        <Divider sx={{ flexGrow: 1, mt: 2, backgroundColor: "success.main" }} />
+                        <Grid container spacing={0} mt={1}>
+                            {/* Plant type */}
+                            <Grid item xs={12} container alignItems="center">
+                                <SpaOutlinedIcon color="success" fontSize="small" />
+                                <Typography variant="caption" color="text.secondary" ml={1}>
+                                    {Array.isArray(item?.plant_type) && item.plant_type.length === 0
+                                        ? t("common.unknown")
+                                        : truncateText((item?.plant_type || []).join(", "), 30)}
+                                </Typography>
+                            </Grid>
+
+                            {/* Location */}
+                            <Grid item xs={12} container alignItems="center">
+                                <LocationOnOutlinedIcon color="warning" fontSize="small" />
+                                <Typography variant="caption" color="text.secondary" ml={1}>
+                                    {Array.isArray(item?.location) && item.location.length === 0
+                                        ? t("common.unknown")
+                                        : truncateText((item?.location || []).join(", "), 30)}
+                                </Typography>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={3}>
-                        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Typography
-                                component="span"
-                                color={item?.privacy ? (item.privacy === "public" ? "info" : "warning") : null}
-                                sx={{
-                                    border: '1px solid', // Border color similar to outlined button
-                                    padding: '2px 5px',
-                                    borderRadius: '10px',
-                                    fontWeight: 'bold',
-                                    display: 'inline-block',
-                                }}
-                                variant="caption"
-                            >
-                                {item?.privacy ? t("privacy." + item.privacy) : null}
-                            </Typography>
-                        </Box>
+                    {/* Script Privacy and Bookmark button */}
+                    <Grid item xs={3} display="flex" flexDirection="column" alignItems="flex-end" justifyContent="space-between" gap={2}>
+                        <Grid container spacing={2} alignItems="flex-start" justifyContent="flex-end">
+                            {/* Script Privacy */}
+                            <Grid item xs={12} display="flex" justifyContent="flex-end">
+                                <Chip
+                                    size="small"
+                                    label={item?.privacy ? t("privacy." + item.privacy) : null}
+                                    color={item?.privacy ? (item.privacy === "public" ? "info" : "warning") : null}
+                                />
+                            </Grid>
+                            {/* Bookmark */}
+                            <Grid item xs={12} display="flex" justifyContent="flex-end">
+                                <Button
+                                    variant='outlined' size="small"
+                                    startIcon={<BookmarkBorderIcon color={item?.isFavorite ? (item.isFavorite ? "script" : "text") : "text"} />}
+                                    color={item?.isFavorite ? (item.isFavorite ? "script" : "text") : "text"}
+                                    sx={{ borderRadius: '8px' }}
+                                    onClick={handleFavorite}
+                                >
+                                    {t("button.favorite")}
+                                </Button>
+                            </Grid>
+                        </Grid>
+                        {/* Other info */}
+                        <Grid container spacing={0} alignItems="flex-start" sx={{ ml: 2 }}>
+                            {/* Favorite count */}
+                            <Grid item xs={12} container alignItems="center" ml={2}>
+                                <BookmarkBorderIcon color="script" fontSize="small" />
+                                <Typography variant="caption" color="text.secondary" ml={1}>
+                                    {t("common.favorite")}: {item.favorite}
+                                </Typography>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </ListItem>
-        </Box>
-        );
+            </CardContent>
+        </CardWrapper>
+    );
 }
 
 const ScriptModelListItem = ({ item }) => {

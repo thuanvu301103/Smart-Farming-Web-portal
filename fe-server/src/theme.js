@@ -13,10 +13,12 @@ const lightTheme = createTheme({
             main: "#009688"
         },
         info: {
-            main: "#29B6F6"
+            main: "#29B6F6",
+            contrastText: "#FFFFFF"
         },
         warning: {
-            main: "#FFA000"
+            main: "#FF6F00",
+            contrastText: "#FFFFFF"
         },
         error: {
             main: '#e53935'
@@ -54,10 +56,12 @@ const darkTheme = createTheme({
             main: "#26A69A"
         },
         info: {
-            main: "#4FC3F7"
+            main: "#4FC3F7",
+            contrastText: "#FFFFFF"
         },
         warning: {
-            main: "#FEA011"
+            main: "#FEA011",
+            contrastText: "#FFFFFF"
         },
         error: {
             main: '#e53935'

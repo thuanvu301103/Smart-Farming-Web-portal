@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 // Import pages
 import BookmarkList from '../pages/BookmarkList';
-import ScriptList from '../pages/ScriptList';
+import ScriptList from './script/ScriptList';
 import ModelList from '../pages/ModelList';
 import Overview from './overview/Overview';
 import Explore from '../pages/Explore';
@@ -23,7 +23,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 // Hooks
-import { useFetchProfile, useFetchTopScripts} from "../hooks/useFetchUser";
+import { useFetchProfile, useFetchTopScripts, useFetchScriptsList} from "../hooks/useFetchUser";
 
 const User = () => {
 
@@ -32,29 +32,16 @@ const User = () => {
     // Get userId
     const { userId } = useParams();
 
-    // Fetch scripts List
-    const [scripts, setScripts] = useState([]);
-    const [scriptLoading, setScriptLoading] = useState(true); // Add loading state
-
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3000/${userId}/scripts`);
-                setScripts(response.data);
-            } catch (error) {
-                console.error('Error fetching scripts:', error);
-            } finally {
-                setScriptLoading(false); // Set loading to false after fetching data
-            }
-        };
-        fetch();
-    }, [userId]);
-
     // Fetch user's profile
-    const { profile, profileLoading, profileError } = useFetchProfile(userId);
+    const { data: profile, loading: profileLoading, error: profileError } = useFetchProfile(userId);
+    //console.log("Profile", profile);
+
+    // Fetch scripts List
+    const { data: scriptsList, loading: scriptsListLoading, error: scriptsListError  } = useFetchScriptsList(userId);
+    //console.log("Scripts List:", scriptsList);
 
     // Fetch user's top scripts
-    const { topScripts, topScriptsLoading, topScriptsError } = useFetchTopScripts(userId);
+    const { data: topScripts, loading: topScriptsLoading, error: topScriptsError } = useFetchTopScripts(userId);
 
     // Fetch Models Data
     const [models, setModels] = useState([]);
@@ -88,7 +75,7 @@ const User = () => {
             value: "scripts",
             path: "./scripts",
             label: t("tab.script"),
-            element: <ScriptList data={scripts} loading={scriptLoading}/>
+            element: <ScriptList data={scriptsList} loading={scriptsListLoading}/>
         },
         {
             icon: <ModelTrainingOutlinedIcon />,

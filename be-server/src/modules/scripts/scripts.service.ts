@@ -1,23 +1,50 @@
 ﻿import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { UsersService } from "../users/users.service";
 import { Script } from '../../schemas/scripts.schema';
+import { User } from '../../schemas/users.schema';
 
 @Injectable()
 export class ScriptsService {
-    constructor(@InjectModel(Script.name) private scriptModel: Model<Script>) { }
+    constructor(
+        @InjectModel(Script.name) private scriptModel: Model<Script>,
+        @InjectModel(User.name) private readonly userModel: Model<User>,
+    ) { }
 
     // Find all scripts of a user
-    async findAllScripts(userId: string):
+    async findAllScripts(userId: string, currentUserId: string):
         Promise<{
             name: string;
             description: string;
-            privacy: string
+            privacy: string;
+            favorite: number;
+            location: string[];
+            plant_type: string[];
+            isFavorite: boolean
         }[]>
     {
-        const result = await this.scriptModel.find({ owner_id: new Types.ObjectId(userId) })
-            .select('name description privacy').lean().exec();
-        return result;
+        // Get favorite_scripts of currentUser
+        const user = await this.userModel.findById(currentUserId).select('favorite_scripts').lean();
+        const favoriteScripts = user?.favorite_scripts || [];
+        //console.log('Favourite scripts: ', currentUserId, favoriteScripts)
+
+        // Search Condition
+        const filterCondition: any = { owner_id: new Types.ObjectId(userId) };
+        //console.log(currentUserId, userId, userId == currentUserId);
+        if (currentUserId !== userId) {
+            filterCondition.privacy = "public";
+        }
+
+        const scripts = await this.scriptModel.find(filterCondition)
+            .select('_id name description privacy favorite location plant_type')
+            .lean()
+            .exec();
+
+        return scripts.map(script => ({
+            ...script,
+            isFavorite: favoriteScripts.some(fav => fav.toString() === script._id.toString())
+        }));
     }
 
     // Find all script with locations

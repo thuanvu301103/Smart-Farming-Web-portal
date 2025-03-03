@@ -71,7 +71,7 @@ const PaginatedList = ({
             {search? 
                 <TextField
                     label={t("list.search_for")}
-                    variant="outlined"
+                    variant="filled"
                     color="success"
                     sx={{ flexGrow: 1 }}
                     margin="normal"

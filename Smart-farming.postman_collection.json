@@ -13,7 +13,14 @@
 					"name": "Get all scripts that belong to a user",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MDk2ODU5OCwiZXhwIjoxNzQwOTcyMTk4fQ.FC01gCs9pMVIg3v5g9AZh5urUez4vrASKQSkvWVVfd4",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -29,7 +36,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
+									"value": "67c273401fb713deae4b068c"
 								}
 							]
 						}
@@ -147,7 +154,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nothing\",\r\n    \"share_id\": [\"679b765e8496f00b99063cb8\"]\r\n}",
+							"raw": "{\r\n    \"name\": \"Magic\",\r\n    \"share_id\": [\"679b765e8496f00b99063cb8\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -977,6 +984,91 @@
 								{
 									"key": "username",
 									"value": "tho7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change user's info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphamEiLCJzdWIiOiI2N2MyNzMwYjFmYjcxM2RlYWU0YjA2ODkiLCJpYXQiOjE3NDA5NzM5MjQsImV4cCI6MTc0MDk3NzUyNH0.WqBcmNC3rSQk_Pw5CY7NEFgxaOylcoPBD6C0jBeY4iw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"katbot\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add/remove favourite script",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MDk3NDg0NSwiZXhwIjoxNzQwOTc4NDQ1fQ.rePWu4F9JxcCX-zlkjG7Wajew7ehA-lvIDMPdHqzAOM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scriptId\": \"67ad9cfeba6e69372ba8712a\",\r\n    \"action\": \"add\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/favorite",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"favorite"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
 								}
 							]
 						}

@@ -1,4 +1,8 @@
 ﻿{
+  "common": {
+    "unknown": "Không xác định",
+    "favorite": "Yêu thích"
+  },
   "welcome": "Chào mừng",
   "login": {
     "title": "Đăng nhập",
@@ -7,7 +11,7 @@
     "password": "Mật khẩu",
     "password_label": "Nhập mật khẩu",
     "login_failed": "Đăng nhập thất bại. Vui lòng kiểm tra lại Tên đăng nhập hoặc Mật khẩu và thử lại!",
-    "unfilled_fields":  "Vui lòng nhập đầy đủ Tên đăng nhập và Mật khẩu!"
+    "unfilled_fields": "Vui lòng nhập đầy đủ Tên đăng nhập và Mật khẩu!"
   },
   "signup": {
     "title": "Đăng kí"
@@ -21,7 +25,9 @@
     "about": "Giới thiệu",
     "contact": "Liên hệ",
     "avatar_menu": {
-      "dark_mode": "Chế độ tối"
+      "dark_mode": "Chế độ tối",
+      "profile": "Hồ sơ",
+      "sign_out":  "Đăng xuất"
     }
   },
   "profile": {
@@ -119,7 +125,7 @@
       "create": "Tạo mới",
       "script": "Kịch bản tưới",
       "comment": "Đánh giá kịch bản",
-      "model":  "Mô hình tưới thông minh"
+      "model": "Mô hình tưới thông minh"
     }
   },
   "loading": "Đang tải dữ liệu...",

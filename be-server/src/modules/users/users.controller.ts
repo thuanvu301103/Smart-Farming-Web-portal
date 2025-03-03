@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Param, Query } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, UseGuards, Param, Query, Req, ForbiddenException  } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from '../../schemas/users.schema';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
@@ -36,5 +36,34 @@ export class UsersController {
         profile_image: string
     }> {
         return this.usersService.getInfoUser(userId);
+    }
+
+    @Put(':userId')
+    @UseGuards(JwtAuthGuard)
+    async updateUser(@Param('userId') userId: string, @Body() updatedData: any, @Req() req) {
+
+        const currentUserId = req.user.userId;
+        if (currentUserId !== userId) {
+            throw new ForbiddenException("You cannot edit other user's information");
+        }
+
+        return await this.usersService.updateUserInfo(userId, updatedData);
+    }
+
+    @Put(':userId/favorite')
+    @UseGuards(JwtAuthGuard)
+    async favoriteScript(
+        @Param('userId') userId: string,
+        @Body() { scriptId, action }: { scriptId: string; action: 'add' | 'remove' },
+        @Req() req
+    ) {
+        const currentUserId = req.user.userId; // Get the current user from JWT
+
+        // Ensure users can only modify their own favorites
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only update your own favorites.');
+        }
+
+        return await this.usersService.favoriteScript(userId, scriptId, action);
     }
 }
