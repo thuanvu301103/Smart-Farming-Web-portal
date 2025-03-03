@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 import User from './pages/User';
 import Script from './pages/Script';
 import Model from './pages/Model';
-import NewScript from './pages/NewScript';
+import NewScript from './pages/script/newScript/NewScript';
 import NewModel from './pages/NewModel';
 import Login from './pages/login/Login';
 // React Router DOM

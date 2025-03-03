@@ -23,7 +23,7 @@
     "Táo",
     "Chanh"
   ],
-  "favorite": 2
+  "favorite": 1
 },
 {
   "_id": {
@@ -86,7 +86,7 @@
   },
   "model_id": null,
   "__v": 1,
-  "favorite": 0,
+  "favorite": 1,
   "location": [],
   "plant_type": [],
   "share_id": []
@@ -102,8 +102,11 @@
     "$oid": "67c273401fb713deae4b068c"
   },
   "model_id": null,
-  "__v": 0,
-  "favorite": 0
+  "__v": 1,
+  "favorite": 1,
+  "location": [],
+  "plant_type": [],
+  "share_id": []
 },
 {
   "_id": {
@@ -146,4 +149,120 @@
   "model_id": null,
   "__v": 0,
   "favorite": 0
+},
+{
+  "_id": {
+    "$oid": "67c57e561968eef689f61389"
+  },
+  "name": "Đây là mootjj kịch bản",
+  "description": "Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bản",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "model_id": null,
+  "share_id": [],
+  "favorite": 1,
+  "location": [],
+  "plant_type": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c580103407a0b718fc8157"
+  },
+  "name": "Đây là kichjbanr thứ 2",
+  "description": "",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "model_id": null,
+  "share_id": [],
+  "favorite": 0,
+  "location": [],
+  "plant_type": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c5803e3407a0b718fc834b"
+  },
+  "name": "Đây là kịch abrn thứ 3",
+  "description": "Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3",
+  "privacy": "private",
+  "owner_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "model_id": null,
+  "share_id": [],
+  "favorite": 0,
+  "location": [],
+  "plant_type": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c581b93407a0b718fc8ef0"
+  },
+  "name": "Đây là kịch bản thứ 4",
+  "description": "",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "model_id": null,
+  "share_id": [],
+  "favorite": 0,
+  "location": [],
+  "plant_type": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c582a76ea0e2504cac0801"
+  },
+  "name": "Đây là kich bản thứ 5",
+  "description": "",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "model_id": null,
+  "share_id": [
+    {
+      "$oid": "67c571cbb62805db4a4c27b1"
+    },
+    {
+      "$oid": "67c571deb62805db4a4c27b2"
+    }
+  ],
+  "favorite": 0,
+  "location": [],
+  "plant_type": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c584666ea0e2504cac0887"
+  },
+  "name": "Đây là kịch bản cuối cùng",
+  "description": "Đây là kịch bản cuối cùng",
+  "privacy": "private",
+  "owner_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "model_id": null,
+  "share_id": [
+    {
+      "$oid": "67c571cbb62805db4a4c27b1"
+    },
+    {
+      "$oid": "67c571deb62805db4a4c27b2"
+    }
+  ],
+  "favorite": 0,
+  "location": [],
+  "plant_type": [],
+  "__v": 0
 }]

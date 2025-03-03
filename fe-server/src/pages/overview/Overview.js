@@ -93,7 +93,7 @@ const Overview = ({ profile, topScripts }) => {
                                                 variant="body1"
                                                 color="success"
                                                 style={{ textDecoration: 'none', fontWeight: 'bold' }}
-                                                onClick={() => navigate(`scripts/${item?._id ? item._id : '#'}/code`)}
+                                                onClick={() => navigate(`../scripts/${item?._id ? item._id : '#'}/code`)}
                                             >
                                                 {item?.name ? item.name : null}
                                             </Link>
