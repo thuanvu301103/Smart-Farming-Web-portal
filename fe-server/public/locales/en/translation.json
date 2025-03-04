@@ -1,4 +1,18 @@
 {
+  "button": {
+    "default": "Default",
+    "favorite": "Favorite",
+    "new": "New",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit_profile": "Edit profile",
+    "create_script": "Create script",
+    "cancel": "Cancel",
+    "search": "Search",
+    "template": "Template",
+    "upload": "Upload"
+  },
   "common": {
     "unknown": "Unknown",
     "favorite": "Favorite"
@@ -105,17 +119,6 @@
   "list": {
     "search_for": "Search for...",
     "show_more": "Show more"
-  },
-  "button": {
-    "favorite": "Favorite",
-    "new": "New",
-    "edit": "Edit",
-    "confirm": "Confirm",
-    "delete": "Delete",
-    "edit_profile": "Edit profile",
-    "create_script": "Create script",
-    "cancel": "Cancel",
-    "search": "Search"
   },
   "privacy": {
     "public": "Public",

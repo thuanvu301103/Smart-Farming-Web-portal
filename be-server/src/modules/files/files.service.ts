@@ -49,7 +49,7 @@ export class FilesService {
             for (const file of files) {
                 const localPath = path.join(__dirname, "./../uploads", file.filename);
                 //const remotePath = `${this.ftpUploadDir}/${file.originalname}`;
-                const remotePath = `${remote_path}/${this.generateNewFilename(file.originalname)}`;
+                const remotePath = `${remote_path}/${file.originalname}`;
 
                 // Upload file to FTP
                 await this.ftpClient.uploadFrom(localPath, remotePath);

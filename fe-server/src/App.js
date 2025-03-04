@@ -43,7 +43,7 @@ function App() {
                             <Route path="/:userId/models/:modelId/*" element={<Model />} />
                             <Route path="/:userId/models/:modelId/scripts/:scriptId/*" element={<Script />} />
                             <Route path="/:userId/models/:modelId/new-script" element={<NewScriptModel userId={userId}/>} />
-                            <Route path="/new-script" element={<NewScript userId={userId}/>} />
+                            <Route path="/new-script" element={<ProtectedRoute element={<NewScript userId={userId} />} />} />
                             <Route path="/new-model" element={<NewModel userId={userId}/>} />
                         </Routes>
                     </div>
