@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
 const lightTheme = createTheme({
+
     palette: {
         mode: 'light',
         primary: {
@@ -29,7 +30,7 @@ const lightTheme = createTheme({
         comment: {
             main: '#8E24AA'
         },
-       background: {
+        background: {
            default: '#f4fffe', // Background color
             trans_black: 'rgba(120, 120, 120, 0.5)'
         },

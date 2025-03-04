@@ -1,17 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './language/i18n'; // Import the i18n configuration
-import { DarkModeProvider } from './context/DarkModeContext';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
+import "./language/i18n"; // Import i18n configuration
+import { DarkModeProvider } from "./context/DarkModeContext";
 
-const Root = () => {
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-    return (
+root.render(
+    <React.StrictMode>
         <DarkModeProvider>
-            <App />
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
         </DarkModeProvider>
-    );
-};
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Root />);
+    </React.StrictMode>
+);
