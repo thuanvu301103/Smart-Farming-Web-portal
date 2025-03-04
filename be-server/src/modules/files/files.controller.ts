@@ -1,14 +1,17 @@
-import {
+﻿import {
     Controller,
     Post, Delete, Get,
-    Body, Query, Param,
-    UploadedFiles, UseInterceptors
+    Body, Query, Param, Req,
+    UploadedFiles, UseInterceptors,
+    UseGuards, ForbiddenException
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { FilesService } from './files.service';
+import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
+
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname, "./../uploads"), // Temporary folder
@@ -25,12 +28,20 @@ export class FilesController {
     constructor(private readonly filesService: FilesService) { }
 
     @Post('upload')
+    @UseGuards(JwtAuthGuard)
     @UseInterceptors(FilesInterceptor('files', 50, { storage }))
     async uploadFiles(
         @UploadedFiles() files: Express.Multer.File[],
-        @Body('remote_path') remotePath: string
+        @Body('remote_path') remotePath: string,
+        @Req() req
     ) {
-        //if (!files || files.length === 0) throw new Error('No files uploaded');
+        const parts = remotePath.split("/");
+        const userId = parts[1];
+        const currentUserId = req.user.userId; // Get the current user from JWT
+        // Ensure users can only modify their own favorites
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only upload your own file.');
+        }
 
         await this.filesService.uploadFilesToFTP(files, remotePath);
         return { message: 'Files uploaded successfully to FTP' };

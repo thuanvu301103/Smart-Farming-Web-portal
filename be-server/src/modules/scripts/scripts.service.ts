@@ -41,7 +41,7 @@ export class ScriptsService {
             .lean()
             .exec();
 
-        return scripts.map(script => ({
+        return scripts.reverse().map(script => ({
             ...script,
             isFavorite: favoriteScripts.some(fav => fav.toString() === script._id.toString())
         }));
@@ -88,6 +88,7 @@ export class ScriptsService {
         name: string,
         description: string,
         privacy: string,
+        share_id: string[]
     ):
         Promise<string>
     {
@@ -95,7 +96,8 @@ export class ScriptsService {
             name: name,
             description: description,
             privacy: privacy, 
-            owner_id: new Types.ObjectId(userId)
+            owner_id: new Types.ObjectId(userId),
+            share_id: share_id.map(id => new Types.ObjectId(id))
         });
         return (await newScript.save())._id.toString();
     }

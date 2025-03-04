@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next';
 // Import Icons
 import AddIcon from '@mui/icons-material/Add';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+// React DOM
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 const PaginatedList = ({
     ListItemComponents,
@@ -22,7 +24,7 @@ const PaginatedList = ({
     addHref = null,
     updatedDataHook = null
 }) => {
-
+    const navigate = useNavigate();
     const { t } = useTranslation();
     // Handle pagination
     const [page, setPage] = useState(1);
@@ -82,7 +84,8 @@ const PaginatedList = ({
             }
             {addHref ? <Button variant="contained" color="success" size="large"
                     startIcon={<AddIcon />}
-                    href={addHref}
+                    sx={{ borderRadius: '8px' }}
+                    onClick={() => navigate(addHref)}
                 >
                 {t("button.new")}
             </Button> : null}

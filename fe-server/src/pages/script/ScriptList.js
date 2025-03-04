@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { PaginatedList } from '../../components/List';
 import { ScriptListItem } from '../../components/ListItem';
 import {
-    Grid, Typography, Link, Box,
-    CardContent, ListItem, List, Divider
+    Grid, Box,
 } from '@mui/material';
+// React Router DOM
+import { useParams } from 'react-router-dom';
 
-const ScriptList = ({data, loading}) => {
+const ScriptList = ({ data, loading }) => {
 
-    //console.log("ScriptList data: ", data);
+    const { userId } = useParams();
 
     return (
         <Box
@@ -24,7 +25,7 @@ const ScriptList = ({data, loading}) => {
                         items={data}
                         search={'name'}
                         loading={loading}
-                        addHref={'/new-script'}
+                        addHref={localStorage.getItem("userId") == userId ? '/new-script' : null}
                     />
                 </Grid>
             </Grid>

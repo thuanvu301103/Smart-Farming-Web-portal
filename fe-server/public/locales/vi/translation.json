@@ -1,4 +1,18 @@
 ﻿{
+  "button": {
+    "default":  "Mặc định",
+    "favorite": "Yêu thích",
+    "new": "Tạo mới",
+    "edit": "Chỉnh sửa",
+    "confirm": "Xác nhận",
+    "delete": "Xóa",
+    "edit_profile": "Chỉnh sửa hồ sơ",
+    "create_script": "Tạo kịch bản",
+    "cancel": "Hủy",
+    "search": "Tìm kiếm",
+    "template": "Bản mẫu",
+    "upload": "Tải lên"
+  },
   "common": {
     "unknown": "Không xác định",
     "favorite": "Yêu thích"
@@ -27,7 +41,7 @@
     "avatar_menu": {
       "dark_mode": "Chế độ tối",
       "profile": "Hồ sơ",
-      "sign_out":  "Đăng xuất"
+      "sign_out": "Đăng xuất"
     }
   },
   "profile": {
@@ -43,7 +57,8 @@
     "public-note": "Bất kì ai trên internet đều có thể truy cập kịch bản này.",
     "private": "Riêng tư",
     "private-note": "Bạn có thể chọn ai có quyền truy cập vào kịch bản này.",
-    "shared-user": "Những người có quyền truy cập"
+    "shared-user": "Những người có quyền truy cập",
+    "no_name_err": "Tên kịch bản không được để trống!"
   },
   "edit-script": {
     "title": "Chỉnh sửa kịch bản tưới"
@@ -103,16 +118,6 @@
   "list": {
     "search_for": "Tìm kiếm...",
     "show_more": "Hiển thị thêm"
-  },
-  "button": {
-    "favorite": "Yêu thích",
-    "new": "Tạo mới",
-    "edit": "Chỉnh sửa",
-    "confirm": "Xác nhận",
-    "delete": "Xóa",
-    "edit_profile": "Chỉnh sửa hồ sơ",
-    "create_script": "Tạo kịch bản",
-    "cancel": "Hủy"
   },
   "privacy": {
     "public": "Công khai",
