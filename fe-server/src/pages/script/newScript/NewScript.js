@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 // Import components
 import {
     Typography,
@@ -18,7 +18,6 @@ import PrivacyPanel from './PrivacyPanel'
 import { useTheme } from "@mui/material/styles";
 // Translation
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 // API
 import scriptApi from '../../../api/scriptAPI';
@@ -35,7 +34,7 @@ const VisuallyHiddenInput = styled('input')({
     width: 5,
 });
 
-const NewScript = ({ userId}) => {
+const NewScript = () => {
 
     const { t } = useTranslation();
     const navigate = useNavigate();

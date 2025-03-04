@@ -1,11 +1,12 @@
 ﻿{
   "button": {
-    "default":  "Mặc định",
+    "default": "Mặc định",
+    "delete": "Xóa",
+    "delete_script":  "Xóa kịch bản",
     "favorite": "Yêu thích",
     "new": "Tạo mới",
     "edit": "Chỉnh sửa",
     "confirm": "Xác nhận",
-    "delete": "Xóa",
     "edit_profile": "Chỉnh sửa hồ sơ",
     "create_script": "Tạo kịch bản",
     "cancel": "Hủy",

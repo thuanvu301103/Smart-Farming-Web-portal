@@ -14,6 +14,24 @@ const scriptApi = {
         });
         return response.data;
     },
+
+    getScriptInfo: async (userId, scriptId) => {
+        const response = await axiosInstance.get(`/${userId}/scripts/${scriptId}`);
+        //console.log(response.data);
+        return response.data;
+    },
+
+    deleteScriptInfo: async (userId, scriptId) => {
+        const response = await axiosInstance.delete(`/${userId}/scripts/${scriptId}`);
+        return response.data;
+    },
+
+    deleteScriptFiles: async (userId, scriptId) => {
+        const response = await axiosInstance.delete(`/files/deleteFolder`,
+            { params: { path: `${userId}/${scriptId}` } }
+        );
+        return response.data;
+    }
 };
 
 export default scriptApi;

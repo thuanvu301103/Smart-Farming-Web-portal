@@ -2,15 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\api",
-    "\\src\\components",
-    "\\src\\geoData",
     "\\src\\pages",
     "\\src\\pages\\login",
     "\\src\\pages\\overview",
     "\\src\\pages\\script",
-    "\\src\\pages\\script\\newScript"
+    "\\src\\pages\\script\\newScript",
+    "\\src\\pages\\script\\scriptCode"
   ],
-  "SelectedNode": "\\src\\pages\\login\\Login.js",
+  "SelectedNode": "\\src\\pages\\script\\scriptCode\\ScriptCode.js",
   "PreviewInSolutionExplorer": false
 }

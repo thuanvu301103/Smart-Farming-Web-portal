@@ -77,7 +77,17 @@ export class ScriptsController {
     }
 
     @Delete(':scriptId')
-    async deleteScript(@Param('scriptId') scriptId: string) {
+    @UseGuards(JwtAuthGuard)
+    async deleteScript(
+        @Param("userId") userId: string,
+        @Param('scriptId') scriptId: string,
+        @Req() req
+    ) {
+        const currentUserId = req.user.userId; // Get the current user from JWT
+        // Ensure users can only modify their own favorites
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only delete your own script.');
+        }
         return await this.scriptsService.deleteScript(scriptId);
     }
 }

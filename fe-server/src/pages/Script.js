@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 // Import components
 import Tabnav from '../components/Tabnav';
 // Import pages
-import ScriptCode from '../pages/ScriptCode';
+import ScriptCode from './script/scriptCode/ScriptCode';
 // Import Icons
 import CodeIcon from '@mui/icons-material/Code';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -11,32 +11,22 @@ import { useTranslation } from 'react-i18next';
 // React Router DOM
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import ScriptComment from './ScriptComment';
+// Hooks
+import { useFetchScriptInfo } from '../hooks/useFetchScript';
+
 
 const Script = () => {
 
     const { t } = useTranslation();
-
-    // Get scriptId
+    // Get scriptId and userId
     const { userId, scriptId } = useParams();
+    // Navigation
+    const navigation = useNavigate();
 
-    // Fetch Script info
-    const [scriptInfo, setScriptInfo] = useState([]);
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                const response = await axios.get(
-                    `http://localhost:3000/${userId}/scripts/${scriptId}`
-                );
-                //console.log(response.data);
-                setScriptInfo(response.data);
-            } catch (error) {
-                console.error('Error fetching scripts:', error);
-            }
-        };
-        fetch();
-    }, [userId, scriptId]);
+    // Fetch Script Info
+    const { data: scriptInfo, loading: scriptInfoLoading, error: scriptInfoError } = useFetchScriptInfo(userId, scriptId);
 
     // Tab data
     const tabdata = [
@@ -55,6 +45,15 @@ const Script = () => {
             element: <ScriptComment scriptInfo={scriptInfo} />
         },
     ];
+
+    // Auto navigate to code tab
+    useEffect(() => {
+        if (scriptInfo && !scriptInfoLoading && !scriptInfoError) {
+            setTimeout(() => {
+                navigation("./code"); // Navigate afetr render loop is complete
+            }, 0);
+        }
+    }, [scriptInfo, scriptInfoLoading, scriptInfoError, navigation])
 
     return (
         <div>

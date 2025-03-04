@@ -1,11 +1,12 @@
 {
   "button": {
     "default": "Default",
+    "delete": "Delete",
+    "delete_script": "Delete Script",
     "favorite": "Favorite",
     "new": "New",
     "edit": "Edit",
     "confirm": "Confirm",
-    "delete": "Delete",
     "edit_profile": "Edit profile",
     "create_script": "Create script",
     "cancel": "Cancel",

@@ -232,7 +232,14 @@
 					"name": "Delete a script",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTA1ODc5OSwiZXhwIjoxNzQxMDYyMzk5fQ.VDNitVKZ319tuR4BjcYnG6URENeJcUJpmhoviXmVPDU",
+									"type": "string"
+								}
+							]
 						},
 						"method": "DELETE",
 						"header": [],

@@ -4,20 +4,22 @@ import {
     List, ListItem,
     Grid, Typography, Button, Box, Modal,
     FormControl, FormControlLabel, TextField, Radio, RadioGroup,
-    FormHelperText
 } from '@mui/material';
-//import { PaginatedList } from '../components/List';
-import { UserListItem } from '../components/ListItem';
+import DeleteModal from '../../../components/modal/DeleteModal';
+import { UserListItem } from '../../../components/ListItem';
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { styled } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 // Translation
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+// API
+import scriptApi from '../../../api/scriptAPI';
 
 const EditScriptModel = ({ open, handleClose, oldData }) => {
 
@@ -341,107 +343,6 @@ const EditScriptModel = ({ open, handleClose, oldData }) => {
         );
 }
 
-const DeleteScriptModel = ({ open, handleClose, oldData }) => {
-
-    const { t } = useTranslation();
-    const navigate = useNavigate();
-
-    const [formData, setFormData] = useState({
-        _id: '',
-        name: '',
-        description: '',
-        privacy: '',
-        owner_id: '',
-    });
-
-    useEffect(() => {
-        if (oldData) {
-            setFormData({
-                _id: oldData._id,
-                name: oldData.name,
-                description: oldData.description,
-                privacy: oldData.privacy,
-                owner_id: oldData.owner_id,
-            });
-        }
-    }, [oldData]);
-    
-    // Handle Cofirm
-    const handleConfirm = async (e) => {
-        e.preventDefault(); // Prevent default form submission
-        // Call Edit api
-        try {
-            const response = await axios.delete(
-                `http://localhost:3000/${formData.owner_id}/scripts/${formData._id}`,
-            );
-            console.log('Response:', response.data);
-
-            const deleteFolderResponse = await axios.delete(
-                `http://localhost:3000/files/deleteFolder`,
-                { params: { path: `${formData.owner_id}/${formData._id}` } }
-            );
-            console.log('Folder Deleted:', deleteFolderResponse.data);
-            
-        } catch (error) {
-            console.error('Error submitting form:', error);
-        }
-        // Close Model
-        
-        handleClose();
-        navigate(`/${oldData.owner_id}/scripts`);
-        // navigate(-1);
-    }
-
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 1000,
-        bgcolor: 'background.paper',
-        border: '2px',
-        boxShadow: 24,
-        borderRadius: '10px',
-        p: 4,
-    };
-
-
-    return (
-        <Modal
-            open={open}
-            onClose={handleClose}
-        >
-            <Box sx={style} gap={2} display="flex" flexDirection="column"
-                component="form"
-                onSubmit={handleConfirm}
-            >
-                {/*Title*/}
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    {t("delete-script.title")}
-                </Typography>
-                {/*Note confirm*/}
-                <Typography
-                    variant="body1" gutterBottom
-                    sx={{ mt: 1 }}
-                >
-                    {t("delete-script.note")}
-                </Typography>
-               
-                {/*Submit Button*/}
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="error"
-                    size="small"
-                    sx={{ alignSelf: 'flex-end' }}
-                >
-                    {t("button.confirm")}
-                </Button>
-            </Box>
-        </Modal>
-    );
-}
-
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
     clipPath: 'inset(50%)',
@@ -458,7 +359,8 @@ const VisuallyHiddenInput = styled('input')({
 const EditFileModal = ({ open, handleClose, oldData, getFileContent}) => {
 
     const { t } = useTranslation();
-    const navigate = useNavigate();
+    
+    
 
     const [fileData, setFileData] = useState(null);
     const [fileName, setFileName] = useState("");
@@ -601,16 +503,82 @@ const EditFileModal = ({ open, handleClose, oldData, getFileContent}) => {
 
 const ScriptCode = ({ scriptInfo }) => {
     const { t } = useTranslation();
-            
-    // Handle Edit Modal
-    const [openEdit, setOpenEdit] = useState(false);
-    const handleOpenEdit = () => setOpenEdit(true);
-    const handleCloseEdit = () => setOpenEdit(false);
+    const { userId, scriptId } = useParams();
+    const navigate = useNavigate();
 
     // Handle Delete Modal
     const [openDelete, setOpenDelete] = useState(false);
     const handleOpenDelete = () => setOpenDelete(true);
     const handleCloseDelete = () => setOpenDelete(false);
+    // Handle Cofirm Delete
+    const handleConfirmDelete = async (e) => {
+        e.preventDefault();
+        try {
+            let response = await scriptApi.deleteScriptInfo(userId, scriptId);
+            response = await scriptApi.deleteScriptFiles(userId, scriptId);
+        } catch (error) {
+            console.error('Error delete script:', error);
+        }
+        // Close Model
+        handleCloseDelete();
+        navigate(`/${userId}/scripts`);
+    }
+
+    return (
+        <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+        >
+            <Grid container
+                justifyContent="center"
+            >
+                <Grid container item
+                    xs={11} md={9} spacing={2} mb={2}
+                >
+                    <Grid items xs={12} md={12} mt={3} display="flex" justifyContent="space-between">
+                        {/* Title */}
+                        <Typography
+                            variant="h5" gutterBottom
+                            fontWeight="bold"
+                        >
+                            {scriptInfo.name}
+                        </Typography>
+                        {/* Delete Script Button */}
+                        <Button
+                            variant="contained"
+                            size="small"
+                            color="error"
+                            onClick={handleOpenDelete}
+                            startIcon={<DeleteOutlineIcon />}
+                            sx={{ borderRadius: '8px' }}
+                        >
+                            {t("button.delete_script")}
+                        </Button>
+                        <DeleteModal open={openDelete} handleClose={handleCloseDelete} handleConfirm={handleConfirmDelete} />
+                    </Grid>
+
+                    <Grid container item
+                        xs={12} md={7}
+                        sx={{
+                            order: { xs: 2, md: 1 },
+                            minHeight: "700px", display: "block"
+                        }}
+                    >
+
+                    </Grid>
+
+                </Grid>
+            </Grid>
+        </Box>  
+    );
+    /*
+    // Handle Edit Modal
+    const [openEdit, setOpenEdit] = useState(false);
+    const handleOpenEdit = () => setOpenEdit(true);
+    const handleCloseEdit = () => setOpenEdit(false);
+
+    
 
     //Handle Edit Fife
     const [openEditFile, setOpenEditFile] = useState(false);
@@ -664,11 +632,11 @@ const ScriptCode = ({ scriptInfo }) => {
                 >
                     {t("button.delete")}
                 </Button>
-                {/*Delete Script Model*/}
+                {Delete Script Model}
                 <DeleteScriptModel open={openDelete} handleClose={handleCloseDelete} oldData={scriptInfo} />
             </Box>
             <Grid container alignItems="start" mt={1} mb={1}>
-                {/*File and Folder*/}
+                {/*File and Folder}
                 <Grid item xs={9} gap={2} display={'flex'} flexDirection={'column'} justifyContent={'center'}>
                     <TextField
                     multiline
@@ -690,7 +658,7 @@ const ScriptCode = ({ scriptInfo }) => {
                 </Grid>
             </Grid>
                 
-                {/*Script Info*/}
+                {/*Script Info}
                 <Grid item xs={3}>
                     <Box
                         sx={{
@@ -699,14 +667,14 @@ const ScriptCode = ({ scriptInfo }) => {
                         }}
                         gap={2}
                     >
-                        {/*Title*/}
+                        {/*Title}
                         <Box
                             sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between',}}
                         >
                             <Typography variant="h6" >
                                 {t("script-detail.about")}
                             </Typography>
-                            {/*Edit Script Button*/}
+                            {/*Edit Script Button}
                             <Button
                                 variant="contained"
                                 size="small"
@@ -716,14 +684,14 @@ const ScriptCode = ({ scriptInfo }) => {
                             >
                                 {t("button.edit")}
                             </Button>
-                            {/*Edit Script Model*/}
+                            {/*Edit Script Model}
                             <EditScriptModel open={openEdit} handleClose={handleCloseEdit} oldData={scriptInfo} />
                         </Box>
-                        {/*Description*/}
+                        {/*Description}
                         <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', mt:1 }}>
                             {scriptInfo?.description ? scriptInfo.description : t('script-detail.no-description')}
                         </Typography>
-                        {/*Privacy*/}
+                        {/*Privacy}
                         <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
                             gap={2}
                         >
@@ -737,6 +705,7 @@ const ScriptCode = ({ scriptInfo }) => {
             </Grid>
         </div>
         );
+    */
 }
 
 export default ScriptCode;

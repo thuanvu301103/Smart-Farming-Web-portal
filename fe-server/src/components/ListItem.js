@@ -55,7 +55,7 @@ const ScriptListItem = ({ item }) => {
                             variant="h6"
                             color="success"
                             style={{ textDecoration: 'none', fontWeight: 'bold' }}
-                            onClick={() => navigate(`${item?._id ? item._id : '#'}/code`)}
+                            onClick={() => navigate(`${item?._id ? item._id : '#'}`)}
                         >
                             {item?.name ? item.name : null}
                         </Link>
