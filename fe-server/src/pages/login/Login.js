@@ -100,12 +100,12 @@ export default function Login() {
                     <CardContent>
                         {error && <Typography variant="body1" color="error" mb={2}>{t(error)}</Typography>}
                         <Box
-                                display="flex"
-                                flexDirection="column"
-                                alignItems="flex-start"
-                                gap={1}
-                            fullWidth
-                            >
+                            display="flex"
+                            flexDirection="column"
+                            alignItems="flex-start"
+                            gap={1}
+                            sx = {{width: '100%'}}
+                        >
                                 {/*Username*/}
                                 <Typography
                                 variant="body1"
@@ -140,34 +140,33 @@ export default function Login() {
                                 <TextField
                                     fullWidth
                                     label={t("login.password_label")}
-                                variant="filled"
+                                    variant="filled"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                     color="success"
                                     size="small"
-                                fullWidth
-                                sx={{
-                                    '& .MuiInputBase-input': {
-                                        color: 'text.default_white',
-                                    },
-                                }}
-                                type={showPassword ? 'text' : 'password'}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label={
-                                                showPassword ? 'hide the password' : 'display the password'
-                                            }
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            onMouseUp={handleMouseUpPassword}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
+                                    sx={{
+                                        '& .MuiInputBase-input': {
+                                            color: 'text.default_white',
+                                        },
+                                    }}
+                                    type={showPassword ? 'text' : 'password'}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label={
+                                                    showPassword ? 'hide the password' : 'display the password'
+                                                }
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                                onMouseUp={handleMouseUpPassword}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
                                 />
                                 {/*Buttons*/}
                                 <Grid container
