@@ -17,7 +17,7 @@ const HomePage = lazy(() => import("./pages/home/HomePage.jsx"));
 const User = lazy(() => import("./pages/User"));
 const Script = lazy(() => import("./pages/Script"));
 const Model = lazy(() => import("./pages/Model"));
-const NewScript = lazy(() => import("./pages/NewScript"));
+const NewScript = lazy(() => import("./pages/script/newScript/NewScript.js"));
 const NewModel = lazy(() => import("./pages/NewModel"));
 const Login = lazy(() => import("./pages/login/Login"));
 const NewScriptModel = lazy(() => import("./pages/NewScriptModel"));
