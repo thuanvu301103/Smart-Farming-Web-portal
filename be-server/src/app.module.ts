@@ -13,13 +13,22 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
-    imports: [
-        ConfigModule.forRoot({ isGlobal: true }), // Import ConfigModule at the root level
-        DatabaseModule, ScriptsModule, UsersModule, FilesModule, ModelsModule, CommentsModule, NotificationsModule,
-        NotificationGateway,
-        AuthModule
-    ],
-    controllers: [AppController],
-    providers: [AppService, NotificationGateway],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }), // Import ConfigModule at the root level
+    DatabaseModule,
+    ScriptsModule,
+    UsersModule,
+    FilesModule,
+    ModelsModule,
+    CommentsModule,
+    NotificationsModule,
+    NotificationGateway,
+    AuthModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService, NotificationGateway],
 })
 export class AppModule {}
