@@ -1,8 +1,6 @@
 // Components
 import {
-    List, ListItem,
     Grid, Typography, Button, Box, Modal,
-    FormControl, FormControlLabel, TextField, Radio, RadioGroup,
 } from '@mui/material';
 // Icon
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
@@ -22,7 +20,7 @@ const style = {
     // overflowY: 'auto', // Enable vertical scrolling
 };
 
-const DeleteModal = ({ open, handleClose, handleConfirm }) => {
+const DeleteModal = ({ open, handleClose, handleConfirm, title, note }) => {
 
     const { t } = useTranslation();
 
@@ -35,7 +33,7 @@ const DeleteModal = ({ open, handleClose, handleConfirm }) => {
             <Box sx={style} gap={2} display="flex" flexDirection="column" alignItems="center">
                 {/*Title */}
                 <Typography id="modal-modal-title" variant="h6" component="h2" fontWeight="bold">
-                    {t("delete-script.title")}
+                    {t(title)}
                 </Typography>
                
                 <ReportGmailerrorredIcon color="error" sx={{ width: '150px', height: '150px' }}/>
@@ -45,7 +43,7 @@ const DeleteModal = ({ open, handleClose, handleConfirm }) => {
                     variant="body1" gutterBottom
                     sx={{ mt: 1 }}
                 >
-                    {t("delete-script.note")}
+                    {t(note)}
                 </Typography>
                 <Grid display="flex" justifyContent="flex-end" sx={{ width: "100%" }}>
                     {/* Cancel Button */}

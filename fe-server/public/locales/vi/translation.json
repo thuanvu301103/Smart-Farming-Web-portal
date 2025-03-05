@@ -62,7 +62,8 @@
     "no_name_err": "Tên kịch bản không được để trống!"
   },
   "edit-script": {
-    "title": "Chỉnh sửa kịch bản tưới"
+    "title": "Chỉnh sửa kịch bản tưới",
+    "no_name_err": "Tên kịch bản không được để trống!"
   },
   "delete-script": {
     "title": "Xóa kịch bản tưới",

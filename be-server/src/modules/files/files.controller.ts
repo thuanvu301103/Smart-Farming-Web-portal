@@ -71,8 +71,21 @@ export class FilesController {
 
     // Endpoint to get file content from FTP
     @Get('file-content/:path')
-    async getFileContent(@Param('path') filePath: string) {
-        console.log('Requested file path:', filePath);
+    @UseGuards(JwtAuthGuard)
+    async getFileContent(
+        @Param('path') filePath: string,
+        @Req() req
+    ) {
+        /*
+        const parts = filePath.split("%2F");
+        const userId = parts[1];
+        const currentUserId = req.user.userId; // Get the current user from JWT
+        // Ensure users can only modify their own favorites
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only upload your own file.');
+        }
+        */
+        //console.log('Requested file path:', filePath);
         return await this.filesService.getFileContent(filePath);
     }
 }

@@ -1,4 +1,4 @@
-﻿import { Injectable, NotFoundException } from '@nestjs/common';
+﻿import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { UsersService } from "../users/users.service";
@@ -103,15 +103,62 @@ export class ScriptsService {
     }
 
     // Get script
-    async getScript(scriptId: string,):
-        Promise<Script>
-    {
+    async getScript(reqUserId: string, userId: string, scriptId: string): Promise<any> {
+        // Find the script by ID
         const result = await this.scriptModel.findOne({ _id: new Types.ObjectId(scriptId) }).lean().exec();
-        return result;
+
+        // Check if script exists
+        if (!result) {
+            throw new NotFoundException(`Script not found`);
+        }
+
+        // Check if the script belongs to the user
+        if (result.owner_id.toString() !== userId) {
+            throw new NotFoundException(`Cannot find script in user's repository`);
+        }
+
+        // Check if the user has permission to access it
+        if (
+            result.owner_id.toString() !== reqUserId &&
+            result.privacy === "private" &&
+            (!result.share_id || !result.share_id.some((objId: Types.ObjectId) => objId.equals(new Types.ObjectId(reqUserId))))
+        ) {
+            throw new UnauthorizedException(`Not allowed to access this script`);
+        }
+
+        // Find users related to `share_id`
+        const sharedUsers = await this.userModel.find(
+            { _id: { $in: result.share_id || [] } }, // Handle case where `share_id` is undefined
+            "_id username profile_image"
+        ).lean().exec();
+
+        // Replace share_id with detailed user info
+        return { ...result, share_id: sharedUsers };
     }
 
     // Update script
-    async updateScriptInfo(scriptId: string, updatedData: Partial<Script>){
+    async updateScriptInfo(reqUserId: string, userId: string, scriptId: string, updatedData: Partial<Script>) {
+        // Find the script by ID
+        const result = await this.scriptModel.findOne({ _id: new Types.ObjectId(scriptId) }).lean().exec();
+
+        // Check if script exists
+        if (!result) {
+            throw new NotFoundException(`Script not found`);
+        }
+
+        // Check if the script belongs to the user
+        if (result.owner_id.toString() !== userId) {
+            throw new NotFoundException(`Cannot find script in user's repository`);
+        }
+
+        // Check if the user has permission to access it
+        if (result.owner_id.toString() !== reqUserId) {
+            throw new UnauthorizedException(`Not allowed to change this script`);
+        }
+
+        updatedData.share_id = updatedData.share_id.map(id => new Types.ObjectId(id));
+        updatedData.owner_id = new Types.ObjectId(updatedData.owner_id);
+
         const updatedScript = await this.scriptModel.findByIdAndUpdate(scriptId, updatedData, {
             new: true,
             runValidators: true,

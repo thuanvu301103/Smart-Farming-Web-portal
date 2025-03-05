@@ -16,7 +16,6 @@ import ScriptComment from './ScriptComment';
 // Hooks
 import { useFetchScriptInfo } from '../hooks/useFetchScript';
 
-
 const Script = () => {
 
     const { t } = useTranslation();
@@ -25,9 +24,6 @@ const Script = () => {
     // Navigation
     const navigation = useNavigate();
 
-    // Fetch Script Info
-    const { data: scriptInfo, loading: scriptInfoLoading, error: scriptInfoError } = useFetchScriptInfo(userId, scriptId);
-
     // Tab data
     const tabdata = [
         {
@@ -35,25 +31,24 @@ const Script = () => {
             value: "code",
             path: "./code",
             label: t("tab.code"),
-            element: <ScriptCode scriptInfo={scriptInfo} />
+            element: <ScriptCode />
         },
         {
             icon: <CommentIcon />,
             value: "comment",
             path: "./comment",
             label: t("tab.comment"),
-            element: <ScriptComment scriptInfo={scriptInfo} />
+            element: <ScriptComment scriptInfo={null} />
+        },
+        {
+            icon: <CodeIcon />,
+            value: "jjjj",
+            path: "./kkkk",
+            label: t("tab.code"),
+            //element: <ScriptCode scriptInfo={scriptInfo} setScriptInfo={setScriptInfo} scriptInfoLoading={scriptInfoLoading}/>
+            element: <ScriptCode />
         },
     ];
-
-    // Auto navigate to code tab
-    useEffect(() => {
-        if (scriptInfo && !scriptInfoLoading && !scriptInfoError) {
-            setTimeout(() => {
-                navigation("./code"); // Navigate afetr render loop is complete
-            }, 0);
-        }
-    }, [scriptInfo, scriptInfoLoading, scriptInfoError, navigation])
 
     return (
         <div>

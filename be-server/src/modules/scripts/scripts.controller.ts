@@ -22,7 +22,6 @@ export class ScriptsController {
             isFavorite: boolean
         }[]>
     {
-        //console.log(req.user.userId);
         return this.scriptsService.findAllScripts(userId, req.user.userId);
     }
 
@@ -46,9 +45,15 @@ export class ScriptsController {
     }
 
     @Get(':scriptId')
-    async getScript(@Param('scriptId') scriptId: string):
-        Promise<Script> {
-        return this.scriptsService.getScript(scriptId);
+    @UseGuards(JwtAuthGuard)
+    async getScript(
+        @Param('userId') userId: string,
+        @Param('scriptId') scriptId: string,
+        @Req() req
+    ):
+        Promise<any> {
+        const currentUserId = req.user.userId;
+        return this.scriptsService.getScript(currentUserId, userId, scriptId);
     }
 
     @Post()
@@ -72,8 +77,15 @@ export class ScriptsController {
     }
 
     @Put(':scriptId')
-    async updateScript(@Param('scriptId') scriptId: string, @Body() updatedData: any) {
-        return await this.scriptsService.updateScriptInfo(scriptId, updatedData);
+    @UseGuards(JwtAuthGuard)
+    async updateScript(
+        @Param('userId') userId: string,
+        @Param('scriptId') scriptId: string,
+        @Body() updatedData: any,
+        @Req() req
+    ) {
+        const currentUserId = req.user.userId;
+        return await this.scriptsService.updateScriptInfo(currentUserId, userId, scriptId, updatedData);
     }
 
     @Delete(':scriptId')

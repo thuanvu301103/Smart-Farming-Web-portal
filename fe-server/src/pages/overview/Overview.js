@@ -93,7 +93,7 @@ const Overview = ({ profile, topScripts }) => {
                                                 variant="body1"
                                                 color="success"
                                                 style={{ textDecoration: 'none', fontWeight: 'bold' }}
-                                                onClick={() => navigate(`../scripts/${item?._id ? item._id : '#'}`)}
+                                                onClick={() => navigate(`../scripts/${item?._id ? item._id : '#'}/code`)}
                                             >
                                                 {item?.name ? item.name : null}
                                             </Link>
@@ -150,7 +150,7 @@ const Overview = ({ profile, topScripts }) => {
 
                                         return (
                                             <ListItem key={type} sx={{ display: "flex", justifyContent: "center" }}>
-                                                <CardWrapper borderThickness="10px" borderSide="right" borderColor={color}>
+                                                <CardWrapper borderThickness="10px" borderSide="right" borderColor={color} mt="0px">
                                                     <CardContent>
                                                         {/* Title with Icon */}
                                                         <Typography variant="body1" fontWeight="bold" sx={{ display: "flex", alignItems: "center" }}>

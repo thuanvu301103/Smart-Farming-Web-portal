@@ -62,7 +62,8 @@
     "no_name_err": "The script name is not left empty!"
   },
   "edit-script": {
-    "title": "Edit the irrigation script"
+    "title": "Edit the irrigation script",
+    "no_name_err": "The script name is not left empty!"
   },
 
   "delete-script": {

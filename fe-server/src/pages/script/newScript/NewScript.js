@@ -52,6 +52,9 @@ const NewScript = () => {
 
     // File Data
     const [fileData, setFileData] = useState("");
+    const handleEditorChange = (value) => {
+        setFileData(value);
+    };
     const fetchDefaultTemplate = () => {
         fetch("/scriptTemplates/defaultTemplate.json")
             .then((response) => {
@@ -235,6 +238,7 @@ const NewScript = () => {
                             language="json"
                             theme={theme.palette.mode === "dark" ? "vs-dark" : "light"}
                             value={fileData || "{}"}
+                            onChange={handleEditorChange}
                             options={{
                                 inlineSuggest: true,
                                 fontSize: "16px",

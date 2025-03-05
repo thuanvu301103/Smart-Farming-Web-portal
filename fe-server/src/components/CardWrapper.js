@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, useTheme } from "@mui/material";
 
-const CardWrapper = ({ children, borderThickness = "9px", borderSide = "bottom", borderColor, height = "auto" }) => {
+const CardWrapper = ({ children, borderThickness = "9px", borderSide = "bottom", borderColor, height = "auto", mt = "8px" }) => {
     const theme = useTheme(); // Get theme colors
 
     // Use borderColor from theme if provided, else fallback to primary
@@ -17,8 +17,10 @@ const CardWrapper = ({ children, borderThickness = "9px", borderSide = "bottom",
             width: "100%",
             borderRadius: "8px",
             ...borderStyles,
-            height
-        }}>
+            height: height,
+            mt: mt
+        }}
+        >
             {children}
         </Card>
     );

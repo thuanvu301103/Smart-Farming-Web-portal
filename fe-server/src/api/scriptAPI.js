@@ -17,7 +17,16 @@ const scriptApi = {
 
     getScriptInfo: async (userId, scriptId) => {
         const response = await axiosInstance.get(`/${userId}/scripts/${scriptId}`);
-        //console.log(response.data);
+        return response.data;
+    },
+
+    getScriptFile: async (filePath) => {
+        const response = await axiosInstance.get(`/files/file-content/${filePath}`);
+        return response.data;
+    },
+
+    updateScriptInfo: async (userId, scriptId, updateData) => {
+        const response = await axiosInstance.put(`/${userId}/scripts/${scriptId}`, updateData);
         return response.data;
     },
 

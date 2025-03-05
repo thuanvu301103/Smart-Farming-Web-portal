@@ -82,7 +82,14 @@
 					"name": "Get info of a script",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphamEiLCJzdWIiOiI2N2MyNzMwYjFmYjcxM2RlYWU0YjA2ODkiLCJpYXQiOjE3NDExMzg5NzAsImV4cCI6MTc0MTE0MjU3MH0.KW5zNPUuogqBw0KhvhFSg4oL2ekvliYdL7MitDFy5T8",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -99,7 +106,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
+									"value": "67c273401fb713deae4b068c"
 								},
 								{
 									"key": "scriptId",
@@ -148,7 +155,14 @@
 					"name": "Change info of a script",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTE0NDA0NSwiZXhwIjoxNzQxMTQ3NjQ1fQ.SYohK9vegYrEc0nyGH77wKzWkauFcMUaWp5Kh732494",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
@@ -174,7 +188,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
+									"value": "67c273401fb713deae4b068c"
 								},
 								{
 									"key": "scriptId",
@@ -304,7 +318,14 @@
 					"name": "Get a file",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTE0NDA0NSwiZXhwIjoxNzQxMTQ3NjQ1fQ.SYohK9vegYrEc0nyGH77wKzWkauFcMUaWp5Kh732494",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -321,7 +342,7 @@
 							"variable": [
 								{
 									"key": "path",
-									"value": "thuan_vu%2Fchanh%2Fv2.1%2Faction%2Fnew%2Fnew%2Fmain.py"
+									"value": "67c273401fb713deae4b068c%2F67c8051ab5ae1125190ca718%2Fv1.0.json"
 								}
 							]
 						}
