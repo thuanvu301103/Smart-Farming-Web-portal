@@ -14,7 +14,6 @@ import { UserListItem1 } from '../../../components/ListItem';
 import PublicIcon from '@mui/icons-material/Public';
 import SearchIcon from '@mui/icons-material/Search';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from "@mui/icons-material/Close";
 // Translation
 import { useTranslation } from 'react-i18next';
@@ -98,7 +97,6 @@ const PrivacyPanel = ({ formData, handleChange, setFormData }) => {
         func();
     }, [updatedSharedUsers]);
     
-
     // Handle delete user
     const handleDeleteItem = (index) => {
         const newItems = [...updatedSharedUsers]; // Work with filtered data

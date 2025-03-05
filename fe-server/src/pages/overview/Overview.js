@@ -150,7 +150,7 @@ const Overview = ({ profile, topScripts }) => {
 
                                         return (
                                             <ListItem key={type} sx={{ display: "flex", justifyContent: "center" }}>
-                                                <CardWrapper borderThickness="10px" borderSide="right" borderColor={color}>
+                                                <CardWrapper borderThickness="10px" borderSide="right" borderColor={color} mt="0px">
                                                     <CardContent>
                                                         {/* Title with Icon */}
                                                         <Typography variant="body1" fontWeight="bold" sx={{ display: "flex", alignItems: "center" }}>

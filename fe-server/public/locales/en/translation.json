@@ -1,11 +1,12 @@
 {
   "button": {
     "default": "Default",
+    "delete": "Delete",
+    "delete_script": "Delete Script",
     "favorite": "Favorite",
     "new": "New",
     "edit": "Edit",
     "confirm": "Confirm",
-    "delete": "Delete",
     "edit_profile": "Edit profile",
     "create_script": "Create script",
     "cancel": "Cancel",
@@ -61,7 +62,8 @@
     "no_name_err": "The script name is not left empty!"
   },
   "edit-script": {
-    "title": "Edit the irrigation script"
+    "title": "Edit the irrigation script",
+    "no_name_err": "The script name is not left empty!"
   },
 
   "delete-script": {

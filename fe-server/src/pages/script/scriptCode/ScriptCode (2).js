@@ -7,7 +7,7 @@ import {
     FormHelperText
 } from '@mui/material';
 //import { PaginatedList } from '../components/List';
-import { UserListItem } from '../components/ListItem';
+import { UserListItem } from '../../../components/ListItem';
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';

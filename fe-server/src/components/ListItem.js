@@ -46,7 +46,7 @@ const ScriptListItem = ({ item }) => {
     }
 
     return (
-        <CardWrapper borderThickness="10px" borderSide="right" borderColor="success">
+        <CardWrapper borderThickness="10px" borderSide="right" borderColor="success" mt={1}>
             <CardContent>
                 <Grid container>
                     {/* Script Info */}
@@ -240,7 +240,7 @@ const UserListItem1 = ({
     removeItemFunc = null,
     addItemFunc = null,
     disableAdd = false,
-    newLable = false
+    newLabel = false
 }) => {
 
     const { t } = useTranslation();
@@ -263,7 +263,7 @@ const UserListItem1 = ({
                         rel="noopener noreferrer"
                     >
                         {item?.username ? item.username : null}
-                        {newLable ? <Chip label="new" color="info" size="small" variant="outlined" /> : null}
+                        {newLabel ? <Chip label="new" color="info" size="small" variant="outlined" sx={{ml: 2}}/> : null}
                     </Link>
                 </Box>
 
