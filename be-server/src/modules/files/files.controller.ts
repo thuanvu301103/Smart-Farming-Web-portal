@@ -76,6 +76,7 @@ export class FilesController {
         @Param('path') filePath: string,
         @Req() req
     ) {
+        console.log("Get file Content");
         /*
         const parts = filePath.split("%2F");
         const userId = parts[1];

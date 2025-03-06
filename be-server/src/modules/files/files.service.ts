@@ -12,6 +12,7 @@ export class FilesService {
     private ftpPassword: string;
     private ftpSecure: boolean;
     private ftpUploadDir: string;
+    private queue: any;
 
     constructor(private readonly configService: ConfigService) {
         this.ftpClient = new ftp.Client();
@@ -22,6 +23,7 @@ export class FilesService {
         this.ftpPassword = this.configService.get<string>('FTP_PASSWORD');
         this.ftpSecure = this.configService.get<boolean>('FTP_SECURE') || false;
         this.ftpUploadDir = this.configService.get<string>('FTP_UPLOAD_DIR') || '/uploads';
+        this.queue = Promise.resolve()
     }
 
     async connectToFTP() {
@@ -153,29 +155,21 @@ export class FilesService {
 
     // Get file content from FTP
     async getFileContent(filePath: string): Promise<string | Buffer> {
-        try {
-            await this.connectToFTP();
+        this.queue = this.queue.then(async () => {
+            return await this.fetchFile(filePath);
+        });
 
-            // Local path to temporarily store the file
-            const localPath = path.join(__dirname, "./../downloads");
-            console.log(localPath);
+        return this.queue;
+    }
 
-            // Download the file to a local folder (temporarily)
-            await this.ftpClient.downloadTo(localPath, filePath);
+    private async fetchFile(filePath: string): Promise<string | Buffer> {
+        await this.connectToFTP();
+        const localPath = path.join(__dirname, "./../downloads");
 
-            // Read the file content and return it
-            const content = await fs.readFile(localPath, 'utf8');
+        await this.ftpClient.downloadTo(localPath, filePath);
+        const content = await fs.readFile(localPath, "utf8");
+        await fs.remove(localPath);
 
-            // Optionally, delete the local file after reading
-            await fs.remove(localPath);
-
-            console.log(`✅ File content fetched successfully from: ${filePath}`);
-            return content;
-        } catch (error) {
-            console.error("❌ FTP Download Error:", error);
-            throw new Error("FTP File Fetch Failed");
-        } finally {
-            this.ftpClient.close();
-        }
+        return content;
     }
 }

@@ -16,7 +16,8 @@
   },
   "common": {
     "unknown": "Unknown",
-    "favorite": "Favorite"
+    "favorite": "Favorite",
+    "version": "Version"
   },
   "welcome": "Welcome",
   "login": {

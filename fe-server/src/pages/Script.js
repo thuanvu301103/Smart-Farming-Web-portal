@@ -13,8 +13,6 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import ScriptComment from './ScriptComment';
-// Hooks
-import { useFetchScriptInfo } from '../hooks/useFetchScript';
 
 const Script = () => {
 
@@ -38,15 +36,7 @@ const Script = () => {
             value: "comment",
             path: "./comment",
             label: t("tab.comment"),
-            element: <ScriptComment scriptInfo={null} />
-        },
-        {
-            icon: <CodeIcon />,
-            value: "jjjj",
-            path: "./kkkk",
-            label: t("tab.code"),
-            //element: <ScriptCode scriptInfo={scriptInfo} setScriptInfo={setScriptInfo} scriptInfoLoading={scriptInfoLoading}/>
-            element: <ScriptCode />
+            element: <ScriptComment/>
         },
     ];
 
