@@ -109,6 +109,10 @@
       "no-data": "Trống..."
     }
   },
+  "sub-comment": {
+    "show_reply": "Hiện phản hồi",
+    "hide_reply": "Ẩn phản hồi"
+  },
   "tab": {
     "overview": "Tổng quan",
     "script": "Kịch bản tưới",

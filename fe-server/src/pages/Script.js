@@ -1,60 +1,66 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from "react";
 // Import components
-import Tabnav from '../components/Tabnav';
+import Tabnav from "../components/Tabnav";
 // Import pages
-import ScriptCode from './script/scriptCode/ScriptCode';
+import ScriptCode from "./script/scriptCode/ScriptCode";
 // Import Icons
-import CodeIcon from '@mui/icons-material/Code';
-import CommentIcon from '@mui/icons-material/Comment';
+import CodeIcon from "@mui/icons-material/Code";
+import CommentIcon from "@mui/icons-material/Comment";
 // Translation
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 // React Router DOM
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import ScriptComment from './ScriptComment';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useLocation,
+} from "react-router-dom";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import ScriptComment from "./ScriptComment";
 
 const Script = () => {
+  const { t } = useTranslation();
+  // Get scriptId and userId
+  const { userId, scriptId } = useParams();
+  // Navigation
+  const navigation = useNavigate();
 
-    const { t } = useTranslation();
-    // Get scriptId and userId
-    const { userId, scriptId } = useParams();
-    // Navigation
-    const navigation = useNavigate();
+  // Tab data
+  const tabdata = [
+    {
+      icon: <CodeIcon />,
+      value: "code",
+      path: "./code",
+      label: t("tab.code"),
+      element: <ScriptCode />,
+    },
+    {
+      icon: <CommentIcon />,
+      value: "comment",
+      path: "./comment",
+      label: t("tab.comment"),
+      element: <ScriptComment />,
+    },
+  ];
 
-    // Tab data
-    const tabdata = [
-        {
-            icon: <CodeIcon />,
-            value: "code",
-            path: "./code",
-            label: t("tab.code"),
-            element: <ScriptCode />
-        },
-        {
-            icon: <CommentIcon />,
-            value: "comment",
-            path: "./comment",
-            label: t("tab.comment"),
-            element: <ScriptComment/>
-        },
-    ];
-
-    return (
-        <div>
-            <Tabnav data={tabdata} />
-            <Routes>
-                {tabdata ? tabdata.map((item, index) => (
-                    <Route
-                        key={index}
-                        path={item?.value ? item.value : null}
-                        element={item?.element ? item.element : null}
-                    />
-                )) : null}
-            </Routes>
-        </div>
-    );
-    
-}
+  return (
+    <div>
+      <Tabnav data={tabdata} />
+      <Routes>
+        {tabdata
+          ? tabdata.map((item, index) => (
+              <Route
+                key={index}
+                path={item?.value ? item.value : null}
+                element={item?.element ? item.element : null}
+              />
+            ))
+          : null}
+      </Routes>
+    </div>
+  );
+};
 
 export default Script;
