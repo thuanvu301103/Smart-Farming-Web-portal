@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+﻿import { useState, useEffect, useCallback  } from "react";
 import scriptApi from "./../api/scriptAPI";
 
 const useFetchScriptInfo = (userId, scriptId) => {
@@ -32,25 +32,32 @@ const useFetchScriptFile = (filePath) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const fetchData = useCallback(async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const data = await scriptApi.getScriptFile(filePath);
+            //console.log("Fetching File data: ", data);
+            setData(JSON.stringify(data, null, 2));
+        } catch (err) {
+            console.error("Error fetching script file:", err);
+            setError(err);
+        } finally {
+            setLoading(false);
+        }
+    }, [filePath]);
+
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const data = await scriptApi.getScriptFile(filePath);
-                console.log("Fetching File data: ", data)
-                setData(JSON.stringify(data, null, 2));
-            } catch (err) {
-                console.error("Error fetching script info:", err);
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchData();
     }, [filePath]);
 
-    return { data, setData, loading, error };
+    // Reload function
+    const reload = () => {
+        fetchData();
+    };
+
+    return { data, setData, loading, error, reload };
 };
 
 export {

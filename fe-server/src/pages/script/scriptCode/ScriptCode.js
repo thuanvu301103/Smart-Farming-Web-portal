@@ -1,19 +1,23 @@
 ﻿import React, { useState, useEffect } from 'react';
 // Import components
 import {
-    Grid, Typography, Button, IconButton, Box, Modal,
     TextField,
+    Grid, Typography, Button, IconButton, Box,
+    Menu, MenuItem,
 } from '@mui/material';
 import DeleteModal from '../../../components/modal/DeleteModal';
 import EditScriptModal from './EditScriptModal';
 import Editor from "@monaco-editor/react"; // Code Editor
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import ReplayOutlinedIcon from '@mui/icons-material/ReplayOutlined';
+import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
+import { styled } from '@mui/material/styles';
 // Translation
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -24,14 +28,32 @@ import scriptApi from '../../../api/scriptAPI';
 // Hooks
 import { useFetchScriptInfo, useFetchScriptFile } from '../../../hooks/useFetchScript';
 
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 50,
+    left: 50,
+    whiteSpace: 'nowrap',
+    width: 5,
+});
+
 const ScriptCode = () => {
    
     const { userId, scriptId } = useParams();
     const { t } = useTranslation();
     const navigate = useNavigate();
     const theme = useTheme();
+
+    // Fetch Script Info
+    const { data: scriptInfo, setData: setScriptInfo, loading: scriptInfoLoading, error: scriptInfoError } = useFetchScriptInfo(userId, scriptId);
+    // Current Version
+    const [curVersion, setCurVersion] = useState(scriptInfo?.version ? (scriptInfo.version.sort((a, b) => b - a))[0] : Number(1.0));
+
     // File Data
-    const { data: fileData, setData: setFileData } = useFetchScriptFile(`${userId}%2F${scriptId}%2Fv1.0.json`)
+    const { data: fileData, setData: setFileData, reload: reloadFileData } = useFetchScriptFile(`${userId}%2F${scriptId}%2Fv${curVersion.toFixed(1)}.json`)
     const handleEditorChange = (value) => {
         setFileData(value);
     };
@@ -59,9 +81,6 @@ const ScriptCode = () => {
             console.error("Error uploading file:", error);
         }
     }
-
-    // Fetch Script Info
-    const { data: scriptInfo, setData: setScriptInfo, loading: scriptInfoLoading, error: scriptInfoError } = useFetchScriptInfo(userId, scriptId);
 
     // Handle Delete Modal
     const [openDelete, setOpenDelete] = useState(false);
@@ -98,6 +117,34 @@ const ScriptCode = () => {
         setScriptInfo(newData);
         //navigate(`/${userId}/scripts/${scriptId}`);
     }
+
+    // Handle Upload File
+    const handleUpload = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const jsonData = JSON.parse(e.target.result); // Parse JSON
+                setFileData(JSON.stringify(jsonData, null, 2)); // Convert to formatted string
+            } catch (error) {
+                console.error("Invalid JSON file:", error);
+                alert("Invalid JSON file. Please upload a valid JSON.");
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    // Hanle Version Menu
+    const [anchorElVersionMenu, setAnchorElVersionMenu] = useState(null);
+    const openVersionMenu = Boolean(anchorElVersionMenu);
+    const handleClickVersionMenu = (e) => {
+        setAnchorElVersionMenu(e.currentTarget);
+    };
+    const handleCloseVersionMenu = () => {
+        setAnchorElVersionMenu(null);
+    };
 
     return (
         <Box
@@ -146,33 +193,112 @@ const ScriptCode = () => {
                             minHeight: "700px", display: "block"
                         }}
                     >
-                        <Grid container justifyContent="flex-end" alignItems="center">
-                            {localStorage.getItem("userId") == userId ?
-                                <>
-                                    {/* Save file Button */}
-                                    {!disableEditFile ?
-                                        <IconButton aria-label="edit" size="small" color="success"
-                                            onClick={() => handleSubmitFile(userId, scriptId)}
+                        <Grid container justifyContent="space-between" alignItems="center">
+                            {/* Left Section - Version Button */}
+                            <Grid item display="flex" justifyContent="flex-start" alignItems="center" gap={1}>
+                                <IconButton
+                                    variant="contained"
+                                    size="small"
+                                    color="success"
+                                    onClick={handleClickVersionMenu}
+                                >
+                                    <BookOutlinedIcon fontSize="small" />
+                                </IconButton>
+                                <Typography variant="body1">
+                                    {t("common.version")}
+                                </Typography>
+                                <TextField
+                                    id="version-name"
+                                    name="name"
+                                    type="number" // Ensures only numbers are allowed
+                                    inputProps={{
+                                        step: "0.1",
+                                    }}
+                                    value={curVersion.toFixed(1)}
+                                    onChange={(e) => setCurVersion(Number(e.target.value))}
+                                    color="success"
+                                    variant="outlined"
+                                    size="small"
+                                    sx={{ width: '90px' }}
+                                    disabled={disableEditFile}
+                                />
+                                <Menu
+                                    id="basic-menu"
+                                    anchorEl={anchorElVersionMenu}
+                                    open={openVersionMenu}
+                                    onClose={handleCloseVersionMenu}
+                                    MenuListProps={{ 'aria-labelledby': 'basic-button' }}
+                                    PaperProps={{ sx: { minWidth: "200px" } }}
+                                >
+                                    {scriptInfo?.version
+                                        ?.slice() // Create a copy before sorting to prevent modifying the original data
+                                        .sort((a, b) => b - a)
+                                        .map((version, index) => (
+                                            <MenuItem key={index}>
+                                                {`${t("common.version")} ${version.toFixed(1)}`}
+                                            </MenuItem>
+                                        ))
+                                    }
+                                </Menu>
+                            </Grid>
+
+                            {/* Right Section - Action Buttons */}
+                            <Grid item justifyContent="flex-end" alignItems="center">
+                                {/* Reload Button */}
+                                <IconButton aria-label="reload" size="small" color="text" onClick={reloadFileData}>
+                                    <ReplayOutlinedIcon fontSize="small" />
+                                </IconButton>
+
+                                {localStorage.getItem("userId") == userId && (
+                                    <>
+                                        {!disableEditFile && (
+                                            <>
+                                                {/* Upload File Button */}
+                                                <IconButton component="label" aria-label="upload" size="small" color="info">
+                                                    <CloudUploadOutlinedIcon fontSize="small" />
+                                                    <VisuallyHiddenInput
+                                                        type="file"
+                                                        accept="application/json"
+                                                        onChange={handleUpload}
+                                                        multiple
+                                                    />
+                                                </IconButton>
+
+                                                {/* Save File Button */}
+                                                <IconButton
+                                                    aria-label="save"
+                                                    size="small"
+                                                    color="success"
+                                                    onClick={() => handleSubmitFile(userId, scriptId)}
+                                                >
+                                                    <SaveOutlinedIcon fontSize="small" />
+                                                </IconButton>
+                                            </>
+                                        )}
+
+                                        {/* Edit File Button */}
+                                        <IconButton
+                                            aria-label="edit"
+                                            size="small"
+                                            color={disableEditFile ? "text" : "warning"}
+                                            onClick={() => setDisableEditFile(prev => !prev)}
                                         >
-                                            <SaveOutlinedIcon fontSize="small" />
+                                            <EditIcon fontSize="small" />
                                         </IconButton>
-                                    : null}
-                                    {/* Edit File Button */}
-                                    <IconButton aria-label="edit" size="small" color={disableEditFile ? "text" : "warning"}
-                                        onClick={() => setDisableEditFile((prev) => !prev)}
-                                    >
-                                        <EditIcon fontSize="small" />
-                                    </IconButton>
-                                    <EditScriptModal
-                                        open={openEdit}
-                                        handleClose={handleCloseEdit}
-                                        handleConfirm={handleConfirmEdit}
-                                        oldData={scriptInfo}
-                                        title="edit-script.title"
-                                    />
-                            </>
-                                : null}
+
+                                        {/* Edit Script Modal */}
+                                        <EditScriptModal
+                                            open={openEdit}
+                                            handleClose={handleCloseEdit}
+                                            handleConfirm={handleConfirmEdit}
+                                            oldData={scriptInfo}
+                                            title="edit-script.title"
+                                        />
+                                    </>
+                                )}
+                            </Grid>
                         </Grid>
+
                         {/* Text Editor */}
                         <Editor
                             height="700px"

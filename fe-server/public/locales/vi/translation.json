@@ -16,7 +16,8 @@
   },
   "common": {
     "unknown": "Không xác định",
-    "favorite": "Yêu thích"
+    "favorite": "Yêu thích",
+    "version":  "Phiên bản"
   },
   "welcome": "Chào mừng",
   "login": {

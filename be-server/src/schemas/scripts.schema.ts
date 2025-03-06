@@ -20,6 +20,12 @@ export class Script extends Document {
     owner_id: Types.ObjectId;
 
     @Prop({
+        type: [Number],
+        default: [1.0]
+    })
+    version: number[];
+
+    @Prop({
         type: Types.ObjectId,
         ref: 'Models',
         default: null
