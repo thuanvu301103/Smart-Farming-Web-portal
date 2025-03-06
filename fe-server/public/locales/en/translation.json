@@ -110,6 +110,10 @@
       "no-data": "Empty..."
     }
   },
+  "sub-comment": {
+    "show_reply": "Show replies",
+    "hide_reply": "Hide replies"
+  },
   "tab": {
     "overview": "Overview",
     "script": "Irrigation Script",
