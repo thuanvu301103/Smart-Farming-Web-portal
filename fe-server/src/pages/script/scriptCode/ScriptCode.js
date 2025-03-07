@@ -8,6 +8,7 @@ import {
 import DeleteModal from '../../../components/modal/DeleteModal';
 import EditScriptModal from './EditScriptModal';
 import Editor from "@monaco-editor/react"; // Code Editor
+import { NumericFormat } from 'react-number-format';
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
@@ -17,6 +18,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import ReplayOutlinedIcon from '@mui/icons-material/ReplayOutlined';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { styled } from '@mui/material/styles';
 // Translation
 import { useTranslation } from 'react-i18next';
@@ -50,24 +53,62 @@ const ScriptCode = () => {
     // Fetch Script Info
     const { data: scriptInfo, setData: setScriptInfo, loading: scriptInfoLoading, error: scriptInfoError } = useFetchScriptInfo(userId, scriptId);
     // Current Version
-    const [curVersion, setCurVersion] = useState(scriptInfo?.version ? (scriptInfo.version.sort((a, b) => b - a))[0] : Number(1.0));
+    const [curVersion, setCurVersion] = useState(null);
+    const [stateVersion, setStateVersion] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            setCurVersion(scriptInfo?.version ? (scriptInfo.version.sort((a, b) => b - a))[0] : -1.0);
+            reloadFileData();
+        };
+        fetchData();
+    }, [scriptInfo]);
+    useEffect(() => {
+        setStateVersion(curVersion)
+    }, [curVersion]);
 
     // File Data
-    const { data: fileData, setData: setFileData, reload: reloadFileData } = useFetchScriptFile(`${userId}%2F${scriptId}%2Fv${curVersion.toFixed(1)}.json`)
+    const { data: fileData, setData: setFileData, reload: reloadFileData } = useFetchScriptFile(userId, scriptId, curVersion)
     const handleEditorChange = (value) => {
         setFileData(value);
     };
     const [disableEditFile, setDisableEditFile] = useState(true);
     // Confirm upload file
-    const handleSubmitFile = async (userId, scriptId) => {
-        if (!fileData) return;
+    const handleSubmitFile = async (userId, scriptId, newFile = false, newVersion = -1.0) => {
+        // Rename version
+        let newVersionArr = scriptInfo.version;
+        if (newFile) {
+            newVersionArr.push(newVersion);
+            newVersionArr = newVersionArr.sort((a, b) => b - a);
+            await scriptApi.updateScriptInfo(userId, scriptId, { version: newVersionArr });
+            setCurVersion(newVersion);
+            scriptInfo.version = newVersionArr;
+        }
+        else if (stateVersion != curVersion) {
+            // Rename File
+            if (!newFile) {
+                await scriptApi.renameFile(userId, scriptId, curVersion, stateVersion);
+                newVersionArr = newVersionArr.map(item => item == curVersion ? stateVersion : item);
+                newVersionArr = newVersionArr.sort((a, b) => b - a);
+            } else {
+                newVersionArr = newVersionArr.append(newVersion);
+                newVersionArr = newVersionArr.sort((a, b) => b - a);
+            }
+            //console.log("New Version: ", newVersionArr);
+            await scriptApi.updateScriptInfo(userId, scriptId, { version: newVersionArr });
+            setCurVersion(stateVersion);
+            scriptInfo.version = newVersionArr;
+        }
 
+        if (!fileData) return;
+        //console.log("Version: ", curVersion, stateVersion);
         try {
             // Convert JSON string to Blob
             const jsonBlob = new Blob([fileData], { type: "application/json" });
 
             // Create a File object (optional: give it a name)
-            const jsonFile = new File([jsonBlob], "v1.0.json", { type: "application/json" });
+            let jsonFile = null;
+            if (!newFile) jsonFile = new File([jsonBlob], `v${stateVersion.toFixed(1)}.json`, { type: "application/json" });
+            else jsonFile = new File([jsonBlob], `v${newVersion.toFixed(1)}.json`, { type: "application/json" });
 
             // Create FormData
             const formFileData = new FormData();
@@ -75,11 +116,33 @@ const ScriptCode = () => {
             formFileData.append("remote_path", `/${userId}/${scriptId}/`);
 
             // Upload using Axios
-            const response = await scriptApi.uploadScriptFile(formFileData);
+            return await scriptApi.uploadScriptFile(formFileData);
             //console.log("File uploaded successfully:", response.data);
         } catch (error) {
             console.error("Error uploading file:", error);
         }
+    }
+
+    // Handle Delete Version File
+    const [openVersionDelete, setOpenVersionDelete] = useState(false);
+    const handleOpenVersionDelete = () => setOpenVersionDelete(true);
+    const handleCloseVersionDelete = () => setOpenVersionDelete(false);
+    // Handle Cofirm Version Delete
+    const handleConfirmVersionDelete = async (e) => {
+        e.preventDefault();
+        let newVersionArr = scriptInfo.version.filter(item => item !== curVersion);
+        try {
+            await scriptApi.deleteScriptFileVersion(userId, scriptId, curVersion);
+            newVersionArr = newVersionArr.sort((a, b) => b - a);
+            await scriptApi.updateScriptInfo(userId, scriptId, { version: newVersionArr });
+            scriptInfo.version = newVersionArr;
+        } catch (error) {
+            console.error('Error delete script version:', error);
+        }
+        // Close Model
+        handleCloseDelete();
+        setCurVersion(newVersionArr[0]);
+        reloadFileData();
     }
 
     // Handle Delete Modal
@@ -146,6 +209,15 @@ const ScriptCode = () => {
         setAnchorElVersionMenu(null);
     };
 
+    // Handle create new version
+    const handleNewVersion = async () => {
+        const newVersion = Math.floor(scriptInfo.version[0] + 1.0);
+        setFileData("{}");
+        setStateVersion(newVersion);
+        handleSubmitFile(userId, scriptId, true, newVersion);
+    }
+
+
     return (
         <Box
             display="flex"
@@ -196,6 +268,7 @@ const ScriptCode = () => {
                         <Grid container justifyContent="space-between" alignItems="center">
                             {/* Left Section - Version Button */}
                             <Grid item display="flex" justifyContent="flex-start" alignItems="center" gap={1}>
+                                {/* Version Menu button */}
                                 <IconButton
                                     variant="contained"
                                     size="small"
@@ -207,21 +280,23 @@ const ScriptCode = () => {
                                 <Typography variant="body1">
                                     {t("common.version")}
                                 </Typography>
-                                <TextField
-                                    id="version-name"
-                                    name="name"
-                                    type="number" // Ensures only numbers are allowed
-                                    inputProps={{
-                                        step: "0.1",
+                                {/* Version Field */}
+                                <NumericFormat
+                                    value={stateVersion ? stateVersion.toFixed(1) : Number(0.0).toFixed(1)}
+                                    onChange={(e) => {
+                                        const { name, value } = e.target
+                                        setStateVersion(Number(value));
                                     }}
-                                    value={curVersion.toFixed(1)}
-                                    onChange={(e) => setCurVersion(Number(e.target.value))}
+                                    customInput={TextField}
+                                    thousandSeparator
+                                    valueIsNumericString
                                     color="success"
                                     variant="outlined"
                                     size="small"
                                     sx={{ width: '90px' }}
                                     disabled={disableEditFile}
                                 />
+                                {/* Version Menu */}
                                 <Menu
                                     id="basic-menu"
                                     anchorEl={anchorElVersionMenu}
@@ -234,7 +309,12 @@ const ScriptCode = () => {
                                         ?.slice() // Create a copy before sorting to prevent modifying the original data
                                         .sort((a, b) => b - a)
                                         .map((version, index) => (
-                                            <MenuItem key={index}>
+                                            <MenuItem key={index}
+                                                onClick={() => {
+                                                    setCurVersion(version);
+                                                    reloadFileData();
+                                                }}
+                                            >
                                                 {`${t("common.version")} ${version.toFixed(1)}`}
                                             </MenuItem>
                                         ))
@@ -245,7 +325,12 @@ const ScriptCode = () => {
                             {/* Right Section - Action Buttons */}
                             <Grid item justifyContent="flex-end" alignItems="center">
                                 {/* Reload Button */}
-                                <IconButton aria-label="reload" size="small" color="text" onClick={reloadFileData}>
+                                <IconButton aria-label="reload" size="small" color="text"
+                                    onClick={() => {
+                                        setStateVersion(curVersion);
+                                        reloadFileData();
+                                    }}
+                                >
                                     <ReplayOutlinedIcon fontSize="small" />
                                 </IconButton>
 
@@ -253,6 +338,12 @@ const ScriptCode = () => {
                                     <>
                                         {!disableEditFile && (
                                             <>
+                                                {/* New File Button */}
+                                                <IconButton component="label" aria-label="upload" size="small" color="script"
+                                                    onClick={handleNewVersion}
+                                                >
+                                                    <AddCircleOutlineOutlinedIcon fontSize="small" />
+                                                </IconButton>
                                                 {/* Upload File Button */}
                                                 <IconButton component="label" aria-label="upload" size="small" color="info">
                                                     <CloudUploadOutlinedIcon fontSize="small" />
@@ -273,6 +364,23 @@ const ScriptCode = () => {
                                                 >
                                                     <SaveOutlinedIcon fontSize="small" />
                                                 </IconButton>
+
+                                                {/* Delete File Version Button */}
+                                                <IconButton
+                                                    aria-label="save"
+                                                    size="small"
+                                                    color="error"
+                                                    onClick={handleOpenVersionDelete}
+                                                >
+                                                    <DeleteForeverOutlinedIcon fontSize="small" />
+                                                </IconButton>
+                                                <DeleteModal
+                                                    open={openVersionDelete}
+                                                    handleClose={handleCloseVersionDelete}
+                                                    handleConfirm={handleConfirmVersionDelete}
+                                                    title="delete-script-version.title"
+                                                    note="delete-script-version.note"
+                                                />
                                             </>
                                         )}
 

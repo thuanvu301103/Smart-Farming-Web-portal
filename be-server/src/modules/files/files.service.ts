@@ -41,34 +41,37 @@ export class FilesService {
     }
 
     async uploadFilesToFTP(files: Express.Multer.File[], remote_path: string) {
-        try {
-            await this.connectToFTP();
+        this.queue = this.queue.then(async () => {
+            try {
+                await this.connectToFTP();
 
-            // Ensure remote directory exists
-            //await this.ftpClient.ensureDir(this.ftpUploadDir);
-            await this.ftpClient.ensureDir(remote_path);
+                // Ensure remote directory exists
+                //await this.ftpClient.ensureDir(this.ftpUploadDir);
+                await this.ftpClient.ensureDir(remote_path);
 
-            for (const file of files) {
-                const localPath = path.join(__dirname, "./../uploads", file.filename);
-                //const remotePath = `${this.ftpUploadDir}/${file.originalname}`;
-                const remotePath = `${remote_path}/${file.originalname}`;
+                for (const file of files) {
+                    const localPath = path.join(__dirname, "./../uploads", file.filename);
+                    //const remotePath = `${this.ftpUploadDir}/${file.originalname}`;
+                    const remotePath = `${remote_path}/${file.originalname}`;
 
-                // Upload file to FTP
-                await this.ftpClient.uploadFrom(localPath, remotePath);
-                console.log(`✅ Uploaded: ${file.originalname} to ${remotePath}`);
+                    // Upload file to FTP
+                    await this.ftpClient.uploadFrom(localPath, remotePath);
+                    console.log(`✅ Uploaded: ${file.originalname} to ${remotePath}`);
 
-                // Delete local file after upload
-                await fs.remove(localPath);
-                console.log(`🗑️ Deleted local file: ${file.originalname}`);
+                    // Delete local file after upload
+                    await fs.remove(localPath);
+                    console.log(`🗑️ Deleted local file: ${file.originalname}`);
+                }
+
+                this.ftpClient.close();
+                console.log("✅ All files uploaded and deleted successfully");
+            } catch (error) {
+                console.error("❌ FTP Upload Error:", error);
+                this.ftpClient.close();
+                throw new Error("FTP Upload Failed");
             }
-
-            this.ftpClient.close();
-            console.log("✅ All files uploaded and deleted successfully");
-        } catch (error) {
-            console.error("❌ FTP Upload Error:", error);
-            this.ftpClient.close();
-            throw new Error("FTP Upload Failed");
-        }
+        });
+       
     }
 
     // Delete a file from FTP Server
@@ -153,8 +156,28 @@ export class FilesService {
         }
     }
 
+    // Rename a file
+    async renameFile(oldFilePath: string, newFilePath: string) {
+        this.queue = this.queue.then(async () => {
+            try {
+                // Connect to FTP Server
+                await this.connectToFTP();
+                await this.ftpClient.rename(oldFilePath, newFilePath);
+                console.log(`✅ Rename ${oldFilePath}:`, newFilePath);
+                return { message: "Renaming file successed" }
+
+            } catch (error) {
+                console.error("❌ Error renaming file:", error);
+                throw new Error("Failed to get rename");
+            } finally {
+                this.ftpClient.close();
+            }
+        });
+    }
+
     // Get file content from FTP
     async getFileContent(filePath: string): Promise<string | Buffer> {
+        // Queue request do that no client req session conflict can occur
         this.queue = this.queue.then(async () => {
             return await this.fetchFile(filePath);
         });
@@ -163,13 +186,42 @@ export class FilesService {
     }
 
     private async fetchFile(filePath: string): Promise<string | Buffer> {
-        await this.connectToFTP();
-        const localPath = path.join(__dirname, "./../downloads");
+        try {
+            await this.connectToFTP();
+            const localPath = path.join(__dirname, "./../downloads");
+            // Check file exist
+            const exists = await this.checkFileExists(filePath);
+            console.log("Exist: ", exists);
+            if (!exists) {
+                this.ftpClient.close();
+                return;
+                throw new Error(`File not found: ${filePath}`);
+            }
 
-        await this.ftpClient.downloadTo(localPath, filePath);
-        const content = await fs.readFile(localPath, "utf8");
-        await fs.remove(localPath);
+            await this.ftpClient.downloadTo(localPath, filePath);
+            const content = await fs.readFile(localPath, "utf8");
+            await fs.remove(localPath);
 
-        return content;
+            return content;
+
+        } catch (error) {
+            console.error("❌ Error fetching file:", error);
+            throw new Error("Failed to fetch file");
+        } finally {
+            this.ftpClient.close();
+        }
+      
+    }
+
+    private async checkFileExists(filePath: string): Promise<boolean> {
+        try {
+            const dirPath = path.dirname(filePath);
+            const fileName = path.basename(filePath);
+            const fileList: ftp.FileInfo[] = await this.ftpClient.list(dirPath);
+            return fileList.some(file => file.name === fileName);
+        } catch (error) {
+            console.error("Error checking file existence:", error);
+            return false;
+        }
     }
 }

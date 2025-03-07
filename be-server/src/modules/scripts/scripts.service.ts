@@ -155,9 +155,8 @@ export class ScriptsService {
         if (result.owner_id.toString() !== reqUserId) {
             throw new UnauthorizedException(`Not allowed to change this script`);
         }
-
-        updatedData.share_id = updatedData.share_id.map(id => new Types.ObjectId(id));
-        updatedData.owner_id = new Types.ObjectId(updatedData.owner_id);
+        if (updatedData.share_id) updatedData.share_id = updatedData.share_id.map(id => new Types.ObjectId(id));
+        if (updatedData.owner_id) updatedData.owner_id = new Types.ObjectId(updatedData.owner_id);
 
         const updatedScript = await this.scriptModel.findByIdAndUpdate(scriptId, updatedData, {
             new: true,

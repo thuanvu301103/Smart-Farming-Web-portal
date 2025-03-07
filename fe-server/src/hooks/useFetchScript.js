@@ -28,15 +28,22 @@ const useFetchScriptInfo = (userId, scriptId) => {
     return { data, setData, loading, error };
 };
 
-const useFetchScriptFile = (filePath) => {
+const useFetchScriptFile = (userId, scriptId, version) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    //console.log("Version: ", version);
+
     const fetchData = useCallback(async () => {
+        // No fetch condition 
+        if (!userId || !scriptId || version == null) return;
+        if (version == -1.0) return;
+
         setLoading(true);
         setError(null);
         try {
+            const filePath = `${userId}%2F${scriptId}%2Fv${version.toFixed(1)}.json`;
             const data = await scriptApi.getScriptFile(filePath);
             //console.log("Fetching File data: ", data);
             setData(JSON.stringify(data, null, 2));
@@ -46,11 +53,13 @@ const useFetchScriptFile = (filePath) => {
         } finally {
             setLoading(false);
         }
-    }, [filePath]);
+    }, [userId, scriptId, version]);
 
     useEffect(() => {
+        if (!userId || !scriptId || version == null) return;
+        if (version == -1.0) return;
         fetchData();
-    }, [filePath]);
+    }, [userId, scriptId, version]);
 
     // Reload function
     const reload = () => {
