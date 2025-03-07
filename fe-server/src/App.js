@@ -16,11 +16,11 @@ import Backdrop from '@mui/material/Backdrop';
 const HomePage = lazy(() => import("./pages/home/HomePage.jsx"));
 const User = lazy(() => import("./pages/User"));
 const Script = lazy(() => import("./pages/Script"));
-const Model = lazy(() => import("./pages/Model"));
+const Model = lazy(() => import("./pages/model/modelInfo/Model.js"));
 const NewScript = lazy(() => import("./pages/script/newScript/NewScript.js"));
-const NewModel = lazy(() => import("./pages/NewModel"));
+const NewModel = lazy(() => import("./pages/model/newModel/NewModel.js"));
 const Login = lazy(() => import("./pages/login/Login"));
-const NewScriptModel = lazy(() => import("./pages/NewScriptModel"));
+const NewScriptModel = lazy(() => import("./pages/model/modelInfo/NewScriptModel.js"));
 const NotFound = lazy(() => import("./pages/notFound/NotFound.jsx")); // 404 Page
 
 function App() {
@@ -48,7 +48,7 @@ function App() {
                         <Route path="/:userId/models/:modelId/scripts/:scriptId/*" element={<Script />} />
                         <Route path="/:userId/models/:modelId/new-script" element={<NewScriptModel />} />
                         <Route path="/new-script" element={<NewScript />} />
-                        <Route path="/new-model" element={<NewModel />} />
+                        <Route path="/:userId/models/new-model" element={<NewModel />} />
                         <Route path="*" element={<NotFound />} /> 
                     </Routes>
                 </Suspense>

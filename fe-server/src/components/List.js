@@ -103,11 +103,9 @@ const PaginatedList = ({
                     </Box>
                 ) : (
                     processedItems.map((item, index) => {
-                        //console.log("Index: ", index);
                         return <ListItemComponents key={index} item={item} removeItemFunc={() => handleDeleteItem(index)} />;
                     })
                 )}
-
             </List>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
                 {items.length > itemsPerPage ? <Pagination

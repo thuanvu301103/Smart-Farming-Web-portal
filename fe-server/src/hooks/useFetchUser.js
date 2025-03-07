@@ -92,8 +92,40 @@ const useFetchScriptsList = (userId) => {
     return { data, loading, error };
 };
 
+const useFetchModelsList = (userId) => {
+
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (!userId) return;
+
+        const fetchModelsList = async () => {
+            setLoading(true);
+            setError(null);
+
+            try {
+                const data = await userApi.modelsList(userId);
+                console.log("Fetch models List", data);
+                setData(data);
+            } catch (err) {
+                console.error("Error fetching models:", err);
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchModelsList();
+    }, [userId]); // Runs when `userId` changes
+
+    return { data, loading, error };
+};
+
 export {
     useFetchProfile,
     useFetchTopScripts,
-    useFetchScriptsList
+    useFetchScriptsList,
+    useFetchModelsList
 };

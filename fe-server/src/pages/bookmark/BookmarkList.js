@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // Import components
-import { PaginatedList } from '../components/List';
-import { ScriptListItem } from '../components/ListItem';
+import { PaginatedList } from '../../components/List';
+import { ScriptListItem } from '../../components/ListItem';
 
 import axios from 'axios';
 

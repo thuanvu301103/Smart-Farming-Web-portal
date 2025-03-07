@@ -1,37 +1,28 @@
 import React, { useEffect, useState } from 'react';
-// Import components
-import Tabnav from '../components/Tabnav';
-// Import pages
+import Tabnav from '../../../components/Tabnav';
 import ScriptsOfModel from './ScriptsOfModel';
-// Import Icons
 import CodeIcon from '@mui/icons-material/Code';
-// Translation
 import { useTranslation } from 'react-i18next';
-// React Router DOM
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
+import modelApi from '../../../api/modelAPI';
 
 const Model = () => {
-
     const { t } = useTranslation();
-
-    // Get modelId
     const { userId, modelId } = useParams();
 
     // Fetch Script info
     const [modelInfo, setModelInfo] = useState([]);
+
     useEffect(() => {
-        const fetch = async () => {
+        const fetchModel = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/${userId}/models/${modelId}`);
-                setModelInfo(response.data);
+                const response = await modelApi.getModelInfo(userId, modelId);
+                setModelInfo(response);
             } catch (error) {
                 console.error('Error fetching model:', error);
             }
         };
-        fetch();
+        fetchModel();
     }, [userId, modelId]);
 
     // Tab data
@@ -39,26 +30,26 @@ const Model = () => {
         {
             icon: <CodeIcon />,
             value: "code",
-            path: "./code",
+            path: "code", 
             label: t("tab.code"),
             element: <ScriptsOfModel modelInfo={modelInfo} />
-        },
+        }
     ];
 
     return (
         <div>
             <Tabnav data={tabdata} />
             <Routes>
-                {tabdata ? tabdata.map((item, index) => (
-                    <Route
-                        path={item?.value ? item.value : null}
-                        element={item?.element ? item.element : null}
+                {tabdata.map((item, index) => (
+                    <Route 
+                        key={index}
+                        path={item.value} 
+                        element={item.element} 
                     />
-                )) : null}
+                ))}
             </Routes>
         </div>
     );
-    
-}
+};
 
 export default Model;

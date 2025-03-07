@@ -17,6 +17,11 @@ const userApi = {
         return response.data;
     },
 
+    modelsList: async (userId) => {
+        const response = await axiosInstance.get(`/${userId}/models`)
+        return response.data;
+    },
+
     searchUser: async (searchUserTerm) => {
         const response = await axiosInstance.get(`/users/search`, {
             params: {

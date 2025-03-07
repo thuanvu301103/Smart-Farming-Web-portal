@@ -160,7 +160,7 @@ const ScriptCode = () => {
         }
         // Close Model
         handleCloseDelete();
-        navigate(`/${userId}/scripts`);
+        navigate(-1);
     }
 
     // Handle Edit Modal

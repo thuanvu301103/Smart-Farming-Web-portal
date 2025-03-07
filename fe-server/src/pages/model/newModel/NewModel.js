@@ -10,10 +10,13 @@ import {
 // Translation
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import modelApi from '../../../api/modelAPI';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const NewModel = ({ userId}) => {
+const NewModel = () => {
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     // Form Data
     const [formData, setFormData] = useState({
@@ -31,9 +34,14 @@ const NewModel = ({ userId}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (formData.name.length == 0) {
+            return;
+        }
+        const userId = localStorage.getItem("userId");
         try {
-            const response = await axios.post(`http://localhost:3000/${userId}/models`, formData);
-            console.log('Response:', response.data);
+            const modelId = await modelApi.createModel (userId, formData);
+            navigate(-1);
+            return modelId._id;
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -50,7 +58,7 @@ const NewModel = ({ userId}) => {
                 variant="h5" gutterBottom
                 sx={{mt:2}}
             >
-                {t("new-script.title")}
+                {t("new-model.title")}
             </Typography>
             <FormControl variant="standard" fullWidth>
 
@@ -58,10 +66,10 @@ const NewModel = ({ userId}) => {
                 <Typography
                     variant="body1" gutterBottom
                 >
-                    {t("new-script.script-name")}
+                    {t("new-model.model-name")}
                 </Typography>
                 <TextField
-                    id="script-name"
+                    id="model-name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
@@ -77,7 +85,7 @@ const NewModel = ({ userId}) => {
                     variant="body1" gutterBottom
                     sx={{ mt: 1 }}
                 >
-                    {t("new-script.description")}
+                    {t("new-model.description")}
                 </Typography>
                 <TextField
                     id="description"
@@ -97,7 +105,7 @@ const NewModel = ({ userId}) => {
                 size="small"
                 sx={{ alignSelf: 'flex-end' }}
             >
-                {t("button.create_script")}
+                {t("button.create_model")}
             </Button>
         </Box>
         );
