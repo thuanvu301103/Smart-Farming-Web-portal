@@ -4,10 +4,7 @@ import {
   Box,
   List,
   ListItem,
-  Modal,
-  Typography,
   Stack,
-  Button,
   Snackbar,
   Alert,
   TextField,
@@ -15,18 +12,13 @@ import {
   Avatar,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 import { useParams } from "react-router-dom";
-import ScriptCommentItem from "../components/ScriptCommentItem";
+import ScriptCommentItem from "../components/comment/ScriptCommentItem";
 //Import icon
 import SendIcon from "@mui/icons-material/Send";
 import PersonIcon from "@mui/icons-material/Person";
 import { useFetchScriptInfo } from "../hooks/useFetchScript";
-import {
-  useFetchComments,
-  useFetchSubComments,
-  useFetchCommentHistory,
-} from "../hooks/useFetchComment";
+import { useFetchComments } from "../hooks/useFetchComment";
 import userApi from "../api/userAPI";
 import commentApi from "../api/commentAPI";
 const ScriptComment = () => {
@@ -34,8 +26,6 @@ const ScriptComment = () => {
   const { userId, scriptId } = useParams();
   //   const [allComments, setAllComments] = useState([]);
   const [usernames, setUsernames] = useState({});
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [commentToDelete, setCommentToDelete] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar state
   const [snackbarMessage, setSnackbarMessage] = useState(""); // Snackbar message
   const [newComment, setNewComment] = useState(""); // State for new comment input
@@ -131,28 +121,6 @@ const ScriptComment = () => {
     }
   };
 
-  const confirmDelete = (comment) => {
-    setCommentToDelete(comment);
-    setDeleteModalOpen(true);
-  };
-
-  const handleDelete = async () => {
-    if (!commentToDelete) return;
-    try {
-      await commentApi.deleteComment(userId, scriptId, commentToDelete._id);
-      await getAllComments();
-
-      setDeleteModalOpen(false);
-      setCommentToDelete(null);
-
-      // Show Snackbar on success
-      setSnackbarMessage(t("delete-comment.success"));
-      setSnackbarOpen(true); // Open Snackbar
-    } catch (error) {
-      console.error("Error deleting comment:", error);
-    }
-  };
-
   const handleAddComment = async () => {
     if (!newComment.trim()) return;
 
@@ -199,9 +167,9 @@ const ScriptComment = () => {
                 usernames={usernames}
                 handleReply={handleReply}
                 handleEdit={handleEdit}
-                confirmDelete={confirmDelete}
-                scriptInfo={scriptInfo}
-                isSubComment={false}
+                getAllComments={getAllComments}
+                setSnackbarMessage={setSnackbarMessage}
+                setSnackbarOpen={setSnackbarOpen}
               />
             </ListItem>
           ))}
@@ -229,47 +197,6 @@ const ScriptComment = () => {
           </IconButton>
         </Stack>
       </Box>
-
-      {/* Delete Confirmation Modal */}
-      <Modal open={deleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 600,
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 3,
-            borderRadius: 2,
-            textAlign: "center",
-          }}
-        >
-          <Typography variant="h6" gutterBottom>
-            {t("delete-comment.title")}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            {t("delete-comment.content")}
-          </Typography>
-          <Stack
-            direction="row"
-            spacing={2}
-            justifyContent="center"
-            sx={{ mt: 2 }}
-          >
-            <Button
-              variant="outlined"
-              onClick={() => setDeleteModalOpen(false)}
-            >
-              {t("button.cancel")}
-            </Button>
-            <Button variant="contained" color="error" onClick={handleDelete}>
-              {t("button.delete")}
-            </Button>
-          </Stack>
-        </Box>
-      </Modal>
 
       {/* Snackbar for Add/Delete Success */}
       <Snackbar
