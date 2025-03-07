@@ -2,7 +2,7 @@
   "button": {
     "default": "Mặc định",
     "delete": "Xóa",
-    "delete_script":  "Xóa kịch bản",
+    "delete_script": "Xóa kịch bản",
     "favorite": "Yêu thích",
     "new": "Tạo mới",
     "edit": "Chỉnh sửa",
@@ -17,7 +17,7 @@
   "common": {
     "unknown": "Không xác định",
     "favorite": "Yêu thích",
-    "version":  "Phiên bản"
+    "version": "Phiên bản"
   },
   "welcome": "Chào mừng",
   "login": {
@@ -69,6 +69,10 @@
   "delete-script": {
     "title": "Xóa kịch bản tưới",
     "note": "Bạn có chắc chắn muốn xóa kịch bản tưới này?"
+  },
+  "delete-script-version": {
+    "title": "Xóa phiên bản kịch bản tưới",
+    "note": "Bạn có chắc chắn muốn xóa phiên bản kịch bản tưới này?"
   },
   "script-detail": {
     "about": "Thông tin",

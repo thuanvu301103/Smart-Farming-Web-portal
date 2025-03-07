@@ -25,6 +25,14 @@ const scriptApi = {
         return response.data;
     },
 
+    renameFile: async (userId, scriptId, oldVersion, newVersion) => {
+        const response = await axiosInstance.put(`/files/rename`, {
+            old_path: `${userId}/${scriptId}/v${oldVersion.toFixed(1)}.json`,
+            new_path: `${userId}/${scriptId}/v${newVersion.toFixed(1)}.json`
+        })
+        return response.data;
+    },
+
     updateScriptInfo: async (userId, scriptId, updateData) => {
         const response = await axiosInstance.put(`/${userId}/scripts/${scriptId}`, updateData);
         return response.data;
@@ -38,6 +46,13 @@ const scriptApi = {
     deleteScriptFiles: async (userId, scriptId) => {
         const response = await axiosInstance.delete(`/files/deleteFolder`,
             { params: { path: `${userId}/${scriptId}` } }
+        );
+        return response.data;
+    },
+
+    deleteScriptFileVersion: async (userId, scriptId, version) => {
+        const response = await axiosInstance.delete(`/files/deleteFile`,
+            { params: { path: `${userId}/${scriptId}/v${version.toFixed(1)}.json` } }
         );
         return response.data;
     }

@@ -30,7 +30,13 @@ export default function Login() {
     const location = useLocation();
 
     const from = location.state?.from?.pathname || localStorage.getItem("userId");
+    //console.log("From: ", from);
     if (isAuthenticated()) {
+        if (from === "/login") {
+            const userId = localStorage.getItem("userId");
+            navigate(`/${userId}/overview`);
+            //return;
+        }
         navigate(from);
         window.location.reload();
     }

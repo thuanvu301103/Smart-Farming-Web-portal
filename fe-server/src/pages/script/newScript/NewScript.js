@@ -58,12 +58,12 @@ const NewScript = () => {
     const fetchDefaultTemplate = () => {
         fetch("/scriptTemplates/defaultTemplate.json")
             .then((response) => {
-                console.log("Running: ", response);
+                //console.log("Running: ", response);
                 if (!response.ok) throw new Error("Failed to fetch JSON");
                 return response.json();
             })
             .then((jsonData) => {
-                console.log("Fetched Data:", jsonData); // Debug
+                //console.log("Fetched Data:", jsonData); // Debug
                 setFileData(JSON.stringify(jsonData, null, 2));
             })
             .catch((error) => console.error("Error when reading JSON:", error));

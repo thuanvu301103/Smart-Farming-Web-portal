@@ -1,6 +1,6 @@
 ﻿import {
     Controller,
-    Post, Delete, Get,
+    Post, Delete, Get, Put,
     Body, Query, Param, Req,
     UploadedFiles, UseInterceptors,
     UseGuards, ForbiddenException
@@ -76,7 +76,7 @@ export class FilesController {
         @Param('path') filePath: string,
         @Req() req
     ) {
-        console.log("Get file Content");
+        console.log("Get file Content: ", filePath);
         /*
         const parts = filePath.split("%2F");
         const userId = parts[1];
@@ -88,5 +88,16 @@ export class FilesController {
         */
         //console.log('Requested file path:', filePath);
         return await this.filesService.getFileContent(filePath);
+    }
+
+    // Endpoint to get file content from FTP
+    @Put('rename')
+    @UseGuards(JwtAuthGuard)
+    async renameFile(
+        @Body() body: { old_path: string; new_path: string },
+        @Req() req
+    ) {
+
+        return await this.filesService.renameFile(body.old_path, body.new_path);
     }
 }
