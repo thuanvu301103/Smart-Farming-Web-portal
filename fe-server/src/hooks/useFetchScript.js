@@ -1,31 +1,31 @@
-﻿import { useState, useEffect, useCallback  } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import scriptApi from "./../api/scriptAPI";
 
 const useFetchScriptInfo = (userId, scriptId) => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    //console.log("Calling fetch Data:", { userId, scriptId });
-    useEffect(() => {
-        //console.log("UseEffect is running");
-        const fetchData = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const data = await scriptApi.getScriptInfo(userId, scriptId);
-                //console.log("Get script Info: ", data);
-                setData(data);
-            } catch (err) {
-                console.error("Error fetching script info:", err);
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, [userId, scriptId]);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  //   console.log("Calling fetch Data:", { userId, scriptId });
+  useEffect(() => {
+    console.log("UseEffect is running");
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await scriptApi.getScriptInfo(userId, scriptId);
+        // console.log("Get script Info: ", data);
+        setData(data);
+      } catch (err) {
+        console.error("Error fetching script info:", err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [userId, scriptId]);
 
-    return { data, setData, loading, error };
+  return { data, setData, loading, error };
 };
 
 const useFetchScriptFile = (userId, scriptId, version) => {
@@ -69,7 +69,4 @@ const useFetchScriptFile = (userId, scriptId, version) => {
     return { data, setData, loading, error, reload };
 };
 
-export {
-    useFetchScriptInfo,
-    useFetchScriptFile
-};
+export { useFetchScriptInfo, useFetchScriptFile };
