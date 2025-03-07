@@ -7,7 +7,6 @@ import {
   Avatar,
   IconButton,
   TextField,
-  Button,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -21,37 +20,26 @@ import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ReplyIcon from "@mui/icons-material/Reply";
 import HistoryIcon from "@mui/icons-material/History";
-import { formatDate } from "../components/FormatTime";
+import { formatDate } from "../FormatTime";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
-import { useFetchSubComments } from "../hooks/useFetchComment";
-import commentApi from "../api/commentAPI";
-const ScriptCommentItem = ({
+import commentApi from "../../api/commentAPI";
+const ScriptSubCommentItem = ({
   comment,
   usernames,
-  handleReply,
   handleEdit,
   confirmDelete,
-  scriptInfo,
-  isSubComment,
+  getAllSubComments,
 }) => {
   const { t } = useTranslation();
   const { userId, scriptId } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
-  const [isReplying, setIsReplying] = useState(false);
-  const [replyContent, setReplyContent] = useState("");
   //   const [allSubComments, setAllSubComments] = useState([]);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [history, setHistory] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
-  const [showReplies, setShowReplies] = useState(false);
-
-  const { data: allSubComments, setData: setAllSubComments } =
-    useFetchSubComments(userId, scriptId, comment._id);
 
   useEffect(() => {
     if (comment.owner_id === localStorage.getItem("userId")) {
@@ -59,27 +47,14 @@ const ScriptCommentItem = ({
     }
   }, [comment]);
 
-  const getAllSubComments = async (commentId) => {
-    try {
-      const response = await commentApi.getAllSubComments(
-        userId,
-        scriptId,
-        commentId
-      );
-      setAllSubComments(response);
-      console.log("Sub comment", response);
-    } catch (error) {
-      console.error("Error getting subcomments:", error);
-    }
-  };
+  //   useEffect(() => {
+  //     if (!scriptInfo?.owner_id || !scriptInfo?._id) return;
+  //     getAllSubComments();
+  //   }, [scriptInfo?.owner_id, scriptInfo?._id]);
 
   const handleSaveEdit = async () => {
     await handleEdit(comment, editedContent);
-    if (isSubComment) {
-      await getAllSubComments(comment.sub_comment_id);
-    } else {
-      getAllSubComments(comment._id);
-    }
+    await getAllSubComments(comment.sub_comment_id);
     setIsEditing(false);
   };
 
@@ -87,18 +62,6 @@ const ScriptCommentItem = ({
     setEditedContent(comment.content);
     setIsEditing(false);
   };
-
-  const handleSendReply = async () => {
-    await handleReply(comment, replyContent);
-    await getAllSubComments(comment._id);
-    setReplyContent("");
-    setIsReplying(false);
-  };
-
-  //   useEffect(() => {
-  //     if (!scriptInfo?.owner_id || !scriptInfo?._id) return;
-  //     getAllSubComments();
-  //   }, [scriptInfo?.owner_id, scriptInfo?._id]);
 
   const fetchHistory = async () => {
     setLoadingHistory(true);
@@ -182,11 +145,6 @@ const ScriptCommentItem = ({
         <Stack direction="row" spacing={1}>
           {!isEditing && (
             <>
-              {!isSubComment && (
-                <IconButton onClick={() => setIsReplying(!isReplying)}>
-                  <ReplyIcon />
-                </IconButton>
-              )}
               {isOwner && (
                 <>
                   <IconButton onClick={() => setIsEditing(true)}>
@@ -201,58 +159,6 @@ const ScriptCommentItem = ({
           )}
         </Stack>
       </Stack>
-
-      {/* Reply Input Field */}
-      {isReplying && (
-        <Stack spacing={1} sx={{ pl: 6 }}>
-          <TextField
-            fullWidth
-            label={t("Reply")}
-            value={replyContent}
-            onChange={(e) => setReplyContent(e.target.value)}
-            size="small"
-            multiline
-          />
-          <Stack direction="row" spacing={1}>
-            <Button variant="contained" onClick={handleSendReply}>
-              {t("Send")}
-            </Button>
-            <Button variant="outlined" onClick={() => setIsReplying(false)}>
-              {t("Cancel")}
-            </Button>
-          </Stack>
-        </Stack>
-      )}
-
-      {/* Show Replies Button */}
-      {allSubComments?.length > 0 && !isSubComment && (
-        <Stack spacing={1} sx={{ pl: 6, mt: 1 }}>
-          <Button
-            onClick={() => setShowReplies(!showReplies)}
-            variant="text"
-            size="small"
-          >
-            {showReplies
-              ? t("sub-comment.hide_reply")
-              : t("sub-comment.show_reply")}{" "}
-            ({allSubComments?.length})
-          </Button>
-
-          {showReplies &&
-            allSubComments?.map((reply) => (
-              <ScriptCommentItem
-                key={reply._id}
-                comment={reply}
-                usernames={usernames}
-                handleReply={handleReply}
-                handleEdit={handleEdit}
-                confirmDelete={confirmDelete}
-                scriptInfo={scriptInfo}
-                isSubComment={true}
-              />
-            ))}
-        </Stack>
-      )}
 
       {/* History Modal */}
       <Dialog open={historyOpen} onClose={() => setHistoryOpen(false)}>
@@ -282,4 +188,4 @@ const ScriptCommentItem = ({
   );
 };
 
-export default ScriptCommentItem;
+export default ScriptSubCommentItem;
