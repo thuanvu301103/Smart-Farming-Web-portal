@@ -5,7 +5,7 @@ import {
     TextField, Autocomplete,
     Button,
 } from '@mui/material';
-import Map from '../components/Map';
+import Map from '../../components/Map';
 // Translation
 import { useTranslation } from 'react-i18next';
 // Icon

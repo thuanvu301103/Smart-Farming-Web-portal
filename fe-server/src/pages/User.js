@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 // Import components
 import Tabnav from '../components/Tabnav';
-import {
-    Box
-} from '@mui/material';
 // Import pages
-import BookmarkList from '../pages/BookmarkList';
+import BookmarkList from './bookmark/BookmarkList';
 import ScriptList from './script/ScriptList';
-import ModelList from '../pages/ModelList';
+import ModelList from './model/ModelList';
 import Overview from './overview/Overview';
-import Explore from '../pages/Explore';
+import Explore from './explore/Explore';
 // Import Icons
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
@@ -23,7 +20,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 // Hooks
-import { useFetchProfile, useFetchTopScripts, useFetchScriptsList} from "../hooks/useFetchUser";
+import { useFetchProfile, useFetchTopScripts, useFetchScriptsList, useFetchModelsList} from "../hooks/useFetchUser";
 
 const User = () => {
 
@@ -43,25 +40,9 @@ const User = () => {
     // Fetch user's top scripts
     const { data: topScripts, loading: topScriptsLoading, error: topScriptsError } = useFetchTopScripts(userId);
 
-    // Fetch Models Data
-    // const [models, setModels] = useState([]);
-    // const [modelLoading, setModelLoading] = useState(true); 
+    // Fetch models list
+    const { data: modelsList, loading: modelsListLoading, error: modelsListError  } = useFetchModelsList(userId);
 
-    // useEffect(() => {
-    //     const fetch = async () => {
-    //         try {
-    //             const response = await axios.get(`http://localhost:3000/${userId}/models`);
-    //             setModels(response.data);
-    //         } catch (error) {
-    //             console.error('Error fetching models:', error);
-    //         } finally {
-    //             setModelLoading(false); // Set loading to false after fetching data
-    //         }
-    //     };
-    //     fetch();
-    // }, [userId, models]);
-
-    // Tab data
     const tabdata = [
         {
             icon: <ImportContactsOutlinedIcon />,
@@ -82,7 +63,7 @@ const User = () => {
             value: "model",
             path: "./model",
             label: t("tab.model"),
-            // element: <ModelList data={models} loading={modelLoading}/>
+            element: <ModelList data={modelsList} loading={modelsListLoading}/>
         },
         {
             icon: <BookmarkBorderOutlinedIcon />,

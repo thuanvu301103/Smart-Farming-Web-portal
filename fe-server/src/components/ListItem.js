@@ -146,7 +146,7 @@ const ScriptModelListItem = ({ item }) => {
                     sx = {{display: 'flex', flexDirection: 'column', flex: '1 1 0%'}}
                     primary={
                         <Link
-                            href={`scripts/${item?._id ? item._id : '#'}/code`}
+                            href={`./scripts/${item?._id ? item._id : '#'}/code`}
                             color='success'
                             sx={{ textDecoration: 'none', fontWeight: 'bold' }}
                         >

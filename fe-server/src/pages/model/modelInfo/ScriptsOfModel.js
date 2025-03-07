@@ -17,9 +17,10 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 // Translation
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { PaginatedList } from '../components/List';
-import { ScriptModelListItem } from '../components/ListItem';
+import { useNavigate, useParams } from 'react-router-dom';
+import { PaginatedList } from '../../../components/List';
+import { ScriptModelListItem } from '../../../components/ListItem';
+import modelApi from '../../../api/modelAPI';
 const EditModelModal = ({ open, handleClose, oldData }) => {
 
     const { t } = useTranslation();
@@ -150,50 +151,24 @@ const EditModelModal = ({ open, handleClose, oldData }) => {
         </Modal>
         );
 }
-const DeleteModelModal = ({ open, handleClose, oldData }) => {
-
+const DeleteModelModal = ({ open, handleClose, modelInfo }) => {
+    const userId = localStorage.getItem('userId');
     const { t } = useTranslation();
     const navigate = useNavigate();
-
-    const [formData, setFormData] = useState({
-        _id: '',
-        name: '',
-        description: '',
-        privacy: '',
-        owner_id: '',
-    });
-
-    useEffect(() => {
-        if (oldData) {
-            setFormData({
-                _id: oldData._id,
-                name: oldData.name,
-                description: oldData.description,
-                privacy: oldData.privacy,
-                owner_id: oldData.owner_id,
-            });
-        }
-    }, [oldData]);
-    
     // Handle Cofirm
     const handleConfirm = async (e) => {
         e.preventDefault(); // Prevent default form submission
-        // Call Edit api
+        // Call delete api
         try {
-            const response = await axios.delete(
-                `http://localhost:3000/${formData.owner_id}/models/${formData._id}`,
-            );
-            console.log('Response:', response.data);
-            
+            const response = await modelApi.deleteModelInfo(userId, modelInfo._id)
+            console.log(response);            
         } catch (error) {
             console.error('Error submitting form:', error);
         }
         // Close Modal
-        
-        navigate(-1);
+        navigate(`/${userId}/model`);
         handleClose();
     }
-
     const style = {
         position: 'absolute',
         top: '50%',
@@ -248,6 +223,7 @@ const ScriptsOfModel = ({ modelInfo }) => {
     const { t } = useTranslation();
     const [scripts, setScripts] = useState([]);
     const [scriptLoading, setScriptLoading] = useState(false);
+
     // Handle Edit Modal
     const [openEdit, setOpenEdit] = useState(false);
     const handleOpenEdit = () => setOpenEdit(true);
@@ -257,17 +233,18 @@ const ScriptsOfModel = ({ modelInfo }) => {
     const [openDelete, setOpenDelete] = useState(false);
     const handleOpenDelete = () => setOpenDelete(true);
     const handleCloseDelete = () => setOpenDelete(false);
-
+    
     useEffect(() => {
         const fetch = async () => {
             try {
                 setScriptLoading(true);
-                const response = await axios.get(`http://localhost:3000/${modelInfo.owner_id}/models/${modelInfo._id}/scripts`);
-                setScripts(response.data);
+                const userId= localStorage.getItem('userId');
+                const response = await modelApi.getScriptsModel(userId, modelInfo._id);
+                setScripts(response);
             } catch (error) {
                 console.error('Error fetching scripts of model:', error);
             } finally {
-                setScriptLoading(false); // Set loading to false after fetching data
+                setScriptLoading(false);
             }
         };
         fetch();
@@ -311,7 +288,7 @@ const ScriptsOfModel = ({ modelInfo }) => {
                     >
                         {t("button.delete")}
                     </Button>
-                    <DeleteModelModal open={openDelete} handleClose={handleCloseDelete} oldData={modelInfo} />
+                    <DeleteModelModal open={openDelete} handleClose={handleCloseDelete} modelInfo = {modelInfo} />
                 </Box>
             </Box>
             <Box sx={{display:'flex', gap: '16px', margin:'16px 0'}}>
