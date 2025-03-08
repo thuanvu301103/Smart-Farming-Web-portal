@@ -16,11 +16,10 @@ import { useParams } from "react-router-dom";
 import ScriptCommentItem from "../components/comment/ScriptCommentItem";
 //Import icon
 import SendIcon from "@mui/icons-material/Send";
-import PersonIcon from "@mui/icons-material/Person";
 import { useFetchScriptInfo } from "../hooks/useFetchScript";
 import { useFetchComments } from "../hooks/useFetchComment";
-import userApi from "../api/userAPI";
 import commentApi from "../api/commentAPI";
+import { useFetchProfile } from "../hooks/useFetchUser";
 const ScriptComment = () => {
   const { t } = useTranslation();
   const { userId, scriptId } = useParams();
@@ -35,6 +34,8 @@ const ScriptComment = () => {
     loading: scriptInfoLoading,
     error: scriptInfoError,
   } = useFetchScriptInfo(userId, scriptId);
+
+  const { data: user } = useFetchProfile(userId);
 
   const { data: allComments, setData: setAllComments } = useFetchComments(
     userId,
@@ -177,9 +178,10 @@ const ScriptComment = () => {
       {/* Add Comment Section */}
       <Box sx={{ mt: 3 }}>
         <Stack direction="row" spacing={2} alignItems="center">
-          <Avatar sx={{ bgcolor: "#1976d2", fontSize: 16 }}>
+          <Avatar src={user?.profile_image} alt="User Avatar" />
+          {/* <Avatar sx={{ bgcolor: "#1976d2", fontSize: 16 }}>
             {<PersonIcon />}
-          </Avatar>
+          </Avatar> */}
           <TextField
             label={t("add-comment.placeholder")}
             variant="outlined"
