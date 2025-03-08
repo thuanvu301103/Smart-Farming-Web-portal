@@ -20,6 +20,9 @@
     "favorite": "Yêu thích",
     "version": "Phiên bản"
   },
+  "compare-version": {
+    "title":  "So sánh các phiên bản của kịch bản tưới"
+  },
   "welcome": "Chào mừng",
   "login": {
     "title": "Đăng nhập",

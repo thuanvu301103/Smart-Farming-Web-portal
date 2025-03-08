@@ -6,7 +6,8 @@
     "\\src\\hooks",
     "\\src\\pages",
     "\\src\\pages\\script",
-    "\\src\\pages\\script\\scriptCode"
+    "\\src\\pages\\script\\scriptCode",
+    "\\src\\pages\\script\\versionCompare"
   ],
   "SelectedNode": "\\src\\pages\\script\\scriptCode\\ScriptCode.js",
   "PreviewInSolutionExplorer": false
