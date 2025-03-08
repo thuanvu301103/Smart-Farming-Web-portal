@@ -101,7 +101,7 @@ const VesionCompare = () => {
     };
 
     useEffect(() => {
-        compareTexts();
+        if (fileData1 && fileData2) compareTexts();
     }, [fileData1, fileData2]);
 
     // Hanle Version Menu 1
