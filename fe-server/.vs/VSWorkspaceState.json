@@ -1,15 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\public",
     "\\src",
-    "\\src\\api",
     "\\src\\hooks",
     "\\src\\pages",
-    "\\src\\pages\\login",
     "\\src\\pages\\script",
-    "\\src\\pages\\script\\newScript",
     "\\src\\pages\\script\\scriptCode"
   ],
-  "SelectedNode": "\\src\\api\\scriptAPI.js",
+  "SelectedNode": "\\src\\pages\\script\\scriptCode\\ScriptCode.js",
   "PreviewInSolutionExplorer": false
 }

@@ -1,115 +1,5 @@
 [{
   "_id": {
-    "$oid": "67ad9b237fbd427b0f974140"
-  },
-  "name": "Magic",
-  "description": "Đây là một trong những loại cây trồng rất hay siopren isopren isolum pren là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": {
-    "$oid": "67ad5d4436fd81f06d8818db"
-  },
-  "__v": 0,
-  "share_id": [
-    "679b765e8496f00b99063cb8"
-  ],
-  "location": [
-    "Đà Nẵng",
-    "Trà Vinh"
-  ],
-  "plant_type": [
-    "Táo",
-    "Chanh"
-  ],
-  "favorite": 1
-},
-{
-  "_id": {
-    "$oid": "67ad9cf0ba6e69372ba87128"
-  },
-  "name": "Kich bản tưới cây đậu bắp",
-  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": {
-    "$oid": "67ad5d4436fd81f06d8818db"
-  },
-  "__v": 0,
-  "location": [],
-  "favorite": 0
-},
-{
-  "_id": {
-    "$oid": "67ad9cfeba6e69372ba8712a"
-  },
-  "name": "Kich bản tưới cây hoa cải",
-  "description": "Đây là một kịch bản tưới cây đỉnh nóc kịch trần được tạo ra từ mô hình thông minh",
-  "privacy": "private",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": {
-    "$oid": "67ad5d4436fd81f06d8818db"
-  },
-  "__v": 0,
-  "location": [],
-  "favorite": 0
-},
-{
-  "_id": {
-    "$oid": "67aea0de6c7cfcd25bd71538"
-  },
-  "name": "Kịch bản tưới cây lan",
-  "description": "Đây là một kịch bản static",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": null,
-  "__v": 0,
-  "location": [],
-  "favorite": 0
-},
-{
-  "_id": {
-    "$oid": "67aea0e16c7cfcd25bd7153a"
-  },
-  "name": "Kịch bản tưới cây lan",
-  "description": "Đây là một kịch bản static",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": null,
-  "__v": 1,
-  "favorite": 1,
-  "location": [],
-  "plant_type": [],
-  "share_id": []
-},
-{
-  "_id": {
-    "$oid": "67aeccdb0d59336166486c0e"
-  },
-  "name": "Cây mắm trắng",
-  "description": "",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": null,
-  "__v": 1,
-  "favorite": 1,
-  "location": [],
-  "plant_type": [],
-  "share_id": []
-},
-{
-  "_id": {
     "$oid": "67aecd1e0d59336166486c10"
   },
   "name": "Cây mắm đen",
@@ -152,115 +42,23 @@
 },
 {
   "_id": {
-    "$oid": "67c57e561968eef689f61389"
+    "$oid": "67c94c998be9ec2f58eb1579"
   },
-  "name": "Đây là mootjj kịch bản",
-  "description": "Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bản Đây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bảnĐây là mootjj kịch bản",
+  "name": "Kịch bản tưới cây chanh",
+  "description": "Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh ",
   "privacy": "public",
   "owner_id": {
     "$oid": "67c273401fb713deae4b068c"
   },
-  "model_id": null,
-  "share_id": [],
-  "favorite": 1,
-  "location": [],
-  "plant_type": [],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67c580103407a0b718fc8157"
-  },
-  "name": "Đây là kichjbanr thứ 2",
-  "description": "",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": null,
-  "share_id": [],
-  "favorite": 0,
-  "location": [],
-  "plant_type": [],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67c5803e3407a0b718fc834b"
-  },
-  "name": "Đây là kịch abrn thứ 3",
-  "description": "Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3Đây là kịch abrn thứ 3",
-  "privacy": "private",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": null,
-  "share_id": [],
-  "favorite": 0,
-  "location": [],
-  "plant_type": [],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67c581b93407a0b718fc8ef0"
-  },
-  "name": "Đây là kịch bản thứ 4",
-  "description": "",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": null,
-  "share_id": [],
-  "favorite": 0,
-  "location": [],
-  "plant_type": [],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67c582a76ea0e2504cac0801"
-  },
-  "name": "Đây là kich bản thứ 5",
-  "description": "",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "model_id": null,
-  "share_id": [
-    {
-      "$oid": "67c571cbb62805db4a4c27b1"
-    },
-    {
-      "$oid": "67c571deb62805db4a4c27b2"
-    }
+  "version": [
+    5,
+    4,
+    3,
+    2,
+    1.8
   ],
-  "favorite": 0,
-  "location": [],
-  "plant_type": [],
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67c584666ea0e2504cac0887"
-  },
-  "name": "Đây là kịch bản cuối cùng",
-  "description": "Đây là kịch bản cuối cùng",
-  "privacy": "private",
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
   "model_id": null,
-  "share_id": [
-    {
-      "$oid": "67c571cbb62805db4a4c27b1"
-    },
-    {
-      "$oid": "67c571deb62805db4a4c27b2"
-    }
-  ],
+  "share_id": [],
   "favorite": 0,
   "location": [],
   "plant_type": [],
