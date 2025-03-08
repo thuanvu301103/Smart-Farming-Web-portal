@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "cra-template": "1.2.0",
+    "diff": "^7.0.0",
     "i18next-browser-languagedetector": "^8.0.2",
     "i18next-http-backend": "^3.0.2",
+    "monaco-editor": "^0.52.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.28.2",

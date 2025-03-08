@@ -20,6 +20,9 @@
     "favorite": "Favorite",
     "version": "Version"
   },
+  "compare-version": {
+    "title": "Compare versions of an Irrigation script"
+  },
   "welcome": "Welcome",
   "login": {
     "title": "Sign in",
