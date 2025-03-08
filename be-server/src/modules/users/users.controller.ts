@@ -41,6 +41,12 @@ export class UsersController {
         return this.usersService.getInfoUser(userId);
     }
 
+    @Get(':userId/favorite-script')
+    @UseGuards(JwtAuthGuard)
+    async getFavoriteScript(@Param('userId') userId: string) {
+        return this.usersService.getFavoriteScript(userId);
+    }
+
     @Put(':userId')
     @UseGuards(JwtAuthGuard)
     async updateUser(@Param('userId') userId: string, @Body() updatedData: any, @Req() req) {

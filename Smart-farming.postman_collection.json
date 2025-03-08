@@ -1093,6 +1093,40 @@
 					"response": []
 				},
 				{
+					"name": "Get user's favorite script(s)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTQ0OTYzMiwiZXhwIjoxNzQxNDUzMjMyfQ.J12oQXQKmTey-OlgZ8CzwQnBiWt4Edy847-KUeGrSTc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/favorite-script",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"favorite-script"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Change user's info",
 					"request": {
 						"auth": {
