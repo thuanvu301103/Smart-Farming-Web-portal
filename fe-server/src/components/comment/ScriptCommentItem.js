@@ -32,7 +32,6 @@ import { useFetchSubComments } from "../../hooks/useFetchComment";
 import commentApi from "../../api/commentAPI";
 const ScriptCommentItem = ({
   comment,
-  usernames,
   handleReply,
   handleEdit,
   getAllComments,
@@ -58,7 +57,7 @@ const ScriptCommentItem = ({
     useFetchSubComments(userId, scriptId, comment._id);
 
   useEffect(() => {
-    if (comment.owner_id === localStorage.getItem("userId")) {
+    if (comment.owner_id._id === localStorage.getItem("userId")) {
       setIsOwner(true);
     }
   }, [comment]);
@@ -158,15 +157,17 @@ const ScriptCommentItem = ({
       }}
     >
       <Stack direction="row" spacing={2} alignItems="center">
-        <Avatar sx={{ bgcolor: "#1976d2", fontSize: 16 }}>
+        <Avatar alt="User Avatar" src={comment.owner_id.profile_image} />
+
+        {/* <Avatar sx={{ bgcolor: "#1976d2", fontSize: 16 }}>
           {usernames[comment.owner_id]?.charAt(0).toUpperCase() || (
             <PersonIcon />
           )}
-        </Avatar>
+        </Avatar> */}
 
         <Stack spacing={0.5} sx={{ flex: 1 }}>
           <Typography variant="body1" fontWeight="bold">
-            {usernames[comment.owner_id] || "Unknown User"}
+            {comment.owner_id.username || "Unknown User"}
           </Typography>
 
           {isEditing ? (
@@ -270,7 +271,6 @@ const ScriptCommentItem = ({
               <ScriptSubCommentItem
                 key={reply._id}
                 comment={reply}
-                usernames={usernames}
                 handleEdit={handleEdit}
                 confirmDelete={confirmDelete}
                 getAllSubComments={getAllSubComments}
