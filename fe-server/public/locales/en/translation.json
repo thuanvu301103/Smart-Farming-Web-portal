@@ -126,7 +126,8 @@
     "bookmark": "Bookmark",
     "explore": "Explore",
     "code": "Code",
-    "comment": "Comment"
+    "comment": "Comment",
+    "compare": "Compare"
   },
   "list": {
     "search_for": "Search for...",

@@ -322,7 +322,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTE0NDA0NSwiZXhwIjoxNzQxMTQ3NjQ1fQ.SYohK9vegYrEc0nyGH77wKzWkauFcMUaWp5Kh732494",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTI1NTE2NywiZXhwIjoxNzQxMjU4NzY3fQ.dsathQret07QLDJ01tknoijJVeRhuT9EkxHDdnwkaZ4",
 									"type": "string"
 								}
 							]
@@ -342,7 +342,7 @@
 							"variable": [
 								{
 									"key": "path",
-									"value": "67c273401fb713deae4b068c%2F67c8051ab5ae1125190ca718%2Fv1.0.json"
+									"value": "67c273401fb713deae4b068c%2F67c94c998be9ec2f58eb1579%2Fv1.2.json"
 								}
 							]
 						}
@@ -441,6 +441,43 @@
 									"key": "path",
 									"value": "/thuan_vu/chanh/v2.1/action/new"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename file",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTMxMjk4NywiZXhwIjoxNzQxMzE2NTg3fQ.Qz9E4-pYWfudN6TAhGN4wdv4E_3rQ15Axgf5cYOa_I0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"old_path\": \"67c273401fb713deae4b068c/67c94c998be9ec2f58eb1579/v1.2.json\",\r\n    \"new_path\": \"67c273401fb713deae4b068c/67c94c998be9ec2f58eb1579/v1.3.json\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/files/rename",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"rename"
 							]
 						}
 					},
@@ -708,7 +745,14 @@
 					"name": "Get all comments of a script",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTM5NzQzNCwiZXhwIjoxNzQxNDAxMDM0fQ.sWbjb9e1i1rgX1D2mNBb9TOsYW3sxSieWS6-Dj7buu0",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -726,11 +770,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
+									"value": "67c273401fb713deae4b068c"
 								},
 								{
 									"key": "scriptId",
-									"value": "67ad9b237fbd427b0f974140"
+									"value": "67c94c998be9ec2f58eb1579"
 								}
 							]
 						}
@@ -780,7 +824,14 @@
 					"name": "Get all sub-comments of a comment",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTM5NzQzNCwiZXhwIjoxNzQxNDAxMDM0fQ.sWbjb9e1i1rgX1D2mNBb9TOsYW3sxSieWS6-Dj7buu0",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -800,15 +851,15 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
+									"value": "67c273401fb713deae4b068c"
 								},
 								{
 									"key": "scriptId",
-									"value": "67ad7db648588ac08535042e"
+									"value": "67c94c998be9ec2f58eb1579"
 								},
 								{
 									"key": "commentId",
-									"value": "67aff7eb7ecb3d630c6feb03"
+									"value": "67cb9aef64051c16a8ea4282"
 								}
 							]
 						}

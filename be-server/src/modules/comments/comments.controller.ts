@@ -1,12 +1,14 @@
-import { Controller, Body, Get, Post, Put, Delete, Param } from '@nestjs/common';
+import { Controller, Body, Get, Post, Put, Delete, Param, UseGuards } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { Comment } from '../../schemas/comments.schema';
+import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 
 @Controller(':userId/scripts/:scriptId/comments')
 export class CommentsController {
     constructor(private readonly commentsService: CommentsService) { }
 
     @Get()
+    @UseGuards(JwtAuthGuard)
     async findAllComments(@Param('scriptId') scriptId: string):
         Promise<Comment[]> {
         //console.log(userId);
@@ -14,18 +16,21 @@ export class CommentsController {
     }
 
     @Get(':commentId/history')
+    @UseGuards(JwtAuthGuard)
     async getUpdateHistory(@Param('commentId') id: string) {
         const updateHistory = await this.commentsService.getUpdateHistory(id);
         return updateHistory;
     }
 
     @Get(':commentId/subcomments')
+    @UseGuards(JwtAuthGuard)
     async findAllSubComments(@Param('commentId') commentId: string):
         Promise<Comment[]> {
         return this.commentsService.findAllSubComments(commentId);
     }
 
     @Post()
+    @UseGuards(JwtAuthGuard)
     async createComment(
         @Body() data: {
             content: string;
@@ -45,6 +50,7 @@ export class CommentsController {
     }
 
     @Put(':commentId')
+    @UseGuards(JwtAuthGuard)
     async updateContent(
         @Param('commentId') commentId: string,
         @Body() data: {content: string}
@@ -53,6 +59,7 @@ export class CommentsController {
     }
 
     @Delete(':commentId')
+    @UseGuards(JwtAuthGuard)
     async deleteComment(@Param('commentId') commentId: string) {
         return await this.commentsService.deleteComment(commentId);
     }

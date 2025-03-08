@@ -13,14 +13,18 @@ export class CommentsService {
         const result = await this.commentModel.find({
             script_id: new Types.ObjectId(scriptId),
             sub_comment_id: { $eq: null }
-        }).lean().exec();
+        })
+            .populate('owner_id', 'username profile_image')
+            .lean().exec();
         return result;
     }
 
     // Find all sub-comments of a comment
     async findAllSubComments(commentId: string):
         Promise<Comment[]> {
-        const result = await this.commentModel.find({ sub_comment_id: new Types.ObjectId(commentId) }).lean().exec();
+        const result = await this.commentModel.find({ sub_comment_id: new Types.ObjectId(commentId) })
+            .populate('owner_id', 'username profile_image')
+            .lean().exec();
         return result;
     }
 

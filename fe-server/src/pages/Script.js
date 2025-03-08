@@ -3,9 +3,12 @@
 import Tabnav from "../components/Tabnav";
 // Import pages
 import ScriptCode from "./script/scriptCode/ScriptCode";
+import ScriptComment from "./ScriptComment";
+import VersionCompare from "./script/versionCompare/VersionCompare";
 // Import Icons
 import CodeIcon from "@mui/icons-material/Code";
 import CommentIcon from "@mui/icons-material/Comment";
+import DifferenceOutlinedIcon from '@mui/icons-material/DifferenceOutlined';
 // Translation
 import { useTranslation } from "react-i18next";
 // React Router DOM
@@ -18,7 +21,6 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import ScriptComment from "./ScriptComment";
 
 const Script = () => {
   const { t } = useTranslation();
@@ -42,6 +44,13 @@ const Script = () => {
       path: "./comment",
       label: t("tab.comment"),
       element: <ScriptComment />,
+    },
+    {
+        icon: <DifferenceOutlinedIcon />,
+      value: "compare",
+      path: "./compare",
+      label: t("tab.compare"),
+        element: <VersionCompare />,
     },
   ];
 
