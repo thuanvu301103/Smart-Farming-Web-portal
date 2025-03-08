@@ -25,7 +25,6 @@ const ScriptComment = () => {
   const { t } = useTranslation();
   const { userId, scriptId } = useParams();
   //   const [allComments, setAllComments] = useState([]);
-  const [usernames, setUsernames] = useState({});
   const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar state
   const [snackbarMessage, setSnackbarMessage] = useState(""); // Snackbar message
   const [newComment, setNewComment] = useState(""); // State for new comment input
@@ -56,23 +55,23 @@ const ScriptComment = () => {
   //     getAllComments();
   //   }, [scriptInfo?.owner_id, scriptInfo?._id]);
 
-  useEffect(() => {
-    const fetchUsernames = async () => {
-      const newUsernames = { ...usernames };
-      for (const comment of allComments) {
-        try {
-          const user = await userApi.profile(comment.owner_id);
-          newUsernames[comment.owner_id] = user.username;
-        } catch (error) {
-          console.error("Error getting username:", error);
-        }
-      }
+  // useEffect(() => {
+  //   const fetchUsernames = async () => {
+  //     const newUsernames = { ...usernames };
+  //     for (const comment of allComments) {
+  //       try {
+  //         const user = await userApi.profile(comment.owner_id);
+  //         newUsernames[comment.owner_id] = user.username;
+  //       } catch (error) {
+  //         console.error("Error getting username:", error);
+  //       }
+  //     }
 
-      setUsernames(newUsernames);
-    };
+  //     setUsernames(newUsernames);
+  //   };
 
-    if (allComments?.length > 0) fetchUsernames();
-  }, [allComments]);
+  //   if (allComments?.length > 0) fetchUsernames();
+  // }, [allComments]);
 
   const handleEdit = async (comment, content) => {
     if (!content.trim()) return;
@@ -164,7 +163,6 @@ const ScriptComment = () => {
             <ListItem key={index} sx={{ p: 0 }}>
               <ScriptCommentItem
                 comment={comment}
-                usernames={usernames}
                 handleReply={handleReply}
                 handleEdit={handleEdit}
                 getAllComments={getAllComments}
