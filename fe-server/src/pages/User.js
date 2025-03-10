@@ -33,10 +33,6 @@ const User = () => {
     const { data: profile, loading: profileLoading, error: profileError } = useFetchProfile(userId);
     //console.log("Profile", profile);
 
-    // Fetch scripts List
-    const { data: scriptsList, loading: scriptsListLoading, error: scriptsListError  } = useFetchScriptsList(userId);
-    //console.log("Scripts List:", scriptsList);
-
     // Fetch user's top scripts
     const { data: topScripts, loading: topScriptsLoading, error: topScriptsError } = useFetchTopScripts(userId);
 
@@ -55,7 +51,7 @@ const User = () => {
             value: "scripts",
             path: "./scripts",
             label: t("tab.script"),
-            element: <ScriptList data={scriptsList} loading={scriptsListLoading}/>
+            element: <ScriptList/>
         },
         {
             icon: <ModelTrainingOutlinedIcon />,
@@ -69,7 +65,7 @@ const User = () => {
             value: "bookmark",
             path: "./bookmark",
             label: t("tab.bookmark"),
-            element: <BookmarkList />
+            element: <BookmarkList/>
         },
         {
             icon: <TravelExploreOutlinedIcon />,
