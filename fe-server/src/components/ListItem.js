@@ -39,6 +39,9 @@ const ScriptListItem = ({ item }) => {
     const { t } = useTranslation();
     const [isFavorite, setIsFavotie] = useState(item.isFavorite);
     const [favoriteCount, setFavoriteCount] = useState(item.favorite);
+    console.log(item.name , 'is Favorite ', isFavorite);
+    console.log(item.name , 'is favoriteCount ', favoriteCount);
+
     const handleFavorite = async () => {
         let action = isFavorite ? "remove" : "add";
         await userApi.favoriteScript(localStorage.getItem("userId"), item._id, action);
@@ -56,7 +59,7 @@ const ScriptListItem = ({ item }) => {
                             variant="h6"
                             color="success"
                             style={{ textDecoration: 'none', fontWeight: 'bold' }}
-                            onClick={() => navigate(`${item?._id ? item._id : '#'}/code`)}
+                            onClick={() => navigate(`./${item?._id ? item._id : '#'}/code`)}
                         >
                             {item?.name ? item.name : null}
                         </Link>
@@ -383,6 +386,7 @@ const UserListItem1 = ({
 const ModelListItem = ({ item }) => {
 
     const { t } = useTranslation();
+    const [isFavorite, setIsFavotie] = useState(false);
 
     return (
         <ListItem sx={{
@@ -417,7 +421,12 @@ const ModelListItem = ({ item }) => {
                         >{item?.description}</Typography>
                     }
                 />
-                <Button variant='outlined' sx={{textTransform:'initial', padding: '4px 8px'}} startIcon={<BookmarkBorderIcon />}>
+                <Button
+                    variant='outlined' size="small"
+                    startIcon={<BookmarkBorderIcon color={isFavorite ? (isFavorite ? "script" : "text") : "text"} />}
+                    color={isFavorite ? (isFavorite ? "script" : "text") : "text"}
+                    sx={{ borderRadius: '8px' }}
+                >
                     {t("button.favorite")}
                 </Button>
             </ListItem>
