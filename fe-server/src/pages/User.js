@@ -20,7 +20,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 // Hooks
-import { useFetchProfile, useFetchTopScripts, useFetchScriptsList, useFetchModelsList} from "../hooks/useFetchUser";
+import { useFetchProfile, useFetchTopScripts, useFetchScriptsList} from "../hooks/useFetchUser";
 
 const User = () => {
 
@@ -41,7 +41,6 @@ const User = () => {
     const { data: topScripts, loading: topScriptsLoading, error: topScriptsError } = useFetchTopScripts(userId);
 
     // Fetch models list
-    const { data: modelsList, loading: modelsListLoading, error: modelsListError  } = useFetchModelsList(userId);
 
     const tabdata = [
         {
@@ -63,7 +62,7 @@ const User = () => {
             value: "model",
             path: "./model",
             label: t("tab.model"),
-            element: <ModelList data={modelsList} loading={modelsListLoading}/>
+            element: <ModelList/>
         },
         {
             icon: <BookmarkBorderOutlinedIcon />,
