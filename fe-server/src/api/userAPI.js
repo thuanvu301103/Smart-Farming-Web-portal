@@ -32,6 +32,10 @@ const userApi = {
         return response.data;
     },
 
+    bookmarkList: async (userId) => {
+        const response = await axiosInstance.get(`/${userId}/favorite-script`)
+        return response.data;
+    },
     favoriteScript: async (userId, scriptId, action) => {
         const response = await axiosInstance.put(`/${userId}/favorite`, {
             scriptId: scriptId,

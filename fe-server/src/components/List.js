@@ -54,14 +54,17 @@ const PaginatedList = ({
         updatedDataHook(newItems); // Ensure the main data source is updated
     };
 
-
-    // Reture updated data through Hook
     useEffect(() => {
-        if (updatedDataHook != null) updatedDataHook(processedItems);
-    }, [processedItems]);
+        if (updatedDataHook != null) {
+            if (JSON.stringify(items) !== JSON.stringify(processedItems)) {
+                updatedDataHook(processedItems); 
+            }
+        }
+    }, [processedItems, updatedDataHook, items]);
+    
 
     return (
-        <Box>
+        <Box width = "100%">
             <Box
                 sx={{
                     display: 'flex',
