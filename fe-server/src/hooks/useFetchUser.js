@@ -123,9 +123,41 @@ const useFetchModelsList = (userId) => {
     return { data, loading, error };
 };
 
+const useFetchBookmarkList = (userId) => {
+
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (!userId) return;
+
+        const fetchBookmarkList = async () => {
+            setLoading(true);
+            setError(null);
+
+            try {
+                const data = await userApi.bookmarkList(userId);
+                console.log("Fetch bookmark list", data);
+                setData(data);
+            } catch (err) {
+                console.error("Error fetching bookmark list:", err);
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchBookmarkList();
+    }, [userId]); // Runs when `userId` changes
+
+    return { data, loading, error };
+};
+
 export {
     useFetchProfile,
     useFetchTopScripts,
     useFetchScriptsList,
-    useFetchModelsList
+    useFetchModelsList,
+    useFetchBookmarkList
 };
