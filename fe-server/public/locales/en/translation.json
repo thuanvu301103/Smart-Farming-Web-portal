@@ -140,6 +140,9 @@
     "public": "Public",
     "private": "Private"
   },
+  "bookmark": {
+    "error": "Failed to load bookmarks. Please try again."
+  },
   "overview": {
     "activity": "Activity",
     "top_script": "Popular Scripts",

@@ -139,6 +139,9 @@
     "public": "Công khai",
     "private": "Riêng tư"
   },
+  "bookmark": {
+    "error": "Tải dữ liệu thất bại. Vui lòng thử lại."
+  },
   "overview": {
     "activity": "Hoạt động",
     "top_script": "Kịch bản phổ biến",

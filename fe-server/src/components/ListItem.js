@@ -24,6 +24,7 @@ import { useTranslation } from 'react-i18next';
 import userApi from "./../api/userAPI";
 // React DOM
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useState } from 'react';
 
 // Truncate Text function
 const truncateText = (text, maxWords) => {
@@ -37,17 +38,18 @@ const truncateText = (text, maxWords) => {
 const ScriptListItem = ({ item }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const [isFavorite, setIsFavorite] = useState(item.isFavorite || false);
-    const [numFavorite, setNumFavorite] = useState(item.favorite || 0);
+    const [isFavorite, setIsFavotie] = useState(item.isFavorite);
+    const [favoriteCount, setFavoriteCount] = useState(item.favorite);
+    console.log(item.name , 'is Favorite ', isFavorite);
+    console.log(item.name , 'is favoriteCount ', favoriteCount);
 
     const handleFavorite = async () => {
         let action = isFavorite ? "remove" : "add";
         await userApi.favoriteScript(localStorage.getItem("userId"), item._id, action);
-        setIsFavorite((prev) => !prev);
-        if (action == "add") setNumFavorite((prev) => prev + 1);
-        else setNumFavorite((prev) => prev - 1);
+        item.isFavorite = !item.isFavorite;
+        setIsFavotie(!isFavorite);
+        setFavoriteCount(prev => action == "add" ? prev + 1 : prev - 1);
     }
-
     return (
         <CardWrapper borderThickness="10px" borderSide="right" borderColor="success" mt={1}>
             <CardContent>
@@ -58,7 +60,7 @@ const ScriptListItem = ({ item }) => {
                             variant="h6"
                             color="success"
                             style={{ textDecoration: 'none', fontWeight: 'bold' }}
-                            onClick={() => navigate(`${item?._id ? item._id : '#'}/code`)}
+                            onClick={() => navigate(`./${item?._id ? item._id : '#'}/code`)}
                         >
                             {item?.name ? item.name : null}
                         </Link>
@@ -103,7 +105,7 @@ const ScriptListItem = ({ item }) => {
                             <Grid item xs={12} display="flex" justifyContent="flex-end">
                                 <Button
                                     variant='outlined' size="small"
-                                    startIcon={<BookmarkBorderIcon color={item?.isFavorite ? (item.isFavorite ? "script" : "text") : "text"} />}
+                                    startIcon={<BookmarkBorderIcon color={isFavorite ? (isFavorite ? "script" : "text") : "text"} />}
                                     color={isFavorite ? (isFavorite ? "script" : "text") : "text"}
                                     sx={{ borderRadius: '8px' }}
                                     onClick={handleFavorite}
@@ -118,7 +120,7 @@ const ScriptListItem = ({ item }) => {
                             <Grid item xs={12} container alignItems="center" ml={2}>
                                 <BookmarkBorderIcon color="script" fontSize="small" />
                                 <Typography variant="caption" color="text.secondary" ml={1}>
-                                    {t("common.favorite")}: {numFavorite}
+                                    {t("common.favorite")}: {favoriteCount}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -128,6 +130,99 @@ const ScriptListItem = ({ item }) => {
         </CardWrapper>
     );
 }
+
+const BookmarkListItem = ({ item, removeItemFunc }) => {
+    const navigate = useNavigate();
+    const { t } = useTranslation();
+
+    const handleUnfavorite = async () => {
+        try {
+            await userApi.favoriteScript(localStorage.getItem("userId"), item._id, "remove");
+            console.log('Sucessfully removed in item component');
+            removeItemFunc(item._id);
+        } catch (error) {
+            console.error("Error removing favorite:", error);
+        }
+    };
+
+    return (
+        <CardWrapper borderThickness="10px" borderSide="right" borderColor="success" mt={1}>
+            <CardContent>
+                <Box display="flex" flexDirection="row" justifyContent="space-between">
+                    {/* Script Info */}
+                    <Box flex={1}>
+                        <Typography
+                            variant="h6"
+                            color="success"
+                            sx={{ textDecoration: 'none', fontWeight: 'bold', cursor: 'pointer' }}
+                            onClick={() => navigate(`${item?._id ? item._id : '#'}/code`)}
+                        >
+                            {item?.name || ""}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" mt={1}>
+                            {truncateText(item.description, 100)}
+                        </Typography>
+                        <Divider sx={{ flexGrow: 1, mt: 2, backgroundColor: "success.main" }} />
+
+                        <Box display="flex" flexDirection="column" mt={1}>
+                            {/* Plant type */}
+                            <Box display="flex" alignItems="center">
+                                <SpaOutlinedIcon color="success" fontSize="small" />
+                                <Typography variant="caption" color="text.secondary" ml={1}>
+                                    {Array.isArray(item?.plant_type) && item.plant_type.length === 0
+                                        ? t("common.unknown")
+                                        : truncateText((item?.plant_type || []).join(", "), 30)}
+                                </Typography>
+                            </Box>
+
+                            {/* Location */}
+                            <Box display="flex" alignItems="center">
+                                <LocationOnOutlinedIcon color="warning" fontSize="small" />
+                                <Typography variant="caption" color="text.secondary" ml={1}>
+                                    {Array.isArray(item?.location) && item.location.length === 0
+                                        ? t("common.unknown")
+                                        : truncateText((item?.location || []).join(", "), 30)}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    </Box>
+
+                    {/* Right Side: Privacy and Bookmark */}
+                    <Box display="flex" flexDirection="column" alignItems="flex-end" gap={2}>
+                        {/* Script Privacy */}
+                        {item?.privacy && (
+                            <Chip
+                                size="small"
+                                label={t("privacy." + item.privacy)}
+                                color={item.privacy === "public" ? "info" : "warning"}
+                            />
+                        )}
+
+                        {/* Unfavorite Button */}
+                        <Button
+                            variant='outlined' size="small"
+                            startIcon={<BookmarkBorderIcon color="script" />}
+                            color="script"
+                            sx={{ borderRadius: '8px' }}
+                            onClick = {() => handleUnfavorite()}
+                        >
+                            {t("button.favorite")}
+                        </Button>
+
+                        {/* Favorite Count */}
+                        <Box display="flex" alignItems="center">
+                            <BookmarkBorderIcon color="script" fontSize="small" />
+                            <Typography variant="caption" color="text.secondary" ml={1}>
+                                {t("common.favorite")}: {item.favorite}
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Box>
+            </CardContent>
+        </CardWrapper>
+    );
+};
+
 
 const ScriptModelListItem = ({ item }) => {
 
@@ -292,6 +387,7 @@ const UserListItem1 = ({
 const ModelListItem = ({ item }) => {
 
     const { t } = useTranslation();
+    const [isFavorite, setIsFavotie] = useState(false);
 
     return (
         <ListItem sx={{
@@ -326,7 +422,12 @@ const ModelListItem = ({ item }) => {
                         >{item?.description}</Typography>
                     }
                 />
-                <Button variant='outlined' sx={{textTransform:'initial', padding: '4px 8px'}} startIcon={<BookmarkBorderIcon />}>
+                <Button
+                    variant='outlined' size="small"
+                    startIcon={<BookmarkBorderIcon color={isFavorite ? (isFavorite ? "script" : "text") : "text"} />}
+                    color={isFavorite ? (isFavorite ? "script" : "text") : "text"}
+                    sx={{ borderRadius: '8px' }}
+                >
                     {t("button.favorite")}
                 </Button>
             </ListItem>
@@ -429,6 +530,7 @@ const NotificationListItem = ({ item }) => {
 
 export {
     ScriptListItem,
+    BookmarkListItem,
     ScriptModelListItem,
     ModelListItem,
     UserListItem,

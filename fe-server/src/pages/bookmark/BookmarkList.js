@@ -1,40 +1,62 @@
-import React, { useEffect, useState } from 'react';
-// Import components
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Box, CircularProgress, Typography, Stack } from '@mui/material';
 import { PaginatedList } from '../../components/List';
-import { ScriptListItem } from '../../components/ListItem';
-
-import axios from 'axios';
+import { BookmarkListItem } from '../../components/ListItem';
+import { useFetchBookmarkList } from '../../hooks/useFetchUser';
+import { useTranslation } from 'react-i18next';
 
 const BookmarkList = () => {
-
-    const [scripts, setScripts] = useState([]);
-    const [loading, setLoading] = useState(true); // Add loading state
+    const {t} = useTranslation();
+    const { userId } = useParams();
+    const { data: initialBookmarkList, loading: bookmarkListLoading, error: bookmarkListError } = useFetchBookmarkList(userId);
+    const [bookmarkList, setBookmarkList] = useState([]);
 
     useEffect(() => {
-        const fetchScripts = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/scripts');
-                setScripts(response.data);
-            } catch (error) {
-                console.error('Error fetching scripts:', error);
-            } finally {
-                setLoading(false); // Set loading to false after fetching data
-            }
-        };
+        if (initialBookmarkList) {
+            setBookmarkList(initialBookmarkList);
+        }
+    }, [initialBookmarkList]);
 
-        fetchScripts();
-    }, []);
+    const handleUpdateBookmarkList = (newList) => {
+        console.log('bookmarkList', newList)
+        setBookmarkList(newList);
+    };
+
 
     return (
-        <div className="main-content">
-            <PaginatedList
-                ListItemComponents={ScriptListItem}
-                items={scripts}
-                search={'name'}
-                loading={loading}
-            />
-        </div>
+        <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent={bookmarkListLoading || bookmarkListError ? "center" : "start"}
+            sx={{ 
+                mx: 'auto',
+                width: '100%',
+                minHeight: '100vh', 
+                padding: { xs: '16px', md: '20px', lg: '24px 0' }, 
+                maxWidth: '1366px' 
+            }}
+        >
+            {bookmarkListLoading && <CircularProgress />}
+            {bookmarkListError && (
+                <Typography color="error" variant="h6">
+                    {t('bookmark.error')}
+                </Typography>
+            )}
+            {!bookmarkListLoading && !bookmarkListError && bookmarkList && (
+                <Stack spacing={2} width="100%" alignItems="center">
+                    <PaginatedList
+                        ListItemComponents={BookmarkListItem}
+                        items={bookmarkList}
+                        search="name"
+                        loading={bookmarkListLoading}
+                        updatedDataHook={handleUpdateBookmarkList}
+                    />
+                </Stack>
+            )}
+        </Box>
     );
-}
+};
 
 export default BookmarkList;

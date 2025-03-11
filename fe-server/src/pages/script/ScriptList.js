@@ -5,12 +5,13 @@ import { ScriptListItem } from '../../components/ListItem';
 import {
     Grid, Box,
 } from '@mui/material';
-// React Router DOM
-import { useParams } from 'react-router-dom';
+import { useFetchScriptsList } from '../../hooks/useFetchUser';
 
-const ScriptList = ({ data, loading }) => {
+const ScriptList = () => {
 
-    const { userId } = useParams();
+    const userId = localStorage.getItem("userId");
+    // Fetch scripts List
+    const { data: scriptsList, loading: scriptsListLoading  } = useFetchScriptsList(userId);
 
     return (
         <Box
@@ -24,9 +25,9 @@ const ScriptList = ({ data, loading }) => {
                 <Grid item xs={11} md={9}>
                     <PaginatedList
                         ListItemComponents={ScriptListItem}
-                        items={data}
+                        items={scriptsList}
                         search={'name'}
-                        loading={loading}
+                        loading={scriptsListLoading}
                         addHref={localStorage.getItem("userId") == userId ? '/new-script' : null}
                     />
                 </Grid>

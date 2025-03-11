@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PaginatedList } from '../../../components/List';
-import { ScriptModelListItem } from '../../../components/ListItem';
+import { ScriptListItem, ScriptModelListItem } from '../../../components/ListItem';
 import modelApi from '../../../api/modelAPI';
 const EditModelModal = ({ open, handleClose, oldData }) => {
 
@@ -256,7 +256,7 @@ const ScriptsOfModel = ({ modelInfo }) => {
                 <Typography variant="h6" sx={{ fontWeight: 'bold', mt:1 }}>
                     {modelInfo.name}
                 </Typography>
-                <Box sx={{display:'flex', gap: '8px'}}>
+                <Box sx={{display:'flex', gap: '8px', flexWrap: 'wrap'}}>
                     <Button
                         startIcon={<BookmarkBorderIcon/>}
                         disableElevation
@@ -294,7 +294,7 @@ const ScriptsOfModel = ({ modelInfo }) => {
             <Box sx={{display:'flex', gap: '16px', margin:'16px 0'}}>
                 <Box sx={{display:'flex', flex:'1', flexDirection:'column', gap:'16px'}}>
                     <Box sx={{display:'flex', justifyContent:'space-between'}}>
-                        <FormControl size="small" sx={{ minWidth: 120 }}>
+                        {/* <FormControl size="small" sx={{ minWidth: 120 }}>
                             <Select
                                 defaultValue=""
                                 displayEmpty
@@ -307,7 +307,7 @@ const ScriptsOfModel = ({ modelInfo }) => {
                                 <MenuItem value={20}>Artifact 2</MenuItem>
                                 <MenuItem value={30}>Artifact 3</MenuItem>
                             </Select>
-                        </FormControl>
+                        </FormControl> */}
                         <Button variant="contained" color="success" size="small" sx={{textTransform: 'initial'}}
                             startIcon={<AddIcon />}
                             href="new-script"
@@ -318,7 +318,7 @@ const ScriptsOfModel = ({ modelInfo }) => {
                     <Box sx = {{border:'1px solid #3D444D',borderRadius:'6px', padding:'8px'}} >
                         <PaginatedList
                             itemsPerPage = {5}
-                            ListItemComponents={ScriptModelListItem}
+                            ListItemComponents={ScriptListItem}
                             items={scripts}
                             search={'name'}
                             loading={scriptLoading}
