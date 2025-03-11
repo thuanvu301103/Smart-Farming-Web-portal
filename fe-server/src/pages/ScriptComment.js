@@ -11,6 +11,7 @@ import {
   IconButton,
   Avatar,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import ScriptCommentItem from "../components/comment/ScriptCommentItem";
@@ -22,6 +23,7 @@ import commentApi from "../api/commentAPI";
 import { useFetchProfile } from "../hooks/useFetchUser";
 const ScriptComment = () => {
   const { t } = useTranslation();
+  const theme = useTheme();
   const { userId, scriptId } = useParams();
   //   const [allComments, setAllComments] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar state
@@ -190,10 +192,32 @@ const ScriptComment = () => {
             multiline
             minRows={1}
             maxRows={6}
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              backgroundColor: theme.palette.background.default, // Match theme background
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { borderColor: theme.palette.text.primary }, // Border color
+                "&:hover fieldset": {
+                  borderColor: theme.palette.text.primary,
+                }, // Hover effect
+                "&.Mui-focused fieldset": {
+                  borderColor: theme.palette.text.primary,
+                }, // Focus effect
+              },
+              "& .MuiInputBase-input": {
+                color: theme.palette.text.primary, // Text color
+              },
+              "& .MuiInputLabel-root": {
+                color: theme.palette.text.secondary, // Default label color
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: theme.palette.text.primary, // Label color when focused
+              },
+            }}
           />
+
           <IconButton color="primary" onClick={handleAddComment} sx={{ mt: 2 }}>
-            <SendIcon />
+            <SendIcon sx={{ color: theme.palette.text.primary }} />
           </IconButton>
         </Stack>
       </Box>

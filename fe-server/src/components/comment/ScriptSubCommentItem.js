@@ -15,7 +15,7 @@ import {
   ListItemText,
   CircularProgress,
 } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
+import { useTheme } from "@mui/material/styles";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
@@ -31,6 +31,7 @@ const ScriptSubCommentItem = ({
   getAllSubComments,
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
   const { userId, scriptId } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
@@ -118,10 +119,33 @@ const ScriptSubCommentItem = ({
                 onChange={(e) => setEditedContent(e.target.value)}
                 size="small"
                 autoFocus
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": { borderColor: theme.palette.text.primary }, // Border color
+                    "&:hover fieldset": {
+                      borderColor: theme.palette.text.primary,
+                    }, // Hover effect
+                    "&.Mui-focused fieldset": {
+                      borderColor: theme.palette.text.primary,
+                    }, // Focus effect
+                  },
+                  "& .MuiInputBase-input": {
+                    color: theme.palette.text.primary, // Text color
+                    padding: "8px 10px",
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: theme.palette.text.secondary, // Default label color
+                  },
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: theme.palette.text.primary, // Label color when focused
+                  },
+                }}
               />
-              <IconButton onClick={handleSaveEdit} color="success">
-                <DoneIcon />
-              </IconButton>
+              {editedContent !== comment.content && (
+                <IconButton onClick={handleSaveEdit} color="success">
+                  <DoneIcon />
+                </IconButton>
+              )}
               <IconButton onClick={handleCancelEdit} color="error">
                 <CloseIcon />
               </IconButton>

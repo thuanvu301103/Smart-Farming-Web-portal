@@ -18,8 +18,8 @@ import {
   Modal,
   Box,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import ScriptSubCommentItem from "./ScriptSubCommentItem";
-import PersonIcon from "@mui/icons-material/Person";
 import EditIcon from "@mui/icons-material/Edit";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
@@ -30,6 +30,7 @@ import { formatDate } from "../FormatTime";
 import { useTranslation } from "react-i18next";
 import { useFetchSubComments } from "../../hooks/useFetchComment";
 import commentApi from "../../api/commentAPI";
+import { darkTheme } from "../../theme";
 const ScriptCommentItem = ({
   comment,
   handleReply,
@@ -39,6 +40,7 @@ const ScriptCommentItem = ({
   setSnackbarOpen,
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
   const { userId, scriptId } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
@@ -178,10 +180,34 @@ const ScriptCommentItem = ({
                 onChange={(e) => setEditedContent(e.target.value)}
                 size="small"
                 autoFocus
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": { borderColor: theme.palette.text.primary }, // Border color
+                    "&:hover fieldset": {
+                      borderColor: theme.palette.text.primary,
+                    }, // Hover effect
+                    "&.Mui-focused fieldset": {
+                      borderColor: theme.palette.text.primary,
+                    }, // Focus effect
+                  },
+                  "& .MuiInputBase-input": {
+                    color: theme.palette.text.primary, // Text color
+                    padding: "8px 10px",
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: theme.palette.text.secondary, // Default label color
+                  },
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: theme.palette.text.primary, // Label color when focused
+                  },
+                }}
               />
-              <IconButton onClick={handleSaveEdit} color="success">
-                <DoneIcon />
-              </IconButton>
+              {editedContent !== comment.content && (
+                <IconButton onClick={handleSaveEdit} color="success">
+                  <DoneIcon />
+                </IconButton>
+              )}
+
               <IconButton onClick={handleCancelEdit} color="error">
                 <CloseIcon />
               </IconButton>
@@ -229,14 +255,47 @@ const ScriptCommentItem = ({
         <Stack spacing={1} sx={{ pl: 6 }}>
           <TextField
             fullWidth
+            variant="outlined"
             label={t("Reply")}
             value={replyContent}
             onChange={(e) => setReplyContent(e.target.value)}
             size="small"
             multiline
+            sx={{
+              width: "100%",
+              backgroundColor: theme.palette.background.default, // Match theme background
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": { borderColor: theme.palette.text.primary }, // Border color
+                "&:hover fieldset": {
+                  borderColor: theme.palette.text.primary,
+                }, // Hover effect
+                "&.Mui-focused fieldset": {
+                  borderColor: theme.palette.text.primary,
+                }, // Focus effect
+              },
+              "& .MuiInputBase-input": {
+                color: theme.palette.text.primary, // Text color
+              },
+              "& .MuiInputLabel-root": {
+                color: theme.palette.text.secondary, // Default label color
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: theme.palette.text.primary, // Label color when focused
+              },
+            }}
           />
           <Stack direction="row" spacing={1}>
-            <Button variant="contained" onClick={handleSendReply}>
+            <Button
+              variant="outlined"
+              onClick={handleSendReply}
+              sx={{
+                borderColor: theme.palette.text.primary,
+                color: theme.palette.text.primary,
+                "&:hover": {
+                  backgroundColor: theme.palette.background.trans_black,
+                },
+              }}
+            >
               {t("Send")}
             </Button>
             <Button
@@ -244,6 +303,13 @@ const ScriptCommentItem = ({
               onClick={() => {
                 setIsReplying(false);
                 setReplyContent("");
+              }}
+              sx={{
+                color: theme.palette.text.primary,
+                borderColor: theme.palette.text.primary,
+                "&:hover": {
+                  backgroundColor: theme.palette.background.trans_black,
+                },
               }}
             >
               {t("Cancel")}
@@ -259,6 +325,9 @@ const ScriptCommentItem = ({
             onClick={() => setShowReplies(!showReplies)}
             variant="text"
             size="small"
+            sx={{
+              color: theme.palette.text.primary,
+            }}
           >
             {showReplies
               ? t("sub-comment.hide_reply")
@@ -335,10 +404,30 @@ const ScriptCommentItem = ({
             <Button
               variant="outlined"
               onClick={() => setDeleteModalOpen(false)}
+              sx={{
+                color: theme.palette.text.primary, // Adjust text color
+                borderColor: theme.palette.primary.main, // Border color
+                "&:hover": {
+                  borderColor: theme.palette.secondary.main, // Border color on hover
+                  backgroundColor: theme.palette.background.trans_black, // Light transparent effect
+                },
+              }}
             >
               {t("button.cancel")}
             </Button>
-            <Button variant="contained" color="error" onClick={handleDelete}>
+
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDelete}
+              sx={{
+                color: theme.palette.text.default_white, // Ensures contrast
+                backgroundColor: theme.palette.error.main, // Primary error color
+                "&:hover": {
+                  backgroundColor: theme.palette.error.dark, // Darker shade on hover
+                },
+              }}
+            >
               {t("button.delete")}
             </Button>
           </Stack>
