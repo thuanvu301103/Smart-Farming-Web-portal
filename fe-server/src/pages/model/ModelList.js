@@ -77,12 +77,14 @@ const ModelList = () => {
                     value={searchTerm}
                     onChange={handleSearchChange}
                     sx={{ flex: 1 }}
+                    size="small"
                 />
                 <Button
                     variant="contained"
                     color="success"
                     size="large"
                     startIcon={<AddIcon />}
+                    size="medium"
                     sx={{
                         borderRadius: '8px',
                         padding: '10px 20px',

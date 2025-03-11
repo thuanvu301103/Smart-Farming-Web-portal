@@ -2,13 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\public",
+    "\\public\\locales",
+    "\\public\\locales\\en",
+    "\\public\\locales\\vi",
     "\\src",
-    "\\src\\hooks",
     "\\src\\pages",
+    "\\src\\pages\\model",
     "\\src\\pages\\script",
-    "\\src\\pages\\script\\scriptCode",
     "\\src\\pages\\script\\versionCompare"
   ],
-  "SelectedNode": "\\src\\pages\\script\\scriptCode\\ScriptCode.js",
+  "SelectedNode": "\\public\\locales\\vi\\translation.json",
   "PreviewInSolutionExplorer": false
 }
