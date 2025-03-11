@@ -75,18 +75,16 @@ const ModelList = ({ data = [], loading }) => {
                     value={searchTerm}
                     onChange={handleSearchChange}
                     sx={{ flex: 1 }}
+                    size="small"
                 />
                 <Button
                     variant="contained"
                     color="success"
                     size="large"
                     startIcon={<AddIcon />}
+                    size="medium"
                     sx={{
-                        borderRadius: '8px',
-                        padding: '10px 20px',
-                        whiteSpace: 'nowrap',
-                        minWidth: '150px',
-                        height: '56px', // Matches TextField height
+                        borderRadius: '8px'
                     }}
                     onClick={() => navigate(`/${userId}/models/new-model`)}
                 >

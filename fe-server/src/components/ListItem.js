@@ -1,4 +1,5 @@
-﻿// Components
+﻿import React, { useState, useEffect } from 'react';
+// Components
 import {
     ListItem, ListItemText, ListItemIcon,
     Link, Box, Typography, Grid, Button, IconButton, Avatar,
@@ -36,13 +37,15 @@ const truncateText = (text, maxWords) => {
 const ScriptListItem = ({ item }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const [isFavorite, setIsFavorite] = useState(item.isFavorite || false);
+    const [numFavorite, setNumFavorite] = useState(item.favorite || 0);
 
     const handleFavorite = async () => {
-        let action = item.isFavorite ? "remove" : "add";
+        let action = isFavorite ? "remove" : "add";
         await userApi.favoriteScript(localStorage.getItem("userId"), item._id, action);
-        item.isFavorite = !item.isFavorite;
-        if (action == "add") item.favorite++;
-        else item.favorite--;
+        setIsFavorite((prev) => !prev);
+        if (action == "add") setNumFavorite((prev) => prev + 1);
+        else setNumFavorite((prev) => prev - 1);
     }
 
     return (
@@ -101,7 +104,7 @@ const ScriptListItem = ({ item }) => {
                                 <Button
                                     variant='outlined' size="small"
                                     startIcon={<BookmarkBorderIcon color={item?.isFavorite ? (item.isFavorite ? "script" : "text") : "text"} />}
-                                    color={item?.isFavorite ? (item.isFavorite ? "script" : "text") : "text"}
+                                    color={isFavorite ? (isFavorite ? "script" : "text") : "text"}
                                     sx={{ borderRadius: '8px' }}
                                     onClick={handleFavorite}
                                 >
@@ -115,7 +118,7 @@ const ScriptListItem = ({ item }) => {
                             <Grid item xs={12} container alignItems="center" ml={2}>
                                 <BookmarkBorderIcon color="script" fontSize="small" />
                                 <Typography variant="caption" color="text.secondary" ml={1}>
-                                    {t("common.favorite")}: {item.favorite}
+                                    {t("common.favorite")}: {numFavorite}
                                 </Typography>
                             </Grid>
                         </Grid>
