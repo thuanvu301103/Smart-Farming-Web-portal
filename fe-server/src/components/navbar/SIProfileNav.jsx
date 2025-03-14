@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { IconButton, Menu, MenuItem, ListItemIcon, Avatar, Switch } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { useDarkMode } from "../context/DarkModeContext";
+import { useDarkMode } from "../../context/DarkModeContext";
 import { useNavigate } from "react-router-dom";
 
 const SIProfileNav = ({ t }) => {

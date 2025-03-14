@@ -11,10 +11,10 @@ import {
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import SearchIcon from '@mui/icons-material/Search';
-import { useDarkMode } from '../context/DarkModeContext';
+import { useDarkMode } from '../../context/DarkModeContext';
 import { useTranslation } from 'react-i18next';
 // Auth
-import { isAuthenticated } from "../auth";
+import { isAuthenticated } from "../../auth";
 // React DOM
 import { useNavigate, useLocation, Navigate, Link } from "react-router-dom";
 import { Search, SearchIconWrapper, StyledInputBase } from './SIExpandableInput';

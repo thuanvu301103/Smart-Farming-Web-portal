@@ -24,7 +24,6 @@ import { useTranslation } from 'react-i18next';
 import userApi from "./../api/userAPI";
 // React DOM
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
-import { useState } from 'react';
 
 // Truncate Text function
 const truncateText = (text, maxWords) => {

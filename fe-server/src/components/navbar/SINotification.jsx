@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { IconButton, Menu, MenuItem, List, ListItem } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import { NotificationListItem } from "../components/ListItem";
+import { NotificationListItem } from "../../components/ListItem";
 import axios from "axios";
-import socket from "../socket/websocket";
+import socket from "../../socket/websocket";
 
 const SINotification = ({ t }) => {
   const [notifyActive, setNotificationActive] = useState(0);

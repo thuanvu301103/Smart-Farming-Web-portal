@@ -2,15 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\public\\locales",
-    "\\public\\locales\\en",
-    "\\public\\locales\\vi",
     "\\src",
+    "\\src\\components",
+    "\\src\\components\\navbar",
     "\\src\\pages",
-    "\\src\\pages\\model",
+    "\\src\\pages\\bookmark",
     "\\src\\pages\\script",
     "\\src\\pages\\script\\versionCompare"
   ],
-  "SelectedNode": "\\public\\locales\\vi\\translation.json",
+  "SelectedNode": "\\src\\components\\navbar\\SIProfileNav.jsx",
   "PreviewInSolutionExplorer": false
 }
