@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { IconButton, Menu, MenuItem, ListItemIcon, Avatar, Switch } from "@mui/material";
+// Icons
+import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { useDarkMode } from "../../context/DarkModeContext";
@@ -33,13 +35,14 @@ const SIProfileNav = ({ t }) => {
         <Avatar alt="User Avatar" src={localStorage.getItem("profileImage")} />
       </IconButton>
 
-      <Menu anchorEl={avatarAnchorEl} open={Boolean(avatarAnchorEl)} onClose={handleAvatarClose}>
-        <MenuItem onClick={() => navigate(`/${localStorage.getItem("userId")}/overview`)}>
-          <ListItemIcon>
-            <AccountCircleIcon fontSize="small" />
-          </ListItemIcon>
-          {t("navbar.avatar_menu.profile")}
-        </MenuItem>
+          <Menu anchorEl={avatarAnchorEl} open={Boolean(avatarAnchorEl)} onClose={handleAvatarClose}>
+              {/* Overview */}
+              <MenuItem onClick={() => navigate(`/${localStorage.getItem("userId")}/overview`)}>
+                  <ListItemIcon>
+                      <ImportContactsOutlinedIcon fontSize="small" />
+                  </ListItemIcon>
+                  {t("navbar.avatar_menu.overview")}
+              </MenuItem>
         <MenuItem onClick={handleSignout}>
           <ListItemIcon>
             <PowerSettingsNewIcon fontSize="small" color="script" />

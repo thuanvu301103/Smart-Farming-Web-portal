@@ -47,7 +47,8 @@
     "avatar_menu": {
       "dark_mode": "Dark Mode",
       "profile": "Profile",
-      "sign_out": "Sign out"
+      "sign_out": "Sign out",
+      "overview": "Overview"
     }
   },
   "profile": {

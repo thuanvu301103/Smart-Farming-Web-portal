@@ -47,7 +47,8 @@
     "avatar_menu": {
       "dark_mode": "Chế độ tối",
       "profile": "Hồ sơ",
-      "sign_out": "Đăng xuất"
+      "sign_out": "Đăng xuất",
+      "overview": "Tổng quan"
     }
   },
   "profile": {
