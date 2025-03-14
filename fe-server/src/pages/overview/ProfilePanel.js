@@ -29,7 +29,7 @@ const ProfilePanel = ({ profile }) => {
                     sx={{ width: '85%', height: 'auto' }}
                 />
             </Grid>
-            <Grid item m={2} xs={8} md={12}>
+            <Grid item m={2} xs={12} md={12}>
                 {/*Username*/}
                 <Typography
                     variant="h4"
@@ -37,6 +37,13 @@ const ProfilePanel = ({ profile }) => {
                     sx={{ fontWeight: 'bold' }}
                 >
                     {profile?.username ? profile.username : null}
+                </Typography>
+                {/*Bio*/}
+                <Typography
+                    variant="body2"
+                    mt={1} mb={1}
+                >
+                    {profile?.bio ? profile.bio : null}
                 </Typography>
                 {/*Folower and Following*/}
                 <Grid container alignItems="center" mt={1} mb={1}>
