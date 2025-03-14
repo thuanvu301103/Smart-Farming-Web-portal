@@ -13,6 +13,9 @@ export class User extends Document {
     profile_image: string;
 
     @Prop()
+    bio: string;
+
+    @Prop()
     password: string;
 
     @Prop({

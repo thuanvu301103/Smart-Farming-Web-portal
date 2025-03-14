@@ -7,6 +7,10 @@ import {
     Avatar,
     Box,
 } from '@mui/material';
+import SIDrawer from './SIDrawer';
+import SILangSelect from './SILangSelect';
+import SINotification from './SINotification';
+import SIProfileNav from './SIProfileNav';
 // Icons
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
@@ -16,12 +20,8 @@ import { useTranslation } from 'react-i18next';
 // Auth
 import { isAuthenticated } from "../../auth";
 // React DOM
-import { useNavigate, useLocation, Navigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Search, SearchIconWrapper, StyledInputBase } from './SIExpandableInput';
-import SIDrawer from './SIDrawer';
-import SILangSelect from './SILangSelect';
-import SINotification from './SINotification';
-import SIProfileNav from './SIProfileNav';
 
 const Navbar = () => {
 
