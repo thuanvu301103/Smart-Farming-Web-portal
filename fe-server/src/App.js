@@ -7,7 +7,7 @@ import { useDarkMode } from "./context/DarkModeContext";
 import { ProtectedRoute } from "./auth";
 import {darkTheme, lightTheme} from './theme';
 // Import Components
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/Footer";
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
