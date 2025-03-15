@@ -48,6 +48,7 @@
     "axios": "^1.7.9",
     "i18next": "^24.2.1",
     "leaflet": "^1.9.4",
+    "react-avatar-editor": "^13.0.2",
     "react-i18next": "^15.4.0",
     "react-leaflet": "^5.0.0",
     "react-number-format": "^5.4.3",

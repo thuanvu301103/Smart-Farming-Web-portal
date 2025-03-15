@@ -11,6 +11,7 @@
     "create_script": "Create script",
     "create_model": "Create model",
     "cancel": "Cancel",
+    "save":  "Save",
     "search": "Search",
     "template": "Template",
     "upload": "Upload"
@@ -54,6 +55,16 @@
   "profile": {
     "following": "Following",
     "follower": "Follower"
+  },
+  "edit-profile": {
+    "title": "Public Profile",
+    "avatar":  "Profile picture",
+    "bio": "Biography",
+    "email": "Email",
+    "link": "External Links",
+    "reset": "Reset",
+    "save":  "Save Profile",
+    "username": "Username"
   },
   "new-script": {
     "title": "Create a new Irrigation Script",

@@ -218,7 +218,7 @@ const NewScript = () => {
                                     'aria-labelledby': 'basic-button',
                                 }}
                                 PaperProps={{
-                                    sx: { minWidth: "200px" } // Áp dụng cho phần `Paper` chứa menu
+                                    sx: { minWidth: "200px" }
                                 }}
                             >
                                 <MenuItem

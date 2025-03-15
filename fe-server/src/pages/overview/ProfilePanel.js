@@ -10,12 +10,13 @@ import LinkIcon from '../../components/LinkIcon';
 // Translation
 import { useTranslation } from 'react-i18next';
 // React Router DOM
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const ProfilePanel = ({ profile }) => {
 
     const { t } = useTranslation();
     const { userId } = useParams();
+    const navigate = useNavigate();
 
     return (
         <CardWrapper borderThickness="9px" borderSide="bottom">
@@ -64,6 +65,7 @@ const ProfilePanel = ({ profile }) => {
             <Grid item m={2} xs={12} md={12}>
                 {/*Links*/}
                 {profile?.links ? profile.links.map((item, index) => {
+                    if (item.link === null || item.link.length == 0) return null;
                     return (
                         <Grid container alignItems="center" >
                             <Grid item xs={1} container alignItems="center">
@@ -92,6 +94,7 @@ const ProfilePanel = ({ profile }) => {
                             color="success"
                             fullWidth
                             sx={{ borderRadius: '8px' }}
+                            onClick={() => navigate(`/edit-profile`)}
                         >
                             {t("button.edit_profile")}
                         </Button>

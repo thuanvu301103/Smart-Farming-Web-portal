@@ -7,6 +7,12 @@ const userApi = {
         return response.data;
     },
 
+    editProfile: async (userId, updateInfo) => {
+        const response = await axiosInstance.put(`/${userId}`, updateInfo);
+        //console.log("Fetch data: ", response.data);
+        return response.data;
+    },
+
     topScripts: async (userId) => {
         const response = await axiosInstance.get(`/${userId}/scripts/top`)
         return response.data;

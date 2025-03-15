@@ -2,14 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\public",
+    "\\public\\locales",
     "\\src",
-    "\\src\\components",
-    "\\src\\components\\navbar",
+    "\\src\\api",
+    "\\src\\hooks",
     "\\src\\pages",
-    "\\src\\pages\\bookmark",
     "\\src\\pages\\script",
-    "\\src\\pages\\script\\versionCompare"
+    "\\src\\pages\\script\\newScript",
+    "\\src\\pages\\script\\scriptCode"
   ],
-  "SelectedNode": "\\src\\components\\navbar\\SIProfileNav.jsx",
+  "SelectedNode": "\\src\\pages\\script\\newScript\\NewScript.js",
   "PreviewInSolutionExplorer": false
 }
