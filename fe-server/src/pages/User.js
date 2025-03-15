@@ -16,9 +16,7 @@ import TravelExploreOutlinedIcon from '@mui/icons-material/TravelExploreOutlined
 // Translation
 import { useTranslation } from 'react-i18next';
 // React Router DOM
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom';
 // Hooks
 import { useFetchProfile, useFetchTopScripts, useFetchScriptsList} from "../hooks/useFetchUser";
 

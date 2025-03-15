@@ -11,6 +11,7 @@
     "create_script": "Tạo kịch bản",
     "create_model": "Tạo mô hình",
     "cancel": "Hủy",
+    "save": "Lưu",
     "search": "Tìm kiếm",
     "template": "Bản mẫu",
     "upload": "Tải lên"
@@ -54,6 +55,16 @@
   "profile": {
     "following": "Đang Theo dõi",
     "follower": "Người theo dõi"
+  },
+  "edit-profile": {
+    "title": "Thông tin người dùng",
+    "avatar": "Ảnh hồ sơ",
+    "bio": "Tiểu sử",
+    "email": "Email",
+    "link": "Liên kết ngoài",
+    "reset": "Đặt lại",
+    "save": "Lưu Hồ sơ",
+    "username": "Tên người dùng"
   },
   "new-script": {
     "title": "Tạo một kịch bản tưới mới",

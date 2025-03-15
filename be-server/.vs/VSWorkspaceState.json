@@ -9,6 +9,6 @@
     "\\src\\schemas",
     "\\test"
   ],
-  "SelectedNode": "\\src\\modules\\users\\users.controller.ts",
+  "SelectedNode": "\\src\\modules\\users\\users.service.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { IconButton, Menu, MenuItem, ListItemIcon, Avatar, Switch } from "@mui/material";
+import { IconButton, Menu, MenuItem, ListItemIcon, Avatar } from "@mui/material";
 // Icons
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
-import { useDarkMode } from "../../context/DarkModeContext";
 import { useNavigate } from "react-router-dom";
 
 const SIProfileNav = ({ t }) => {
-  const { darkMode, handleThemeChange } = useDarkMode();
   const navigate = useNavigate();
   const [avatarAnchorEl, setAvatarAnchorEl] = useState(null);
 

@@ -15,6 +15,7 @@ import Backdrop from '@mui/material/Backdrop';
 // Lazy Load Pages for Optimization
 const HomePage = lazy(() => import("./pages/home/HomePage.jsx"));
 const User = lazy(() => import("./pages/User"));
+const UdateProfile = lazy(() => import("./pages/updateProfile/UpdateProfile"));
 const Script = lazy(() => import("./pages/Script"));
 const Model = lazy(() => import("./pages/model/modelInfo/Model.js"));
 const NewScript = lazy(() => import("./pages/script/newScript/NewScript.js"));
@@ -43,6 +44,7 @@ function App() {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/:userId/*" element={<ProtectedRoute element={<User />} />} />
+                        <Route path="/edit-profile" element={<ProtectedRoute element={<UdateProfile />} />} />
                         <Route path="/:userId/scripts/:scriptId/*" element={<ProtectedRoute element={<Script />} />} />
                         <Route path="/:userId/models/:modelId/*" element={<Model />} />
                         <Route path="/:userId/models/:modelId/scripts/:scriptId/*" element={<Script />} />
