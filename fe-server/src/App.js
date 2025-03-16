@@ -47,7 +47,7 @@ function App() {
                         <Route path="/edit-profile" element={<ProtectedRoute element={<UdateProfile />} />} />
                         <Route path="/:userId/scripts/:scriptId/*" element={<ProtectedRoute element={<Script />} />} />
                         <Route path="/:userId/models/:modelId/*" element={<Model />} />
-                        <Route path="/:userId/models/:modelId/scripts/:scriptId/*" element={<Script />} />
+                        <Route path="/:userId/models/:modelId/code/:scriptId/*" element={<Script />} />
                         <Route path="/:userId/models/:modelId/new-script" element={<NewScriptModel />} />
                         <Route path="/new-script" element={<ProtectedRoute element={<NewScript />} />} />
                         <Route path="/:userId/models/new-model" element={<NewModel />} />
