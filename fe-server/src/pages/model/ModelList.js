@@ -82,9 +82,8 @@ const ModelList = () => {
                 <Button
                     variant="contained"
                     color="success"
-                    size="large"
-                    startIcon={<AddIcon />}
                     size="medium"
+                    startIcon={<AddIcon />}
                     sx={{
                         borderRadius: '8px',
                         padding: '10px 20px',
