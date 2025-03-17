@@ -205,7 +205,7 @@ const BookmarkListItem = ({ item, removeItemFunc }) => {
       <CardContent>
         <Box display="flex" flexDirection="row" justifyContent="space-between">
           {/* Script Info */}
-          <Box flex={1}>
+          <Box flex={0.8}>
             <Typography
               variant="h6"
               color="success"
@@ -250,35 +250,37 @@ const BookmarkListItem = ({ item, removeItemFunc }) => {
           </Box>
 
           {/* Right Side: Privacy and Bookmark */}
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="flex-end"
-            gap={2}
-          >
-            {/* Script Privacy */}
-            {item?.privacy && (
-              <Chip
-                size="small"
-                label={t("privacy." + item.privacy)}
-                color={item.privacy === "public" ? "info" : "warning"}
-              />
-            )}
-
-            {/* Unfavorite Button */}
-            <Button
-              variant="outlined"
-              size="small"
-              startIcon={<BookmarkBorderIcon color="script" />}
-              color="script"
-              sx={{ borderRadius: "8px" }}
-              onClick={() => handleUnfavorite()}
+          <Box sx = {{display:'flex', flex: '0.2', flexDirection:'column', justifyContent:'space-between'}}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="flex-end"
+              gap={2}
             >
-              {t("button.favorite")}
-            </Button>
+              {/* Script Privacy */}
+              {item?.privacy && (
+                <Chip
+                  size="small"
+                  label={t("privacy." + item.privacy)}
+                  color={item.privacy === "public" ? "info" : "warning"}
+                />
+              )}
 
-            {/* Favorite Count */}
-            <Box display="flex" alignItems="center">
+              {/* Unfavorite Button */}
+              <Button
+                variant="outlined"
+                size="small"
+                startIcon={<BookmarkBorderIcon color="script" />}
+                color="script"
+                sx={{ borderRadius: "8px" }}
+                onClick={() => handleUnfavorite()}
+              >
+                {t("button.favorite")}
+              </Button>
+
+              {/* Favorite Count */}
+            </Box>
+            <Box display="flex" alignSelf="flex-end">
               <BookmarkBorderIcon color="script" fontSize="small" />
               <Typography variant="caption" color="text.secondary" ml={1}>
                 {t("common.favorite")}: {item.favorite}
