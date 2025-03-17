@@ -1,11 +1,27 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+    Injectable, Inject, forwardRef,
+    NotFoundException
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Comment } from '../../schemas/comments.schema';
+import { ActivitiesService } from "../activities/activities.service";
 
 @Injectable()
 export class CommentsService {
-    constructor(@InjectModel(Comment.name) private commentModel: Model<Comment>) { }
+    constructor(
+        @Inject(forwardRef(() => ActivitiesService)) private readonly activitiesService: ActivitiesService,
+        @InjectModel(Comment.name) private commentModel: Model<Comment>
+    ) { }
+
+    // Check if comment exist or not
+    async isExist(commentId: string): Promise<boolean> {
+        if (!Types.ObjectId.isValid(commentId)) {
+            return false; // Unvalid ID
+        }
+        const comment = await this.commentModel.findById(commentId).exec();
+        return !!comment;
+    }
 
     // Find all comments of a script
     async findAllComments(scriptId: string):
@@ -41,13 +57,17 @@ export class CommentsService {
         sub_comment_id?: string, // Optional paramenter
     ):
         Promise<string> {
+        // Create new Comment
         const newComment = new this.commentModel({
             content: content,
             script_id: new Types.ObjectId(scriptId),
             owner_id: new Types.ObjectId(ownerId),
             sub_comment_id: sub_comment_id ? new Types.ObjectId(sub_comment_id) : null
         });
-        return (await newComment.save())._id.toString();
+        const commentId = (await newComment.save())._id.toString();
+        // Create new Activity
+        await this.activitiesService.createActivity("create_comment", ownerId, commentId);
+        return commentId;
     }
 
     // Update comment

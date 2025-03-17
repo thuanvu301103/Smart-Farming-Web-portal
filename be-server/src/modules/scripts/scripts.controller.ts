@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Query, Req, UseGuards, ForbiddenException } from '@nestjs/common';
 import { ScriptsService } from './scripts.service';
-import { Script } from '../../schemas/scripts.schema';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 
 @Controller(':userId/scripts')

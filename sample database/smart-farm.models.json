@@ -3,9 +3,9 @@
     "$oid": "67ad5d4436fd81f06d8818db"
   },
   "description": "Đây là một model thông minh hỗ trợ cho việc tạo các kịch bản tưới tự động",
-  "name": "Model tạo kịch bản tưới cho cây táo",
+  "name": "Model tạo kịch bản tưới cho cây táo xanh",
   "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
+    "$oid": "67c273401fb713deae4b068c"
   }
 },
 {
@@ -15,7 +15,29 @@
   "name": "Model tưới cây dâu tây",
   "description": "Đây là một model đỉnh nóc kịch trần",
   "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ce4a0ff78ca7aecd36bd44"
+  },
+  "name": "Moô hình tưới cây cam thảo",
+  "description": "",
+  "owner_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d7ab6f9f232c8f433c120d"
+  },
+  "name": "Mô hình thong minh",
+  "description": "Mô hình thong minh",
+  "owner_id": {
+    "$oid": "67c273401fb713deae4b068c"
   },
   "__v": 0
 }]

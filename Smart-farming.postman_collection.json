@@ -1006,7 +1006,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MDg4MTgzOSwiZXhwIjoxNzQwODg1NDM5fQ.M_fwKfyjeUsI52Zw9_3L2m-kH-7xbd4eYrBt5j058v0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTkxNjQyMCwiZXhwIjoxNzQxOTIwMDIwfQ.E08QrHFU2BU9FrjqcDGv9D3hgILuZpq5mAXanItw61o",
 									"type": "string"
 								}
 							]
@@ -1359,6 +1359,54 @@
 							"path": [
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "activities",
+			"item": [
+				{
+					"name": "Create new activity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MjE4MTIzMywiZXhwIjoxNzQyMTg0ODMzfQ.TawGyBflGRA82oqyCnHS55zqXYuPGdd8Vnl9cKHkP08",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"create_model\",\r\n    \"obj_id\": \"67aecd1e0d59336166486c10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/activities",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"activities"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
 							]
 						}
 					},

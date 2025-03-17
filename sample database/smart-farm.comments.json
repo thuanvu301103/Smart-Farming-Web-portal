@@ -1,10 +1,10 @@
 [{
   "_id": {
-    "$oid": "67cb9aef64051c16a8ea4282"
+    "$oid": "67d7ab839f232c8f433c1228"
   },
-  "content": "Đây là một kịch bản khá hay",
+  "content": "Đây là một kịch bản",
   "script_id": {
-    "$oid": "67c94c998be9ec2f58eb1579"
+    "$oid": "67d7a86d6a81b8ea59bca16a"
   },
   "owner_id": {
     "$oid": "67c273401fb713deae4b068c"
@@ -13,100 +13,21 @@
   "updateHistory": [
     {
       "updatedAt": {
-        "$date": "2025-03-08T01:18:39.450Z"
+        "$date": "2025-03-17T04:56:35.019Z"
       },
       "changes": [
-        "Đây là một kịch bản khá hay"
+        "Đây là một kịch bản"
       ],
       "_id": {
-        "$oid": "67cb9aef64051c16a8ea4283"
+        "$oid": "67d7ab839f232c8f433c1229"
       }
     }
   ],
   "createdAt": {
-    "$date": "2025-03-08T01:18:39.448Z"
+    "$date": "2025-03-17T04:56:35.016Z"
   },
   "updatedAt": {
-    "$date": "2025-03-08T01:18:39.448Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "67cb9b0c64051c16a8ea4289"
-  },
-  "content": "Tuy nhiên nó vẫn gặp một số vấn đề ở khâu tưới nước",
-  "script_id": {
-    "$oid": "67c94c998be9ec2f58eb1579"
-  },
-  "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
-  },
-  "sub_comment_id": {
-    "$oid": "67cb9aef64051c16a8ea4282"
-  },
-  "updateHistory": [
-    {
-      "updatedAt": {
-        "$date": "2025-03-08T01:19:08.153Z"
-      },
-      "changes": [
-        "Tuy nhiên nó vẫn gặp một số vấn đề ở kahau tưới nước"
-      ],
-      "_id": {
-        "$oid": "67cb9b0c64051c16a8ea428a"
-      }
-    },
-    {
-      "updatedAt": {
-        "$date": "2025-03-08T01:19:22.530Z"
-      },
-      "changes": [
-        "Tuy nhiên nó vẫn gặp một số vấn đề ở khâu tưới nước"
-      ],
-      "_id": {
-        "$oid": "67cb9b1a64051c16a8ea4291"
-      }
-    }
-  ],
-  "createdAt": {
-    "$date": "2025-03-08T01:19:08.153Z"
-  },
-  "updatedAt": {
-    "$date": "2025-03-08T01:19:22.529Z"
-  },
-  "__v": 1
-},
-{
-  "_id": {
-    "$oid": "67cb9b5f64051c16a8ea42bf"
-  },
-  "content": "Đây là một vấn đề cấp bách",
-  "script_id": {
-    "$oid": "67c94c998be9ec2f58eb1579"
-  },
-  "owner_id": {
-    "$oid": "67c2730b1fb713deae4b0689"
-  },
-  "sub_comment_id": null,
-  "updateHistory": [
-    {
-      "updatedAt": {
-        "$date": "2025-03-08T01:20:31.780Z"
-      },
-      "changes": [
-        "Đây là một vấn đề cấp bách"
-      ],
-      "_id": {
-        "$oid": "67cb9b5f64051c16a8ea42c0"
-      }
-    }
-  ],
-  "createdAt": {
-    "$date": "2025-03-08T01:20:31.780Z"
-  },
-  "updatedAt": {
-    "$date": "2025-03-08T01:20:31.780Z"
+    "$date": "2025-03-17T04:56:35.016Z"
   },
   "__v": 0
 }]

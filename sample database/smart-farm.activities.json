@@ -1,0 +1,52 @@
+[{
+  "_id": {
+    "$oid": "67d7a85c6a81b8ea59bca160"
+  },
+  "type": "create_script",
+  "user_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "obj_id": {
+    "$oid": "67d7a85c6a81b8ea59bca15d"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d7a86d6a81b8ea59bca16d"
+  },
+  "type": "create_script",
+  "user_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "obj_id": {
+    "$oid": "67d7a86d6a81b8ea59bca16a"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d7ab6f9f232c8f433c1210"
+  },
+  "type": "create_model",
+  "user_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "obj_id": {
+    "$oid": "67d7ab6f9f232c8f433c120d"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d7ab839f232c8f433c122d"
+  },
+  "type": "create_comment",
+  "user_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "obj_id": {
+    "$oid": "67d7ab839f232c8f433c1228"
+  },
+  "__v": 0
+}]

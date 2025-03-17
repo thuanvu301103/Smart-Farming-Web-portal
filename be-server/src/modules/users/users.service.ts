@@ -1,9 +1,13 @@
-﻿import { Injectable, NotFoundException } from '@nestjs/common';
+﻿import {
+    Injectable, Inject, forwardRef,
+    NotFoundException
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { BadRequestException } from "@nestjs/common";
 import { Model, Types, Document} from 'mongoose';
 import { User } from '../../schemas/users.schema';
 import { Script } from '../../schemas/scripts.schema';
+import { ScriptsService } from "../scripts/scripts.service";
 import * as bcrypt from "bcrypt";
 
 @Injectable()
@@ -11,6 +15,7 @@ export class UsersService {
     constructor(
         @InjectModel(User.name) private userModel: Model<User>,
         @InjectModel(Script.name) private scriptModel: Model<Script>,
+        @Inject(forwardRef(() => ScriptsService)) private readonly scriptsService: ScriptsService
     ){ }
 
     async createUser(

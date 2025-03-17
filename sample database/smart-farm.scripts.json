@@ -42,20 +42,36 @@
 },
 {
   "_id": {
-    "$oid": "67c94c998be9ec2f58eb1579"
+    "$oid": "67d7a85c6a81b8ea59bca15d"
   },
-  "name": "Kịch bản tưới cây chanh",
-  "description": "Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh Kịch bản tưới cây chanh ",
+  "name": "Đây là một kịch bản tưới",
+  "description": "Đây là một kịch bản tưới",
   "privacy": "public",
   "owner_id": {
     "$oid": "67c273401fb713deae4b068c"
   },
   "version": [
-    5,
-    4,
-    3,
-    2,
-    1.8
+    1
+  ],
+  "model_id": null,
+  "share_id": [],
+  "favorite": 0,
+  "location": [],
+  "plant_type": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67d7a86d6a81b8ea59bca16a"
+  },
+  "name": "Đây là một kịch bản tưới 1.0",
+  "description": "Đây là một kịch bản tưới 1.0",
+  "privacy": "public",
+  "owner_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "version": [
+    1
   ],
   "model_id": null,
   "share_id": [],

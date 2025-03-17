@@ -1,15 +1,29 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+    Injectable, Inject, forwardRef,
+    NotFoundException
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Models } from '../../schemas/models.schema';
 import { Script } from '../../schemas/scripts.schema';
+import { ActivitiesService } from "../activities/activities.service";
 
 @Injectable()
 export class ModelsService {
     constructor(
         @InjectModel(Models.name) private modelModel: Model<Models>,
-        @InjectModel(Script.name) private scriptModel: Model<Script>
+        @InjectModel(Script.name) private scriptModel: Model<Script>,
+        @Inject(forwardRef(() => ActivitiesService)) private readonly activitiesService: ActivitiesService,
     ) { }
+
+    // Check if model exist or not
+    async isExist(modelId: string): Promise<boolean> {
+        if (!Types.ObjectId.isValid(modelId)) {
+            return false; // Unvalid ID
+        }
+        const model = await this.modelModel.findById(modelId).exec();
+        return !!model;
+    }
 
     // Find all models of a user
     async findAllModels(userId: string):
@@ -29,12 +43,16 @@ export class ModelsService {
         description: string,
     ):
         Promise<string> {
+        // Create new Model
         const newModel = new this.modelModel({
             name: name,
             description: description,
             owner_id: new Types.ObjectId(userId)
         });
-        return (await newModel.save())._id.toString();
+        const modelId = (await newModel.save())._id.toString();
+        // Create new Activity
+        await this.activitiesService.createActivity("create_model", userId, modelId);
+        return modelId;
     }
 
     // Get model
