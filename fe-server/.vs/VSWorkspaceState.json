@@ -7,10 +7,8 @@
     "\\public\\locales\\vi",
     "\\src",
     "\\src\\pages",
-    "\\src\\pages\\overview",
-    "\\src\\pages\\script",
-    "\\src\\pages\\script\\newScript"
+    "\\src\\pages\\overview"
   ],
-  "SelectedNode": "\\src\\pages\\overview\\ProfilePanel.js",
+  "SelectedNode": "\\src\\pages\\overview\\Overview.js",
   "PreviewInSolutionExplorer": false
 }
