@@ -46,8 +46,11 @@
     "about": "Giới thiệu",
     "contact": "Liên hệ",
     "avatar_menu": {
+      "bookmark":  "Yêu thích",
       "dark_mode": "Chế độ tối",
+      "model": "Mô hình thông minh",
       "profile": "Hồ sơ",
+      "script": "Kịch bản tưới",
       "sign_out": "Đăng xuất",
       "overview": "Tổng quan"
     }

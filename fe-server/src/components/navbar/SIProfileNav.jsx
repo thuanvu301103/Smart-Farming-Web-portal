@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { IconButton, Menu, MenuItem, ListItemIcon, Avatar } from "@mui/material";
 // Icons
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
+import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+// React Router DOM
 import { useNavigate } from "react-router-dom";
 
 const SIProfileNav = ({ t }) => {
@@ -39,6 +43,27 @@ const SIProfileNav = ({ t }) => {
                       <ImportContactsOutlinedIcon fontSize="small" />
                   </ListItemIcon>
                   {t("navbar.avatar_menu.overview")}
+              </MenuItem>
+              {/* Script List */}
+              <MenuItem onClick={() => navigate(`/${localStorage.getItem("userId")}/scripts`)}>
+                  <ListItemIcon>
+                      <DescriptionOutlinedIcon fontSize="small" />
+                  </ListItemIcon>
+                  {t("navbar.avatar_menu.script")}
+              </MenuItem>
+              {/* Script Model */}
+              <MenuItem onClick={() => navigate(`/${localStorage.getItem("userId")}/model`)}>
+                  <ListItemIcon>
+                      <ModelTrainingOutlinedIcon fontSize="small" />
+                  </ListItemIcon>
+                  {t("navbar.avatar_menu.model")}
+              </MenuItem>
+              {/* Bookmark */}
+              <MenuItem onClick={() => navigate(`/${localStorage.getItem("userId")}/bookmark`)}>
+                  <ListItemIcon>
+                      <BookmarkBorderOutlinedIcon fontSize="small" />
+                  </ListItemIcon>
+                  {t("navbar.avatar_menu.bookmark")}
               </MenuItem>
         <MenuItem onClick={handleSignout}>
           <ListItemIcon>

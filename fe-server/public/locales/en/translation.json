@@ -46,8 +46,11 @@
     "about": "About",
     "contact": "Contact",
     "avatar_menu": {
+      "bookmark": "Bookmark",
       "dark_mode": "Dark Mode",
+      "model": "Smart Models",
       "profile": "Profile",
+      "script": "Irrigation Scripts",
       "sign_out": "Sign out",
       "overview": "Overview"
     }
