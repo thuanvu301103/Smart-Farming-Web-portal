@@ -1,21 +1,22 @@
-﻿import React from 'react';
+﻿import React, {useState, useEffect, useRef} from 'react';
 // Import components
 import {
     Grid, Typography, Link, Box,
-    CardContent, ListItem, List, Divider
+    CardContent, Button, 
 } from '@mui/material';
 import { CardWrapper } from '../../components/CardWrapper'
-// Icons
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
-import ModelTrainingOutlinedIcon from '@mui/icons-material/ModelTrainingOutlined';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 // Translation
 import { useTranslation } from 'react-i18next';
-// ProfilePanel
+// Panels
 import { ProfilePanel } from './ProfilePanel';
+import { ActivityPanel } from './ActivityPanel';
 // React DOM
-import { useNavigate, useLocation, Navigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+// Hooks
+import { useFetchActivities } from "../../hooks/useFetchUser";
+// api
+import userApi from "../../api/userAPI";
+
 
 // Truncate Text function
 const truncateText = (text, maxWords) => {
@@ -26,35 +27,80 @@ const truncateText = (text, maxWords) => {
     return text;
 };
 
+const transformActivities = (activitiesData) => {
+    return Object.entries(activitiesData).map(([date, activityTypes]) => {
+        // Chuyển đổi "YYYY-MM" thành "Month YYYY"
+        const [year, month] = date.split("-");
+        const monthNames = [
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+        const formattedTime = `${monthNames[parseInt(month, 10) - 1]} ${year}`;
+
+        // Chuyển đổi từng loại activity
+        const activities = {};
+        Object.entries(activityTypes).forEach(([type, items]) => {
+            if (!Array.isArray(items)) return; // Đề phòng items bị undefined
+
+            activities[type] = items.map((item) => {
+                if (!item || typeof item !== "object") return null; // Bỏ qua nếu item bị lỗi
+
+                if (type === "create_script" || type === "create_model" ) {
+                    return { name: item.name || "Unnamed Script", _id: item._id || "Unknown" };
+                } else if (type === "create_comment") {
+                    return {
+                        content: item.content || "No Content",
+                        _id: item._id || "Unknown",
+                        script_name: item.script_id.name || "Unknown",
+                        script_id: item.script_id._id || "Unknown",
+                    };
+                } else {
+                    return item;
+                }
+            }).filter(Boolean); // Xóa các giá trị null
+        });
+
+        return {
+            time: formattedTime,
+            activities
+        };
+    });
+};
+
 const Overview = ({ profile, topScripts }) => {
 
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const { userId } = useParams();
+    const [curYear, setCurYear] = useState(new Date().getFullYear().toString());
 
-    const activitiesList = [
-        {
-            time: "Jan 2025",
-            activities: {
-                create_model: [{ name: "Đây là tên một model", model_id: "1" }],
-                create_script: [{ name: "Đây là tên một script", script_id: "1" }, { name: "aa", script_id: "1" }],
-                create_comment: [{ content: "Đây là nội dung cơ bản của comment", comment_id: "1" }]
-            }
-        },
-        {
-            time: "Dec 2024",
-            activities: {
-                create_script: ["#link1", "#link2"],
-                create_model: ["#link1", "#link2"],
-            }
-        },
-        {
-            time: "Nov 2024",
-            activities: {
-                create_script: ["#link1", "#link2"],
-                create_model: ["#link1", "#link2"],
-            }
-        },
-    ]
+    const { data: activitiesData, loading: activitiesLoading, error: activitiesError } = useFetchActivities(userId, curYear);
+    const [activitiesList, setActivitiesList] = useState([]);
+
+    useEffect(() => {
+        const result = transformActivities(activitiesData);
+        setActivitiesList((prevList) => {
+            const merged = [...prevList, ...result]; // Lấy từ ref để đảm bảo giá trị cũ
+            //console.log("Marge: ", merged);
+            return merged.filter((item, index, self) =>
+                index === self.findIndex((t) => t.time === item.time)
+            );
+        });
+    }, [activitiesData]);
+
+    const handleLoadMoreAct = async () => {
+        let newActs = await userApi.activities(userId, curYear - 1);
+        newActs = transformActivities(newActs) || [];
+        setActivitiesList((prevList) => {
+            const merged = [...prevList, ...newActs]; // Lấy từ ref để đảm bảo giá trị cũ
+            //console.log("Marge: ", merged);
+            return merged.filter((item, index, self) =>
+                index === self.findIndex((t) => t.time === item.time)
+            );
+        });
+        setCurYear((prev) => prev - 1);
+        //console.log("After Merge: ", activitiesList);
+    };
 
     return (
         <Box
@@ -109,90 +155,17 @@ const Overview = ({ profile, topScripts }) => {
                         <Typography variant="h6" mt={2} sx={{ fontWeight: "bold" }}>
                             {t("overview.activity")}
                         </Typography>
-                        {/* Hiển thị danh sách hoạt động */}
-                        <List sx={{ width: "100%" }}>
-                            {activitiesList.map((activity, index) => (
-                                <React.Fragment key={index}>
-                                    {/* Hiển thị thời gian */}
-                                    <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                                        <Typography
-                                            variant="caption"
-                                            fontWeight="bold"
-                                            color="info"
-                                            sx={{ whiteSpace: "nowrap", mr: 1 }}
-                                        >
-                                            {activity.time}
-                                        </Typography>
-                                        <Divider sx={{ flexGrow: 1 }} />
-                                    </Box>
-
-                                    {/* Hiển thị danh sách hoạt động */}
-                                 
-
-                                    {Object.entries(activity.activities).map(([type, items]) => {
-                                        let color = null;
-                                        let title = null;
-                                        let icon = null;
-
-                                        if (type === "create_script") {
-                                            color = "script";
-                                            icon = <DescriptionOutlinedIcon color="script" sx={{ mr: 1 }} />;
-                                            title = t("overview.act_title.create") + " " + items.length + " " + t("overview.act_title.script");
-                                        } else if (type === "create_comment") {
-                                            color = "comment";
-                                            icon = <CommentOutlinedIcon color="comment" sx={{ mr: 1 }} />;
-                                            title = t("overview.act_title.create") + " " + items.length + " " + t("overview.act_title.comment");
-                                        } else if (type === "create_model") {
-                                            color = "warning";
-                                            icon = <ModelTrainingOutlinedIcon color="warning" sx={{ mr: 1 }} />;
-                                            title = t("overview.act_title.create") + " " + items.length + " " + t("overview.act_title.model");
-                                        }
-
-                                        return (
-                                            <ListItem key={type} sx={{ display: "flex", justifyContent: "center" }}>
-                                                <CardWrapper borderThickness="10px" borderSide="right" borderColor={color} mt="0px">
-                                                    <CardContent>
-                                                        {/* Title with Icon */}
-                                                        <Typography variant="body1" fontWeight="bold" sx={{ display: "flex", alignItems: "center" }}>
-                                                            {icon} {title}
-                                                        </Typography>
-
-                                                        {/* Items List */}
-                                                        <List sx={{ padding: 0, gap: 0.5 }}>
-                                                            {items.map((item, subIndex) => (
-                                                                <ListItem key={subIndex} sx={{ my: 0.5, paddingY: 0, display: "block" }}>
-                                                                    {type === "create_comment" ? (
-                                                                        <>
-                                                                            {/* Comment ID with Divider */}
-                                                                            <Typography variant="caption" fontWeight="bold" color="comment" sx={{ display: "flex", alignItems: "center" }}>
-                                                                                {item.comment_id}
-                                                                                <Divider sx={{ flexGrow: 1, mx: 1, backgroundColor: "comment.main" }} />
-                                                                            </Typography>
-
-                                                                            {/* Comment Content */}
-                                                                            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                                                                                {item.content}
-                                                                            </Typography>
-                                                                        </>
-                                                                    ) : (
-                                                                        <Typography variant="body2" color={color || "text.secondary"}>
-                                                                            {item.name || item.content}
-                                                                        </Typography>
-                                                                    )}
-                                                                </ListItem>
-                                                            ))}
-                                                        </List>
-                                                    </CardContent>
-                                                </CardWrapper>
-                                            </ListItem>
-                                        );
-                                    })}
-
-
-
-                                </React.Fragment>
-                            ))}
-                        </List>
+                        <ActivityPanel activities={activitiesList} />
+                        <Button
+                            variant="contained"
+                            size="small"
+                            color="info"
+                            fullWidth
+                            sx={{ borderRadius: '8px' }}
+                            onClick={handleLoadMoreAct}
+                        >
+                            {t("button.edit_profile")}
+                        </Button>
                     </Box>
                 </Grid>
             </Grid>
