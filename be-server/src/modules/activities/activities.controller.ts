@@ -1,9 +1,9 @@
 import {
     Controller,
-    Body, Req, Param,
-    Post,
+    Body, Req, Param, Query,
+    Get, Post,
     UseGuards,
-    ForbiddenException
+    ForbiddenException, BadRequestException, 
 } from '@nestjs/common';
 import { ActivitiesService } from './activities.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
@@ -14,8 +14,26 @@ export class ActivitiesController {
         private readonly activitiesService: ActivitiesService
     ) { }
 
+    @Get()
+    @UseGuards(JwtAuthGuard)
+    // Get activities of a user
+    async getActivities(
+        @Query('year') year: string,
+        @Param('userId') userId,
+        @Req() req
+    ) {
+        if (year && !/^\d+$/.test(year)) {
+            throw new BadRequestException('Year must contain only digits');
+        }
+
+        const reqUserId = req.user.userId;
+        const isOwner = reqUserId == userId;
+        return await this.activitiesService.getActivities(isOwner, year, userId)
+    }
+
     @Post()
     @UseGuards(JwtAuthGuard)
+    // Create new activity     
     async createActivity(
         @Body() data: { type: string, obj_id: string },
         @Param('userId') userId,

@@ -3,12 +3,14 @@
     "",
     "\\src",
     "\\src\\modules",
+    "\\src\\modules\\activities",
     "\\src\\modules\\comments",
+    "\\src\\modules\\models",
     "\\src\\modules\\scripts",
     "\\src\\modules\\users",
     "\\src\\schemas",
     "\\test"
   ],
-  "SelectedNode": "\\src\\modules\\users\\users.service.ts",
+  "SelectedNode": "\\src\\modules\\models\\models.service.ts",
   "PreviewInSolutionExplorer": false
 }
