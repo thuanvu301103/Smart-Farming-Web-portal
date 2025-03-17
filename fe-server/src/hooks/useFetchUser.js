@@ -61,6 +61,35 @@ const useFetchTopScripts = (userId) => {
     return { data, loading, error };
 };
 
+const useFetchActivities = (userId, year) => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (!userId) return;
+
+        const fetchTopScripts = async () => {
+            setLoading(true);
+            setError(null);
+
+            try {
+                const data = await userApi.activities(userId, year);
+                setData(data);
+            } catch (err) {
+                console.error("Error fetching Activities:", err);
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTopScripts();
+    }, [userId, year]);
+
+    return { data, loading, error };
+};
+
 const useFetchScriptsList = (userId) => {
 
     const [data, setData] = useState([]);
@@ -157,6 +186,7 @@ const useFetchBookmarkList = (userId) => {
 export {
     useFetchProfile,
     useFetchTopScripts,
+    useFetchActivities,
     useFetchScriptsList,
     useFetchModelsList,
     useFetchBookmarkList

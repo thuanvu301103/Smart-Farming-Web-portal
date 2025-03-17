@@ -42,12 +42,44 @@ const UpdateAvatarModal = ({ open, handleClose, image, handleConfirm }) => {
         setNewAvatar(image)
     }, [image, open]);
 
+    // Resize image before returning
+    const resizeImage = (base64Str, maxWidth = 800, maxHeight = 800) => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = base64Str;
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                let width = img.width;
+                let height = img.height;
+
+                if (width > maxWidth || height > maxHeight) {
+                    if (width > height) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    } else {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, width, height);
+
+                resolve(canvas.toDataURL("image/png", 0.4));
+            };
+        });
+    };
+
     // Handle Crop Image
     const handleCrop = async () => {
         if (editorRef.current) {
             const canvas = editorRef.current.getImageScaledToCanvas();
-            const croppedBase64 = canvas.toDataURL("image/png"); // Convert thành base64
-            return croppedBase64; // Trả về ảnh đã cắt
+            const croppedBase64 = canvas.toDataURL("image/png");
+
+            const resizedImage = await resizeImage(croppedBase64, 800, 800);
+            return resizedImage;
         }
         return null;
     };

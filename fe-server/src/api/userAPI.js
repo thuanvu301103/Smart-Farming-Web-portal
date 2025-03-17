@@ -18,6 +18,13 @@ const userApi = {
         return response.data;
     },
 
+    activities: async (userId, year) => {
+        const response = await axiosInstance.get(`/${userId}/activities`, {
+            params: { year }
+        });
+        return response.data;
+    },
+
     scriptsList: async (userId) => {
         const response = await axiosInstance.get(`/${userId}/scripts`)
         return response.data;
@@ -42,6 +49,7 @@ const userApi = {
         const response = await axiosInstance.get(`/${userId}/favorite-script`)
         return response.data;
     },
+
     favoriteScript: async (userId, scriptId, action) => {
         const response = await axiosInstance.put(`/${userId}/favorite`, {
             scriptId: scriptId,
