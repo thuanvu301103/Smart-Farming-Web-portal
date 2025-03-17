@@ -1,7 +1,10 @@
-﻿import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+﻿import {
+    Injectable, Inject, forwardRef,
+    NotFoundException, UnauthorizedException
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { UsersService } from "../users/users.service";
+import { ActivitiesService } from "../activities/activities.service";
 import { Script } from '../../schemas/scripts.schema';
 import { User } from '../../schemas/users.schema';
 
@@ -10,7 +13,17 @@ export class ScriptsService {
     constructor(
         @InjectModel(Script.name) private scriptModel: Model<Script>,
         @InjectModel(User.name) private readonly userModel: Model<User>,
+        @Inject(forwardRef(() => ActivitiesService)) private readonly activitiesService: ActivitiesService,
     ) { }
+
+    // Check if script exist or not
+    async isExist(scriptId: string): Promise<boolean> {
+        if (!Types.ObjectId.isValid(scriptId)) {
+            return false; // Unvalid ID
+        }
+        const script = await this.scriptModel.findById(scriptId).exec();
+        return !!script;
+    }
 
     // Find all scripts of a user
     async findAllScripts(userId: string, currentUserId: string):
@@ -92,6 +105,7 @@ export class ScriptsService {
     ):
         Promise<string>
     {
+        // Create new script
         const newScript = new this.scriptModel({
             name: name,
             description: description,
@@ -99,7 +113,10 @@ export class ScriptsService {
             owner_id: new Types.ObjectId(userId),
             share_id: share_id.map(id => new Types.ObjectId(id))
         });
-        return (await newScript.save())._id.toString();
+        const scriptId = (await newScript.save())._id.toString();
+        // Create new activity
+        await this.activitiesService.createActivity("create_script", userId, scriptId);
+        return scriptId;
     }
 
     // Get script
