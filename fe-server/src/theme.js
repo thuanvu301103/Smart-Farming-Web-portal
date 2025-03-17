@@ -31,7 +31,7 @@ const lightTheme = createTheme({
             main: '#8E24AA'
         },
         background: {
-           default: '#f4fffe', // Background color
+            default: '#FAFAFA', // Background color
             trans_black: 'rgba(120, 120, 120, 0.5)'
         },
         text: {

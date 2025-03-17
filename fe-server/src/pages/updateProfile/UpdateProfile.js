@@ -146,7 +146,7 @@ const UpdateProfile = () => {
             >
                 {/* Title */}
                 <Grid container alignItems="start" item direction="row"
-                    mt={1} xs={12} md={12}
+                    xs={12} md={12}
                 >
                     <Typography
                         variant="h5" gutterBottom
@@ -305,7 +305,7 @@ const UpdateProfile = () => {
                         sx={{
                             width: '95%', height: 'auto',
                             mt: 2, mb: 2,
-                            border: "1px solid green"
+                            border: "3px solid #B2DFDB"
                         }}
                     />
                     <Button variant="contained" color="warning"

@@ -27,7 +27,11 @@ const ProfilePanel = ({ profile }) => {
                 <Avatar
                     alt="User's avatar"
                     src={profile?.profile_image ? profile.profile_image : null}
-                    sx={{ width: '85%', height: 'auto' }}
+                    sx={{
+                        width: '85%',
+                        height: 'auto',
+                        border: "3px solid #B2DFDB"
+                    }}
                 />
             </Grid>
             <Grid item m={2} xs={12} md={12}>
