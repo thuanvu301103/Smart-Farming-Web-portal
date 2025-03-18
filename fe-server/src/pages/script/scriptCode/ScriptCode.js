@@ -9,6 +9,7 @@ import DeleteModal from '../../../components/modal/DeleteModal';
 import EditScriptModal from './EditScriptModal';
 import Editor from "@monaco-editor/react"; // Code Editor
 import { NumericFormat } from 'react-number-format';
+import { saveAs } from "file-saver"; // For downloading version file 
 // Import Icon
 import PublicIcon from '@mui/icons-material/Public';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
@@ -20,6 +21,7 @@ import ReplayOutlinedIcon from '@mui/icons-material/ReplayOutlined';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { styled } from '@mui/material/styles';
 // Translation
 import { useTranslation } from 'react-i18next';
@@ -217,6 +219,16 @@ const ScriptCode = () => {
         handleSubmitFile(userId, scriptId, true, newVersion);
     }
 
+    // Handle download version file
+    const handleDownloadVersion = async () => {
+        // Convert string to JSON
+        const jsonObject = JSON.parse(fileData);
+        // Convert JSON to blob
+        const blob = new Blob([JSON.stringify(jsonObject, null, 2)], {
+            type: "application/json",
+        });
+        saveAs(blob, `V${curVersion.toFixed(1)}.json`);
+    }
 
     return (
         <Box
@@ -332,6 +344,13 @@ const ScriptCode = () => {
                                     }}
                                 >
                                     <ReplayOutlinedIcon fontSize="small" />
+                                </IconButton>
+
+                                {/* Dowload Version Button */}
+                                <IconButton aria-label="reload" size="small" color="text"
+                                    onClick={handleDownloadVersion}
+                                >
+                                    <ArrowDownwardIcon fontSize="small" />
                                 </IconButton>
 
                                 {localStorage.getItem("userId") == userId && (

@@ -46,6 +46,7 @@
     "@mui/lab": "^6.0.0-beta.24",
     "@mui/material": "^6.4.1",
     "axios": "^1.7.9",
+    "file-saver": "^2.0.5",
     "i18next": "^24.2.1",
     "leaflet": "^1.9.4",
     "react-avatar-editor": "^13.0.2",
