@@ -19,7 +19,7 @@ const ActivityPanel = ({ activities }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { userId } = useParams();
-    console.log("Load: ", activities);
+    //console.log("Load: ", activities);
 
     return (
         <List sx={{ width: "100%" }}>

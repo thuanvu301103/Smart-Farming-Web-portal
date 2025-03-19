@@ -6,7 +6,6 @@ import { ActivitiesModule } from "../activities/activities.module";
 import { Models, ModelSchema } from '../../schemas/models.schema';
 import { Script, ScriptSchema } from '../../schemas/scripts.schema';
 
-
 @Module({
     imports: [
         forwardRef(() => ActivitiesModule),

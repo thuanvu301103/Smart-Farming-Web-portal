@@ -1,15 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public\\locales\\en",
-    "\\public\\locales\\vi",
     "\\src",
-    "\\src\\api",
     "\\src\\hooks",
     "\\src\\pages",
     "\\src\\pages\\overview",
+    "\\src\\pages\\script",
+    "\\src\\pages\\script\\scriptCode",
     "\\src\\pages\\updateProfile"
   ],
-  "SelectedNode": "\\src\\pages\\overview\\ProfilePanel.js",
+  "SelectedNode": "\\src\\pages\\script\\scriptCode\\ScriptCode.js",
   "PreviewInSolutionExplorer": false
 }

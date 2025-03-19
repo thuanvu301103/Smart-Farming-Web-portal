@@ -4,13 +4,14 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { NotificationListItem } from "../../components/ListItem";
 import axios from "axios";
-import socket from "../../socket/websocket";
+import { useSocket } from "../../hooks/useSocket";
 
 const SINotification = ({ t }) => {
-  const [notifyActive, setNotificationActive] = useState(0);
-  const [notificationData, setNotificationData] = useState([]);
-  const [notifyAnchorEl, setNotifyAnchorEl] = useState(null);
+    const [notifyActive, setNotificationActive] = useState(0);
+    const [notificationData, setNotificationData] = useState([]);
+    const [notifyAnchorEl, setNotifyAnchorEl] = useState(null);
 
+    const { notifications, socket } = useSocket();
   useEffect(() => {
     socket.on("message", () => {
       setNotificationActive((prevCount) => prevCount + 1);

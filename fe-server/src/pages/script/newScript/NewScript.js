@@ -21,6 +21,8 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 // API
 import scriptApi from '../../../api/scriptAPI';
+// Hooks
+import { useSocket } from '../../../hooks/useSocket';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -39,6 +41,7 @@ const NewScript = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const theme = useTheme();
+    const { socket } = useSocket();
 
     // Hanle Template Menu
     const [anchorElTemplateMenu, setAnchorElTemplateMenu] = useState(null);
@@ -125,7 +128,8 @@ const NewScript = () => {
         const userId = localStorage.getItem("userId");
         try {
             const scriptId = await scriptApi.createScript(userId, formData);
-            handleSubmitFile(userId, scriptId._id)
+            handleSubmitFile(userId, scriptId._id);
+            //socket.emit('shareScript', { share_id: formData.share_id });
             navigate(`/${userId}/scripts`);
             return scriptId._id;
         } catch (error) {

@@ -7,8 +7,9 @@ export class NotificationsController {
 
     constructor(private readonly notificationsService: NotificationsService) { }
 
-    @Get()
-    async getNotification(@Query('userId') userId: string) {
+    @Get(':userId')
+    async getNotification(@Param('userId') userId: string, @Query('notifyId') notifyId: string) {
+        if (notifyId) return this.notificationsService.getNotification(notifyId);
         return this.notificationsService.getNotificationSentTo(userId);
     }
 
@@ -24,7 +25,7 @@ export class NotificationsController {
     @Post('share')
     async createShare(@Body() data: {
         from: string;
-        to: string;
+        to: string[];
         script_id: string
     }) {
         return this.notificationsService.createShareNotification(data.from, data.to, data.script_id);
