@@ -1225,7 +1225,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/notification/:userId?notifyId=67da3f610acef64e7c097145",
+							"raw": "{{be-server}}/notification/:userId?notifyId=67da44f5757caa91dba509ec",
 							"host": [
 								"{{be-server}}"
 							],
@@ -1236,7 +1236,7 @@
 							"query": [
 								{
 									"key": "notifyId",
-									"value": "67da3f610acef64e7c097145"
+									"value": "67da44f5757caa91dba509ec"
 								}
 							],
 							"variable": [
@@ -1266,7 +1266,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"from\": \"679bb9cb8496f00b99063cc8\",\r\n    \"to\": [\"67c273401fb713deae4b068c\"],\r\n    \"script_id\": \"67ad9b237fbd427b0f974140\" \r\n}",
+							"raw": "{\r\n    \"from\": \"67c2730b1fb713deae4b0689\",\r\n    \"to\": [],\r\n    \"script_id\": \"67ad9b237fbd427b0f974140\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

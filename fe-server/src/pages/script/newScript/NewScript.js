@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 // API
 import scriptApi from '../../../api/scriptAPI';
+import notificationApi from '../../../api/notificationAPI';
 // Hooks
 import { useSocket } from '../../../hooks/useSocket';
 
@@ -128,8 +129,9 @@ const NewScript = () => {
         const userId = localStorage.getItem("userId");
         try {
             const scriptId = await scriptApi.createScript(userId, formData);
+            const notifyId = await notificationApi.createNotification(userId, formData.share_id, scriptId._id);
+            console.log("NotifyId: ", notifyId);
             handleSubmitFile(userId, scriptId._id);
-            //socket.emit('shareScript', { share_id: formData.share_id });
             navigate(`/${userId}/scripts`);
             return scriptId._id;
         } catch (error) {

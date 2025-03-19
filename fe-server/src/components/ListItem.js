@@ -617,11 +617,23 @@ const FileStructListItem = ({ item }) => {
 const NotificationListItem = ({ item }) => {
   if (item.type == "share")
     return (
-      <Box display="flex" flexDirection="column">
-        <Box alignItems="center">
-                <ShareIcon size="small" color="info" />
-        </Box>
-        <Box>Bạn được chia sẻ kịch bản này từ </Box>
+        <Box display="flex" flexDirection="column"
+            sx={{ borderBottom: "1px solid #26A69A", pb: 1, pt: 1, width: '100%' }}
+        >
+            <Box display="flex" alignItems="center" gap={1}>
+                <ShareIcon size="small" color="success" />
+                <Typography color="success" fontWeight="bold">
+                    {item.script_id?.name ? item.script_id.name : "Undefined"}
+                </Typography>
+            </Box>
+            <Box display="flex" alignItems="center" gap={1}>
+                <Typography fontStyle="italic" size="body2">
+                    Shared script from
+                </Typography>
+                <Typography size="body2" color="script" fontWeight="bold">
+                    {item.from?.username ? item.from.username : "Undefined"}
+                </Typography>
+            </Box>
       </Box>
     );
 };
