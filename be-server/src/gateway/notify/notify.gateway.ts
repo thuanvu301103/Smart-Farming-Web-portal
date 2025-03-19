@@ -1,6 +1,7 @@
 ﻿import {
     WebSocketGateway,
     WebSocketServer,
+    SubscribeMessage,
     OnGatewayConnection,
     OnGatewayDisconnect,
 } from '@nestjs/websockets';
@@ -14,15 +15,48 @@ export class NotificationGateway implements OnGatewayConnection, OnGatewayDiscon
     @WebSocketServer()
     server: Server;
 
+    private clients = new Map(); // Store user ID → Socket ID mapping
+
     constructor() {
-        this.logger.log('✅ WebSocket Gateway Initialized'); // ✅ Check if this logs
+        this.logger.log('WebSocket Gateway Initialized'); // ✅ Check if this logs
     }
 
     handleConnection(client: Socket) {
-        this.logger.log(`🟢 Client connected: ${client.id}`);
+        const query = client.handshake.query;
+        let userId = query.userId; // No need for `[0]` unless it's an array
+
+        if (Array.isArray(userId)) {
+            userId = userId[0];
+        }
+
+        if (userId) {
+            this.registerClient(userId, client.id);
+            this.logger.log(`Client connected: ${client.id} - userId: ${userId}`);
+        } else {
+            this.logger.warn(`Client connected without userId: ${client.id}`);
+            client.disconnect(); // Optionally disconnect unknown clients
+        }
     }
 
     handleDisconnect(client: Socket) {
-        this.logger.log(`🔴 Client disconnected: ${client.id}`);
+        console.log(`Client disconnected: ${client.id}`);
+        this.clients.forEach((value, key) => {
+            if (value === client.id) this.clients.delete(key);
+        });
+    }
+
+    // Store user ID when they log in
+    registerClient(userId: string, clientId: string) {
+        this.clients.set(userId, clientId);
+    }
+
+    sendToClient(userId: string, data) {
+        const clientId = this.clients.get(userId);
+        if (clientId) {
+            const client: Socket = this.server.sockets.sockets.get(clientId);
+            if (client) {
+                client.emit('receiveNotification', data);
+            }
+        }
     }
 }

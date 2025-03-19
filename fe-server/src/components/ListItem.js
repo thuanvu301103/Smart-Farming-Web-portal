@@ -619,9 +619,9 @@ const NotificationListItem = ({ item }) => {
     return (
       <Box display="flex" flexDirection="column">
         <Box alignItems="center">
-          <ShareIcon size="small" color="info" /> {item.script_id.name}
+                <ShareIcon size="small" color="info" />
         </Box>
-        <Box>Bạn được chia sẻ kịch bản này từ {item.from.username}</Box>
+        <Box>Bạn được chia sẻ kịch bản này từ </Box>
       </Box>
     );
 };

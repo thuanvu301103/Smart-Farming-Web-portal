@@ -2,11 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Notification } from '../../schemas/notifications.schema';
+import { NotificationGateway } from '../../gateway/notify/notify.gateway';
 
 @Injectable()
 export class NotificationsService {
 
-    constructor(@InjectModel(Notification.name) private notificationModel: Model<Notification>) { }
+    constructor(
+        @InjectModel(Notification.name) private notificationModel: Model<Notification>,
+        private notificationGateway: NotificationGateway,
+    ) { }
 
     // Get notification
     async getNotification(id: string){
@@ -27,13 +31,24 @@ export class NotificationsService {
     /* Create Notifications */
 
     // Create share script notifcation 
-    async createShareNotification(from: string, to: string, script_id: string) {
-        return this.notificationModel.create({
-            type: 'share',
-            from: new Types.ObjectId(from),
-            to: new Types.ObjectId(to),
-            script_id: new Types.ObjectId(script_id),
-        });
+    async createShareNotification(from: string, to: string[], script_id: string) {
+        const createdNotifications = [];
+
+        for (const userId of to) {
+            const newObj = await this.notificationModel.create({
+                type: 'share',
+                from: new Types.ObjectId(from),
+                to: new Types.ObjectId(userId),
+                script_id: new Types.ObjectId(script_id),
+            });
+
+            const newId = newObj._id;
+            createdNotifications.push(newId);
+
+            this.notificationGateway.sendToClient(userId, { id: newId });
+        }
+
+        return createdNotifications;
     }
 
     // Delete a notification

@@ -7,6 +7,7 @@ import {
     ShareNotification, ShareNotificationsSchema,
     CommentNotification, CommentNotificationsSchema
 } from '../../schemas/notifications.schema';
+import { NotificationGateway } from '../../gateway/notify/notify.gateway';
 
 @Module({
     imports: [
@@ -22,7 +23,8 @@ import {
             },
         ]),
     ],
-  controllers: [NotificationsController],
-  providers: [NotificationsService]
+    controllers: [NotificationsController],
+    providers: [NotificationsService, NotificationGateway],
+    exports: [NotificationsService]
 })
 export class NotificationsModule {}
