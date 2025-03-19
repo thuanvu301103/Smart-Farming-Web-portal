@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import io from 'socket.io-client';
+import notificationApi from "./../api/notificationAPI";
 
 const socket = io('http://localhost:3004', {
     transports: ['websocket'],
@@ -14,12 +15,29 @@ const socket = io('http://localhost:3004', {
 
 export const useSocket = () => {
     const [notifications, setNotifications] = useState([]);
+    const [ring, setRing] = useState(false);
+    const userId = localStorage.getItem('userId');
+    useEffect(() => {
+       const fetchNotification = async () => {
+           try {
+               const data = await notificationApi.allNotification(userId );
+               setNotifications(data);
+           } catch (err) {
+               console.error("Error fetching notification:", err);
+               //setError(err);
+           }
+        };
+
+        fetchNotification();
+    }, [userId]);
 
     useEffect(() => {
         // Listen for notifications from the server
-        socket.on('receiveNotification', (data) => {
-            console.log('Received notification:', data);
-            //setNotifications((prev) => [...prev, data]);
+        socket.on('receiveNotification', async (data) => {
+            //console.log('Received notification:', data);
+            const notify = await notificationApi.notification(userId, data.id);
+            setRing(true);
+            setNotifications((prev) => [...prev, notify]);
         });
 
         return () => {
@@ -27,5 +45,5 @@ export const useSocket = () => {
         };
     }, []);
 
-    return { notifications, socket };
+    return { notifications, socket, ring, setRing };
 };

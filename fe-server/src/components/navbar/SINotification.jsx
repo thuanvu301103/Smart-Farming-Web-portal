@@ -11,7 +11,7 @@ const SINotification = ({ t }) => {
     const [notificationData, setNotificationData] = useState([]);
     const [notifyAnchorEl, setNotifyAnchorEl] = useState(null);
 
-    const { notifications, socket } = useSocket();
+    const { notifications, socket, ring, setRing } = useSocket();
   useEffect(() => {
     socket.on("message", () => {
       setNotificationActive((prevCount) => prevCount + 1);
@@ -22,22 +22,9 @@ const SINotification = ({ t }) => {
     };
   }, []);
 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/notification", {
-          params: { userId: "679b765e8496f00b99063cb8" },
-        });
-        setNotificationData(response.data);
-      } catch (error) {
-        console.error("Error fetching notification data:", error);
-      }
-    };
-    fetchNotifications();
-  }, []);
-
   const handleNotifyClick = (event) => {
-    setNotifyAnchorEl(event.currentTarget);
+      setNotifyAnchorEl(event.currentTarget);
+      setRing(false);
   };
 
   const handleNotifyClose = () => {
@@ -47,7 +34,7 @@ const SINotification = ({ t }) => {
   return (
     <>
       <IconButton onClick={handleNotifyClick}>
-        {notifyActive !== 0 ? (
+       {ring ? (
           <NotificationsActiveIcon fontSize="small" color="info" />
         ) : (
           <NotificationsIcon fontSize="small" />
@@ -57,7 +44,7 @@ const SINotification = ({ t }) => {
       <Menu anchorEl={notifyAnchorEl} open={Boolean(notifyAnchorEl)} onClose={handleNotifyClose}>
         <MenuItem>
           <List sx={{ width: "100%" }}>
-            {notificationData.map((item, index) => (
+                      {notifications.map((item, index) => (
               <ListItem key={index} sx={{ p: 0 }}>
                 <NotificationListItem item={item} />
               </ListItem>
