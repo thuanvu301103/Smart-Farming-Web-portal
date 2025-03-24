@@ -5,7 +5,6 @@
   "dependencies": {
     "cra-template": "1.2.0",
     "diff": "^7.0.0",
-    "framer-motion": "^12.5.0",
     "i18next-browser-languagedetector": "^8.0.2",
     "i18next-http-backend": "^3.0.2",
     "monaco-editor": "^0.52.2",
@@ -48,6 +47,7 @@
     "@mui/material": "^6.4.1",
     "axios": "^1.7.9",
     "file-saver": "^2.0.5",
+    "framer-motion": "^12.5.0",
     "i18next": "^24.2.1",
     "leaflet": "^1.9.4",
     "react-avatar-editor": "^13.0.2",
