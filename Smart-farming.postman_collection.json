@@ -569,75 +569,196 @@
 					]
 				},
 				{
-					"name": "Get all models that belong to a user",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{be-server}}/:userId/models",
-							"host": [
-								"{{be-server}}"
-							],
-							"path": [
-								":userId",
-								"models"
-							],
-							"variable": [
-								{
-									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get info of a model",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{be-server}}/:userId/models/:modelId",
-							"host": [
-								"{{be-server}}"
-							],
-							"path": [
-								":userId",
-								"models",
-								":modelId"
-							],
-							"variable": [
-								{
-									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
+					"name": "oldAPI",
+					"item": [
+						{
+							"name": "Get all models that belong to a user",
+							"request": {
+								"auth": {
+									"type": "noauth"
 								},
-								{
-									"key": "modelId",
-									"value": "67ad585036fd81f06d8818d0"
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/:userId/models",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "679b765e8496f00b99063cb8"
+										}
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "Add new model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Model tưới cây dâu tây\",\r\n    \"description\": \"Đây là một model đỉnh nóc kịch trần\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "679b765e8496f00b99063cb8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change info of a model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Một model hoàn thiện\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/:modelId",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										":modelId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "679b765e8496f00b99063cb8"
+										},
+										{
+											"key": "modelId",
+											"value": "67ad585036fd81f06d8818d0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unassign a model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/:userId/models/:modelId",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										":modelId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "679b765e8496f00b99063cb8"
+										},
+										{
+											"key": "modelId",
+											"value": "67ad585036fd81f06d8818d0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get info of a model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/:userId/models/:modelId",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										":modelId"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "679b765e8496f00b99063cb8"
+										},
+										{
+											"key": "modelId",
+											"value": "67ad585036fd81f06d8818d0"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Add new model",
+					"name": "create Registered Model",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg2OTU5MiwiZXhwIjoxNzQyODczMTkyfQ.UpGpTALiDP8sMTtSf-RkyTrJdbaAr9UpYvzDOVJAFOQ",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Model tưới cây dâu tây\",\r\n    \"description\": \"Đây là một model đỉnh nóc kịch trần\"\r\n}",
+							"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"tags\": [\r\n        {\"key\": \"fruit\", \"value\": \"orange\"}\r\n    ],\r\n    \"description\": \"Đây là một model đơn giản\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -645,18 +766,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{be-server}}/:userId/models",
+							"raw": "{{be-server}}/:userId/models/create",
 							"host": [
 								"{{be-server}}"
 							],
 							"path": [
 								":userId",
-								"models"
+								"models",
+								"create"
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
+									"value": "67c273401fb713deae4b068c"
 								}
 							]
 						}
@@ -664,16 +786,99 @@
 					"response": []
 				},
 				{
-					"name": "Change info of a model",
+					"name": "Get all Registered Models",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME",
+									"type": "string"
+								}
+							]
 						},
-						"method": "PUT",
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/models/get-all",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"get-all"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Registered Model by name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/models/get?name=New Model",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"get"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "New Model"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename Registered Model",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Một model hoàn thiện\"\r\n}",
+							"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"new_name\": \"Very New Model\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -681,23 +886,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{be-server}}/:userId/models/:modelId",
+							"raw": "{{be-server}}/:userId/models/rename",
 							"host": [
 								"{{be-server}}"
 							],
 							"path": [
 								":userId",
 								"models",
-								":modelId"
+								"rename"
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
-								},
-								{
-									"key": "modelId",
-									"value": "67ad585036fd81f06d8818d0"
+									"value": "67c273401fb713deae4b068c"
 								}
 							]
 						}
@@ -705,31 +906,87 @@
 					"response": []
 				},
 				{
-					"name": "Unassign a model",
+					"name": "Update Registered Model",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME",
+									"type": "string"
+								}
+							]
 						},
-						"method": "DELETE",
+						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Very New Model\",\r\n    \"description\": \"This is a very new model\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{be-server}}/:userId/models/:modelId",
+							"raw": "{{be-server}}/:userId/models/update",
 							"host": [
 								"{{be-server}}"
 							],
 							"path": [
 								":userId",
 								"models",
-								":modelId"
+								"update"
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "679b765e8496f00b99063cb8"
-								},
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Registered Model",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "modelId",
-									"value": "67ad585036fd81f06d8818d0"
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Very New Model\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/delete",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
 								}
 							]
 						}
