@@ -6,7 +6,7 @@ echo [1] Run both backend and frontend
 echo [2] Run backend only
 echo [3] Run frontend only
 echo [4] Run MLflow Tracking Server
-set /p choice=Enter your choice (1, 2, 3. 4): 
+set /p choice=Enter your choice (1, 2, 3, 4): 
 
 if "!choice!"=="1" (
     echo Starting backend and frontend...
