@@ -20,7 +20,7 @@ if "!choice!"=="1" (
     start cmd /k "cd fe-server && npm start"
 ) else if "!choice!"=="4" (
     echo Starting MLflow Tracking Server...
-    start cmd /k "mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlruns --host 0.0.0.0 --port 5000"
+    start cmd /k "mlflow server --backend-store-uri sqlite:///mlflow-server/mlflow.db --default-artifact-root ./mlflow-server/mlruns --host 0.0.0.0 --port 5000"
 ) else (
     echo Invalid choice. Exiting.
 )

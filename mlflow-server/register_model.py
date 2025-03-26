@@ -4,7 +4,7 @@ import mlflow
 mlflow.set_tracking_uri("http://localhost:5000")
 
 # Input Run ID & Model Name
-run_id = "28149c4a2de143a88760c92b2929fdfd" # Replace with your runId
+run_id = "06c25499871d4cfc871d313318cec13c" # Replace with your runId
 artifact_path = "random_forest_model"  # Name of model in Artifact
 model_name = "New Registered Model"  # Name of model trong Model Registry
 

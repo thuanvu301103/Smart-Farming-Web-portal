@@ -1,6 +1,7 @@
 import {
     Injectable, Inject, forwardRef,
     NotFoundException, BadRequestException,
+    HttpException, HttpStatus,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -28,6 +29,7 @@ export class ModelsService {
         return true;
     }
 
+    /* ----- Registered Model ----- */
     // Create Registered Model
     async createRegisteredModel(
         userId: string,
@@ -149,5 +151,310 @@ export class ModelsService {
             throw new Error("No model found for this owner");
         }
         return { message: "Model deleted successfully" };
+    }
+
+    // Get Latest Model Versions
+    async getLatestModelVersions(
+        userId: string,
+        name: string,
+        stages: string[]
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            const response = await axios.post(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/get-latest-versions`,
+                {
+                    name: unique_name,
+                    stages: stages
+                }
+            );
+
+            return response.data;
+        } catch (error) {
+
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Set Registered Model Tag
+    async setRegisteredModelTag(
+        userId: string,
+        name: string,
+        key: string,
+        value: string
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            const response = await axios.post(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/set-tag`,
+                {
+                    name: unique_name,
+                    key: key,
+                    value: value
+                }
+            );
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Delete Registered Model Tag
+    async deleteRegisteredModelTag(
+        userId: string,
+        name: string,
+        key: string
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            const response = await axios.delete(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/delete-tag`,
+                {
+                    data: {
+                        name: unique_name,
+                        key: key
+                    }
+                }
+            );
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    /* ----- Registered Model Version ----- */
+    // Create Model Version
+    async createModelVersion(
+        userId: string,
+        name: string,
+        source: string,
+        run_id: string,
+        tags: string[],
+        run_link: string,
+        description: string
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            const response = await axios.post(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/create`,
+                {
+                    name: unique_name,
+                    source: source,
+                    run_id: run_id,
+                    tags: tags,
+                    run_link: run_link,
+                    description: description
+                }
+            );
+            
+            return response.data;
+        } catch (error) {
+            
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Get Model Version
+    async getModelVersion(
+        userId: string,
+        name: string,
+        version: string
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            const response = await axios.get(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/get`,
+                {
+                    params: {
+                        name: unique_name,
+                        version: version
+                    }
+                }
+            );
+
+            return response.data;
+        } catch (error) {
+
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Get Model Version
+    async updateModelVersion(
+        userId: string,
+        name: string,
+        version: string,
+        description: string
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            const response = await axios.patch(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/update`,
+                {
+                    name: unique_name,
+                    version: version,
+                    description: description
+                }
+            );
+
+            return response.data;
+        } catch (error) {
+
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Update Model Version
+    async deleteModelVersion(
+        userId: string,
+        name: string,
+        version: string
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            const response = await axios.delete(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/delete`,
+                { data: { name: unique_name, version: version } }
+            );
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+
+    }
+
+    // Set Model Version Tag
+    async setModelVersionTag(
+        userId: string,
+        name: string,
+        version: string,
+        key: string,
+        value: string
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            const response = await axios.post(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/set-tag`,
+                {
+                    name: unique_name,
+                    version: version,
+                    key: key,
+                    value: value
+                }
+            );
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Delete Model Version Tag
+    async deleteModelVersionTag(
+        userId: string,
+        name: string,
+        version: string,
+        key: string
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            const response = await axios.delete(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/delete-tag`,
+                {
+                    data: {
+                        name: unique_name,
+                        version: version,
+                        key: key
+                    }
+                }
+            );
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
     }
 }
