@@ -569,46 +569,26 @@
 					]
 				},
 				{
-					"name": "oldAPI",
+					"name": "models.versions",
 					"item": [
 						{
-							"name": "Get all models that belong to a user",
+							"name": "Create Model Version",
 							"request": {
 								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{be-server}}/:userId/models",
-									"host": [
-										"{{be-server}}"
-									],
-									"path": [
-										":userId",
-										"models"
-									],
-									"variable": [
+									"type": "bearer",
+									"bearer": [
 										{
-											"key": "userId",
-											"value": "679b765e8496f00b99063cb8"
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1NTcwMiwiZXhwIjoxNzQyOTU5MzAyfQ.MthUCDA9M-R0FQxTnNuD1k1az98Ai5SMvSGTkQIyk4w",
+											"type": "string"
 										}
 									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Add new model",
-							"request": {
-								"auth": {
-									"type": "noauth"
 								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Model tưới cây dâu tây\",\r\n    \"description\": \"Đây là một model đỉnh nóc kịch trần\"\r\n}",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"source\": \"runs:/06c25499871d4cfc871d313318cec13c/decision_tree_model\",\r\n    \"run_id\": \"optional\",\r\n    \"tags\": [{\"key\": \"fruit\", \"value\": \"orange\"}],\r\n    \"run_link\": \"optional\",\r\n    \"description\": \"This is a version of model\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -616,18 +596,20 @@
 									}
 								},
 								"url": {
-									"raw": "{{be-server}}/:userId/models",
+									"raw": "{{be-server}}/:userId/models/versions/create",
 									"host": [
 										"{{be-server}}"
 									],
 									"path": [
 										":userId",
-										"models"
+										"models",
+										"versions",
+										"create"
 									],
 									"variable": [
 										{
 											"key": "userId",
-											"value": "679b765e8496f00b99063cb8"
+											"value": "67c273401fb713deae4b068c"
 										}
 									]
 								}
@@ -635,16 +617,23 @@
 							"response": []
 						},
 						{
-							"name": "Change info of a model",
+							"name": "Get Latest Versions of Registered Model",
 							"request": {
 								"auth": {
-									"type": "noauth"
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1NTcwMiwiZXhwIjoxNzQyOTU5MzAyfQ.MthUCDA9M-R0FQxTnNuD1k1az98Ai5SMvSGTkQIyk4w",
+											"type": "string"
+										}
+									]
 								},
-								"method": "PUT",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Một model hoàn thiện\"\r\n}",
+									"raw": "{\r\n    \"name\": \"New Model\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -652,23 +641,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{be-server}}/:userId/models/:modelId",
+									"raw": "{{be-server}}/:userId/models/get-latest-version",
 									"host": [
 										"{{be-server}}"
 									],
 									"path": [
 										":userId",
 										"models",
-										":modelId"
+										"get-latest-version"
 									],
 									"variable": [
 										{
 											"key": "userId",
-											"value": "679b765e8496f00b99063cb8"
-										},
-										{
-											"key": "modelId",
-											"value": "67ad585036fd81f06d8818d0"
+											"value": "67c273401fb713deae4b068c"
 										}
 									]
 								}
@@ -676,63 +661,180 @@
 							"response": []
 						},
 						{
-							"name": "Unassign a model",
+							"name": "Get Model Version",
 							"request": {
 								"auth": {
-									"type": "noauth"
-								},
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{be-server}}/:userId/models/:modelId",
-									"host": [
-										"{{be-server}}"
-									],
-									"path": [
-										":userId",
-										"models",
-										":modelId"
-									],
-									"variable": [
+									"type": "bearer",
+									"bearer": [
 										{
-											"key": "userId",
-											"value": "679b765e8496f00b99063cb8"
-										},
-										{
-											"key": "modelId",
-											"value": "67ad585036fd81f06d8818d0"
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1NTcwMiwiZXhwIjoxNzQyOTU5MzAyfQ.MthUCDA9M-R0FQxTnNuD1k1az98Ai5SMvSGTkQIyk4w",
+											"type": "string"
 										}
 									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get info of a model",
-							"request": {
-								"auth": {
-									"type": "noauth"
 								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{be-server}}/:userId/models/:modelId",
+									"raw": "{{be-server}}/:userId/models/versions/get?name=New Model&version=5",
 									"host": [
 										"{{be-server}}"
 									],
 									"path": [
 										":userId",
 										"models",
-										":modelId"
+										"versions",
+										"get"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "New Model"
+										},
+										{
+											"key": "version",
+											"value": "5"
+										}
 									],
 									"variable": [
 										{
 											"key": "userId",
-											"value": "679b765e8496f00b99063cb8"
-										},
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Model Version",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
 										{
-											"key": "modelId",
-											"value": "67ad585036fd81f06d8818d0"
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"version\": \"2\",\r\n    \"description\": \"Đây là ...\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/update",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"update"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model Version",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"version\": \"2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/delete",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"delete"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Model Version Tag",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"version\": \"1\",\r\n    \"key\": \"fruit\",\r\n    \"value\": \"strawberry\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/set-tag",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"set-tag"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
 										}
 									]
 								}
@@ -749,7 +851,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg2OTU5MiwiZXhwIjoxNzQyODczMTkyfQ.UpGpTALiDP8sMTtSf-RkyTrJdbaAr9UpYvzDOVJAFOQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1MjAyMSwiZXhwIjoxNzQyOTU1NjIxfQ.E4a9YPpW21RXQzYwBTsraLtLH7-lVOofY7C0kRb8Oec",
 									"type": "string"
 								}
 							]
@@ -982,6 +1084,100 @@
 								":userId",
 								"models",
 								"delete"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Registered Model tag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"key\": \"fruit\",\r\n    \"value\": \"thunder\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/set-tag",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"set-tag"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Registered Model tag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"key\": \"fruit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/delete-tag?=",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"delete-tag"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
 							],
 							"variable": [
 								{
