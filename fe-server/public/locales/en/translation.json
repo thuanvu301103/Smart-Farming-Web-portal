@@ -14,7 +14,8 @@
     "save":  "Save",
     "search": "Search",
     "template": "Template",
-    "upload": "Upload"
+    "upload": "Upload",
+    "add": "Add"
   },
   "common": {
     "unknown": "Unknown",
@@ -101,7 +102,8 @@
   "new-model": {
     "title": "Create a new Irrigation Model",
     "model-name": "Model Name",
-    "description": "Description"
+    "description": "Description",
+    "tags": "Tags"
   },
   "edit-model": {
     "title": "Edit the Irrigation Model"
@@ -168,6 +170,7 @@
       "model": "Smart Irrigation Model(s)"
     }
   },
+  "optional": "optional",
   "or": "or",
   "loading": "Loading Data...",
   "no_data": "No Data",

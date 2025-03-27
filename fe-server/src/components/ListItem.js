@@ -250,7 +250,14 @@ const BookmarkListItem = ({ item, removeItemFunc }) => {
           </Box>
 
           {/* Right Side: Privacy and Bookmark */}
-          <Box sx = {{display:'flex', flex: '0.2', flexDirection:'column', justifyContent:'space-between'}}>
+          <Box
+            sx={{
+              display: "flex",
+              flex: "0.2",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
             <Box
               display="flex"
               flexDirection="column"
@@ -508,7 +515,7 @@ const ModelListItem = ({ item }) => {
             color="success"
             sx={{ textDecoration: "none", fontWeight: "bold" }}
           >
-            {item?.name ? item.name : null}
+            {item?.alt_name ? item.alt_name : null}
           </Link>
         }
         secondary={
@@ -617,23 +624,25 @@ const FileStructListItem = ({ item }) => {
 const NotificationListItem = ({ item }) => {
   if (item.type == "share")
     return (
-        <Box display="flex" flexDirection="column"
-            sx={{ borderBottom: "1px solid #26A69A", pb: 1, pt: 1, width: '100%' }}
-        >
-            <Box display="flex" alignItems="center" gap={1}>
-                <ShareIcon size="small" color="success" />
-                <Typography color="success" fontWeight="bold">
-                    {item.script_id?.name ? item.script_id.name : "Undefined"}
-                </Typography>
-            </Box>
-            <Box display="flex" alignItems="center" gap={1}>
-                <Typography fontStyle="italic" size="body2">
-                    Shared script from
-                </Typography>
-                <Typography size="body2" color="script" fontWeight="bold">
-                    {item.from?.username ? item.from.username : "Undefined"}
-                </Typography>
-            </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        sx={{ borderBottom: "1px solid #26A69A", pb: 1, pt: 1, width: "100%" }}
+      >
+        <Box display="flex" alignItems="center" gap={1}>
+          <ShareIcon size="small" color="success" />
+          <Typography color="success" fontWeight="bold">
+            {item.script_id?.name ? item.script_id.name : "Undefined"}
+          </Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap={1}>
+          <Typography fontStyle="italic" size="body2">
+            Shared script from
+          </Typography>
+          <Typography size="body2" color="script" fontWeight="bold">
+            {item.from?.username ? item.from.username : "Undefined"}
+          </Typography>
+        </Box>
       </Box>
     );
 };

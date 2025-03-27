@@ -38,27 +38,39 @@ export class ModelsService {
         description: string
     ) {
         const unique_name = `${userId}/${name}`;
-        const response = await axios.post(
-            `${this.mlflowUrl}/api/2.0/mlflow/registered-models/create`,
-            {
-                name: unique_name,
-                tags: tags,
-                description: description
+        try {
+            const response = await axios.post(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/create`,
+                {
+                    name: unique_name,
+                    tags: tags,
+                    description: description
+                }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
             }
-        );
-        //console.log(response.status);
-        if (response.status !== 200) {
-            throw new BadRequestException(`MLflow returned status ${response.status}`);
-        }
-        const savedModel = await this.modelModel.create({
-            name: unique_name,
-            owner_id: new Types.ObjectId(userId),
-            creation_timestamp: response.data.registered_model.creation_timestamp,
-            last_updated_timestamp: response.data.registered_model.last_updated_timestamp,
-            description: response.data.registered_model.description,
-        });
+            const savedModel = await this.modelModel.create({
+                name: unique_name,
+                owner_id: new Types.ObjectId(userId),
+                creation_timestamp: response.data.registered_model.creation_timestamp,
+                last_updated_timestamp: response.data.registered_model.last_updated_timestamp,
+                description: response.data.registered_model.description,
+            });
 
-        return { mlflow: response.data, db: savedModel };
+            return { mlflow: response.data, db: savedModel };
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
     }
 
     // Get all Registered Model of a user
@@ -74,12 +86,24 @@ export class ModelsService {
     // Get a Registered Model by name
     async getRegisteredModel(userId: string, name: string) {
         const unique_name = `${userId}/${name}`;
-        //console.log(unique_name);
-        const response = await axios.get(
-            `${this.mlflowUrl}/api/2.0/mlflow/registered-models/get`,
-            { params: { name: unique_name } }
-        );
-        return response.data;
+        try {
+            const response = await axios.get(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/get`,
+                { params: { name: unique_name } }
+            );
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
     }
 
     // Rename a Registered Model
