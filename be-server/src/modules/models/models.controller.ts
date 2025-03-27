@@ -102,6 +102,16 @@ export class ModelsController {
     }
 
     /* ----- Registered Model Version ----- */
+    @Get('versions/get-all')
+    @UseGuards(JwtAuthGuard)
+    async getAllModelVersion(
+        @Param('userId') userId: string,
+        @Query('name') name: string,
+        @Query('page_token') page_token: string,
+    ) {
+        return this.modelsService.getAllModelVersions(userId, name, page_token ? page_token : "0");
+    }
+
     @Post('versions/create')
     @UseGuards(JwtAuthGuard)
     async createModelVersion(

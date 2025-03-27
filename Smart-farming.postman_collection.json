@@ -579,7 +579,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1NTcwMiwiZXhwIjoxNzQyOTU5MzAyfQ.MthUCDA9M-R0FQxTnNuD1k1az98Ai5SMvSGTkQIyk4w",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk3MDExNywiZXhwIjoxNzQyOTczNzE3fQ.-fL58t_NAJbaGHzw7Gjx9J2MHd0brY6Qaxdc4TGLw2I",
 											"type": "string"
 										}
 									]
@@ -588,7 +588,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"source\": \"runs:/06c25499871d4cfc871d313318cec13c/decision_tree_model\",\r\n    \"run_id\": \"optional\",\r\n    \"tags\": [{\"key\": \"fruit\", \"value\": \"orange\"}],\r\n    \"run_link\": \"optional\",\r\n    \"description\": \"This is a version of model\"\r\n}",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"source\": \"runs:/06c25499871d4cfc871d313318cec13c/decision_tree\",\r\n    \"run_id\": \"optional\",\r\n    \"tags\": [{\"key\": \"fruit\", \"value\": \"orange\"}],\r\n    \"run_link\": \"optional\",\r\n    \"description\": \"This is a version of model\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -624,7 +624,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1NTcwMiwiZXhwIjoxNzQyOTU5MzAyfQ.MthUCDA9M-R0FQxTnNuD1k1az98Ai5SMvSGTkQIyk4w",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzA3NzU0OSwiZXhwIjoxNzQzMDgxMTQ5fQ.z3oNGazodf7kxoxK5KIouZmnms-WPUJ0uEoT4D8nXPU",
 											"type": "string"
 										}
 									]
@@ -633,7 +633,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"New Model\"\r\n}",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"stages\": [\"Production\"]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -649,6 +649,60 @@
 										":userId",
 										"models",
 										"get-latest-version"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Model Versions",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzA3NzU0OSwiZXhwIjoxNzQzMDgxMTQ5fQ.z3oNGazodf7kxoxK5KIouZmnms-WPUJ0uEoT4D8nXPU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/get-all?name=New Model",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"get-all"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "New Model"
+										}
 									],
 									"variable": [
 										{
@@ -840,6 +894,51 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Delete Model Version tag",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"version\": \"1\",\r\n    \"key\": \"fruit\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/delete-tag",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"delete-tag"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -930,7 +1029,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzA3NzU0OSwiZXhwIjoxNzQzMDgxMTQ5fQ.z3oNGazodf7kxoxK5KIouZmnms-WPUJ0uEoT4D8nXPU",
 									"type": "string"
 								}
 							]
