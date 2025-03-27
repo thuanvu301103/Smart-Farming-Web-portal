@@ -14,7 +14,8 @@
     "save": "Lưu",
     "search": "Tìm kiếm",
     "template": "Bản mẫu",
-    "upload": "Tải lên"
+    "upload": "Tải lên",
+    "add": "Thêm"
   },
   "common": {
     "unknown": "Không xác định",
@@ -100,7 +101,8 @@
   "new-model": {
     "title": "Tạo một mô hình tưới mới",
     "model-name": "Tên mô hình",
-    "description": "Mô tả mô hình"
+    "description": "Mô tả mô hình",
+    "tags": "Nhãn"
   },
   "edit-model": {
     "title": "Chỉnh sửa thông tin mô hình tưới"
@@ -167,6 +169,7 @@
       "model": "Mô hình tưới thông minh"
     }
   },
+  "optional": "không bắt buộc",
   "or": "hoặc",
   "loading": "Đang tải dữ liệu...",
   "no_data": "Không có dữ liệu",

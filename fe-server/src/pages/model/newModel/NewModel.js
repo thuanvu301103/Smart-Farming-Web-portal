@@ -5,8 +5,11 @@ import {
     FormControl, TextField,
     Box,
     Button,
+    Stack
 } from '@mui/material';
 // Import Icon
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 // Translation
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -21,6 +24,7 @@ const NewModel = () => {
     // Form Data
     const [formData, setFormData] = useState({
         name: '',
+        tags: [],
         description: '',
     });
 
@@ -32,16 +36,42 @@ const NewModel = () => {
         });
     };
 
+    // Handle Tag Change
+    const handleTagChange = (index, field, value) => {
+        const newTags = [...formData.tags];
+        newTags[index][field] = value;
+        setFormData({ ...formData, tags: newTags });
+    };
+
+    // Add New Tag
+    const handleAddTag = () => {
+        setFormData({ ...formData, tags: [...formData.tags, { key: '', value: '' }] });
+    };
+
+    // Remove Tag
+    const handleRemoveTag = (index) => {
+        const newTags = formData.tags.filter((_, i) => i !== index);
+        setFormData({ ...formData, tags: newTags });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.name.length == 0) {
             return;
         }
+
+        const hasEmptyTag = formData.tags.some(tag => !tag.key.trim() || !tag.value.trim());
+
+        if (hasEmptyTag) {
+            alert("Please fill in all tag fields before submitting.");
+            return;
+        }
+
         const userId = localStorage.getItem("userId");
         try {
-            const modelId = await modelApi.createModel (userId, formData);
+            const modelId = await modelApi.createModel(userId, formData);
             navigate(-1);
-            return modelId._id;
+            console.log(modelId);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -56,7 +86,7 @@ const NewModel = () => {
             {/*Title*/}
             <Typography
                 variant="h5" gutterBottom
-                sx={{mt:2}}
+                sx={{ mt: 2 }}
             >
                 {t("new-model.title")}
             </Typography>
@@ -96,6 +126,50 @@ const NewModel = () => {
                     variant="outlined"
                     size="small"
                 />
+
+                <Stack direction="row" alignItems="center" justifyContent="start" gap={3} sx={{ mt: 2, width: '100%' }}>
+                    <Typography variant="body1">
+                        {t("new-model.tags")} ({t("optional")})
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        size="small"
+                        color="info"
+                        onClick={handleAddTag}
+                        startIcon={<AddIcon />} // Add the plus icon
+                    >
+                        {t("button.add")}
+                    </Button>
+                </Stack>
+
+                {/* Tag Fields */}
+                <Box sx={{ mt: 2 }}>
+                    {formData.tags.map((tag, index) => (
+                        <Box key={index} display="flex" alignItems="center" gap={1} sx={{ mb: 1 }}>
+                            <TextField
+                                label="Key"
+                                name="key"
+                                value={tag.key}
+                                onChange={(e) => handleTagChange(index, "key", e.target.value)}
+                                variant="outlined"
+                                size="small"
+                                color='success'
+                            />
+                            <TextField
+                                label={t("Value")}
+                                name="value"
+                                value={tag.value}
+                                onChange={(e) => handleTagChange(index, "value", e.target.value)}
+                                variant="outlined"
+                                size="small"
+                                color='success'
+                            />
+                            <Button onClick={() => handleRemoveTag(index)} color="error">
+                                <DeleteIcon />
+                            </Button>
+                        </Box>
+                    ))}
+                </Box>
             </FormControl>
             {/*Submit Button*/}
             <Button
@@ -108,7 +182,7 @@ const NewModel = () => {
                 {t("button.create_model")}
             </Button>
         </Box>
-        );
+    );
 }
 
 export default NewModel;

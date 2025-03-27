@@ -210,6 +210,45 @@ export class ModelsService {
         }
     }
 
+    // Get Latest Model Versions
+    async getAllModelVersions(
+        userId: string,
+        name: string,
+        page_token: string
+    ) {
+        try {
+            const unique_name = `${userId}/${name}`;
+            console.log("Page Token: ", page_token);
+            console.log("Filter: ", `name='${unique_name}'`);
+            const response = await axios.get(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/search`,
+                {
+                    params: {
+                        filter: `name='${unique_name}'`,  // Correct filter format
+                        order_by: ["version DESC"],       // Uncomment and fix order_by syntax
+                        max_results: 100,
+                        page_token: Buffer.from(page_token, 'base64').toString('utf-8')
+                    }
+                }
+            );
+
+            return response.data;
+        } catch (error) {
+
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
     // Set Registered Model Tag
     async setRegisteredModelTag(
         userId: string,
