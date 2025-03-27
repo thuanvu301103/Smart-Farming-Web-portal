@@ -114,7 +114,7 @@ const ModelList = () => {
       {/* Error State */}
       {modelsListError && (
         <Typography color="error" variant="h6">
-          {t("bookmark.error")}
+          {t("model_info.fetching_error")}
         </Typography>
       )}
 

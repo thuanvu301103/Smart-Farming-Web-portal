@@ -511,7 +511,7 @@ const ModelListItem = ({ item }) => {
         sx={{ display: "flex", flexDirection: "column", flex: "1 1 0%" }}
         primary={
           <Link
-            href={`models/${item?._id ? item._id : "#"}/code`}
+            href={`models/${item?.alt_name}/overview`}
             color="success"
             sx={{ textDecoration: "none", fontWeight: "bold" }}
           >

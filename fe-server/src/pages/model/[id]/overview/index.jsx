@@ -2,7 +2,6 @@ import { Box, Card, TextField, Typography } from "@mui/material";
 import { convertTimestamp } from "../../../../utils/dateUtils";
 
 export default function ModelOverview({ modelInfo }) {
-  console.log("modelInfo", modelInfo);
   return (
     <Box
       sx={{

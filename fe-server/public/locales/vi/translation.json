@@ -15,7 +15,9 @@
     "search": "Tìm kiếm",
     "template": "Bản mẫu",
     "upload": "Tải lên",
-    "add": "Thêm"
+    "add": "Thêm",
+    "add_script": "Tạo kịch bản tưới",
+    "create_new_version": "Tạo phiên bản mới"
   },
   "common": {
     "unknown": "Không xác định",
@@ -114,6 +116,9 @@
   "model-detail": {
     "about": "Thông tin",
     "no-description": "Không có mô tả nào về mô hình tưới này",
+    "name": "Tên",
+    "description": "Mô tả",
+    "tags": "Nhãn",
     "favorite": "Yêu thích"
   },
   "delete-comment": {
@@ -146,7 +151,12 @@
     "explore": "Khám phá",
     "code": "Mã nguồn",
     "comment": "Bình luận",
-    "compare":  "So sánh"
+    "compare":  "So sánh",
+    "details":"Chi tiết",
+    "scripts": "Kịch bản tưới",
+    "versions": "Phiên bản",
+    "settings": "Cài đặt",
+    "analytics": "Phân tích"
   },
   "list": {
     "search_for": "Tìm kiếm...",
@@ -158,6 +168,9 @@
   },
   "bookmark": {
     "error": "Tải dữ liệu thất bại. Vui lòng thử lại."
+  },
+  "model_info" : {
+    "fetching_error": "Không tải được thông tin của mô hình. Vui lòng thử lại."
   },
   "overview": {
     "activity": "Hoạt động",

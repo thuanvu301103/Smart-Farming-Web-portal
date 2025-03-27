@@ -24,7 +24,7 @@ const DeleteModelModal = ({ open, handleClose, modelInfo }) => {
     e.preventDefault(); // Prevent default form submission
     // Call delete api
     try {
-      const response = await modelApi.deleteModelInfo(userId, modelInfo._id);
+      const response = await modelApi.deleteModelInfo(userId, modelInfo.name);
       console.log(response);
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -132,7 +132,6 @@ const Model = () => {
         </Typography>
       </Box>
     );
-
   // Tab data
   const tabdata = [
     {

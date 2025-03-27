@@ -1,30 +1,41 @@
 import React, { useEffect, useState } from "react";
-// Import components
-import { Typography, Button, Box, Card } from "@mui/material";
+import { Typography, Button, Box, Card, Chip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import HistoryIcon from "@mui/icons-material/History";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 import modelApi from "../../../../api/modelAPI";
+import { useParams } from "react-router-dom";
+import { convertTimestamp } from "../../../../utils/dateUtils";
 const VersionsOfModel = ({ modelInfo }) => {
   const { t } = useTranslation();
+  const userId = localStorage.getItem("userId");
+  const { modelName } = useParams();
+
   const [versions, setVersions] = useState([]);
-  const [scriptLoading, setScriptLoading] = useState(false);
+  const [versionLoading, setVersionLoading] = useState(false);
+  const [versionError, setVersionError] = useState(false);
 
   useEffect(() => {
-    const fetch = async () => {
+    if (!userId || !modelName) {
+      setVersionError("User ID or Model Name is missing");
+      setVersionLoading(false);
+      return;
+    }
+    const fetchVersions = async () => {
       try {
-        setScriptLoading(true);
-        const userId = localStorage.getItem("userId");
-        const response = await modelApi.getScriptsModel(userId, modelInfo._id);
-        setVersions(response);
-      } catch (error) {
-        console.error("Error fetching versions of model:", error);
+        const response = await modelApi.getModelVersion(userId, modelName);
+        setVersions(response.model_versions);
+      } catch (err) {
+        setVersionError("Error fetching model");
+        console.error("Error fetching model:", err);
       } finally {
-        setScriptLoading(false);
+        setVersionLoading(false);
       }
     };
-    fetch();
-  }, [modelInfo]);
+    fetchVersions();
+  }, [userId, modelName]);
+
+  console.log("version", versions);
 
   return (
     <Box
@@ -57,6 +68,68 @@ const VersionsOfModel = ({ modelInfo }) => {
           >
             {t("button.create_new_version")}
           </Button>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "32px",
+            marginTop: "24px",
+          }}
+        >
+          {versions?.map((item, index) => {
+            return (
+              <Box
+                key={index}
+                sx={{
+                  pl: "30px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexDirection: "column",
+                  gap: "8px",
+                }}
+              >
+                <Box sx={{ display: "flex", gap: "8px", position: "relative" }}>
+                  <HistoryIcon sx={{ position: "absolute", left: "-30px" }} />
+                  <Typography fontWeight={600}>
+                    Version {item.version}
+                  </Typography>
+                  <Typography fontStyle={"italic"}>
+                    {convertTimestamp(item.creation_timestamp)}
+                  </Typography>
+                </Box>
+                <Card
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                    p: "16px",
+                  }}
+                >
+                  <Typography fontWeight={600}>
+                    {t("model-detail.name")}: {item.name}
+                  </Typography>
+                  <Typography>
+                    {t("model-detail.description")}: {item.description}
+                  </Typography>
+                  <Box sx={{ display: "flex", gap: "8px" }}>
+                    <Typography>
+                      {t("model-detail.tags")}: <t />
+                      {item?.tags?.map((tag, i) => {
+                        return (
+                          <Chip
+                            sx={{ width: "fit-content" }}
+                            label={`${tag.key}: ${tag.value}`}
+                            variant="outlined"
+                          />
+                        );
+                      })}
+                    </Typography>
+                  </Box>
+                </Card>
+              </Box>
+            );
+          })}
         </Box>
       </Card>
     </Box>

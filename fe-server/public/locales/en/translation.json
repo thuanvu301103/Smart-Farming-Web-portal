@@ -15,7 +15,9 @@
     "search": "Search",
     "template": "Template",
     "upload": "Upload",
-    "add": "Add"
+    "add": "Add",
+    "add_script": "Add script",
+    "create_new_version": "Create new version"
   },
   "common": {
     "unknown": "Unknown",
@@ -115,6 +117,9 @@
   "model-detail": {
     "about": "About",
     "no-description": "No description about this irrigation model",
+    "name": "Name",
+    "description": "Description",
+    "tags": "Tags",
     "favorite": "Favorites"
   },
   "delete-comment": {
@@ -147,7 +152,12 @@
     "explore": "Explore",
     "code": "Code",
     "comment": "Comment",
-    "compare": "Compare"
+    "compare": "Compare",
+    "details":" Details",
+    "scripts": "Scripts",
+    "versions": "Versions",
+    "settings": "Settings",
+    "analytics": "Analytics"
   },
   "list": {
     "search_for": "Search for...",
@@ -159,6 +169,9 @@
   },
   "bookmark": {
     "error": "Failed to load bookmarks. Please try again."
+  },
+  "model_info" : {
+    "fetching_error": "Failed to load information of model. Please try again."
   },
   "overview": {
     "activity": "Activity",
