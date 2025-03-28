@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import modelApi from "../../../api/modelAPI";
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -15,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ModelOverview from "./overview";
 import ScriptsOfModel from "./scripts";
 import VersionsOfModel from "./versions";
+import NotFound from "../../notFound/NotFound";
 const DeleteModelModal = ({ open, handleClose, modelInfo }) => {
   const userId = localStorage.getItem("userId");
   const { t } = useTranslation();
@@ -87,7 +89,6 @@ const Model = () => {
   const [modelInfo, setModelInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   // Handle Delete Modal
   const [openDelete, setOpenDelete] = useState(false);
   const handleOpenDelete = () => setOpenDelete(true);
@@ -172,8 +173,6 @@ const Model = () => {
     },
   ];
 
-  const defaultTab = tabdata[0]?.value || "overview";
-
   return (
     <Box
       display="flex"
@@ -189,68 +188,77 @@ const Model = () => {
         maxWidth: "1600px",
       }}
     >
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          gap: "16px",
-          justifyContent: "space-between",
-        }}
-      >
-        <Typography sx={{ fontSize: "30px", fontWeight: "700" }}>
-          {modelInfo.name}
-        </Typography>
-        <Box sx={{ display: "flex", gap: "8px" }}>
-          <Button
-            startIcon={<TuneIcon />}
-            variant="contained"
+      {modelInfo ? (
+        <>
+          <Box
             sx={{
-              textTransform: "none",
-              padding: "8px 16px",
+              width: "100%",
+              display: "flex",
+              gap: "16px",
+              justifyContent: "space-between",
             }}
           >
-            Edit Model
-          </Button>
-          <Button
-            startIcon={<DeleteIcon />}
-            variant="contained"
-            color="error"
+            <Typography sx={{ fontSize: "30px", fontWeight: "700" }}>
+              {modelInfo.name}
+            </Typography>
+            <Box sx={{ display: "flex", gap: "8px" }}>
+              <Button
+                startIcon={<TuneIcon />}
+                variant="contained"
+                sx={{
+                  textTransform: "none",
+                  padding: "8px 16px",
+                }}
+              >
+                Edit Model
+              </Button>
+              <Button
+                startIcon={<DeleteIcon />}
+                variant="contained"
+                color="error"
+                sx={{
+                  textTransform: "none",
+                  padding: "8px 16px",
+                }}
+                onClick={handleOpenDelete}
+              >
+                {t("button.delete")}
+              </Button>
+              <DeleteModelModal
+                open={openDelete}
+                handleClose={handleCloseDelete}
+                modelInfo={modelInfo}
+              />
+            </Box>
+          </Box>
+          <Box
             sx={{
-              textTransform: "none",
-              padding: "8px 16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              width: "100%",
             }}
-            onClick={handleOpenDelete}
           >
-            {t("button.delete")}
-          </Button>
-          <DeleteModelModal
-            open={openDelete}
-            handleClose={handleCloseDelete}
-            modelInfo={modelInfo}
-          />
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "8px",
-          width: "100%",
-        }}
-      >
-        <Tabnav data={tabdata} />
-        <Routes>
-          {tabdata
-            ? tabdata.map((item, index) => (
-                <Route
-                  key={index}
-                  path={item?.value ? item.value : null}
-                  element={item?.element ? item.element : null}
-                />
-              ))
-            : null}
-        </Routes>
-      </Box>
+            <Tabnav data={tabdata} />
+            <Routes>
+              {tabdata
+                ? tabdata.map((item, index) => (
+                    <Route
+                      key={index}
+                      path={item?.value ? item.value : null}
+                      element={item?.element ? item.element : null}
+                    />
+                  ))
+                : null}
+            </Routes>
+          </Box>
+        </>
+      ) : (
+        <>
+          <Alert severity="error">{error}</Alert>
+          <NotFound />
+        </>
+      )}
     </Box>
   );
 };
