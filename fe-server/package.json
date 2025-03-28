@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mui/x-date-pickers": "^7.28.0",
     "cra-template": "1.2.0",
+    "dayjs": "^1.11.13",
     "diff": "^7.0.0",
     "i18next-browser-languagedetector": "^8.0.2",
     "i18next-http-backend": "^3.0.2",
