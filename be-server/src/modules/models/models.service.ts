@@ -91,6 +91,8 @@ export class ModelsService {
                 `${this.mlflowUrl}/api/2.0/mlflow/registered-models/get`,
                 { params: { name: unique_name } }
             );
+            const model = await this.modelModel.findOne({ name: unique_name }).exec();
+            response.data.registered_model['_id'] = model._id;
             return response.data;
         } catch (error) {
             if (error.response) {
