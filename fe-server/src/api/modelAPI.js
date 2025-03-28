@@ -33,7 +33,13 @@ const modelApi = {
   },
   getScriptsModel: async (usedId, modelId) => {
     const response = await axiosInstance.get(
-      `/${usedId}/models/${modelId}/scripts`
+      `/${usedId}/models/scripts/get-all?model_id=${modelId}`
+    );
+    return response.data;
+  },
+  getScriptsModelVersion: async (userId, modelId, version) => {
+    const response = await axiosInstance.get(
+      `/${userId}/models/scripts/get?model_id=${modelId}&version=${version}`
     );
     return response.data;
   },

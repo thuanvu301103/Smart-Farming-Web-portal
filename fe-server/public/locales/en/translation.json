@@ -15,9 +15,11 @@
     "search": "Search",
     "template": "Template",
     "upload": "Upload",
+    "download": "Download",
     "add": "Add",
     "add_script": "Add script",
-    "create_new_version": "Create new version"
+    "create_new_version": "Create new version",
+    "schedule_script": "Schedule script"
   },
   "common": {
     "unknown": "Unknown",

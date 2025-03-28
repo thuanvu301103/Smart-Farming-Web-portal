@@ -1,198 +1,162 @@
 import React, { useEffect, useState } from "react";
 // Import components
 import {
-  Typography,
-  Button,
   Box,
-  Modal,
   FormControl,
-  TextField,
   Card,
+  MenuItem,
+  Select,
+  Paper,
+  CircularProgress,
+  Button,
+  buttonBaseClasses,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import { useTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
+import Editor from "@monaco-editor/react"; // Code Editor
+import { saveAs } from "file-saver"; // For downloading version file
 import modelApi from "../../../../api/modelAPI";
-const EditModelModal = ({ open, handleClose, oldData }) => {
-  const { t } = useTranslation();
-  // Form Data
-  const [formData, setFormData] = useState({
-    _id: "",
-    name: "",
-    description: "",
-    owner_id: "",
-  });
-
-  useEffect(() => {
-    if (oldData) {
-      setFormData({
-        _id: oldData._id,
-        name: oldData.name,
-        description: oldData.description,
-        owner_id: oldData.owner_id,
-      });
-    }
-  }, [oldData]);
-  // Handle Change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-  // Handle Cofirm
-  const handleConfirm = async (e) => {
-    e.preventDefault(); // Prevent default form submission
-    // Call Edit api
-    try {
-      const response = await axios.put(
-        `http://localhost:3000/${formData.owner_id}/models/${formData._id}`,
-        {
-          name: formData.name,
-          description: formData.description,
-        }
-      );
-      console.log("Response:", response.data);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-    // Close Model
-    window.location.reload(); // Reload after update
-    handleClose();
-  };
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 1000,
-    bgcolor: "background.paper",
-    border: "2px",
-    boxShadow: 24,
-    borderRadius: "10px",
-    p: 4,
-  };
-
-  return (
-    <Modal open={open} onClose={handleClose}>
-      <Box
-        sx={style}
-        gap={2}
-        display="flex"
-        flexDirection="column"
-        component="form"
-        onSubmit={handleConfirm}
-      >
-        {/*Title*/}
-
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          {t("edit-model.title")}
-        </Typography>
-        {/*Form data*/}
-        <FormControl variant="standard" fullWidth>
-          {/*Script Name*/}
-          <Typography variant="body1" gutterBottom>
-            {t("new-model.model-name")}
-          </Typography>
-          <TextField
-            id="model-name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            color="success"
-            variant="outlined"
-            size="small"
-            fullWidth
-            sx={{ width: "50%" }}
-          />
-
-          {/*Description*/}
-          <Typography variant="body1" gutterBottom sx={{ mt: 1 }}>
-            {t("new-model.description")}
-          </Typography>
-          <TextField
-            id="description"
-            name="description"
-            color="success"
-            value={formData.description}
-            onChange={handleChange}
-            variant="outlined"
-            size="small"
-          />
-        </FormControl>
-        {/*Submit Button*/}
-        <Button
-          type="submit"
-          variant="contained"
-          color="success"
-          size="small"
-          sx={{ alignSelf: "flex-end" }}
-        >
-          {t("button.confirm")}
-        </Button>
-      </Box>
-    </Modal>
-  );
-};
+//Icon
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 const ScriptsOfModel = ({ modelInfo }) => {
   const { t } = useTranslation();
-  const [scripts, setScripts] = useState([]);
-  const [scriptLoading, setScriptLoading] = useState(false);
-
-  // Handle Edit Modal
-  const [openEdit, setOpenEdit] = useState(false);
-  const handleOpenEdit = () => setOpenEdit(true);
-  const handleCloseEdit = () => setOpenEdit(false);
+  const theme = useTheme();
+  const [scriptVersions, setScriptVersions] = useState([]);
+  const [selectedVersion, setSelectedVersion] = useState(null);
+  const [scriptContent, setScriptContent] = useState(null);
+  const [loadingVersions, setLoadingVersions] = useState(false);
+  const [loadingContent, setLoadingContent] = useState(false);
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchScriptVersions = async () => {
       try {
-        setScriptLoading(true);
+        setLoadingVersions(true);
         const userId = localStorage.getItem("userId");
         const response = await modelApi.getScriptsModel(userId, modelInfo._id);
-        setScripts(response);
+        const versions = response.map((script) => ({
+          _id: script._id,
+          version: script.version, // Gán version dựa vào thứ tự
+          createdAt: script.createdAt,
+        }));
+        setScriptVersions(versions);
+        if (versions.length > 0) {
+          setSelectedVersion(versions[0].version);
+        }
       } catch (error) {
-        console.error("Error fetching scripts of model:", error);
+        console.error("Error fetching script versions:", error);
       } finally {
-        setScriptLoading(false);
+        setLoadingVersions(false);
       }
     };
-    fetch();
+    fetchScriptVersions();
   }, [modelInfo]);
 
+  useEffect(() => {
+    if (selectedVersion) {
+      const fetchScriptContent = async () => {
+        try {
+          setLoadingContent(true);
+          const userId = localStorage.getItem("userId");
+          const response = await modelApi.getScriptsModelVersion(
+            userId,
+            modelInfo._id,
+            selectedVersion
+          );
+
+          let parsedContent;
+          if (typeof response === "string") {
+            try {
+              parsedContent = JSON.parse(response);
+            } catch (error) {
+              console.error("Lỗi parse JSON:", error);
+              parsedContent = { error: "Invalid JSON format", raw: response };
+            }
+          } else {
+            parsedContent = response;
+          }
+
+          setScriptContent(JSON.stringify(parsedContent, null, 2)); // Chuẩn hóa thành JSON string
+        } catch (error) {
+          console.error("Error fetching script content:", error);
+        } finally {
+          setLoadingContent(false);
+        }
+      };
+      fetchScriptContent();
+    }
+  }, [selectedVersion]);
+
+  // Handle download version file
+  const handleDownloadVersion = async (version) => {
+    // Convert JSON to blob
+    const blob = new Blob([JSON.stringify(scriptContent, null, 2)], {
+      type: "application/json",
+    });
+    saveAs(blob, `V${parseFloat(version).toFixed(1)}.json`);
+  };
+
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: { xs: "1fr" },
-        gap: "24px",
-      }}
-    >
+    <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr" }, gap: 3 }}>
       <Card
         variant="outlined"
-        sx={{ display: "flex", flexDirection: "column", padding: "24px" }}
+        sx={{ display: "flex", flexDirection: "column", p: 3 }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-            <Typography sx={{ fontSize: "24px", fontWeight: "600" }}>
-              Associated Scripts
-            </Typography>
-            <Typography>
-              Scripts that are currently associated with this model
-            </Typography>
-          </Box>
+        {/* Choose version */}
+        <FormControl
+          fullWidth
+          sx={{ mt: 3 }}
+          variant="outlined"
+          color="success"
+        >
+          <Select
+            value={selectedVersion || ""}
+            onChange={(e) => setSelectedVersion(e.target.value)}
+            disabled={loadingVersions}
+          >
+            {scriptVersions.map((script) => (
+              <MenuItem key={script._id} value={script.version}>
+                Version {script.version} -{" "}
+                {new Date(script.createdAt).toLocaleDateString()}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        {/* Content */}
+        <Paper sx={{ mt: 3, p: 2 }}>
+          {loadingContent ? (
+            <Box sx={{ display: "flex", justifyContent: "center", p: 3 }}>
+              <CircularProgress color="success" />
+            </Box>
+          ) : (
+            <Editor
+              height="700px"
+              width="100%"
+              language="json"
+              theme={theme.palette.mode === "dark" ? "vs-dark" : "light"}
+              value={scriptContent || "{}"}
+              options={{
+                fontSize: 16,
+                formatOnType: true,
+                autoClosingBrackets: true,
+                minimap: { enabled: false },
+                readOnly: true,
+              }}
+            />
+          )}
+        </Paper>
+
+        {/* Download */}
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
           <Button
             variant="contained"
             color="success"
             size="small"
-            sx={{ textTransform: "none" }}
-            startIcon={<AddIcon />}
-            href="new-script"
+            startIcon={<ArrowDownwardIcon />}
+            onClick={() => handleDownloadVersion(selectedVersion)}
           >
-            {t("button.add_script")}
+            {t("button.download")}
           </Button>
         </Box>
       </Card>
