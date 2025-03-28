@@ -5,10 +5,12 @@
     "\\src\\gateway",
     "\\src\\gateway\\notify",
     "\\src\\modules",
+    "\\src\\modules\\files",
     "\\src\\modules\\models",
     "\\src\\modules\\scripts",
     "\\src\\schemas",
     "\\test"
   ],
+  "SelectedNode": "\\src\\modules\\files\\files.controller.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -56,15 +56,15 @@ export class FilesService {
 
                     // Upload file to FTP
                     await this.ftpClient.uploadFrom(localPath, remotePath);
-                    console.log(`✅ Uploaded: ${file.originalname} to ${remotePath}`);
+                    //console.log(`✅ Uploaded: ${file.originalname} to ${remotePath}`);
 
                     // Delete local file after upload
                     await fs.remove(localPath);
-                    console.log(`🗑️ Deleted local file: ${file.originalname}`);
+                    //console.log(`🗑️ Deleted local file: ${file.originalname}`);
                 }
 
                 this.ftpClient.close();
-                console.log("✅ All files uploaded and deleted successfully");
+                //console.log("✅ All files uploaded and deleted successfully");
             } catch (error) {
                 console.error("❌ FTP Upload Error:", error);
                 this.ftpClient.close();
@@ -217,7 +217,9 @@ export class FilesService {
         try {
             const dirPath = path.dirname(filePath);
             const fileName = path.basename(filePath);
+            //console.log("dirPath: ", dirPath, "; filePath: ", filePath);
             const fileList: ftp.FileInfo[] = await this.ftpClient.list(dirPath);
+            //console.log(fileList);
             return fileList.some(file => file.name === fileName);
         } catch (error) {
             console.error("Error checking file existence:", error);

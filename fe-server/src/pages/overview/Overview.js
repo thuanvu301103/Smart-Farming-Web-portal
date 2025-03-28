@@ -51,7 +51,7 @@ const transformActivities = (activitiesData) => {
                     return {
                         content: item.content || "No Content",
                         _id: item._id || "Unknown",
-                        script_name: item.script_id.name || "Unknown",
+                        script_name: item.script_id?.name ? item.script_id.name : "Unknown",
                         script_id: item.script_id._id || "Unknown",
                     };
                 } else {
