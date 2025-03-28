@@ -115,7 +115,7 @@ const ScriptCode = () => {
             // Create FormData
             const formFileData = new FormData();
             formFileData.append("files", jsonFile); // Attach JSON file
-            formFileData.append("remote_path", `/${userId}/${scriptId}/`);
+            formFileData.append("remote_path", `/${userId}/script/${scriptId}/`);
 
             // Upload using Axios
             return await scriptApi.uploadScriptFile(formFileData);

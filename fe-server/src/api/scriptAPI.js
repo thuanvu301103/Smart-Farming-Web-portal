@@ -45,14 +45,14 @@ const scriptApi = {
 
     deleteScriptFiles: async (userId, scriptId) => {
         const response = await axiosInstance.delete(`/files/deleteFolder`,
-            { params: { path: `${userId}/${scriptId}` } }
+            { params: { path: `${userId}/script/${scriptId}` } }
         );
         return response.data;
     },
 
     deleteScriptFileVersion: async (userId, scriptId, version) => {
         const response = await axiosInstance.delete(`/files/deleteFile`,
-            { params: { path: `${userId}/${scriptId}/v${version.toFixed(1)}.json` } }
+            { params: { path: `${userId}/script/${scriptId}/v${version.toFixed(1)}.json` } }
         );
         return response.data;
     }
