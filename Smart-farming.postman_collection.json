@@ -1106,7 +1106,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzA3NzU0OSwiZXhwIjoxNzQzMDgxMTQ5fQ.z3oNGazodf7kxoxK5KIouZmnms-WPUJ0uEoT4D8nXPU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzE1MjgwMywiZXhwIjoxNzQzMTU2NDAzfQ.Avzs1jo1wBWHLAbP724L-IPeyvhcBKEDQ3MmVilMcQ8",
 									"type": "string"
 								}
 							]
