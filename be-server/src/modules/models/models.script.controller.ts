@@ -64,4 +64,14 @@ export class ModelScriptsController {
         const currentUserId = req.user.userId;
         return await this.modelScriptService.getModelScript(currentUserId, model_id, version);
     }
+
+    @Delete('delete')
+    @UseGuards(JwtAuthGuard)
+    async deleteModelScript(
+        @Body('script_id') script_id: string,
+        @Req() req
+    ) {
+        const currentUserId = req.user.userId;
+        return await this.modelScriptService.deleteModelScript(currentUserId, script_id);
+    }
 }
