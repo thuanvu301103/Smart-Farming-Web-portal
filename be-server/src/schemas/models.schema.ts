@@ -20,6 +20,9 @@ export class Models extends Document {
 
     @Prop()
     description: string;
+
+    @Prop()
+    schedule: string;
 }
 
 export const ModelSchema = SchemaFactory.createForClass(Models);

@@ -1,6 +1,7 @@
 import {
     Injectable, Inject, forwardRef,
     NotFoundException, BadRequestException,
+    InternalServerErrorException, 
     HttpException, HttpStatus,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -313,6 +314,35 @@ export class ModelsService {
                 HttpStatus.SERVICE_UNAVAILABLE
             );
         }
+    }
+
+    // Set Model schedule
+    async setModelSchedule(model_id: string, cron_string: string) {
+        const existingModel = await this.modelModel.findById(model_id).exec();
+        //console.log(existingModel);
+        if (existingModel == null) {
+            //console.log("Throwing");
+            throw new NotFoundException(`Model with ID ${model_id} not found`);
+        }
+        try {
+            await this.modelModel.findByIdAndUpdate(
+                model_id,
+                { schedule: cron_string },
+                { new: true }
+            ).exec();
+
+        } catch (error) {
+            throw new InternalServerErrorException(`Error while setting model schedule: ${model_id}`)
+        }
+    }
+
+    // get Model schedule
+    async getModelSchedule(model_id: string) {
+        const existingModel = await this.modelModel.findById(model_id).select("schedule").exec();
+        if (existingModel == null) {
+            throw new NotFoundException(`Model with ID ${model_id} not found`);
+        }
+        return existingModel;
     }
 
     /* ----- Registered Model Version ----- */
