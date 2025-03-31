@@ -25,6 +25,15 @@ const VesionCompare = () => {
     const { userId, scriptId } = useParams();
     const leftEditorRef = useRef(null);
     const rightEditorRef = useRef(null);
+    let leftDecorations = useRef([]);
+    let rightDecorations = useRef([]);
+
+    const [editorKey1, setEditorKey1] = useState(0);
+    const [editorKey2, setEditorKey2] = useState(0);
+    const forceReload = () => {
+        setEditorKey1((prev) => prev + 1);
+        setEditorKey2((prev) => prev + 1);
+    };
 
   // Fetch version
   const {
@@ -78,8 +87,8 @@ const VesionCompare = () => {
     const normalizedFileData2 = normalizeText(fileData2);
     const diffResult = diffLines(normalizedFileData1, normalizedFileData2);
     //console.log("Diff: ", diffResult);
-    let leftDecorations = [];
-    let rightDecorations = [];
+    leftDecorations.current = [];
+    rightDecorations.current = [];
     let lineNumber1 = 1;
     let lineNumber2 = 1;
 
@@ -88,13 +97,13 @@ const VesionCompare = () => {
       //console.log(part, lines);
 
       if (part.removed) {
-        leftDecorations.push({
+        leftDecorations.current.push({
           range: new monaco.Range(lineNumber1, 1, lineNumber1 + lines - 1, 1),
           options: { className: "removed-line" },
         });
         //console.log("Remove: ", lineNumber1, 1, lineNumber1 + lines - 1, 1);
       } else if (part.added) {
-        rightDecorations.push({
+        rightDecorations.current.push({
           range: new monaco.Range(lineNumber2, 1, lineNumber2 + lines - 1, 1),
           options: { className: "added-line" },
         });
@@ -110,11 +119,7 @@ const VesionCompare = () => {
           : 0;
       console.log(lineNumber1, lineNumber2);
     });
-
-    leftEditorRef.current.deltaDecorations([], leftDecorations);
-    rightEditorRef.current.deltaDecorations([], rightDecorations);
-    //console.log("Left: ", leftDecorations);
-    //console.log("Right: ", rightDecorations);
+      forceReload();
   };
 
   useEffect(() => {
@@ -196,21 +201,26 @@ const VesionCompare = () => {
                   ))}
               </Menu>
               {/* Text Editor */}
-              <Editor
-                height="700px"
-                width="100%"
-                language="json"
-                theme={theme.palette.mode === "dark" ? "vs-dark" : "light"}
-                value={fileData1 || "{}"}
-                options={{
-                  inlineSuggest: true,
-                  fontSize: "16px",
-                  formatOnType: true,
-                  autoClosingBrackets: true,
-                  minimap: { enabled: false },
-                  readOnly: true,
-                }}
-                onMount={(editor) => (leftEditorRef.current = editor)}
+                          <Editor
+                              key={editorKey1}
+                              height="700px"
+                              width="100%"
+                              language="json"
+                              theme={theme.palette.mode === "dark" ? "vs-dark" : "light"}
+                              value={fileData1 || "{}"}
+                              options={{
+                                  inlineSuggest: true,
+                                  fontSize: "16px",
+                                  formatOnType: true,
+                                  autoClosingBrackets: true,
+                                  minimap: { enabled: false },
+                                  readOnly: true,
+                              }}
+                              onMount={(editor) => {
+                                  leftEditorRef.current = editor;
+                                  leftEditorRef.current.deltaDecorations([], leftDecorations.current);
+                                }
+                              }
               />
             </Grid>
             <Grid item xs={6}>
@@ -251,21 +261,25 @@ const VesionCompare = () => {
                   ))}
               </Menu>
               {/* Text Editor */}
-              <Editor
-                height="700px"
-                width="100%"
-                language="json"
-                theme={theme.palette.mode === "dark" ? "vs-dark" : "light"}
-                value={fileData2 || "{}"}
-                options={{
-                  inlineSuggest: true,
-                  fontSize: "16px",
-                  formatOnType: true,
-                  autoClosingBrackets: true,
-                  minimap: { enabled: false },
-                  readOnly: true,
-                }}
-                onMount={(editor) => (rightEditorRef.current = editor)}
+                          <Editor
+                              key={editorKey2}
+                              height="700px"
+                              width="100%"
+                              language="json"
+                              theme={theme.palette.mode === "dark" ? "vs-dark" : "light"}
+                              value={fileData2 || "{}"}
+                              options={{
+                                  inlineSuggest: true,
+                                  fontSize: "16px",
+                                  formatOnType: true,
+                                  autoClosingBrackets: true,
+                                  minimap: { enabled: false },
+                                  readOnly: true,
+                              }}
+                              onMount={(editor) => {
+                                  rightEditorRef.current = editor;
+                                  rightEditorRef.current.deltaDecorations([], rightDecorations.current);
+                              }}
               />
             </Grid>
           </Grid>

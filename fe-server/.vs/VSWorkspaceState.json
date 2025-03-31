@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
     "\\src\\hooks",
     "\\src\\pages",
     "\\src\\pages\\overview",
     "\\src\\pages\\script",
     "\\src\\pages\\script\\newScript",
     "\\src\\pages\\script\\scriptCode",
+    "\\src\\pages\\script\\versionCompare",
     "\\src\\pages\\updateProfile"
   ],
-  "SelectedNode": "\\src\\hooks\\useFetchScript.js",
+  "SelectedNode": "\\src\\pages\\script\\versionCompare\\VersionCompare.css",
   "PreviewInSolutionExplorer": false
 }
