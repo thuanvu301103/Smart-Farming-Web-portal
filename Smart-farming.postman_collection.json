@@ -1453,6 +1453,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Model Schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzM5MTg4OCwiZXhwIjoxNzQzMzk1NDg4fQ.BoYY4fVJAt-F9Yeto0ySt902s0HddWXz097VqQAorIo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/models/get-schedule?model_id=67e3566250f058dd1da09bc0",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"get-schedule"
+							],
+							"query": [
+								{
+									"key": "model_id",
+									"value": "67e3566250f058dd1da09bc0"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

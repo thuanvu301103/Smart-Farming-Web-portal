@@ -11,6 +11,7 @@ import { Script } from '../../schemas/scripts.schema';
 import { ActivitiesService } from "../activities/activities.service";
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
+import cronParser from 'cron-parser';
 
 @Injectable()
 export class ModelsService {
@@ -343,6 +344,33 @@ export class ModelsService {
             throw new NotFoundException(`Model with ID ${model_id} not found`);
         }
         return existingModel;
+    }
+
+    async getModelSchedulePlan(userId: string, startTime: Date, endTime: Date) {
+        // Get all models of the user
+        const models = await this.modelModel.find({ owner_id: new Types.ObjectId(userId) })
+            .select("_id name description schedule").exec()
+        //console.log("Models: ", models);
+        let occurrences = [];
+        models.forEach(({ _id, name, description, schedule }) => {
+            try {
+                let interval = cronParser.parse(schedule, { currentDate: startTime });
+                //console.log("Interval: ", interval);
+                while (true) {
+                    let nextTime = interval.next().toDate();
+                    console.log("Next time: ", nextTime);
+                    console.log("End time: ", endTime);
+
+                    if (nextTime > endTime) break;
+                    occurrences.push({ time: nextTime, model_id: _id, name: name, description: description });
+                }
+            } catch (err) {
+                console.error(`Invalid CRON expression: ${schedule}`, err);
+            }
+        });
+
+        return occurrences.sort((a, b) => a.time - b.time);
+
     }
 
     /* ----- Registered Model Version ----- */

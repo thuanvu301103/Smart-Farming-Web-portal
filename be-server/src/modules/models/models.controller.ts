@@ -150,6 +150,32 @@ export class ModelsController {
         return this.modelsService.getModelSchedule(modelId);
     }
 
+    @Get('get-schedule-plan')
+    @UseGuards(JwtAuthGuard)
+    async getModelSchedulePlan(
+        @Param('userId') userId: string,
+        @Query('start_date') startDate: string,
+        @Query('end_date') endDate: string,
+        @Req() req
+    ) {
+        const currentUserId = req.user.userId;
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only get schedule your own models.');
+        }
+        if (!(await this.isValidDate(startDate)) || !(await this.isValidDate(endDate))) {
+            throw new BadRequestException('Invalid start_date or end_date');
+        }
+        const startTime = new Date(startDate);
+        startTime.setHours(0, 0, 0, 0);
+        const endTime = new Date(endDate);
+        endTime.setHours(23, 59, 59, 999);
+        if (startTime > endTime) {
+            throw new BadRequestException('Invalid date range. start_date must be before or equal to end_date.');
+        }
+        
+        return this.modelsService.getModelSchedulePlan(userId, startTime, endTime);
+    }
+
     /* ----- Registered Model Version ----- */
     @Get('versions/get-all')
     @UseGuards(JwtAuthGuard)
@@ -246,5 +272,21 @@ export class ModelsController {
         const cronRegex = /^(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+\s(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+\s(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+\s(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+\s(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+$/;
         //console.log("Inside: ", cronRegex.test(cronString))
         return cronRegex.test(cronString);
+    }
+
+    async isValidDate(dateString) {
+        // Format yyyy-mm-dd
+        const regex = /^\d{4}-\d{2}-\d{2}$/;
+        if (!regex.test(dateString)) {
+            return false;
+        }
+        const [year, month, day] = dateString.split('-').map(Number);
+        //console.log(year, month, day)
+        const date = new Date(year, month - 1, day);
+        return (
+            date.getFullYear() === year &&
+            date.getMonth() === month - 1 &&
+            date.getDate() === day
+        );
     }
 }

@@ -20,11 +20,11 @@ import { useParams } from "react-router-dom";
 import "./VersionCompare.css";
 
 const VesionCompare = () => {
-  const { t } = useTranslation();
-  const theme = useTheme();
-  const { userId, scriptId } = useParams();
-  const leftEditorRef = useRef(null);
-  const rightEditorRef = useRef(null);
+    const { t } = useTranslation();
+    const theme = useTheme();
+    const { userId, scriptId } = useParams();
+    const leftEditorRef = useRef(null);
+    const rightEditorRef = useRef(null);
 
   // Fetch version
   const {
