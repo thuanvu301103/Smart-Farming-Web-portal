@@ -1,4 +1,10 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Query, UseGuards } from '@nestjs/common';
+﻿import {
+    Controller, Get, Post, Patch, Delete, Body,
+    Param, Query, Req,
+    UseGuards,
+    ForbiddenException, BadRequestException,
+} from '@nestjs/common';
+import { Model, Types } from 'mongoose';
 import { ModelsService } from './models.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 
@@ -101,6 +107,49 @@ export class ModelsController {
         return this.modelsService.deleteRegisteredModelTag(userId, data.name, data.key);
     }
 
+    @Post('set-schedule')
+    @UseGuards(JwtAuthGuard)
+    async setModelSchedule(
+        @Param('userId') userId: string,
+        @Body() data: {
+            model_id: string,
+            cron_string: string
+        },
+        @Req() req
+    ) {
+        const currentUserId = req.user.userId;
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only set schedule your own models.');
+        }
+        if (!Types.ObjectId.isValid(data.model_id)) {
+            throw new BadRequestException('Invalid model_id');
+        }
+        //console.log("Outside 1: ", await this.isValidCron(data.cron_string));
+        //console.log("Outdise 2:", !(await this.isValidCron(data.cron_string)));
+        if (!(await this.isValidCron(data.cron_string))) {
+            //console.log("Throw Invalid CRON");
+            throw new BadRequestException('Invalid cron_string');
+        }
+        return this.modelsService.setModelSchedule(data.model_id, data.cron_string)
+    }
+
+    @Get('get-schedule')
+    @UseGuards(JwtAuthGuard)
+    async getModelSchedule(
+        @Param('userId') userId: string,
+        @Query('model_id') modelId: string,
+        @Req() req
+    ) {
+        const currentUserId = req.user.userId;
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only get schedule your own models.');
+        }
+        if (!Types.ObjectId.isValid(modelId)) {
+            throw new BadRequestException('Invalid model_id');
+        }
+        return this.modelsService.getModelSchedule(modelId);
+    }
+
     /* ----- Registered Model Version ----- */
     @Get('versions/get-all')
     @UseGuards(JwtAuthGuard)
@@ -190,5 +239,12 @@ export class ModelsController {
         }
     ) {
         return this.modelsService.deleteModelVersionTag(userId, data.name, data.version, data.key);
+    }
+
+    /* ----- Helper functions -----*/
+    async isValidCron(cronString) {
+        const cronRegex = /^(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+\s(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+\s(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+\s(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+\s(\*|([0-9]{1,2})(-[0-9]{1,2})?(\/[0-9]{1,2})?,?)+$/;
+        //console.log("Inside: ", cronRegex.test(cronString))
+        return cronRegex.test(cronString);
     }
 }

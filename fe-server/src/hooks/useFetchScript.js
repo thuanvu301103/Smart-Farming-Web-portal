@@ -43,7 +43,7 @@ const useFetchScriptFile = (userId, scriptId, version) => {
         setLoading(true);
         setError(null);
         try {
-            const filePath = `${userId}%2F${scriptId}%2Fv${version.toFixed(1)}.json`;
+            const filePath = `${userId}%2Fscript%2F${scriptId}%2Fv${version.toFixed(1)}.json`;
             const data = await scriptApi.getScriptFile(filePath);
             //console.log("Fetching File data: ", data);
             setData(JSON.stringify(data, null, 2));

@@ -499,7 +499,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzEzNDQ4NiwiZXhwIjoxNzQzMTM4MDg2fQ.wJPsZKPQvaJrMVur-Yy2k3XuJARKI7QaP4eIv2lCNn4",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzIyMTg2MiwiZXhwIjoxNzQzMjI1NDYyfQ.5j468qHKCToFuKWTXTQVrzyz7aS1m_ITP_H9YSQ-5ZY",
 											"type": "string"
 										}
 									]
@@ -563,7 +563,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzEzNDQ4NiwiZXhwIjoxNzQzMTM4MDg2fQ.wJPsZKPQvaJrMVur-Yy2k3XuJARKI7QaP4eIv2lCNn4",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzIyMTg2MiwiZXhwIjoxNzQzMjI1NDYyfQ.5j468qHKCToFuKWTXTQVrzyz7aS1m_ITP_H9YSQ-5ZY",
 											"type": "string"
 										}
 									]
@@ -1399,6 +1399,50 @@
 									"key": "",
 									"value": ""
 								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Model Schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzM5MDIxNiwiZXhwIjoxNzQzMzkzODE2fQ.FRwkD5lU-rVvFCMDcAHRH85ReOYLoH8x9VHEW1K4ACk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"model_id\": \"67e3566250f058dd1da09bc9\",\r\n    \"cron_string\": \"0 * * * *\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/set-schedule",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"set-schedule"
 							],
 							"variable": [
 								{
