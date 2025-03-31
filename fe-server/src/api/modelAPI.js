@@ -24,10 +24,15 @@ const modelApi = {
     );
     return response.data;
   },
-  createScriptModel: async (userId, modelId, formData) => {
+  createScriptModel: async (userId, formData) => {
     const response = await axiosInstance.post(
-      `/${userId}/models/${modelId}/scripts`,
-      formData
+      `/${userId}/models/scripts/upload`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
     return response.data;
   },

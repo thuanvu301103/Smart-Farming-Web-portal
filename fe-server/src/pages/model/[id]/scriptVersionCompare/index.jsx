@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // Component
 import { Grid, Box, Menu, MenuItem, Typography, Button } from "@mui/material";
 import Editor from "@monaco-editor/react"; // Code Editor
@@ -11,18 +11,13 @@ import { useTranslation } from "react-i18next";
 // Theme
 import { useTheme } from "@mui/material/styles";
 // Hooks
-import {
-  useFetchScriptFile,
-  useFetchScriptInfo,
-} from "../../../hooks/useFetchScript";
+import modelApi from "../../../../api/modelAPI";
 // Router
-import { useParams } from "react-router-dom";
-import "./VersionCompare.css";
+import "./index.css";
 
-const VesionCompare = () => {
+const ScriptsofModelVersionCompare = ({ modelInfo }) => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const { userId, scriptId } = useParams();
   const leftEditorRef = useRef(null);
   const rightEditorRef = useRef(null);
   let leftDecorations = useRef([]);
@@ -35,35 +30,92 @@ const VesionCompare = () => {
     setEditorKey2((prev) => prev + 1);
   };
 
-  // Fetch version
-  const {
-    data: scriptInfo,
-    setData: setScriptInfo,
-    loading: scriptInfoLoading,
-    error: scriptInfoError,
-  } = useFetchScriptInfo(userId, scriptId);
   const [version1, setVersion1] = useState(-1.0);
   const [version2, setVersion2] = useState(-1.0);
+  const [fileData1, setFileData1] = useState(null);
+  const [fileData2, setFileData2] = useState(null);
+  const [scriptVersions, setScriptVersions] = useState([]);
+
   useEffect(() => {
-    const fetchData = async () => {
-      //setVersion1(scriptInfo?.version[1] ? scriptInfo.version[1] : -1.0);
-      setVersion2(scriptInfo?.version[0] ? scriptInfo.version[0] : -1.0);
+    const fetchScriptVersions = async () => {
+      try {
+        const userId = localStorage.getItem("userId");
+        const response = await modelApi.getScriptsModel(userId, modelInfo._id);
+        const versions = response.map((script) => script.version);
+        setScriptVersions(versions);
+        setVersion2(parseFloat(versions[versions.length - 1]));
+        console.log("Version", versions);
+      } catch (error) {
+        console.error("Error fetching script versions:", error);
+      }
     };
-    fetchData();
-    //if (version1 != -1.0 && version2 != -1.0) compareTexts();
-  }, [scriptInfo]);
+    fetchScriptVersions();
+  }, [modelInfo]);
 
   // Fetch file data
-  const {
-    data: fileData1,
-    setData: setFileData1,
-    reload: reloadFileData1,
-  } = useFetchScriptFile(userId, scriptId, version1);
-  const {
-    data: fileData2,
-    setData: setFileData2,
-    reload: reloadFileData2,
-  } = useFetchScriptFile(userId, scriptId, version2);
+  useEffect(() => {
+    if (version1 > 0) {
+      const fetchScriptContent = async () => {
+        try {
+          const userId = localStorage.getItem("userId");
+          const response = await modelApi.getScriptsModelVersion(
+            userId,
+            modelInfo._id,
+            version1
+          );
+
+          let parsedContent;
+          if (typeof response === "string") {
+            try {
+              parsedContent = JSON.parse(response);
+            } catch (error) {
+              console.error("Lỗi parse JSON 1:", error);
+              parsedContent = { error: "Invalid JSON format", raw: response };
+            }
+          } else {
+            parsedContent = response;
+          }
+
+          setFileData1(JSON.stringify(parsedContent, null, 2)); // Chuẩn hóa thành JSON string
+        } catch (error) {
+          console.error("Error fetching script content:", error);
+        }
+      };
+      fetchScriptContent();
+    }
+  }, [version1, modelInfo]);
+
+  useEffect(() => {
+    if (version2 > 0) {
+      const fetchScriptContent = async () => {
+        try {
+          const userId = localStorage.getItem("userId");
+          const response = await modelApi.getScriptsModelVersion(
+            userId,
+            modelInfo._id,
+            version2
+          );
+
+          let parsedContent;
+          if (typeof response === "string") {
+            try {
+              parsedContent = JSON.parse(response);
+            } catch (error) {
+              console.error("Lỗi parse JSON 2:", error);
+              parsedContent = { error: "Invalid JSON format", raw: response };
+            }
+          } else {
+            parsedContent = response;
+          }
+
+          setFileData2(JSON.stringify(parsedContent, null, 2)); // Chuẩn hóa thành JSON string
+        } catch (error) {
+          console.error("Error fetching script content:", error);
+        }
+      };
+      fetchScriptContent();
+    }
+  }, [version2, modelInfo]);
 
   const [decorations, setDecorations] = useState([]);
 
@@ -115,11 +167,13 @@ const VesionCompare = () => {
         !part.removed && !part.added
           ? lines - 1
           : !part.removed
-            ? lines - 1
-            : 0;
-      console.log(lineNumber1, lineNumber2);
+          ? lines - 1
+          : 0;
+      //   console.log(lineNumber1, lineNumber2);
     });
     forceReload();
+    //console.log("Left: ", leftDecorations);
+    //console.log("Right: ", rightDecorations);
   };
 
   useEffect(() => {
@@ -184,19 +238,22 @@ const VesionCompare = () => {
                 MenuListProps={{ "aria-labelledby": "basic-button" }}
                 PaperProps={{ sx: { minWidth: "200px" } }}
               >
-                {scriptInfo?.version
-                  ?.slice() // Create a copy before sorting to prevent modifying the original data
+                {scriptVersions
                   .sort((a, b) => b - a)
                   .map((version, index) => (
                     <MenuItem
                       key={index}
                       onClick={() => {
-                        setVersion1(version);
-                        reloadFileData1();
+                        setVersion1(parseFloat(version));
                       }}
-                      disabled={version === version1 || version === version2}
+                      disabled={
+                        parseFloat(version) === version1 ||
+                        parseFloat(version) === version2
+                      }
                     >
-                      {`${t("common.version")} ${version.toFixed(1)}`}
+                      {`${t("common.version")} ${parseFloat(version).toFixed(
+                        1
+                      )}`}
                     </MenuItem>
                   ))}
               </Menu>
@@ -218,9 +275,11 @@ const VesionCompare = () => {
                 }}
                 onMount={(editor) => {
                   leftEditorRef.current = editor;
-                  leftEditorRef.current.deltaDecorations([], leftDecorations.current);
-                }
-                }
+                  leftEditorRef.current.deltaDecorations(
+                    [],
+                    leftDecorations.current
+                  );
+                }}
               />
             </Grid>
             <Grid item xs={6}>
@@ -244,19 +303,22 @@ const VesionCompare = () => {
                 MenuListProps={{ "aria-labelledby": "basic-button" }}
                 PaperProps={{ sx: { minWidth: "200px" } }}
               >
-                {scriptInfo?.version
-                  ?.slice() // Create a copy before sorting to prevent modifying the original data
+                {scriptVersions
                   .sort((a, b) => b - a)
                   .map((version, index) => (
                     <MenuItem
                       key={index}
                       onClick={() => {
-                        setVersion2(version);
-                        reloadFileData2();
+                        setVersion2(parseFloat(version));
                       }}
-                      disabled={version === version1 || version === version2}
+                      disabled={
+                        parseFloat(version) === version1 ||
+                        parseFloat(version) === version2
+                      }
                     >
-                      {`${t("common.version")} ${version.toFixed(1)}`}
+                      {`${t("common.version")} ${parseFloat(version).toFixed(
+                        1
+                      )}`}
                     </MenuItem>
                   ))}
               </Menu>
@@ -278,7 +340,10 @@ const VesionCompare = () => {
                 }}
                 onMount={(editor) => {
                   rightEditorRef.current = editor;
-                  rightEditorRef.current.deltaDecorations([], rightDecorations.current);
+                  rightEditorRef.current.deltaDecorations(
+                    [],
+                    rightDecorations.current
+                  );
                 }}
               />
             </Grid>
@@ -289,4 +354,4 @@ const VesionCompare = () => {
   );
 };
 
-export default VesionCompare;
+export default ScriptsofModelVersionCompare;

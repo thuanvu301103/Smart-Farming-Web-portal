@@ -17,6 +17,9 @@ import ModelOverview from "./overview";
 import ScriptsOfModel from "./scripts";
 import VersionsOfModel from "./versions";
 import NotFound from "../../notFound/NotFound";
+import SettingsOfModel from "./settings";
+import ScriptsofModelVersionCompare from "./scriptVersionCompare";
+
 const DeleteModelModal = ({ open, handleClose, modelInfo }) => {
   const userId = localStorage.getItem("userId");
   const { t } = useTranslation();
@@ -163,13 +166,19 @@ const Model = () => {
       value: "settings",
       path: "settings",
       label: t("tab.settings"),
-      // element: <ScriptsOfModel modelInfo={modelInfo} />
+      element: <SettingsOfModel modelInfo={modelInfo} />,
     },
     {
       value: "analytics",
       path: "analytics",
       label: t("tab.analytics"),
       // element: <ScriptsOfModel modelInfo={modelInfo} />
+    },
+    {
+      value: "compare",
+      path: "compare",
+      label: t("tab.compare"),
+      element: <ScriptsofModelVersionCompare modelInfo={modelInfo} />,
     },
   ];
 
