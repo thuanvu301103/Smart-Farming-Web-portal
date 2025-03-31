@@ -35,7 +35,7 @@ const VersionsOfModel = ({ modelInfo }) => {
     fetchVersions();
   }, [userId, modelName]);
 
-  console.log("version", versions);
+  // console.log("version", versions);
 
   return (
     <Box

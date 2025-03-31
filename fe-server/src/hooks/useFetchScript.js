@@ -29,44 +29,44 @@ const useFetchScriptInfo = (userId, scriptId) => {
 };
 
 const useFetchScriptFile = (userId, scriptId, version) => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    //console.log("Version: ", version);
+  //console.log("Version: ", version);
 
-    const fetchData = useCallback(async () => {
-        // No fetch condition 
-        if (!userId || !scriptId || version == null) return;
-        if (version == -1.0) return;
+  const fetchData = useCallback(async () => {
+    // No fetch condition 
+    if (!userId || !scriptId || version == null) return;
+    if (version == -1.0) return;
 
-        setLoading(true);
-        setError(null);
-        try {
-            const filePath = `${userId}%2Fscript%2F${scriptId}%2Fv${version.toFixed(1)}.json`;
-            const data = await scriptApi.getScriptFile(filePath);
-            //console.log("Fetching File data: ", data);
-            setData(JSON.stringify(data, null, 2));
-        } catch (err) {
-            console.error("Error fetching script file:", err);
-            setError(err);
-        } finally {
-            setLoading(false);
-        }
-    }, [userId, scriptId, version]);
+    setLoading(true);
+    setError(null);
+    try {
+      const filePath = `${userId}%2Fscript%2F${scriptId}%2Fv${version.toFixed(1)}.json`;
+      const data = await scriptApi.getScriptFile(filePath);
+      //console.log("Fetching File data: ", data);
+      setData(JSON.stringify(data, null, 2));
+    } catch (err) {
+      console.error("Error fetching script file:", err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [userId, scriptId, version]);
 
-    useEffect(() => {
-        if (!userId || !scriptId || version == null) return;
-        if (version == -1.0) return;
-        fetchData();
-    }, [userId, scriptId, version]);
+  useEffect(() => {
+    if (!userId || !scriptId || version == null) return;
+    if (version == -1.0) return;
+    fetchData();
+  }, [userId, scriptId, version]);
 
-    // Reload function
-    const reload = () => {
-        fetchData();
-    };
+  // Reload function
+  const reload = () => {
+    fetchData();
+  };
 
-    return { data, setData, loading, error, reload };
+  return { data, setData, loading, error, reload };
 };
 
 export { useFetchScriptInfo, useFetchScriptFile };
