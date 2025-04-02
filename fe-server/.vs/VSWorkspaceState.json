@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\hooks",
     "\\src\\pages",
-    "\\src\\pages\\overview",
+    "\\src\\pages\\model",
+    "\\src\\pages\\model\\[id]",
     "\\src\\pages\\script",
     "\\src\\pages\\script\\newScript",
     "\\src\\pages\\script\\scriptCode",
     "\\src\\pages\\script\\versionCompare",
     "\\src\\pages\\updateProfile"
   ],
-  "SelectedNode": "\\src\\pages\\script\\versionCompare\\VersionCompare.css",
+  "SelectedNode": "\\src\\pages\\model\\[id]\\index.jsx",
   "PreviewInSolutionExplorer": false
 }

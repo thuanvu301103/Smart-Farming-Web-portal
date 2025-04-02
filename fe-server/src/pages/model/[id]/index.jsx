@@ -17,7 +17,7 @@ import ModelOverview from "./overview";
 import ScriptsOfModel from "./scripts";
 import VersionsOfModel from "./versions";
 import NotFound from "../../notFound/NotFound";
-import SettingsOfModel from "./settings";
+//import SettingsOfModel from "./settings";
 import ScriptsofModelVersionCompare from "./scriptVersionCompare";
 
 const DeleteModelModal = ({ open, handleClose, modelInfo }) => {
@@ -166,7 +166,7 @@ const Model = () => {
       value: "settings",
       path: "settings",
       label: t("tab.settings"),
-      element: <SettingsOfModel modelInfo={modelInfo} />,
+      //element: <SettingsOfModel modelInfo={modelInfo} />,
     },
     {
       value: "analytics",
