@@ -176,6 +176,24 @@ export class ModelsController {
         return this.modelsService.getModelSchedulePlan(userId, startTime, endTime);
     }
 
+    @Patch('set-enable-schedule')
+    @UseGuards(JwtAuthGuard)
+    async setModelEnableSchedule(
+        @Param('userId') userId: string,
+        @Query('model_id') model_id: string,
+        @Body() data: {enableSchedule: boolean},
+        @Req() req
+    ) {
+        const currentUserId = req.user.userId;
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only get schedule your own models.');
+        }
+        if (!Types.ObjectId.isValid(model_id)) {
+            throw new BadRequestException('Invalid model_id');
+        }
+        return this.modelsService.setModelEnableSchedule(userId, model_id, data.enableSchedule);
+    }
+
     /* ----- Registered Model Version ----- */
     @Get('versions/get-all')
     @UseGuards(JwtAuthGuard)

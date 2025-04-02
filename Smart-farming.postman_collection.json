@@ -1072,7 +1072,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1MjAyMSwiZXhwIjoxNzQyOTU1NjIxfQ.E4a9YPpW21RXQzYwBTsraLtLH7-lVOofY7C0kRb8Oec",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzU1Nzk0MiwiZXhwIjoxNzQzNTYxNTQyfQ.Uh5CEl7Z_gSQzSlxujx7aN8r4FALoj3pBX0Zhalds4k",
 									"type": "string"
 								}
 							]
@@ -1081,7 +1081,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"tags\": [\r\n        {\"key\": \"fruit\", \"value\": \"orange\"}\r\n    ],\r\n    \"description\": \"Đây là một model đơn giản\"\r\n}",
+							"raw": "{\r\n    \"name\": \"New Model 1\",\r\n    \"tags\": [\r\n        {\"key\": \"fruit\", \"value\": \"orange\"}\r\n    ],\r\n    \"description\": \"Đây là một model đơn giản\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1151,7 +1151,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzE1MjgwMywiZXhwIjoxNzQzMTU2NDAzfQ.Avzs1jo1wBWHLAbP724L-IPeyvhcBKEDQ3MmVilMcQ8",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzU1Nzk0MiwiZXhwIjoxNzQzNTYxNTQyfQ.Uh5CEl7Z_gSQzSlxujx7aN8r4FALoj3pBX0Zhalds4k",
 									"type": "string"
 								}
 							]
@@ -1159,7 +1159,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/models/get?name=New Model",
+							"raw": "{{be-server}}/:userId/models/get?name=New Model 1",
 							"host": [
 								"{{be-server}}"
 							],
@@ -1171,7 +1171,7 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "New Model"
+									"value": "New Model 1"
 								}
 							],
 							"variable": [
@@ -1462,7 +1462,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzM5MTg4OCwiZXhwIjoxNzQzMzk1NDg4fQ.BoYY4fVJAt-F9Yeto0ySt902s0HddWXz097VqQAorIo",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzU1Nzk0MiwiZXhwIjoxNzQzNTYxNTQyfQ.Uh5CEl7Z_gSQzSlxujx7aN8r4FALoj3pBX0Zhalds4k",
 									"type": "string"
 								}
 							]
@@ -1483,6 +1483,51 @@
 								{
 									"key": "model_id",
 									"value": "67e3566250f058dd1da09bc0"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schedule Plan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzM5NzIxOCwiZXhwIjoxNzQzNDAwODE4fQ.-RhWVAF_YYaG_srzzQujq8mNb9ajq1QpgSQ7cdBH0vk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/models/get-schedule-plan?start_date=2025-03-31&end_date=2025-03-31",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"get-schedule-plan"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2025-03-31"
+								},
+								{
+									"key": "end_date",
+									"value": "2025-03-31"
 								}
 							],
 							"variable": [

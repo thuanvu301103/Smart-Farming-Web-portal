@@ -339,7 +339,7 @@ export class ModelsService {
 
     // get Model schedule
     async getModelSchedule(model_id: string) {
-        const existingModel = await this.modelModel.findById(model_id).select("schedule").exec();
+        const existingModel = await this.modelModel.findById(model_id).select("schedule enableSchedule").exec();
         if (existingModel == null) {
             throw new NotFoundException(`Model with ID ${model_id} not found`);
         }
@@ -371,6 +371,22 @@ export class ModelsService {
 
         return occurrences.sort((a, b) => a.time - b.time);
 
+    }
+
+    async setModelEnableSchedule(userId: string, model_id: string, enableSchedule: boolean) {
+        const existingModel = await this.modelModel.findOne({
+            _id: new Types.ObjectId(model_id),
+            owner_id: new Types.ObjectId(userId)
+        }).exec();
+        if (existingModel == null) {
+            throw new NotFoundException(`Model with ID ${model_id} not found`);
+        }
+        existingModel.enableSchedule = enableSchedule;
+        try {
+            await existingModel.save();
+        } catch (error) {
+            throw new InternalServerErrorException(`Error while setting model enable schedule: ${model_id}`)
+        }
     }
 
     /* ----- Registered Model Version ----- */

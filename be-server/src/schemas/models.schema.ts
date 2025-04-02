@@ -23,6 +23,12 @@ export class Models extends Document {
 
     @Prop()
     schedule: string;
+
+    @Prop({
+        type: Boolean,
+        default: false
+    })
+    enableSchedule: boolean;
 }
 
 export const ModelSchema = SchemaFactory.createForClass(Models);
