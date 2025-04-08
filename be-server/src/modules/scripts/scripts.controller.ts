@@ -33,11 +33,12 @@ export class ScriptsController {
 
     @Get("/top")
     @UseGuards(JwtAuthGuard)
-    async getTopPublicScriptsByUser(@Param("userId") userId: string) {
+    async getTopPublicScriptsByUser(@Param("userId") userId: string, @Req() req) {
         if (!Types.ObjectId.isValid(userId)) {
             throw new BadRequestException('Invalid userId');
         }
-        return await this.scriptsService.getTopPublicScripts(userId);
+        const currentUserId = req.user.userId;
+        return await this.scriptsService.getTopPublicScripts(userId, currentUserId);
     }
 
     @Get('search')

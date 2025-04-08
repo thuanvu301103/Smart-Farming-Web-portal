@@ -114,9 +114,9 @@ export class ScriptsService {
     }
 
     // Get popular and public scripts if a user
-    async getTopPublicScripts(userId: string) {
+    async getTopPublicScripts(userId: string, reqUserId: string) {
         const userObjectId = new Types.ObjectId(userId);
-        const user = await this.userModel.findById(userId).exec()
+        const user = await this.userModel.findById(reqUserId).exec()
         const topScripts = await this.scriptModel.aggregate([
             {
                 $match: {
