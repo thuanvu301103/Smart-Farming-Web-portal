@@ -105,10 +105,15 @@ export class UsersService {
     async getSharedScripts(userId: string) {
         const scripts = await this.scriptsService.getSharedScripts(userId);
         const user = await this.userModel.findById(new Types.ObjectId(userId)).exec();
-        return scripts.map(script => ({
-            ...script.toObject(),
-            isFavorite: user?.favorite_scripts?.includes(new Types.ObjectId(script._id)) ?? false
-        }));
+        return scripts.map(script => {
+            const scriptObj = script.toObject();
+            const scriptId = new Types.ObjectId(scriptObj._id as string);
+
+            return {
+                ...scriptObj,
+                isFavorite: user?.favorite_scripts?.some(fav => fav.equals(scriptId)) ?? false
+            };
+        });
     }
 
     async validateUser(username: string, password: string): Promise<User | null> {

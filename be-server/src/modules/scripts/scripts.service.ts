@@ -91,7 +91,7 @@ export class ScriptsService {
         }
 
         const scripts = await this.scriptModel.find(filterCondition)
-            .select('_id name description privacy favorite location plant_type')
+            .select('_id name description owner_id privacy favorite location plant_type')
             .lean()
             .exec();
 
@@ -130,6 +130,7 @@ export class ScriptsService {
                 $project: {
                     name: 1,
                     description: 1,
+                    owner_id: 1,
                 }
             }
         ]);
