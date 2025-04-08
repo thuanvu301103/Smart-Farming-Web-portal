@@ -15,7 +15,7 @@ export class NotificationsService {
     // Get notification
     async getNotification(id: string){
         const result = await this.notificationModel.findById(id)
-            .populate('from', 'username')
+            .populate('from', 'username profile_image')
             .populate('script_id', 'name')
             .lean().exec();
         return result;
