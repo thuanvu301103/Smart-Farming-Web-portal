@@ -1,4 +1,8 @@
-import { Controller, Get, Post, Put, Body, UseGuards, Param, Query, Req, ForbiddenException  } from '@nestjs/common';
+import {
+    Controller, Get, Post, Put, Body, UseGuards, Param, Query, Req,
+    ForbiddenException, BadRequestException,
+} from '@nestjs/common';
+import { Model, Types } from 'mongoose';
 import { UsersService } from './users.service';
 import { User } from '../../schemas/users.schema';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
@@ -45,6 +49,22 @@ export class UsersController {
     @UseGuards(JwtAuthGuard)
     async getFavoriteScript(@Param('userId') userId: string) {
         return this.usersService.getFavoriteScript(userId);
+    }
+
+    @Get(':userId/shared-script')
+    @UseGuards(JwtAuthGuard)
+    async getSharedScripts(
+        @Param('userId') userId: string,
+        @Req() req
+    ) {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
+        const currentUserId = req.user.userId;
+        if (currentUserId !== userId) {
+            throw new ForbiddenException('You can only access your own shared scripts');
+        }
+        return this.usersService.getSharedScripts(userId);
     }
 
     @Put(':userId')
