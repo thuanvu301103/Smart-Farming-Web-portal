@@ -116,7 +116,7 @@ export class ScriptsService {
     // Get popular and public scripts if a user
     async getTopPublicScripts(userId: string) {
         const userObjectId = new Types.ObjectId(userId);
-
+        const user = await this.userModel.findById(userId).exec()
         const topScripts = await this.scriptModel.aggregate([
             {
                 $match: {
@@ -134,7 +134,14 @@ export class ScriptsService {
                 }
             }
         ]);
-        return topScripts;
+        return topScripts.map(script => {
+            const scriptId = new Types.ObjectId(script._id as string);
+
+            return {
+                ...script,
+                isFavorite: user?.favorite_scripts?.some(fav => fav.equals(scriptId)) ?? false
+            };
+        });
     }
 
     // Add new script
