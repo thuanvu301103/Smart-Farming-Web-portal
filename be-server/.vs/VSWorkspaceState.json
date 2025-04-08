@@ -6,8 +6,10 @@
     "\\src\\gateway\\notify",
     "\\src\\modules",
     "\\src\\modules\\activities",
+    "\\src\\modules\\scripts",
+    "\\src\\schemas",
     "\\test"
   ],
-  "SelectedNode": "\\src\\modules\\activities\\activities.controller.ts",
+  "SelectedNode": "\\src\\schemas\\users.schema.ts",
   "PreviewInSolutionExplorer": false
 }

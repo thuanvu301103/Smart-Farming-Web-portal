@@ -192,7 +192,7 @@ export class ScriptsService {
         // Find users related to `share_id`
         const sharedUsers = await this.userModel.find(
             { _id: { $in: sharedUserIds || [] } }, // Handle case where `share_id` is undefined
-            "_id username profile_image"
+            "_id username profile_image owner_id"
         ).lean().exec();
 
         // Check if script is user's favorite or not
