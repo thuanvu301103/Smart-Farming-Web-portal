@@ -195,8 +195,12 @@ export class ScriptsService {
             "_id username profile_image"
         ).lean().exec();
 
+        // Check if script is user's favorite or not
+        const user = await this.userModel.findById(reqUserId).exec();
+        const userFav = user.favorite_scripts;
+
         // Replace share_id with detailed user info
-        return { ...result, share_id: sharedUsers };
+        return { ...result, share_id: sharedUsers, isFavorite: userFav.includes(new Types.ObjectId(scriptId)) };
     }
 
     // Update script

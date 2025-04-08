@@ -3,7 +3,6 @@
     "",
     "\\src",
     "\\src\\pages",
-    "\\src\\pages\\model",
     "\\src\\pages\\model\\[id]",
     "\\src\\pages\\script",
     "\\src\\pages\\script\\newScript",
@@ -11,6 +10,6 @@
     "\\src\\pages\\script\\versionCompare",
     "\\src\\pages\\updateProfile"
   ],
-  "SelectedNode": "\\src\\pages\\model\\[id]\\index.jsx",
+  "SelectedNode": "\\src\\pages\\script\\scriptCode\\ScriptCode.js",
   "PreviewInSolutionExplorer": false
 }
