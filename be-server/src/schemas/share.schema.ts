@@ -10,12 +10,10 @@ export class Share extends Document {
     user_id: Types.ObjectId;
 
     @Prop({
-        type: [{
-            type: Types.ObjectId,
-            ref: 'Script'
-        }]
+        type: Types.ObjectId,
+        ref: 'Script'
     })
-    script_id: Types.ObjectId[];
+    script_id: Types.ObjectId;
 }
 
 export const ShareSchema = SchemaFactory.createForClass(Share);

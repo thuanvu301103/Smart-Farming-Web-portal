@@ -46,7 +46,7 @@ export class UsersService {
         username: string
     }[]> {
         // Convert string userIds to MongoDB ObjectId
-        console.log("user Ids: ", userIds);
+        //console.log("user Ids: ", userIds);
         const objectIds = userIds.map(id => new Types.ObjectId(id));
         // Find users whose _id matches any of the provided ObjectIds
         const result = await this.userModel.find({ _id: { $in: objectIds } }).lean().exec();

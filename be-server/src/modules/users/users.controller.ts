@@ -4,7 +4,6 @@ import {
 } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
 import { UsersService } from './users.service';
-import { User } from '../../schemas/users.schema';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 
 @Controller()

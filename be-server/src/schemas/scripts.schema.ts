@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
-import { Comment } from './comments.schema';
+import { Model, Document, Types } from 'mongoose';
 
 @Schema()
 export class Script extends Document {
@@ -32,14 +31,6 @@ export class Script extends Document {
     })
     model_id: Types.ObjectId | null;
 
-    @Prop({
-        type: [{
-            type: Types.ObjectId,
-            ref: 'User'
-        }]
-    })
-    share_id: Types.ObjectId[];
-
     @Prop({ default: 0 })
     favorite: number;
 
@@ -50,14 +41,18 @@ export class Script extends Document {
     plant_type: string[];
 }
 
-export const ScriptSchema = SchemaFactory.createForClass(Script);
+const ScriptSchema = SchemaFactory.createForClass(Script);
 
 // Pre hook middle for deleting a script
 ScriptSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
     const script = this as unknown as Document;
-    console.log("Deleting script ID: ", script._id);
     // Delete all related comments
     const commentModel = this.model('Comment');
     await commentModel.deleteMany({ script_id: script._id });
+    // Delete all related shares
+    const shareModel = this.model('Share');
+    await shareModel.deleteMany({ script_id: script._id });
     next();
 });
+
+export { ScriptSchema };
