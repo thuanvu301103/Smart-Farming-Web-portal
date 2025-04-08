@@ -33,7 +33,8 @@ export class ScriptsService {
             user_id: new Types.ObjectId(userId),
             script_id: new Types.ObjectId(scriptId)
         }).exec();
-        return script.length === 0;
+        //console.log("Has Access: ", script.length != 0);
+        return script.length != 0;
     }
 
     // Get all scripts that shared to a user
@@ -42,6 +43,29 @@ export class ScriptsService {
         const scriptIds = searchRes.map(obj => obj.script_id);
         const scripts = await this.scriptModel.find({ _id: { $in: scriptIds } }).exec();
         return scripts;
+    }
+
+    // Get all users that been shared a script
+    async getSharedUsers(scriptId: string) {
+        const searchRes = await this.shareModel.find({ script_id: new Types.ObjectId(scriptId) }).select("user_id").exec();
+        const userIds = searchRes.map(obj => obj.user_id);
+        return userIds;
+    }
+
+    // Set Script's share users
+    async setSharedUsers(scriptId: string, share_id: string[]) {
+        const newSharedIds = share_id.map(id => new Types.ObjectId(id));
+        const oldSharedIds = await this.getSharedUsers(scriptId);
+        const deleteSharedIds = oldSharedIds.filter(oldId =>
+            !newSharedIds.some(newId => newId.equals(oldId))
+        );
+        const insertSharedIds = newSharedIds.filter(newId =>
+            !oldSharedIds.some(oldId => oldId.equals(newId))
+        );
+        await this.shareModel.deleteMany({ user_id: { $in: deleteSharedIds } });
+        await this.shareModel.insertMany(
+            insertSharedIds.map(userId => ({ user_id: userId, script_id: new Types.ObjectId(scriptId) }))
+        );
     }
 
     // Find all scripts of a user
@@ -59,8 +83,6 @@ export class ScriptsService {
         // Get favorite_scripts of currentUser
         const user = await this.userModel.findById(currentUserId).select('favorite_scripts').lean();
         const favoriteScripts = user?.favorite_scripts || [];
-        //console.log('Favourite scripts: ', currentUserId, favoriteScripts)
-
         // Search Condition
         const filterCondition: any = { owner_id: new Types.ObjectId(userId) };
         //console.log(currentUserId, userId, userId == currentUserId);
@@ -130,9 +152,12 @@ export class ScriptsService {
             description: description,
             privacy: privacy, 
             owner_id: new Types.ObjectId(userId),
-            share_id: share_id.map(id => new Types.ObjectId(id))
         });
         const scriptId = (await newScript.save())._id.toString();
+        // Add shared users
+        if (share_id.length != 0) {
+            await this.setSharedUsers(scriptId, share_id)
+        }
         // Create new activity
         await this.activitiesService.createActivity("create_script", userId, scriptId);
         return scriptId;
@@ -157,14 +182,16 @@ export class ScriptsService {
         if (
             result.owner_id.toString() !== reqUserId &&
             result.privacy === "private" &&
-            (!result.share_id || !result.share_id.some((objId: Types.ObjectId) => objId.equals(new Types.ObjectId(reqUserId))))
+            !await this.hasAccess(reqUserId, scriptId)
         ) {
             throw new UnauthorizedException(`Not allowed to access this script`);
         }
 
+        const sharedUserIds = await this.getSharedUsers(scriptId);
+        console.log(sharedUserIds);
         // Find users related to `share_id`
         const sharedUsers = await this.userModel.find(
-            { _id: { $in: result.share_id || [] } }, // Handle case where `share_id` is undefined
+            { _id: { $in: sharedUserIds || [] } }, // Handle case where `share_id` is undefined
             "_id username profile_image"
         ).lean().exec();
 
@@ -173,7 +200,7 @@ export class ScriptsService {
     }
 
     // Update script
-    async updateScriptInfo(reqUserId: string, userId: string, scriptId: string, updatedData: Partial<Script>) {
+    async updateScriptInfo(reqUserId: string, userId: string, scriptId: string, updatedData) {
         // Find the script by ID
         const result = await this.scriptModel.findOne({ _id: new Types.ObjectId(scriptId) }).lean().exec();
 
@@ -191,7 +218,7 @@ export class ScriptsService {
         if (result.owner_id.toString() !== reqUserId) {
             throw new UnauthorizedException(`Not allowed to change this script`);
         }
-        if (updatedData.share_id) updatedData.share_id = updatedData.share_id.map(id => new Types.ObjectId(id));
+        if (updatedData.share_id) await this.setSharedUsers(scriptId, updatedData.share_id);
         if (updatedData.owner_id) updatedData.owner_id = new Types.ObjectId(updatedData.owner_id);
 
         const updatedScript = await this.scriptModel.findByIdAndUpdate(scriptId, updatedData, {
@@ -217,7 +244,7 @@ export class ScriptsService {
                 await script.deleteOne();
             }
         } catch (error) {
-            console.error('Error deleting user:', error);
+            console.error('Error deleting script:', error);
             return { success: false, message: 'Error deleting document' };
         }
     }

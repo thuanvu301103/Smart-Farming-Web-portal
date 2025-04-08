@@ -1,4 +1,8 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query, Req, UseGuards, ForbiddenException } from '@nestjs/common';
+import {
+    Controller, Get, Post, Put, Delete, Body, Param, Query, Req, UseGuards,
+    ForbiddenException, BadRequestException, 
+} from '@nestjs/common';
+import { Model, Types } from 'mongoose';
 import { ScriptsService } from './scripts.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 
@@ -21,12 +25,18 @@ export class ScriptsController {
             isFavorite: boolean
         }[]>
     {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
         return this.scriptsService.findAllScripts(userId, req.user.userId);
     }
 
     @Get("/top")
     @UseGuards(JwtAuthGuard)
     async getTopPublicScriptsByUser(@Param("userId") userId: string) {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
         return await this.scriptsService.getTopPublicScripts(userId);
     }
 
@@ -51,6 +61,12 @@ export class ScriptsController {
         @Req() req
     ):
         Promise<any> {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
+        if (!Types.ObjectId.isValid(scriptId)) {
+            throw new BadRequestException('Invalid scriptId');
+        }
         const currentUserId = req.user.userId;
         return this.scriptsService.getScript(currentUserId, userId, scriptId);
     }
@@ -83,6 +99,12 @@ export class ScriptsController {
         @Body() updatedData: any,
         @Req() req
     ) {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
+        if (!Types.ObjectId.isValid(scriptId)) {
+            throw new BadRequestException('Invalid scriptId');
+        }
         const currentUserId = req.user.userId;
         return await this.scriptsService.updateScriptInfo(currentUserId, userId, scriptId, updatedData);
     }
