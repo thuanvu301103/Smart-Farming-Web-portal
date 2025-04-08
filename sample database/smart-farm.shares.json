@@ -1,0 +1,11 @@
+[{
+  "_id": {
+    "$oid": "67f48a6f11a49e4a9b1dbaf6"
+  },
+  "user_id": {
+    "$oid": "67c273401fb713deae4b068c"
+  },
+  "script_id": {
+    "$oid": "67f48aba11a49e4a9b1dbafb"
+  }
+}]

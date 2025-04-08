@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { ActivitiesService } from "../activities/activities.service";
 import { Script } from '../../schemas/scripts.schema';
+import { Share } from '../../schemas/share.schema';
 import { User } from '../../schemas/users.schema';
 
 @Injectable()
@@ -13,6 +14,7 @@ export class ScriptsService {
     constructor(
         @InjectModel(Script.name) private scriptModel: Model<Script>,
         @InjectModel(User.name) private readonly userModel: Model<User>,
+        @InjectModel(Share.name) private readonly shareModel: Model<Share>,
         @Inject(forwardRef(() => ActivitiesService)) private readonly activitiesService: ActivitiesService,
     ) { }
 
@@ -23,6 +25,23 @@ export class ScriptsService {
         }
         const script = await this.scriptModel.findById(scriptId).exec();
         return !!script;
+    }
+
+    // Check if user has access (be shared) to script or not
+    async hasAccess(userId: string, scriptId: string): Promise<boolean> {
+        const script = await this.shareModel.find({
+            user_id: new Types.ObjectId(userId),
+            script_id: new Types.ObjectId(scriptId)
+        }).exec();
+        return script.length === 0;
+    }
+
+    // Get all scripts that shared to a user
+    async getSharedScripts(userId: string) {
+        const searchRes = await this.shareModel.find({ user_id: new Types.ObjectId(userId) }).select("script_id").exec();
+        const scriptIds = searchRes.map(obj => obj.script_id);
+        const scripts = await this.scriptModel.find({ _id: { $in: scriptIds } }).exec();
+        return scripts;
     }
 
     // Find all scripts of a user

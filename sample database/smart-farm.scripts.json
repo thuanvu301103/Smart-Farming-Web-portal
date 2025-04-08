@@ -1,56 +1,16 @@
 [{
   "_id": {
-    "$oid": "67aecd1e0d59336166486c10"
+    "$oid": "67e75e0b2f8c12e06092ee02"
   },
-  "name": "Cây mắm đen",
+  "name": "sdfg",
   "description": "",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
-  },
-  "model_id": null,
-  "__v": 0,
-  "favorite": 1
-},
-{
-  "_id": {
-    "$oid": "67aecec90d59336166486c12"
-  },
-  "name": "Hoàn thiện",
-  "description": "",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
-  },
-  "model_id": null,
-  "__v": 0,
-  "favorite": 0
-},
-{
-  "_id": {
-    "$oid": "67aecfc776e630f9646eaf75"
-  },
-  "name": "Hoàn thiện",
-  "description": "",
-  "privacy": "public",
-  "owner_id": {
-    "$oid": "679b765e8496f00b99063cb8"
-  },
-  "model_id": null,
-  "__v": 0,
-  "favorite": 0
-},
-{
-  "_id": {
-    "$oid": "67d7a85c6a81b8ea59bca15d"
-  },
-  "name": "Đây là một kịch bản tưới",
-  "description": "Đây là một kịch bản tưới",
   "privacy": "public",
   "owner_id": {
     "$oid": "67c273401fb713deae4b068c"
   },
   "version": [
+    3,
+    2,
     1
   ],
   "model_id": null,
@@ -62,15 +22,17 @@
 },
 {
   "_id": {
-    "$oid": "67d7a86d6a81b8ea59bca16a"
+    "$oid": "67f48aba11a49e4a9b1dbafb"
   },
-  "name": "Đây là một kịch bản tưới 1.0",
-  "description": "Đây là một kịch bản tưới 1.0",
+  "name": "sdfg",
+  "description": "",
   "privacy": "public",
   "owner_id": {
-    "$oid": "67c273401fb713deae4b068c"
+    "$oid": "67c2730b1fb713deae4b0689"
   },
   "version": [
+    3,
+    2,
     1
   ],
   "model_id": null,
