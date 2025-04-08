@@ -103,6 +103,7 @@ export class ActivitiesService {
 
         for (const month in activitiesByMonth) {
             for (const type in activitiesByMonth[month]) {
+                //console.log("Type: ", type);
                 const objIds = activitiesByMonth[month][type]
                 if (type === "create_script") {
                     const query = { _id: { $in: objIds } };
@@ -114,19 +115,30 @@ export class ActivitiesService {
                             .select("_id name")
                             .exec();
                     activitiesByMonth[month][type] = scripts;
+                    //console.log(type, scripts);
+                    //console.log(activitiesByMonth);
                 }
-                if (!isOwner) continue;
+                if (!isOwner) {
+                    activitiesByMonth[month]["create_comment"] = [];
+                    activitiesByMonth[month]["create_model"] = [];
+                    continue;
+                }
                 else {
+                    //console.log(isOwner);
                     if (type === "create_model") {
                         const models = await this.modelModel.find({ _id: { $in: objIds } })
                             .select("_id name").exec();
                         activitiesByMonth[month][type] = models;
+                        //console.log(type, models);
+                        //console.log(activitiesByMonth);
                     }
                     else if (type === "create_comment") {
                         const comments = await this.commentModel.find({ _id: { $in: objIds } })
                             .populate("script_id", "_id name")
                             .select("_id script_id content").exec();
                         activitiesByMonth[month][type] = comments;
+                        //console.log(type, comments);
+                        //console.log(activitiesByMonth);
                     }
                 }
 
