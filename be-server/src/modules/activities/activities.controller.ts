@@ -28,6 +28,7 @@ export class ActivitiesController {
 
         const reqUserId = req.user.userId;
         const isOwner = reqUserId == userId;
+        //console.log(isOwner);
         return await this.activitiesService.getActivities(isOwner, year, userId)
     }
 
