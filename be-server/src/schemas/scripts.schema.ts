@@ -4,9 +4,6 @@ import { Model, Document, Types } from 'mongoose';
 @Schema()
 export class Script extends Document {
     @Prop()
-    _id: Types.ObjectId;
-
-    @Prop()
     name: string;
 
     @Prop()
