@@ -5,9 +5,7 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
-FROM node:18-alpine
+FROM node:18 as production
 WORKDIR /app
-COPY --from=builder /app/package*.json ./
-RUN npm install --production
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app /app
 CMD ["node", "dist/main"]
