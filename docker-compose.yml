@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./be-server
+    container_name: nestjs-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/yourdb
+      FTP_HOST: ftp-server
+      FTP_USER: user
+      FTP_PASS: pass
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-network
+
+  ftp-server:
+    image: stilliard/pure-ftpd:hardened
+    container_name: ftp-server
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    environment:
+      PUBLICHOST: "localhost"
+      FTP_USER_NAME: "user"
+      FTP_USER_PASS: "pass"
+      FTP_USER_HOME: "/home/ftpusers/user"
+    volumes:
+      - ftp_data:/home/ftpusers
+    networks:
+      - app-network
+
+  mflow:
+    image: tryolabs/mflow  # hoặc mlflow/mlflow nếu bạn dùng MLflow
+    container_name: mflow
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+
+volumes:
+  mongo_data:
+  ftp_data:
+
+networks:
+  app-network:
+    driver: bridge
