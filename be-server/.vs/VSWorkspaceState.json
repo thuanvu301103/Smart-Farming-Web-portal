@@ -2,12 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\gateway",
+    "\\src\\database",
     "\\src\\modules",
     "\\src\\modules\\auth",
-    "\\src\\modules\\models",
     "\\test"
   ],
-  "SelectedNode": "\\src\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

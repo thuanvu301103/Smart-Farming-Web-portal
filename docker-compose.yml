@@ -8,7 +8,6 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - mongodb
     environment:
       FTP_HOST: 127.0.0.1
       FTP_USER: anonymous
@@ -18,17 +17,6 @@ services:
       JWT_SECRET: my_super_secret_key
       MLFLOW_TRACKING_SERVER: http://127.0.0.1:5000
       MONGODB_URI: mongodb://mongodb:27017/smart-farm
-    networks:
-      - app-network
-
-  mongodb:
-    image: mongo:6
-    container_name: mongodb
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
     networks:
       - app-network
 
@@ -57,7 +45,6 @@ services:
       - app-network
 
 volumes:
-  mongo_data:
   ftp_data:
 
 networks:
