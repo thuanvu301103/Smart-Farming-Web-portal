@@ -10,10 +10,13 @@ services:
     depends_on:
       - mongodb
     environment:
-      MONGO_URI: mongodb://mongodb:27017/yourdb
-      FTP_HOST: ftp-server
-      FTP_USER: user
-      FTP_PASS: pass
+      FTP_HOST: 127.0.0.1
+      FTP_USER: anonymous
+      FTP_PASSWORD: password
+      FTP_SECURE: false
+      FTP_UPLOAD_DIR: /uploads
+      JWT_SECRET: my_super_secret_key
+      MLFLOW_TRACKING_SERVER: http://127.0.0.1:5000
     networks:
       - app-network
 
