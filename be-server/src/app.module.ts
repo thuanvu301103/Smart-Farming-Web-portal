@@ -17,8 +17,8 @@ import { ActivitiesModule } from './modules/activities/activities.module';
   imports: [
     ConfigModule.forRoot({
         isGlobal: true,
-        ignoreEnvFile: process.env.NODE_ENV !== 'development',
-        envFilePath: process.env.NODE_ENV === 'development' ? '.env' : undefined,
+        ignoreEnvFile: process.env.NODE_ENV === 'production',
+        envFilePath: '.env',
     }), // Import ConfigModule at the root level
     DatabaseModule,
     ScriptsModule,
