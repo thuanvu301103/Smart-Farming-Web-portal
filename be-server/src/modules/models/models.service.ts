@@ -95,6 +95,7 @@ export class ModelsService {
             );
             const model = await this.modelModel.findOne({ name: unique_name }).exec();
             response.data.registered_model['_id'] = model._id;
+            response.data.registered_model['alt_name'] = model.name.includes("/") ? model.name.split("/").pop() : model.name;
             return response.data;
         } catch (error) {
             if (error.response) {
