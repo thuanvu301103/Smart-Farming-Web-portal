@@ -5,6 +5,16 @@ on:
     branches: [main]
 
 jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Overwrite 'users' collection
+        run: |
+          mongoimport --uri="${{ secrets.MONGO_URI }}" --collection=users --jsonArray --drop --file=./sample database/smart-farm.users.json
+        env:
+          MONGO_URL: ${{ secrets.MONGO_URI }}
+
   build:
     runs-on: ubuntu-latest
 
