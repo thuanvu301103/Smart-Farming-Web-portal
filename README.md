@@ -1,6 +1,4 @@
-# Smart-Farming-Web-portal
-
-## [Front-end Server](fe-server)
+# Smart-Farming-Web-portal Backend
 
 ## [Back-end Server](be-server)
 
