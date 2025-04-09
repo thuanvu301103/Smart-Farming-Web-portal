@@ -6,7 +6,7 @@
 
 ### MongoDB
 
-The web portal uses MongoDB as a DBMS
+The web portal uses Mongoose (MongoDB) as a DBMS
 
 ### FTP Server
 
