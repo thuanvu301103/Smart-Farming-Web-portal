@@ -18,7 +18,7 @@ jobs:
 
       - name: Overwrite 'users' collection
         run: |
-          mongoimport --uri="${{ secrets.MONGO_PUBLIC_URL }}" --authenticationMechanism=SCRAM-SHA-1 --collection=users --jsonArray --drop --file=./sample_database/smart-farm.users.json
+          mongoimport --uri="mongodb://mongo:xjPIhNcTnEwHwZBRMocGQRaLbhZEeNRs@caboose.proxy.rlwy.net:44534/your_database_name" --authenticationMechanism=SCRAM-SHA-256 --collection=users --jsonArray --drop --file=./sample_database/smart-farm.users.json --verbose
         env:
           MONGO_PUBLIC_URL: ${{ secrets.MONGO_PUBLIC_URL }}
 
