@@ -5,7 +5,9 @@
     "\\src\\database",
     "\\src\\modules",
     "\\src\\modules\\auth",
+    "\\src\\modules\\files",
     "\\test"
   ],
+  "SelectedNode": "\\src\\modules\\files\\files.service.ts",
   "PreviewInSolutionExplorer": false
 }
