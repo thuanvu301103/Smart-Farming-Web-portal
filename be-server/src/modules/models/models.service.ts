@@ -223,8 +223,8 @@ export class ModelsService {
     ) {
         try {
             const unique_name = `${userId}/${name}`;
-            console.log("Page Token: ", page_token);
-            console.log("Filter: ", `name='${unique_name}'`);
+            //console.log("Page Token: ", page_token);
+            //console.log("Filter: ", `name='${unique_name}'`);
             const response = await axios.get(
                 `${this.mlflowUrl}/api/2.0/mlflow/model-versions/search`,
                 {
@@ -236,6 +236,12 @@ export class ModelsService {
                     }
                 }
             );
+            let versions = response.data['model_versions'];
+            versions = versions.map(version => ({
+                ...version,
+                alt_name: version.name.includes("/") ? version.name.split("/").pop() : version.name
+            }));
+            response.data['model_versions'] = versions;
 
             return response.data;
         } catch (error) {

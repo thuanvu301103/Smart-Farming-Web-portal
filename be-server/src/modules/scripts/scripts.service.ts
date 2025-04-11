@@ -91,7 +91,7 @@ export class ScriptsService {
         }
 
         const scripts = await this.scriptModel.find(filterCondition)
-            .select('_id name description owner_id privacy favorite location plant_type')
+            .select('_id name description owner_id privacy favorite location plant_type updatedAt createdAt')
             .lean()
             .exec();
 
@@ -131,6 +131,8 @@ export class ScriptsService {
                     name: 1,
                     description: 1,
                     owner_id: 1,
+                    createdAt: 1,
+                    updatedAt: 1,
                 }
             }
         ]);
@@ -200,7 +202,7 @@ export class ScriptsService {
         // Find users related to `share_id`
         const sharedUsers = await this.userModel.find(
             { _id: { $in: sharedUserIds || [] } }, // Handle case where `share_id` is undefined
-            "_id username profile_image owner_id"
+            "_id username profile_image owner_id createdAt updatedAt"
         ).lean().exec();
 
         // Check if script is user's favorite or not
