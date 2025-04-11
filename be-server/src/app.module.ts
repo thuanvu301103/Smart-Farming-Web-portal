@@ -29,7 +29,7 @@ import { ActivitiesModule } from './modules/activities/activities.module';
     NotificationsModule,
     NotificationGateway,
     AuthModule,
-    ActivitiesModule,
+        ActivitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService, NotificationGateway],

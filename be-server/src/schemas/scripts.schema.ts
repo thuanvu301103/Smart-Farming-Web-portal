@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Model, Document, Types } from 'mongoose';
 
-@Schema()
+@Schema({ timestamps: true })
 export class Script extends Document {
     @Prop()
     name: string;
