@@ -1,9 +1,9 @@
 ﻿import {
     Controller,
     Post, Delete, Get, Put,
-    Body, Query, Param, Req,
+    Body, Query, Param, Req, Res,
     UploadedFiles, UseInterceptors,
-    UseGuards, ForbiddenException
+    UseGuards, ForbiddenException, BadRequestException
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
@@ -13,15 +13,7 @@ import { FilesService } from './files.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 
 
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, "./../uploads"), // Temporary folder
-    filename: (req, file, cb) => {
-        const uniqueSuffix = `${Date.now()}-${uuidv4()}`; // Timestamp + UUID
-        const extension = path.extname(file.originalname);
-        const newFilename = `${path.basename(file.originalname, extension)}-${uniqueSuffix}${extension}`;
-        cb(null, newFilename);
-    }
-});
+const storage = multer.memoryStorage();
 
 @Controller('files')
 export class FilesController {
@@ -35,9 +27,13 @@ export class FilesController {
         @Body('remote_path') remotePath: string,
         @Req() req
     ) {
+        if (!files || !files.length) {
+            throw new BadRequestException('No files uploaded');
+        }
         const parts = remotePath.split("/");
         const userId = parts[1];
         const currentUserId = req.user.userId; // Get the current user from JWT
+        //console.log(userId, currentUserId);
         // Ensure users can only modify their own favorites
         if (currentUserId !== userId) {
             throw new ForbiddenException('You can only upload your own file.');
@@ -74,20 +70,18 @@ export class FilesController {
     @UseGuards(JwtAuthGuard)
     async getFileContent(
         @Param('path') filePath: string,
-        @Req() req
+        @Req() req,
+        @Res() res,
     ) {
-        console.log("Get file Content: ", filePath);
-        /*
-        const parts = filePath.split("%2F");
-        const userId = parts[1];
-        const currentUserId = req.user.userId; // Get the current user from JWT
-        // Ensure users can only modify their own favorites
-        if (currentUserId !== userId) {
-            throw new ForbiddenException('You can only upload your own file.');
-        }
-        */
-        //console.log('Requested file path:', filePath);
-        return await this.filesService.getFileContent(filePath);
+        const buffer = await this.filesService.getFileContent(filePath);
+        const filename = filePath.split('/').pop() || 'file.csv';
+        res.set({
+            'Content-Type': 'json',
+            'Content-Disposition': `attachment; filename=${filename}`,
+            'Content-Length': buffer.length,
+        });
+
+        res.send(buffer);
     }
 
     // Endpoint to get file content from FTP

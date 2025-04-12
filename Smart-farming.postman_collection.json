@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MDk2ODU5OCwiZXhwIjoxNzQwOTcyMTk4fQ.FC01gCs9pMVIg3v5g9AZh5urUez4vrASKQSkvWVVfd4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MDQwMSwiZXhwIjoxNzQ0MzQ0MDAxfQ.ivixInYQK0lLMsR_Q245HYTRoJQeY-1dGqh78_HOLww",
 									"type": "string"
 								}
 							]
@@ -51,7 +51,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MDg4OTc1NSwiZXhwIjoxNzQwODkzMzU1fQ.Kct11VHCBpiCOKMOjMPq78AzsiKiVqFsJuGqN7hFnTk",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MTY5MCwiZXhwIjoxNzQ0MzQ1MjkwfQ.p5P6n7SEysOK1CxaSbKjX8mQvRC8mm-tSoMJ4c9zIgY",
 									"type": "string"
 								}
 							]
@@ -86,7 +86,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDA4MzA2NiwiZXhwIjoxNzQ0MDg2NjY2fQ.DWeuI13_xZQ_tPV0fjV_PyWUZOirUnRL4stfAXsIJIQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MTY5MCwiZXhwIjoxNzQ0MzQ1MjkwfQ.p5P6n7SEysOK1CxaSbKjX8mQvRC8mm-tSoMJ4c9zIgY",
 									"type": "string"
 								}
 							]
@@ -110,7 +110,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "67e75e0b2f8c12e06092ee02"
+									"value": "67f88ac799a2a6150ca64bae"
 								}
 							]
 						}
@@ -207,7 +207,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDA4NzA4NSwiZXhwIjoxNzQ0MDkwNjg1fQ.oJJs5uVoiDcEd-eyyVQl94FkbRq0TWiiHfksMTfiWL4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MTY5MCwiZXhwIjoxNzQ0MzQ1MjkwfQ.p5P6n7SEysOK1CxaSbKjX8mQvRC8mm-tSoMJ4c9zIgY",
 									"type": "string"
 								}
 							]
@@ -216,7 +216,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Kich bản tưới cây dưa hấu\",\r\n    \"description\": \"Đây là một kịch bản tưới cây đỉnh nóc kịch trần\",\r\n    \"privacy\": \"public\",\r\n    \"share_id\": [\"67c2730b1fb713deae4b0689\", \"67c571cbb62805db4a4c27b1\"]\r\n}",
+							"raw": "{\r\n    \"name\": \"Kich bản tưới cây dưa hấu\",\r\n    \"description\": \"Đây là một kịch bản tưới cây đỉnh nóc kịch trần\",\r\n    \"privacy\": \"public\",\r\n    \"share_id\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -250,7 +250,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDA4NzA4NSwiZXhwIjoxNzQ0MDkwNjg1fQ.oJJs5uVoiDcEd-eyyVQl94FkbRq0TWiiHfksMTfiWL4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MDQwMSwiZXhwIjoxNzQ0MzQ0MDAxfQ.ivixInYQK0lLMsR_Q245HYTRoJQeY-1dGqh78_HOLww",
 									"type": "string"
 								}
 							]
@@ -274,7 +274,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "67f4aa390d4b6482e05f6281"
+									"value": "67c2730b1fb713deae4b0689"
 								}
 							]
 						}
@@ -322,7 +322,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzEzODEzOCwiZXhwIjoxNzQzMTQxNzM4fQ.THQuGrENaky9vtidmSr8DYxto8EF4tRbLf1sOKHybl4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDQ0MzU4OCwiZXhwIjoxNzQ0NDQ3MTg4fQ.brsdEX2uJfWxioplPsOucUzQrMI_aNXDl1a7UbjUu34",
 									"type": "string"
 								}
 							]
@@ -342,7 +342,7 @@
 							"variable": [
 								{
 									"key": "path",
-									"value": "67c273401fb713deae4b068c%2Fmodel%2F67e3566250f058dd1da09bc0%2Fscript%2Fversion3.json"
+									"value": "67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02%2Fv1.0.json"
 								}
 							]
 						}
@@ -357,7 +357,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzEyODUzOSwiZXhwIjoxNzQzMTMyMTM5fQ.CLVhAQ_c1soiz1GnMHS9VosDCJLtQY9Mfa2rdzlaX18",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDQ0MzU4OCwiZXhwIjoxNzQ0NDQ3MTg4fQ.brsdEX2uJfWxioplPsOucUzQrMI_aNXDl1a7UbjUu34",
 									"type": "string"
 								}
 							]
@@ -370,11 +370,11 @@
 								{
 									"key": "files",
 									"type": "file",
-									"src": "/E:/Github-Project/Smart-Farming-Web-portal/README.md"
+									"src": "/C:/Users/PC/OneDrive/Documents/v1.0.json"
 								},
 								{
 									"key": "remote_path",
-									"value": "/67c273401fb713deae4b068c/script/67aecd1e0d59336166486c10/",
+									"value": "/67c273401fb713deae4b068c/script/67e75e0b2f8c12e06092ee02",
 									"type": "text"
 								}
 							]
@@ -396,12 +396,19 @@
 					"name": "Delete a File",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDQ0MjYwNCwiZXhwIjoxNzQ0NDQ2MjA0fQ.psqGdobROvxW27sqUtb4byde0BebngMLdlkhC4KTFhE",
+									"type": "string"
+								}
+							]
 						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/files/deleteFile?path=/thuan_vu/chanh/v2.1/action/new/main.py",
+							"raw": "{{be-server}}/files/deleteFile?path=67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02%2Fv1.0.json",
 							"host": [
 								"{{be-server}}"
 							],
@@ -412,7 +419,7 @@
 							"query": [
 								{
 									"key": "path",
-									"value": "/thuan_vu/chanh/v2.1/action/new/main.py"
+									"value": "67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02%2Fv1.0.json"
 								}
 							]
 						}
@@ -423,12 +430,19 @@
 					"name": "Delete a Folder and its contents",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDQ0MzQ0NywiZXhwIjoxNzQ0NDQ3MDQ3fQ.WnRQs08KA_w7C2dfZJXXDQ_fm2haQXbr25qIcArrmyU",
+									"type": "string"
+								}
+							]
 						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/files/deleteFolder?path=/thuan_vu/chanh/v2.1/action/new",
+							"raw": "{{be-server}}/files/deleteFolder?path=67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02",
 							"host": [
 								"{{be-server}}"
 							],
@@ -439,7 +453,7 @@
 							"query": [
 								{
 									"key": "path",
-									"value": "/thuan_vu/chanh/v2.1/action/new"
+									"value": "67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02"
 								}
 							]
 						}
@@ -463,7 +477,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"old_path\": \"67c273401fb713deae4b068c/67c94c998be9ec2f58eb1579/v1.2.json\",\r\n    \"new_path\": \"67c273401fb713deae4b068c/67c94c998be9ec2f58eb1579/v1.3.json\"\r\n}",
+							"raw": "{\r\n    \"old_path\": \"67c273401fb713deae4b068c/script/67c94c998be9ec2f58eb1579/v1.2.json\",\r\n    \"new_path\": \"67c273401fb713deae4b068c/67c94c998be9ec2f58eb1579/v1.3.json\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -793,7 +807,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzA3NzU0OSwiZXhwIjoxNzQzMDgxMTQ5fQ.z3oNGazodf7kxoxK5KIouZmnms-WPUJ0uEoT4D8nXPU",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MDQwMSwiZXhwIjoxNzQ0MzQ0MDAxfQ.ivixInYQK0lLMsR_Q245HYTRoJQeY-1dGqh78_HOLww",
 											"type": "string"
 										}
 									]
@@ -1072,7 +1086,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzU1Nzk0MiwiZXhwIjoxNzQzNTYxNTQyfQ.Uh5CEl7Z_gSQzSlxujx7aN8r4FALoj3pBX0Zhalds4k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDI3NjAwMCwiZXhwIjoxNzQ0Mjc5NjAwfQ.C_cqS9Mg2MmJyPJQEOV00od5rKr-Mm27JaI0iW63C8k",
 									"type": "string"
 								}
 							]
@@ -1116,7 +1130,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDI3NjAwMCwiZXhwIjoxNzQ0Mjc5NjAwfQ.C_cqS9Mg2MmJyPJQEOV00od5rKr-Mm27JaI0iW63C8k",
 									"type": "string"
 								}
 							]
@@ -1151,7 +1165,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzU1Nzk0MiwiZXhwIjoxNzQzNTYxNTQyfQ.Uh5CEl7Z_gSQzSlxujx7aN8r4FALoj3pBX0Zhalds4k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDI3NjAwMCwiZXhwIjoxNzQ0Mjc5NjAwfQ.C_cqS9Mg2MmJyPJQEOV00od5rKr-Mm27JaI0iW63C8k",
 									"type": "string"
 								}
 							]
@@ -1954,7 +1968,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTQ0OTYzMiwiZXhwIjoxNzQxNDUzMjMyfQ.J12oQXQKmTey-OlgZ8CzwQnBiWt4Edy847-KUeGrSTc",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MTY5MCwiZXhwIjoxNzQ0MzQ1MjkwfQ.p5P6n7SEysOK1CxaSbKjX8mQvRC8mm-tSoMJ4c9zIgY",
 									"type": "string"
 								}
 							]
@@ -1988,7 +2002,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDA3OTM2NywiZXhwIjoxNzQ0MDgyOTY3fQ.F3YI38BSUc-GmHnKF4zCfEtvapUnhUj6e6v5iLeXOk0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MTY5MCwiZXhwIjoxNzQ0MzQ1MjkwfQ.p5P6n7SEysOK1CxaSbKjX8mQvRC8mm-tSoMJ4c9zIgY",
 									"type": "string"
 								}
 							]
@@ -2108,12 +2122,19 @@
 					"name": "Get notification sent to a user",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDEyMzE3NCwiZXhwIjoxNzQ0MTI2Nzc0fQ.ym1iHiQ2_h6QNtoTOUL7JxTkYXvGU5w1V4PcrmlBQMg",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/notification/:userId?notifyId=67da44f5757caa91dba509ec",
+							"raw": "{{be-server}}/notification/:userId?notifyId=67da4457757caa91dba509d5",
 							"host": [
 								"{{be-server}}"
 							],
@@ -2124,7 +2145,7 @@
 							"query": [
 								{
 									"key": "notifyId",
-									"value": "67da44f5757caa91dba509ec"
+									"value": "67da4457757caa91dba509d5"
 								}
 							],
 							"variable": [
@@ -2322,7 +2343,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MjE5NzIxOCwiZXhwIjoxNzQyMjAwODE4fQ.yC8-tRPkPnf0bT2jxlwvH84GLMpjCZ8AwHO_eUCKC3I",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphamEiLCJzdWIiOiI2N2MyNzMwYjFmYjcxM2RlYWU0YjA2ODkiLCJpYXQiOjE3NDQxMDcyMzIsImV4cCI6MTc0NDExMDgzMn0.Kv5lazQW2gfmMaSCfg7UM_2fmLKrg0_ckyO5PJNVWs4",
 									"type": "string"
 								}
 							]

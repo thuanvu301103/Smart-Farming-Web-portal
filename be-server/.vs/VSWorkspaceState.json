@@ -4,9 +4,11 @@
     "\\src",
     "\\src\\database",
     "\\src\\modules",
+    "\\src\\modules\\activities",
     "\\src\\modules\\models",
+    "\\src\\modules\\scripts",
     "\\test"
   ],
-  "SelectedNode": "\\src\\modules\\models\\models.service.ts",
+  "SelectedNode": "\\src\\modules\\activities\\activities.service.ts",
   "PreviewInSolutionExplorer": false
 }
