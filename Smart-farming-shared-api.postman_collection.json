@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "02067607-eb54-4b49-b820-0fe028c94e7b",
+		"name": "Smart-farming-shared-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31365044"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"KatBOT\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/api/auth/login",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "scrips",
+			"item": [
+				{
+					"name": "Search for scripts",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/api/scripts?limit=10&page=1&locations=da-nang&locations=ha-noi&plant_types=cam&plant_types=dua-hau&sortBy=createdAt&order=asc",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"api",
+								"scripts"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Limit of Script for each response"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Curent page number for search"
+								},
+								{
+									"key": "locations",
+									"value": "da-nang",
+									"description": "Location Filter"
+								},
+								{
+									"key": "locations",
+									"value": "ha-noi",
+									"description": "Location Filter"
+								},
+								{
+									"key": "plant_types",
+									"value": "cam",
+									"description": "Plant type Filter"
+								},
+								{
+									"key": "plant_types",
+									"value": "dua-hau",
+									"description": "Plant type Filter"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"description": "Sort field's name"
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"description": "Sort Order (asc/desc)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get info of a script",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/api/scripts/:scriptId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"api",
+								"scripts",
+								":scriptId"
+							],
+							"variable": [
+								{
+									"key": "scriptId",
+									"value": "67f88ac799a2a6150ca64bae"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Script's version file",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/api/scripts/:scriptId/files/:version",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"api",
+								"scripts",
+								":scriptId",
+								"files",
+								":version"
+							],
+							"variable": [
+								{
+									"key": "scriptId",
+									"value": "67f88ac799a2a6150ca64bae"
+								},
+								{
+									"key": "version",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

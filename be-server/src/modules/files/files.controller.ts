@@ -74,7 +74,7 @@ export class FilesController {
         @Res() res,
     ) {
         const buffer = await this.filesService.getFileContent(filePath);
-        const filename = filePath.split('/').pop() || 'file.csv';
+        const filename = filePath.split('/').pop() || 'file.json';
         res.set({
             'Content-Type': 'json',
             'Content-Disposition': `attachment; filename=${filename}`,
