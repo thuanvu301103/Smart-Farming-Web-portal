@@ -12,6 +12,7 @@ import { NotificationGateway } from './gateway/notify/notify.gateway';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ActivitiesModule } from './modules/activities/activities.module';
+import { ApiModule } from './modules/api/api.module';
 
 @Module({
   imports: [
@@ -19,16 +20,19 @@ import { ActivitiesModule } from './modules/activities/activities.module';
         isGlobal: true,
         ignoreEnvFile: process.env.NODE_ENV === 'production',
         envFilePath: '.env',
-    }), // Import ConfigModule at the root level
-    DatabaseModule,
-    ScriptsModule,
-    UsersModule,
-    FilesModule,
-    ModelsModule,
-    CommentsModule,
-    NotificationsModule,
-    NotificationGateway,
-    AuthModule,
+    }),
+      // For Outsider call
+      ApiModule,
+      // Import ConfigModule at the root level
+        DatabaseModule,
+        ScriptsModule,
+        UsersModule,
+        FilesModule,
+        ModelsModule,
+        CommentsModule,
+        NotificationsModule,
+        NotificationGateway,
+        AuthModule,
         ActivitiesModule,
   ],
   controllers: [AppController],
