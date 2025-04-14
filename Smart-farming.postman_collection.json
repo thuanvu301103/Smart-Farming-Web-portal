@@ -1517,7 +1517,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzM5NzIxOCwiZXhwIjoxNzQzNDAwODE4fQ.-RhWVAF_YYaG_srzzQujq8mNb9ajq1QpgSQ7cdBH0vk",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDU5Mzg3MywiZXhwIjoxNzQ0NTk3NDczfQ.l_1HOUFqZFUefArTrqndBzFZiuqWOzVmVSsWTXHCMow",
 									"type": "string"
 								}
 							]
@@ -1525,7 +1525,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/models/get-schedule-plan?start_date=2025-03-31&end_date=2025-03-31",
+							"raw": "{{be-server}}/:userId/models/get-schedule-plan?end_date=2025-04-16&modelId=67ec95ec0d25ffd98f583261",
 							"host": [
 								"{{be-server}}"
 							],
@@ -1536,12 +1536,13 @@
 							],
 							"query": [
 								{
-									"key": "start_date",
-									"value": "2025-03-31"
+									"key": "end_date",
+									"value": "2025-04-16"
 								},
 								{
-									"key": "end_date",
-									"value": "2025-03-31"
+									"key": "modelId",
+									"value": "67ec95ec0d25ffd98f583261",
+									"description": "Optional"
 								}
 							],
 							"variable": [
