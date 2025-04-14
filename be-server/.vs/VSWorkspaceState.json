@@ -2,12 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\database",
+    "\\src\\dto",
     "\\src\\modules",
     "\\src\\modules\\files",
     "\\src\\modules\\models",
     "\\src\\modules\\scripts",
     "\\test"
   ],
+  "SelectedNode": "\\src\\modules\\models\\models.controller.ts",
   "PreviewInSolutionExplorer": false
 }
