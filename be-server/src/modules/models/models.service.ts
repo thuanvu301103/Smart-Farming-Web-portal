@@ -60,6 +60,8 @@ export class ModelsService {
                 description: response.data.registered_model.description,
             });
 
+            await this.activitiesService.createActivity("create_model", userId, savedModel._id.toString());
+
             return { mlflow: response.data, db: savedModel };
         } catch (error) {
             if (error.response) {
