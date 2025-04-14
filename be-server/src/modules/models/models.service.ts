@@ -60,6 +60,8 @@ export class ModelsService {
                 description: response.data.registered_model.description,
             });
 
+            await this.activitiesService.createActivity("create_model", userId, savedModel._id.toString());
+
             return { mlflow: response.data, db: savedModel };
         } catch (error) {
             if (error.response) {
@@ -353,9 +355,16 @@ export class ModelsService {
         return existingModel;
     }
 
-    async getModelSchedulePlan(userId: string, startTime: Date, endTime: Date) {
+    async getModelSchedulePlan(userId: string, modelId: string, startTime: Date, endTime: Date) {
+        const query = {
+            owner_id: new Types.ObjectId(userId),
+            enableSchedule: true,
+        };
+        if (modelId) {
+            query["_id"] = new Types.ObjectId(modelId);
+        }
         // Get all models of the user
-        const models = await this.modelModel.find({ owner_id: new Types.ObjectId(userId) })
+        const models = await this.modelModel.find(query)
             .select("_id name description schedule").exec()
         //console.log("Models: ", models);
         let occurrences = [];
@@ -365,8 +374,8 @@ export class ModelsService {
                 //console.log("Interval: ", interval);
                 while (true) {
                     let nextTime = interval.next().toDate();
-                    console.log("Next time: ", nextTime);
-                    console.log("End time: ", endTime);
+                    //console.log("Next time: ", nextTime);
+                    //console.log("End time: ", endTime);
 
                     if (nextTime > endTime) break;
                     occurrences.push({ time: nextTime, model_id: _id, name: name, description: description });

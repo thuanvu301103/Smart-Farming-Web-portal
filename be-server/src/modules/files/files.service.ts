@@ -1,8 +1,9 @@
-﻿import { Injectable } from '@nestjs/common';
+﻿import { Injectable, NotFoundException } from '@nestjs/common';
 import * as ftp from 'basic-ftp';
 import { ConfigService } from '@nestjs/config';
 import * as path from 'path';
 import * as fs from 'fs-extra';
+import { Writable, Readable } from 'stream';
 
 @Injectable()
 export class FilesService {
@@ -12,28 +13,29 @@ export class FilesService {
     private ftpPassword: string;
     private ftpSecure: boolean;
     private ftpUploadDir: string;
-    private queue: any;
+    //private queue: any;
 
     constructor(private readonly configService: ConfigService) {
-        this.ftpClient = new ftp.Client();
-        this.ftpClient.ftp.verbose = true; // Enable logs for debugging
-        // Load FTP credentials from .env
+        //this.ftpClient = new ftp.Client();
+        //this.ftpClient.ftp.verbose = true; // Enable logs for debugging
         this.ftpHost = this.configService.get<string>('FTP_HOST');
         this.ftpUser = this.configService.get<string>('FTP_USER');
         this.ftpPassword = this.configService.get<string>('FTP_PASSWORD');
         this.ftpSecure = this.configService.get<boolean>('FTP_SECURE') || false;
         this.ftpUploadDir = this.configService.get<string>('FTP_UPLOAD_DIR') || '/uploads';
-        this.queue = Promise.resolve()
+        //this.queue = Promise.resolve()
     }
 
     async connectToFTP() {
-        await this.ftpClient.access({
+        const newFtpClient = new ftp.Client();
+        //console.log(`✅ Connected to FTP: ${this.ftpHost}`);
+        await newFtpClient.access({
             host: this.ftpHost,
             user: this.ftpUser,
             password: this.ftpPassword,
             secure: this.ftpSecure,
         });
-        //console.log(`✅ Connected to FTP: ${this.ftpHost}`);
+        return newFtpClient;
     }
 
     private generateNewFilename(originalname: string): string {
@@ -41,76 +43,64 @@ export class FilesService {
     }
 
     async uploadFilesToFTP(files: Express.Multer.File[], remote_path: string) {
-        this.queue = this.queue.then(async () => {
-            try {
-                await this.connectToFTP();
-
-                // Ensure remote directory exists
-                //await this.ftpClient.ensureDir(this.ftpUploadDir);
-                await this.ftpClient.ensureDir(remote_path);
-
-                for (const file of files) {
-                    const localPath = path.join(__dirname, "./../uploads", file.filename);
-                    //const remotePath = `${this.ftpUploadDir}/${file.originalname}`;
+        const connect = await this.connectToFTP();
+        try {
+            
+            // Ensure remote directory exists
+            await connect.ensureDir(remote_path);
+            for (const file of files) {
                     const remotePath = `${remote_path}/${file.originalname}`;
-
-                    // Upload file to FTP
-                    await this.ftpClient.uploadFrom(localPath, remotePath);
-                    //console.log(`✅ Uploaded: ${file.originalname} to ${remotePath}`);
-
-                    // Delete local file after upload
-                    await fs.remove(localPath);
-                    //console.log(`🗑️ Deleted local file: ${file.originalname}`);
-                }
-
-                this.ftpClient.close();
-                //console.log("✅ All files uploaded and deleted successfully");
-            } catch (error) {
-                console.error("❌ FTP Upload Error:", error);
-                this.ftpClient.close();
-                throw new Error("FTP Upload Failed");
+                    await connect.uploadFrom(Readable.from(file.buffer), remotePath);
             }
-        });
+                //console.log("✅ All files uploaded and deleted successfully");
+        } catch (error) {
+            connect.close();
+                console.error("❌ FTP Upload Error:", error);
+                throw new Error("FTP Upload Failed");
+        }
+        connect.close();
        
     }
 
     // Delete a file from FTP Server
     async deleteFileFromFTP(remoteFilePath: string): Promise<void> {
-        try {
-            // Connect to FTP Server
-            await this.connectToFTP();
-
+        const connect = await this.connectToFTP();
+        const exists = await this.checkFileExists(remoteFilePath, connect);
+        //console.log("Exist: ", exists);
+        if (!exists) {
+            connect.close();
+            throw new NotFoundException(`File not found: ${remoteFilePath}`);
+        }
+        try {   
             // Delete the file from FTP
-            await this.ftpClient.remove(remoteFilePath);
-            console.log(`✅ Deleted file: ${remoteFilePath}`);
+            await connect.remove(remoteFilePath);
         } catch (error) {
             console.error("❌ Error deleting file:", error);
             throw new Error("File deletion failed");
         } finally {
-            this.ftpClient.close();
+            connect.close();
         }
     }
 
     // delete a folder and its contents
     async deleteFolderAndContents(remoteFolderPath: string): Promise<void> {
+        const connect = await this.connectToFTP();
         try {
-            // Connect to FTP Server
-            await this.connectToFTP();
-            await this.deleteFolderAndContentsRecur(remoteFolderPath);
+            await this.deleteFolderAndContentsRecur(remoteFolderPath, connect);
         } catch (error) {
             console.error("❌ Error deleting folder and its contents:", error);
             throw new Error("Folder deletion failed");
         } finally {
-            this.ftpClient.close();
+            connect.close();
         }
     }
 
     // Recursively delete a folder and its contents
-    async deleteFolderAndContentsRecur(remoteFolderPath: string): Promise<void> {
+    async deleteFolderAndContentsRecur(remoteFolderPath: string, ftpConnect): Promise<void> {
         try {
 
             // List the contents of the folder
-            const fileList = await this.ftpClient.list(remoteFolderPath);
+            const fileList = await ftpConnect.list(remoteFolderPath);
 
             // Iterate through each file/folder in the directory
             for (const file of fileList) {
@@ -118,17 +108,17 @@ export class FilesService {
 
                 if (file.isDirectory) {
                     // If the item is a folder, recursively delete its contents first
-                    await this.deleteFolderAndContentsRecur(currentPath);
+                    await this.deleteFolderAndContentsRecur(currentPath, ftpConnect);
                 } else {
                     // If the item is a file, delete it
-                    await this.ftpClient.remove(currentPath);
+                    await ftpConnect.remove(currentPath);
                     console.log(`✅ Deleted file: ${currentPath}`);
                 }
             }
 
             // After deleting all files and subdirectories, remove the directory itself
-            await this.ftpClient.removeDir(remoteFolderPath);
-            console.log(`✅ Deleted folder: ${remoteFolderPath}`);
+            await ftpConnect.removeDir(remoteFolderPath);
+            //console.log(`✅ Deleted folder: ${remoteFolderPath}`);
         } catch (error) {
             console.error("❌ Error deleting folder and its contents:", error);
             throw new Error("Folder deletion failed");
@@ -158,67 +148,61 @@ export class FilesService {
 
     // Rename a file
     async renameFile(oldFilePath: string, newFilePath: string) {
-        this.queue = this.queue.then(async () => {
+        const connect = await this.connectToFTP();
             try {
-                // Connect to FTP Server
-                await this.connectToFTP();
-                await this.ftpClient.rename(oldFilePath, newFilePath);
-                console.log(`✅ Rename ${oldFilePath}:`, newFilePath);
+                await connect.rename(oldFilePath, newFilePath);
+                //console.log(`✅ Rename ${oldFilePath}:`, newFilePath);
                 return { message: "Renaming file successed" }
 
             } catch (error) {
-                console.error("❌ Error renaming file:", error);
+                //console.error("❌ Error renaming file:", error);
                 throw new Error("Failed to get rename");
             } finally {
-                this.ftpClient.close();
+                connect.close();
             }
-        });
+        //});
     }
 
     // Get file content from FTP
     async getFileContent(filePath: string): Promise<string | Buffer> {
-        // Queue request do that no client req session conflict can occur
-        this.queue = this.queue.then(async () => {
-            return await this.fetchFile(filePath);
-        });
-
-        return this.queue;
+        const connect = await this.connectToFTP();
+        return await this.fetchFile(filePath, connect);
     }
 
-    private async fetchFile(filePath: string): Promise<string | Buffer> {
+    private async fetchFile(filePath: string, ftpConnect): Promise<string | Buffer> {
         try {
-            await this.connectToFTP();
-            const localPath = path.join(__dirname, "./../downloads");
+            const chunks: Buffer[] = [];
             // Check file exist
-            const exists = await this.checkFileExists(filePath);
-            console.log("Exist: ", exists);
+            const exists = await this.checkFileExists(filePath, ftpConnect);
+            //console.log("Exist: ", exists);
             if (!exists) {
-                this.ftpClient.close();
-                return;
+                ftpConnect.close();
                 throw new Error(`File not found: ${filePath}`);
             }
-
-            await this.ftpClient.downloadTo(localPath, filePath);
-            const content = await fs.readFile(localPath, "utf8");
-            await fs.remove(localPath);
-
-            return content;
+            const writable = new Writable({
+                write(chunk, _, cb) {
+                    chunks.push(chunk);
+                    cb();
+                },
+            });
+            await ftpConnect.download(writable, filePath);
+            return Buffer.concat(chunks);
 
         } catch (error) {
             console.error("❌ Error fetching file:", error);
-            throw new Error("Failed to fetch file");
+            throw new Error('Fail to fetch file');
         } finally {
-            this.ftpClient.close();
+            ftpConnect.close();
         }
       
     }
 
-    private async checkFileExists(filePath: string): Promise<boolean> {
+    private async checkFileExists(filePath: string, ftpConnect): Promise<boolean> {
         try {
             const dirPath = path.dirname(filePath);
             const fileName = path.basename(filePath);
             //console.log("dirPath: ", dirPath, "; filePath: ", filePath);
-            const fileList: ftp.FileInfo[] = await this.ftpClient.list(dirPath);
+            const fileList: ftp.FileInfo[] = await ftpConnect.list(dirPath);
             //console.log(fileList);
             return fileList.some(file => file.name === fileName);
         } catch (error) {

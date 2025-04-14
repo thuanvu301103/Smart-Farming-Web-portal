@@ -5,9 +5,12 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { ActivitiesService } from "../activities/activities.service";
+// Schema
 import { Script } from '../../schemas/scripts.schema';
 import { Share } from '../../schemas/share.schema';
 import { User } from '../../schemas/users.schema';
+// DTO
+import { ScriptQueryDto } from '../../dto/scripts.dto';
 
 @Injectable()
 export class ScriptsService {
@@ -50,6 +53,12 @@ export class ScriptsService {
         const searchRes = await this.shareModel.find({ script_id: new Types.ObjectId(scriptId) }).select("user_id").exec();
         const userIds = searchRes.map(obj => obj.user_id);
         return userIds;
+    }
+
+    // Get owner of a script
+    async getOwner(scriptId: string) {
+        const searchRes = await this.scriptModel.findById(scriptId).select("owner_id").exec();
+        return searchRes.owner_id;
     }
 
     // Set Script's share users
@@ -111,6 +120,48 @@ export class ScriptsService {
         const result = this.scriptModel.find({ location: { $in: locations } })
             .select('name description privacy').lean().exec();
         return result;
+    }
+
+    // Search Scripts
+    async searchScripts(query: ScriptQueryDto) {
+        const {
+            page, limit,
+            sortBy, order,
+            locations,
+            plant_types
+        } = query;
+
+        //console.log(locations, plant_types);
+        const filter: any = {};
+
+        if (locations?.length) {
+            filter.location = { $in: locations };
+        }
+
+        if (plant_types?.length) {
+            filter.plant_type = { $in: plant_types };
+        }
+
+        const sortOrder = order === 'asc' ? 1 : -1;
+        const skip = (page - 1) * limit;
+
+        const [data, total] = await Promise.all([
+            this.scriptModel
+                .find(filter)
+                .sort({ [sortBy]: sortOrder })
+                .skip(skip)
+                .limit(limit)
+                .exec(),
+
+            this.scriptModel.countDocuments(filter),
+        ]);
+
+        return {
+            data,
+            total,
+            page,
+            totalPages: Math.ceil(total / limit),
+        };
     }
 
     // Get popular and public scripts if a user
@@ -198,7 +249,6 @@ export class ScriptsService {
         }
 
         const sharedUserIds = await this.getSharedUsers(scriptId);
-        console.log(sharedUserIds);
         // Find users related to `share_id`
         const sharedUsers = await this.userModel.find(
             { _id: { $in: sharedUserIds || [] } }, // Handle case where `share_id` is undefined
@@ -211,6 +261,22 @@ export class ScriptsService {
 
         // Replace share_id with detailed user info
         return { ...result, share_id: sharedUsers, isFavorite: userFav.includes(new Types.ObjectId(scriptId)) };
+    }
+
+    async getScriptv2(scriptId: string) {
+        // Find the script by ID
+        const result = await this.scriptModel.findOne({ _id: new Types.ObjectId(scriptId) }).lean().exec();
+
+        // Check if script exists
+        if (!result) {
+            throw new NotFoundException(`Script not found`);
+        }
+
+        if (result.privacy === "private") {
+            throw new UnauthorizedException(`Not allowed to access this script`);
+        }
+
+        return result;
     }
 
     // Update script

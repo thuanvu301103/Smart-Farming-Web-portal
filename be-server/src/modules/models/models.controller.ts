@@ -154,7 +154,7 @@ export class ModelsController {
     @UseGuards(JwtAuthGuard)
     async getModelSchedulePlan(
         @Param('userId') userId: string,
-        @Query('start_date') startDate: string,
+        @Query('modelId') modelId: string,
         @Query('end_date') endDate: string,
         @Req() req
     ) {
@@ -162,18 +162,22 @@ export class ModelsController {
         if (currentUserId !== userId) {
             throw new ForbiddenException('You can only get schedule your own models.');
         }
-        if (!(await this.isValidDate(startDate)) || !(await this.isValidDate(endDate))) {
-            throw new BadRequestException('Invalid start_date or end_date');
+        if (modelId && !Types.ObjectId.isValid(modelId)) {
+            throw new BadRequestException('Invalid modelId');
         }
-        const startTime = new Date(startDate);
-        startTime.setHours(0, 0, 0, 0);
+        if (!await this.isValidDate(endDate)) {
+        //if (!(await this.isValidDate(startDate)) || !(await this.isValidDate(endDate))) {
+            throw new BadRequestException('Invalid end_date format');
+        }
+        const currTime = new Date();
+        //currTime.setHours(0, 0, 0, 0);
         const endTime = new Date(endDate);
         endTime.setHours(23, 59, 59, 999);
-        if (startTime > endTime) {
-            throw new BadRequestException('Invalid date range. start_date must be before or equal to end_date.');
+        if (currTime > endTime) {
+            throw new BadRequestException('Invalid end_date. end_date must be after or equal to current date time.');
         }
         
-        return this.modelsService.getModelSchedulePlan(userId, startTime, endTime);
+        return this.modelsService.getModelSchedulePlan(userId, modelId, currTime, endTime);
     }
 
     @Patch('set-enable-schedule')
