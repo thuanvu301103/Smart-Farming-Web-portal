@@ -80,48 +80,52 @@ export class ScriptsService {
     }
 
     // Find all scripts of a user
-    async findAllScripts(userId: string, currentUserId: string):
-        Promise<{
-            name: string;
-            description: string;
-            privacy: string;
-            favorite: number;
-            location: string[];
-            plant_type: string[];
-            isFavorite: boolean
-        }[]>
+    async findAllScripts(userId: string, currentUserId: string, query: ScriptQueryDto)
     {
+        const {
+            page, limit,
+            sortBy, order,
+            locations,
+            plant_types
+        } = query;
         // Get favorite_scripts of currentUser
         const user = await this.userModel.findById(currentUserId).select('favorite_scripts').lean();
         const favoriteScripts = user?.favorite_scripts || [];
         // Search Condition
         const filterCondition: any = { owner_id: new Types.ObjectId(userId) };
+        if (locations?.length) {
+            filterCondition.location = { $in: locations };
+        }
+
+        if (plant_types?.length) {
+            filterCondition.plant_type = { $in: plant_types };
+        }
         //console.log(currentUserId, userId, userId == currentUserId);
         if (currentUserId !== userId) {
             filterCondition.privacy = "public";
         }
 
+        const sortOrder = order === 'asc' ? 1 : -1;
+        const skip = (page - 1) * limit;
         const scripts = await this.scriptModel.find(filterCondition)
             .select('_id name description owner_id privacy favorite location plant_type updatedAt createdAt')
-            .lean()
+            .sort({ [sortBy]: sortOrder })
+            .skip(skip)
+            .limit(limit).lean()
             .exec();
 
-        return scripts.reverse().map(script => ({
+        const data = scripts.reverse().map(script => ({
             ...script,
             isFavorite: favoriteScripts.some(fav => fav.toString() === script._id.toString())
         }));
-    }
 
-    // Find all script with locations
-    async findScriptsByLocations(locations: string[]):
-        Promise<{
-            name: string;
-            description: string;
-            privacy: string
-        }[]> {
-        const result = this.scriptModel.find({ location: { $in: locations } })
-            .select('name description privacy').lean().exec();
-        return result;
+        const total = await this.scriptModel.countDocuments(filterCondition);
+        return {
+            data,
+            total,
+            page,
+            totalPages: Math.ceil(total / limit),
+        };
     }
 
     // Search Scripts
