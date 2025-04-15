@@ -1,5 +1,5 @@
 import {
-    Controller, Get, Post, Put, Delete, Body, Param, Query, Req, UseGuards,
+    Controller, Get, Post, Put, Patch, Delete, Body, Param, Query, Req, UseGuards,
     ForbiddenException, BadRequestException, 
 } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
@@ -123,5 +123,83 @@ export class ScriptsController {
             throw new ForbiddenException('You can only delete your own script.');
         }
         return await this.scriptsService.deleteScript(scriptId);
+    }
+
+    /* ========== Rating ========== */
+    @Get(':scriptId/total-rate')
+    @UseGuards(JwtAuthGuard)
+    async getScriptRate(
+        @Param('userId') userId: string,
+        @Param('scriptId') scriptId: string,
+        @Req() req
+    ):
+        Promise<any> {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
+        if (!Types.ObjectId.isValid(scriptId)) {
+            throw new BadRequestException('Invalid scriptId');
+        }
+        const currentUserId = req.user.userId;
+        return this.scriptsService.getScriptRate(scriptId);
+    }
+
+    @Get(':scriptId/rate')
+    @UseGuards(JwtAuthGuard)
+    async getRate(
+        @Param('userId') userId: string,
+        @Param('scriptId') scriptId: string,
+        @Req() req
+    ):
+        Promise<any> {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
+        if (!Types.ObjectId.isValid(scriptId)) {
+            throw new BadRequestException('Invalid scriptId');
+        }
+        const currentUserId = req.user.userId;
+        if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
+        return this.scriptsService.getRate(userId, scriptId);
+    }
+
+    @Post(':scriptId/rate')
+    @UseGuards(JwtAuthGuard)
+    async createRate(
+        @Param('userId') userId: string,
+        @Param('scriptId') scriptId: string,
+        @Body() data: {rate: number},
+        @Req() req
+    ):
+        Promise<any> {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
+        if (!Types.ObjectId.isValid(scriptId)) {
+            throw new BadRequestException('Invalid scriptId');
+        }
+        const currentUserId = req.user.userId;
+        if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
+        return this.scriptsService.createRate(userId, scriptId, data.rate);
+    }
+
+    @Patch(':scriptId/rate')
+    @UseGuards(JwtAuthGuard)
+    async updateRate(
+        @Param('userId') userId: string,
+        @Param('scriptId') scriptId: string,
+        @Body() data: { rate: number },
+        @Req() req
+    ):
+        Promise<any> {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
+        if (!Types.ObjectId.isValid(scriptId)) {
+            throw new BadRequestException('Invalid scriptId');
+        }
+        const currentUserId = req.user.userId;
+        if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
+        return this.scriptsService.updateRate(userId, scriptId, data.rate);
     }
 }
