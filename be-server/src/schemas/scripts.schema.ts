@@ -64,6 +64,9 @@ ScriptSchema.pre('deleteOne', { document: true, query: false }, async function (
     // Delete all related shares
     const shareModel = this.model('Share');
     await shareModel.deleteMany({ script_id: script._id });
+    // Delete all related rates
+    const rateModel = this.model('Rate');
+    await rateModel.deleteMany({ script_id: script._id });
     next();
 });
 
