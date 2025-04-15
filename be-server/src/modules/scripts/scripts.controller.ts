@@ -202,4 +202,24 @@ export class ScriptsController {
         if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
         return this.scriptsService.updateRate(userId, scriptId, data.rate);
     }
+
+    @Delete(':scriptId/rate')
+    @UseGuards(JwtAuthGuard)
+    async deleteRate(
+        @Param('userId') userId: string,
+        @Param('scriptId') scriptId: string,
+        @Req() req
+    ):
+        Promise<any> {
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
+        if (!Types.ObjectId.isValid(scriptId)) {
+            throw new BadRequestException('Invalid scriptId');
+        }
+        const currentUserId = req.user.userId;
+        if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
+        return this.scriptsService.deleteRate(userId, scriptId);
+    }
+
 }

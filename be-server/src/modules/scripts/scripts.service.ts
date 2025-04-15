@@ -374,6 +374,7 @@ export class ScriptsService {
         return rateObj;
     }
 
+    // Update Rate
     async updateRate(userId: string, scriptId: string, rate: number) {
         const script = await this.scriptModel.findById(scriptId).exec()
         if (!script) throw new NotFoundException("Script does not exist");
@@ -406,5 +407,15 @@ export class ScriptsService {
             { new: true }
         ).exec();
         return rateObj;
+    }
+
+    // Delete Rate
+    async deleteRate(userId: string, scriptId: string) {
+        const rateDoc = await this.rateModel.findOne({
+            user_id: new Types.ObjectId(userId),
+            script_id: new Types.ObjectId(scriptId),
+        }).exec();
+        if (!rateDoc) throw new NotFoundException("User has not rated this script");
+        await rateDoc.deleteOne();
     }
 }
