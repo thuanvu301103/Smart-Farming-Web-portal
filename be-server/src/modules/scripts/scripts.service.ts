@@ -8,6 +8,7 @@ import { ActivitiesService } from "../activities/activities.service";
 // Schema
 import { Script } from '../../schemas/scripts.schema';
 import { Share } from '../../schemas/share.schema';
+import { Rate } from '../../schemas/rate.schema';
 import { User } from '../../schemas/users.schema';
 // DTO
 import { ScriptQueryDto } from '../../dto/scripts.dto';
@@ -18,6 +19,7 @@ export class ScriptsService {
         @InjectModel(Script.name) private scriptModel: Model<Script>,
         @InjectModel(User.name) private readonly userModel: Model<User>,
         @InjectModel(Share.name) private readonly shareModel: Model<Share>,
+        @InjectModel(Rate.name) private readonly rateModel: Model<Rate>,
         @Inject(forwardRef(() => ActivitiesService)) private readonly activitiesService: ActivitiesService,
     ) { }
 
@@ -327,5 +329,82 @@ export class ScriptsService {
             console.error('Error deleting script:', error);
             return { success: false, message: 'Error deleting document' };
         }
+    }
+
+    /* ========== Rate ========== */
+
+    // Get total rate
+    async getScriptRate(scriptId: string) {
+        const rate = await this.scriptModel.findById(scriptId).select("rating").exec();
+        if (!rate) throw new NotFoundException("Cannot find script");
+        return rate;
+    }
+
+    // Get rate
+    async getRate(userId: string, scriptId: string) {
+        const rate = await this.rateModel.find({
+            user_id: new Types.ObjectId(userId),
+            script_id: new Types.ObjectId(scriptId),
+        }).exec();
+        if (rate.length === 0) {
+            throw new NotFoundException("There is no rate for this script from user");
+        }
+        return rate;
+    }
+
+    // Get rate
+    async createRate(userId: string, scriptId: string, rate: number) {
+        // If rate exisst then update
+        const oldRateObj = await this.rateModel.findOne({
+            user_id: new Types.ObjectId(userId),
+            script_id: new Types.ObjectId(scriptId),
+        }).exec();
+
+        if (oldRateObj) {
+            return this.updateRate(userId, scriptId, rate);
+        }
+
+        const script = await this.scriptModel.findById(scriptId).exec()
+        if (!script) throw new NotFoundException("Script does not exist");
+        const rateObj = await this.rateModel.create({
+            user_id: new Types.ObjectId(userId),
+            script_id: new Types.ObjectId(scriptId),
+            rate: rate
+        })
+        return rateObj;
+    }
+
+    async updateRate(userId: string, scriptId: string, rate: number) {
+        const script = await this.scriptModel.findById(scriptId).exec()
+        if (!script) throw new NotFoundException("Script does not exist");
+        const oldRateObj = await this.rateModel.findOne({
+            user_id: new Types.ObjectId(userId),
+            script_id: new Types.ObjectId(scriptId),
+        }).select('rate').exec();
+        const oldRate = oldRateObj.rate;
+
+        const rateObj = await this.rateModel.findOneAndUpdate({
+            user_id: new Types.ObjectId(userId),
+            script_id: new Types.ObjectId(scriptId),
+        },
+            {
+                $set: { rate: rate },
+            },
+            { new: true }).exec();
+        const { count, avg } = script.rating;
+
+        const total = avg * count - oldRate + rate;
+        const newAvg = total / count;
+
+        await this.scriptModel.findByIdAndUpdate(
+            scriptId,
+            {
+                $set: {
+                    'rating.avg': newAvg,
+                },
+            },
+            { new: true }
+        ).exec();
+        return rateObj;
     }
 }
