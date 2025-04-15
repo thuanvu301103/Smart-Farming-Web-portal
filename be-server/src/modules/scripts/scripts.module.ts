@@ -6,6 +6,7 @@ import { UsersModule } from "../users/users.module";
 import { ActivitiesModule } from "../activities/activities.module";
 import { Script, ScriptSchema } from '../../schemas/scripts.schema';
 import { Share, ShareSchema } from '../../schemas/share.schema';
+import { Rate, RateSchema } from '../../schemas/rate.schema';
 
 @Module({
     imports: [
@@ -13,7 +14,8 @@ import { Share, ShareSchema } from '../../schemas/share.schema';
         forwardRef(() => UsersModule),
         MongooseModule.forFeature([
             { name: Script.name, schema: ScriptSchema },
-            { name: Share.name, schema: ShareSchema }
+            { name: Share.name, schema: ShareSchema },
+            { name: Rate.name, schema: RateSchema },
         ]),
     ],
     providers: [ScriptsService],

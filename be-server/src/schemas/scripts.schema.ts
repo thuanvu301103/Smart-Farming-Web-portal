@@ -34,6 +34,18 @@ export class Script extends Document {
     @Prop({ default: 0 })
     favorite: number;
 
+    @Prop({
+        type: {
+            avg: { type: Number, default: 0 },
+            count: { type: Number, default: 0 }
+        },
+        default: () => ({ avg: 0, count: 0 })
+    })
+    rating: {
+        avg: number;
+        count: number;
+    };
+
     @Prop({type: [String]})
     location: string[];
 
