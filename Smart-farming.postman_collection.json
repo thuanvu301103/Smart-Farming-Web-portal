@@ -51,7 +51,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MTY5MCwiZXhwIjoxNzQ0MzQ1MjkwfQ.p5P6n7SEysOK1CxaSbKjX8mQvRC8mm-tSoMJ4c9zIgY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDcwMDQ0NiwiZXhwIjoxNzQ0NzA0MDQ2fQ.7Edo195jNwaxTU0ccQSeRtUACbim86PybyZSJkK49iY",
 									"type": "string"
 								}
 							]
@@ -59,7 +59,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/scripts/top",
+							"raw": "{{be-server}}/:userId/scripts/top?filterBy=rating",
 							"host": [
 								"{{be-server}}"
 							],
@@ -67,6 +67,13 @@
 								":userId",
 								"scripts",
 								"top"
+							],
+							"query": [
+								{
+									"key": "filterBy",
+									"value": "rating",
+									"description": "\"favorite\" or \"rating\""
+								}
 							],
 							"variable": [
 								{
@@ -2480,14 +2487,7 @@
 					"name": "Login",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4NTIyMywiZXhwIjoxNzQ0Njg4ODIzfQ.u4uXDmpkjgquDOtIy93QWHRe5pB3uGwyLHnCaqi8YW8",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [],

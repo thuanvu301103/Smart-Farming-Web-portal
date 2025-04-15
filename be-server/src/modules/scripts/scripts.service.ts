@@ -167,18 +167,25 @@ export class ScriptsService {
     }
 
     // Get popular and public scripts if a user
-    async getTopPublicScripts(userId: string, reqUserId: string) {
+    async getTopPublicScripts(userId: string, reqUserId: string, filterOption: string) {
         const userObjectId = new Types.ObjectId(userId);
-        const user = await this.userModel.findById(reqUserId).exec()
-        const topScripts = await this.scriptModel.aggregate([
+        const reqUser = await this.userModel.findById(reqUserId).exec();
+
+        // Xây dựng pipeline
+        const pipeline: any[] = [
             {
                 $match: {
                     privacy: "public",
                     owner_id: userObjectId
                 }
-            }, // Chỉ lấy các script của user và có privacy là "public"
-            { $sort: { like: -1 } }, // Sắp xếp theo số lượt like giảm dần
-            { $limit: 6 }, // Lấy tối đa 6 tài liệu
+            },
+            // Sắp xếp tùy theo filterOption
+            filterOption === "favorite"
+                ? { $sort: { like: -1 } }
+                : { $sort: { "rating.avg": -1 } },
+            // Giới hạn
+            { $limit: 6 },
+            // Lấy các trường cần thiết
             {
                 $project: {
                     name: 1,
@@ -186,15 +193,22 @@ export class ScriptsService {
                     owner_id: 1,
                     createdAt: 1,
                     updatedAt: 1,
+                    like: 1,
+                    rating: 1
                 }
             }
-        ]);
+        ];
+
+        const topScripts = await this.scriptModel.aggregate(pipeline).exec();
+
+        // Gắn isFavorite vào mỗi script
         return topScripts.map(script => {
-            const scriptId = new Types.ObjectId(script._id as string);
+            const scriptId = new Types.ObjectId(script._id);
+            const isFavorite = reqUser?.favorite_scripts?.some(fav => fav.equals(scriptId)) ?? false;
 
             return {
                 ...script,
-                isFavorite: user?.favorite_scripts?.some(fav => fav.equals(scriptId)) ?? false
+                isFavorite
             };
         });
     }
