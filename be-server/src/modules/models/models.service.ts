@@ -217,7 +217,7 @@ export class ModelsService {
         }
     }
 
-    // Get Latest Model Versions
+    // Get All Model Versions
     async getAllModelVersions(
         userId: string,
         name: string,

@@ -250,7 +250,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MDQwMSwiZXhwIjoxNzQ0MzQ0MDAxfQ.ivixInYQK0lLMsR_Q245HYTRoJQeY-1dGqh78_HOLww",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4ODE5OSwiZXhwIjoxNzQ0NjkxNzk5fQ.OKRPkWy7utpoivBExkD6n73HuYHoXnlshAY6sh9zBgk",
 									"type": "string"
 								}
 							]
@@ -274,7 +274,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "67c2730b1fb713deae4b0689"
+									"value": "67fdbb1c14023d2cf3d8823a"
 								}
 							]
 						}
@@ -369,7 +369,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4NTIyMywiZXhwIjoxNzQ0Njg4ODIzfQ.u4uXDmpkjgquDOtIy93QWHRe5pB3uGwyLHnCaqi8YW8",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDcwMDQ0NiwiZXhwIjoxNzQ0NzA0MDQ2fQ.7Edo195jNwaxTU0ccQSeRtUACbim86PybyZSJkK49iY",
 									"type": "string"
 								}
 							]
@@ -403,7 +403,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "67fdbb1c14023d2cf3d8823a"
+									"value": "67fb77476e8c9b0cc63877d8"
 								}
 							]
 						}
@@ -453,6 +453,46 @@
 								{
 									"key": "scriptId",
 									"value": "67fdbb1c14023d2cf3d8823a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Script's rate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDcwMDQ0NiwiZXhwIjoxNzQ0NzA0MDQ2fQ.7Edo195jNwaxTU0ccQSeRtUACbim86PybyZSJkK49iY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/rate",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"rate"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "scriptId",
+									"value": "67fb77476e8c9b0cc63877d8"
 								}
 							]
 						}
@@ -1343,7 +1383,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDI3NjAwMCwiZXhwIjoxNzQ0Mjc5NjAwfQ.C_cqS9Mg2MmJyPJQEOV00od5rKr-Mm27JaI0iW63C8k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4ODE5OSwiZXhwIjoxNzQ0NjkxNzk5fQ.OKRPkWy7utpoivBExkD6n73HuYHoXnlshAY6sh9zBgk",
 									"type": "string"
 								}
 							]
