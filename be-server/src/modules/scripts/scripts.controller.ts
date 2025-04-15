@@ -5,6 +5,8 @@ import {
 import { Model, Types } from 'mongoose';
 import { ScriptsService } from './scripts.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
+// DTO
+import { ScriptQueryDto, ScriptFileQueryDto } from '../../dto/scripts.dto';
 
 @Controller(':userId/scripts')
 export class ScriptsController {
@@ -12,6 +14,22 @@ export class ScriptsController {
         private readonly scriptsService: ScriptsService
     ) { }
 
+
+    @Get()
+    @UseGuards(JwtAuthGuard)
+    async findAllScripts(
+        @Param("userId") userId: string,
+        @Req() req,
+        @Query() query: ScriptQueryDto,
+    ) {
+        console.log(userId, req.user.userId);
+        if (!Types.ObjectId.isValid(userId)) {
+            throw new BadRequestException('Invalid userId');
+        }
+        return this.scriptsService.findAllScripts(userId, req.user.userId, query);
+    }
+
+    /*
     @Get()
     @UseGuards(JwtAuthGuard)
     async findAllScripts(@Param('userId') userId: string, @Req() req):
@@ -30,6 +48,7 @@ export class ScriptsController {
         }
         return this.scriptsService.findAllScripts(userId, req.user.userId);
     }
+    */
 
     @Get("/top")
     @UseGuards(JwtAuthGuard)
@@ -44,19 +63,6 @@ export class ScriptsController {
         if (!filterOption.includes(filterBy)) throw new BadRequestException("Invalid Filter Option");
         const currentUserId = req.user.userId;
         return await this.scriptsService.getTopPublicScripts(userId, currentUserId, filterBy);
-    }
-
-    @Get('search')
-    async searchScripts(
-        @Query('loc') locations: string | string[]
-    ):
-        Promise<{
-            name: string;
-            description: string;
-            privacy: string
-        }[]> {
-        const locationsArray = Array.isArray(locations) ? locations : locations.split(',');
-        return this.scriptsService.findScriptsByLocations(locationsArray);
     }
 
     @Get(':scriptId')
