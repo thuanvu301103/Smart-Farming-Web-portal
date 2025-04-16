@@ -74,12 +74,6 @@ export class ScriptsService {
             console.error('Error fetching scripts:', error);
             return [];
         }
-        /*
-        const searchRes = await this.shareModel.find({ user_id: new Types.ObjectId(userId) }).select("script_id").exec();
-        const scriptIds = searchRes.map(obj => obj.script_id);
-        const scripts = await this.scriptModel.find({ _id: { $in: scriptIds } }).exec();
-        return scripts;
-        */
     }
 
     // Get all users that been shared a script

@@ -1,6 +1,8 @@
 import { Controller, Post, Get, Delete, Body, Query, Param } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { Notification } from '../../schemas/notifications.schema';
+// DTO
+import { BaseSearchNotificationQueryDto } from '../../dto/notifications.dto';
 
 @Controller('notification')
 export class NotificationsController {
@@ -8,19 +10,10 @@ export class NotificationsController {
     constructor(private readonly notificationsService: NotificationsService) { }
 
     @Get(':userId')
-    async getNotification(@Param('userId') userId: string, @Query('notifyId') notifyId: string) {
-        if (notifyId) return this.notificationsService.getNotification(notifyId);
-        return this.notificationsService.getNotificationSentTo(userId);
+    async getNotification(@Param('userId') userId: string, @Query() query: BaseSearchNotificationQueryDto) {
+        return this.notificationsService.getNotificationSentTo(userId, query);
     }
 
-    /*
-    @Get()
-    async getNotification(@Query('id') id: string)
-    {
-        //console.log("Id: ", id);
-        return this.notificationsService.getNotification(id);
-    }
-    */
 
     @Post('share')
     async createShare(@Body() data: {
