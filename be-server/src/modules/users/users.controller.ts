@@ -5,30 +5,24 @@ import {
 import { Model, Types } from 'mongoose';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
+// DTO
+import { SearchUserByIdQueryDto, SearchUserByNameQueryDto } from '../../dto/users.dto';
+import { BaseSearchScriptQueryDto } from '../../dto/scripts.dto';
 
 @Controller()
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
 
     @Get('users')
-    async findAllUsers(@Query('ids') ids: string | string[]): Promise<{
-        _id: string;
-        username: string
-    }[]
-        > {
-        const userIds = Array.isArray(ids) ? ids : ids.split(',');
-        return this.usersService.getAllUsers(userIds);
+    async findAllUsers(@Query() query: SearchUserByIdQueryDto) {
+        return this.usersService.getAllUsers(query);
     }
 
     @Get('users/search')
     @UseGuards(JwtAuthGuard)
-    async searchUser(@Query('username') partUsername: string, @Req() req) {
-        if (!partUsername) {
-            return { error: 'Username query parameter is required' };
-        }
-
+    async searchUser(@Query() query: SearchUserByNameQueryDto, @Req() req) {
         const currentUserId = req.user.userId;
-        return await this.usersService.searchUser(partUsername, currentUserId);
+        return await this.usersService.searchUser(query, currentUserId);
     }
 
     @Get(':userId/profile')
@@ -46,14 +40,18 @@ export class UsersController {
 
     @Get(':userId/favorite-script')
     @UseGuards(JwtAuthGuard)
-    async getFavoriteScript(@Param('userId') userId: string) {
-        return this.usersService.getFavoriteScript(userId);
+    async getFavoriteScript(
+        @Param('userId') userId: string,
+        @Query() query: BaseSearchScriptQueryDto
+    ) {
+        return this.usersService.getFavoriteScript(userId, query);
     }
 
     @Get(':userId/shared-script')
     @UseGuards(JwtAuthGuard)
     async getSharedScripts(
         @Param('userId') userId: string,
+        @Query() query: BaseSearchScriptQueryDto,
         @Req() req
     ) {
         if (!Types.ObjectId.isValid(userId)) {
@@ -63,7 +61,7 @@ export class UsersController {
         if (currentUserId !== userId) {
             throw new ForbiddenException('You can only access your own shared scripts');
         }
-        return this.usersService.getSharedScripts(userId);
+        return this.usersService.getSharedScripts(userId, query);
     }
 
     @Put(':userId')

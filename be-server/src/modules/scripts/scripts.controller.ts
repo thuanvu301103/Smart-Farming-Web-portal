@@ -29,27 +29,6 @@ export class ScriptsController {
         return this.scriptsService.findAllScripts(userId, req.user.userId, query);
     }
 
-    /*
-    @Get()
-    @UseGuards(JwtAuthGuard)
-    async findAllScripts(@Param('userId') userId: string, @Req() req):
-        Promise<{
-            name: string;
-            description: string;
-            privacy: string;
-            favorite: number;
-            location: string[];
-            plant_type: string[];
-            isFavorite: boolean
-        }[]>
-    {
-        if (!Types.ObjectId.isValid(userId)) {
-            throw new BadRequestException('Invalid userId');
-        }
-        return this.scriptsService.findAllScripts(userId, req.user.userId);
-    }
-    */
-
     @Get("/top")
     @UseGuards(JwtAuthGuard)
     async getTopPublicScriptsByUser(

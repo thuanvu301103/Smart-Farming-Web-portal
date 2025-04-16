@@ -4,12 +4,13 @@
     "\\src",
     "\\src\\dto",
     "\\src\\modules",
+    "\\src\\modules\\api",
     "\\src\\modules\\files",
     "\\src\\modules\\models",
     "\\src\\modules\\scripts",
     "\\src\\schemas",
     "\\test"
   ],
-  "SelectedNode": "\\src\\modules\\models\\models.service.ts",
+  "SelectedNode": "\\src\\schemas\\models.scripts.schema.ts",
   "PreviewInSolutionExplorer": false
 }
