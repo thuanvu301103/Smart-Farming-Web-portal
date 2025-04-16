@@ -11,7 +11,7 @@ import { Share } from '../../schemas/share.schema';
 import { Rate } from '../../schemas/rate.schema';
 import { User } from '../../schemas/users.schema';
 // DTO
-import { ScriptQueryDto } from '../../dto/scripts.dto';
+import { BaseSearchScriptQueryDto, ScriptQueryDto } from '../../dto/scripts.dto';
 
 @Injectable()
 export class ScriptsService {
@@ -43,11 +43,37 @@ export class ScriptsService {
     }
 
     // Get all scripts that shared to a user
-    async getSharedScripts(userId: string) {
-        const searchRes = await this.shareModel.find({ user_id: new Types.ObjectId(userId) }).select("script_id").exec();
-        const scriptIds = searchRes.map(obj => obj.script_id);
-        const scripts = await this.scriptModel.find({ _id: { $in: scriptIds } }).exec();
-        return scripts;
+    async getSharedScripts(userId: string, query: BaseSearchScriptQueryDto) {
+        try {
+            const {
+                page, limit,
+                sortBy, order,
+            } = query;
+
+            const searchRes = await this.shareModel.find({ user_id: new Types.ObjectId(userId) }).select("script_id").exec();
+
+            const filterCondition: any = {};
+            filterCondition._id = { $in: await searchRes.map(obj => obj.script_id) }
+            const sortOrder = order === 'asc' ? 1 : -1;
+            const skip = (page - 1) * limit;
+            const scripts = await this.scriptModel.find(filterCondition)
+                .sort({ [sortBy]: sortOrder })
+                .skip(skip)
+                .limit(limit).lean()
+                .exec();
+
+            const total = await this.scriptModel.countDocuments(filterCondition);
+            return {
+                data: scripts,
+                total,
+                page,
+                totalPages: Math.ceil(total / limit),
+            };
+
+        } catch (error) {
+            console.error('Error fetching scripts:', error);
+            return [];
+        }
     }
 
     // Get all users that been shared a script
@@ -185,7 +211,7 @@ export class ScriptsService {
             },
             // Sắp xếp tùy theo filterOption
             filterOption === "favorite"
-                ? { $sort: { like: -1 } }
+                ? { $sort: { favorite: -1 } }
                 : { $sort: { "rating.avg": -1 } },
             // Giới hạn
             { $limit: 6 },
@@ -197,7 +223,7 @@ export class ScriptsService {
                     owner_id: 1,
                     createdAt: 1,
                     updatedAt: 1,
-                    like: 1,
+                    favorite: 1,
                     rating: 1
                 }
             }

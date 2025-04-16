@@ -87,7 +87,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDcwMDQ0NiwiZXhwIjoxNzQ0NzA0MDQ2fQ.7Edo195jNwaxTU0ccQSeRtUACbim86PybyZSJkK49iY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc4Nzg1NCwiZXhwIjoxNzQ0NzkxNDU0fQ.Zo3QJQ11KkRtSWso3SP5c3nDUtJK4KVCVVVa9pNNWUQ",
 									"type": "string"
 								}
 							]
@@ -2132,12 +2132,19 @@
 					"name": "Get all users by Id(s)",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc4Nzg1NCwiZXhwIjoxNzQ0NzkxNDU0fQ.Zo3QJQ11KkRtSWso3SP5c3nDUtJK4KVCVVVa9pNNWUQ",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/users?ids=679b765e8496f00b99063cb8,679bb9cb8496f00b99063cc8",
+							"raw": "{{be-server}}/users?ids=67c2734d1fb713deae4b068f&ids=67c273401fb713deae4b068c&page=1&limit=1&sortBy=username&order=asc",
 							"host": [
 								"{{be-server}}"
 							],
@@ -2147,7 +2154,29 @@
 							"query": [
 								{
 									"key": "ids",
-									"value": "679b765e8496f00b99063cb8,679bb9cb8496f00b99063cc8"
+									"value": "67c2734d1fb713deae4b068f"
+								},
+								{
+									"key": "ids",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "sortBy",
+									"value": "username",
+									"description": "Default = \"username\""
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"description": "{'asc', 'desc'} Default = 'desc'"
 								}
 							]
 						}
@@ -2162,7 +2191,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MDk3NDg0NSwiZXhwIjoxNzQwOTc4NDQ1fQ.rePWu4F9JxcCX-zlkjG7Wajew7ehA-lvIDMPdHqzAOM",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc5MTQ5NCwiZXhwIjoxNzQ0Nzk1MDk0fQ.ZpQCBGG9vgb16BuWQVN0DiD7Ll5j0voqjsCcBqN2RX0",
 									"type": "string"
 								}
 							]
@@ -2170,7 +2199,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/users/search?username=red",
+							"raw": "{{be-server}}/users/search?username=kat&page=1&limit=1&sortBy=username&order=asc",
 							"host": [
 								"{{be-server}}"
 							],
@@ -2181,7 +2210,27 @@
 							"query": [
 								{
 									"key": "username",
-									"value": "red"
+									"value": "kat"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "(Optional) Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"description": "(Optional) Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "username",
+									"description": "(Optional) Default = 'username'"
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
 								}
 							]
 						}
@@ -2196,7 +2245,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MTY5MCwiZXhwIjoxNzQ0MzQ1MjkwfQ.p5P6n7SEysOK1CxaSbKjX8mQvRC8mm-tSoMJ4c9zIgY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc5MTQ5NCwiZXhwIjoxNzQ0Nzk1MDk0fQ.ZpQCBGG9vgb16BuWQVN0DiD7Ll5j0voqjsCcBqN2RX0",
 									"type": "string"
 								}
 							]
@@ -2204,13 +2253,35 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/favorite-script",
+							"raw": "{{be-server}}/:userId/favorite-script?page=1&limit=1&sortBy=updatedAt&order=desc",
 							"host": [
 								"{{be-server}}"
 							],
 							"path": [
 								":userId",
 								"favorite-script"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"description": "Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "updatedAt",
+									"description": "(Optional) Default = 'updatedAt'"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
+								}
 							],
 							"variable": [
 								{
@@ -2230,7 +2301,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MTY5MCwiZXhwIjoxNzQ0MzQ1MjkwfQ.p5P6n7SEysOK1CxaSbKjX8mQvRC8mm-tSoMJ4c9zIgY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc5MTQ5NCwiZXhwIjoxNzQ0Nzk1MDk0fQ.ZpQCBGG9vgb16BuWQVN0DiD7Ll5j0voqjsCcBqN2RX0",
 									"type": "string"
 								}
 							]
@@ -2238,13 +2309,35 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/shared-script",
+							"raw": "{{be-server}}/:userId/shared-script?page=1&limit=2&sortBy=updatedAt&order=desc",
 							"host": [
 								"{{be-server}}"
 							],
 							"path": [
 								":userId",
 								"shared-script"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"description": "Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "updatedAt",
+									"description": "(Optional) Default = 'updatedAt'"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
+								}
 							],
 							"variable": [
 								{
@@ -2354,7 +2447,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDEyMzE3NCwiZXhwIjoxNzQ0MTI2Nzc0fQ.ym1iHiQ2_h6QNtoTOUL7JxTkYXvGU5w1V4PcrmlBQMg",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc5MTQ5NCwiZXhwIjoxNzQ0Nzk1MDk0fQ.ZpQCBGG9vgb16BuWQVN0DiD7Ll5j0voqjsCcBqN2RX0",
 									"type": "string"
 								}
 							]
@@ -2362,7 +2455,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/notification/:userId?notifyId=67da4457757caa91dba509d5",
+							"raw": "{{be-server}}/notification/:userId?page=1&limit=4&sortBy=createdAt&order=desc",
 							"host": [
 								"{{be-server}}"
 							],
@@ -2373,7 +2466,29 @@
 							"query": [
 								{
 									"key": "notifyId",
-									"value": "67da4457757caa91dba509d5"
+									"value": "67da4457757caa91dba509d5",
+									"description": "(Optional)",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "4",
+									"description": "Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"description": "(Optional) Default = 'createdAt'"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
 								}
 							],
 							"variable": [
