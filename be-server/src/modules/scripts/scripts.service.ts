@@ -185,7 +185,7 @@ export class ScriptsService {
             },
             // Sắp xếp tùy theo filterOption
             filterOption === "favorite"
-                ? { $sort: { like: -1 } }
+                ? { $sort: { favorite: -1 } }
                 : { $sort: { "rating.avg": -1 } },
             // Giới hạn
             { $limit: 6 },
@@ -197,7 +197,7 @@ export class ScriptsService {
                     owner_id: 1,
                     createdAt: 1,
                     updatedAt: 1,
-                    like: 1,
+                    favorite: 1,
                     rating: 1
                 }
             }
