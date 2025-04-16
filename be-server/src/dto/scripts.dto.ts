@@ -14,7 +14,7 @@ enum SortOrder {
     DESC = 'desc',
 }
 
-class ScriptQueryDto {
+class BaseSearchScriptQueryDto {
     @IsOptional()
     @IsNumberString()
     page?: number = 1;
@@ -30,7 +30,9 @@ class ScriptQueryDto {
     @IsOptional()
     @IsEnum(SortOrder)
     order?: SortOrder = SortOrder.DESC;
+}
 
+class ScriptQueryDto extends BaseSearchScriptQueryDto {
     @IsOptional()
     @Transform(({ value }) =>
         Array.isArray(value) ? value : [value]
@@ -58,4 +60,4 @@ class ScriptFileQueryDto {
     version: number = 10;
 }
 
-export { ScriptQueryDto, ScriptFileQueryDto }
+export { BaseSearchScriptQueryDto,  ScriptQueryDto, ScriptFileQueryDto }
