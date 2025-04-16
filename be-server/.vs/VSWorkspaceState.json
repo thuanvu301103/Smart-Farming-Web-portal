@@ -10,6 +10,6 @@
     "\\src\\schemas",
     "\\test"
   ],
-  "SelectedNode": "\\src\\schemas\\activities.schema.ts",
+  "SelectedNode": "\\src\\modules\\models\\models.service.ts",
   "PreviewInSolutionExplorer": false
 }

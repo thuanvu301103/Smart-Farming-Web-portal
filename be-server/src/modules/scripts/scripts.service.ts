@@ -80,48 +80,52 @@ export class ScriptsService {
     }
 
     // Find all scripts of a user
-    async findAllScripts(userId: string, currentUserId: string):
-        Promise<{
-            name: string;
-            description: string;
-            privacy: string;
-            favorite: number;
-            location: string[];
-            plant_type: string[];
-            isFavorite: boolean
-        }[]>
+    async findAllScripts(userId: string, currentUserId: string, query: ScriptQueryDto)
     {
+        const {
+            page, limit,
+            sortBy, order,
+            locations,
+            plant_types
+        } = query;
         // Get favorite_scripts of currentUser
         const user = await this.userModel.findById(currentUserId).select('favorite_scripts').lean();
         const favoriteScripts = user?.favorite_scripts || [];
         // Search Condition
         const filterCondition: any = { owner_id: new Types.ObjectId(userId) };
+        if (locations?.length) {
+            filterCondition.location = { $in: locations };
+        }
+
+        if (plant_types?.length) {
+            filterCondition.plant_type = { $in: plant_types };
+        }
         //console.log(currentUserId, userId, userId == currentUserId);
         if (currentUserId !== userId) {
             filterCondition.privacy = "public";
         }
 
+        const sortOrder = order === 'asc' ? 1 : -1;
+        const skip = (page - 1) * limit;
         const scripts = await this.scriptModel.find(filterCondition)
             .select('_id name description owner_id privacy favorite location plant_type updatedAt createdAt')
-            .lean()
+            .sort({ [sortBy]: sortOrder })
+            .skip(skip)
+            .limit(limit).lean()
             .exec();
 
-        return scripts.reverse().map(script => ({
+        const data = scripts.reverse().map(script => ({
             ...script,
             isFavorite: favoriteScripts.some(fav => fav.toString() === script._id.toString())
         }));
-    }
 
-    // Find all script with locations
-    async findScriptsByLocations(locations: string[]):
-        Promise<{
-            name: string;
-            description: string;
-            privacy: string
-        }[]> {
-        const result = this.scriptModel.find({ location: { $in: locations } })
-            .select('name description privacy').lean().exec();
-        return result;
+        const total = await this.scriptModel.countDocuments(filterCondition);
+        return {
+            data,
+            total,
+            page,
+            totalPages: Math.ceil(total / limit),
+        };
     }
 
     // Search Scripts
@@ -167,18 +171,25 @@ export class ScriptsService {
     }
 
     // Get popular and public scripts if a user
-    async getTopPublicScripts(userId: string, reqUserId: string) {
+    async getTopPublicScripts(userId: string, reqUserId: string, filterOption: string) {
         const userObjectId = new Types.ObjectId(userId);
-        const user = await this.userModel.findById(reqUserId).exec()
-        const topScripts = await this.scriptModel.aggregate([
+        const reqUser = await this.userModel.findById(reqUserId).exec();
+
+        // Xây dựng pipeline
+        const pipeline: any[] = [
             {
                 $match: {
                     privacy: "public",
                     owner_id: userObjectId
                 }
-            }, // Chỉ lấy các script của user và có privacy là "public"
-            { $sort: { like: -1 } }, // Sắp xếp theo số lượt like giảm dần
-            { $limit: 6 }, // Lấy tối đa 6 tài liệu
+            },
+            // Sắp xếp tùy theo filterOption
+            filterOption === "favorite"
+                ? { $sort: { like: -1 } }
+                : { $sort: { "rating.avg": -1 } },
+            // Giới hạn
+            { $limit: 6 },
+            // Lấy các trường cần thiết
             {
                 $project: {
                     name: 1,
@@ -186,15 +197,22 @@ export class ScriptsService {
                     owner_id: 1,
                     createdAt: 1,
                     updatedAt: 1,
+                    like: 1,
+                    rating: 1
                 }
             }
-        ]);
+        ];
+
+        const topScripts = await this.scriptModel.aggregate(pipeline).exec();
+
+        // Gắn isFavorite vào mỗi script
         return topScripts.map(script => {
-            const scriptId = new Types.ObjectId(script._id as string);
+            const scriptId = new Types.ObjectId(script._id);
+            const isFavorite = reqUser?.favorite_scripts?.some(fav => fav.equals(scriptId)) ?? false;
 
             return {
                 ...script,
-                isFavorite: user?.favorite_scripts?.some(fav => fav.equals(scriptId)) ?? false
+                isFavorite
             };
         });
     }
@@ -374,6 +392,7 @@ export class ScriptsService {
         return rateObj;
     }
 
+    // Update Rate
     async updateRate(userId: string, scriptId: string, rate: number) {
         const script = await this.scriptModel.findById(scriptId).exec()
         if (!script) throw new NotFoundException("Script does not exist");
@@ -406,5 +425,15 @@ export class ScriptsService {
             { new: true }
         ).exec();
         return rateObj;
+    }
+
+    // Delete Rate
+    async deleteRate(userId: string, scriptId: string) {
+        const rateDoc = await this.rateModel.findOne({
+            user_id: new Types.ObjectId(userId),
+            script_id: new Types.ObjectId(scriptId),
+        }).exec();
+        if (!rateDoc) throw new NotFoundException("User has not rated this script");
+        await rateDoc.deleteOne();
     }
 }
