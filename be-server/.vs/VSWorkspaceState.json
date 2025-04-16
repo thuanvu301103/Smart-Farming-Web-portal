@@ -4,13 +4,10 @@
     "\\src",
     "\\src\\dto",
     "\\src\\modules",
-    "\\src\\modules\\api",
-    "\\src\\modules\\files",
-    "\\src\\modules\\models",
     "\\src\\modules\\scripts",
     "\\src\\schemas",
     "\\test"
   ],
-  "SelectedNode": "\\src\\schemas\\models.scripts.schema.ts",
+  "SelectedNode": "\\src\\schemas\\notifications.schema.ts",
   "PreviewInSolutionExplorer": false
 }

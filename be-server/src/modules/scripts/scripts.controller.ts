@@ -149,8 +149,8 @@ export class ScriptsController {
             throw new BadRequestException('Invalid scriptId');
         }
         const currentUserId = req.user.userId;
-        if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
-        return this.scriptsService.getRate(userId, scriptId);
+        //if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
+        return this.scriptsService.getRate(currentUserId, scriptId);
     }
 
     @Post(':scriptId/rate')
@@ -169,8 +169,8 @@ export class ScriptsController {
             throw new BadRequestException('Invalid scriptId');
         }
         const currentUserId = req.user.userId;
-        if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
-        return this.scriptsService.createRate(userId, scriptId, data.rate);
+        //if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
+        return this.scriptsService.createRate(currentUserId, scriptId, data.rate);
     }
 
     @Patch(':scriptId/rate')
@@ -189,8 +189,8 @@ export class ScriptsController {
             throw new BadRequestException('Invalid scriptId');
         }
         const currentUserId = req.user.userId;
-        if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
-        return this.scriptsService.updateRate(userId, scriptId, data.rate);
+        //if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
+        return this.scriptsService.updateRate(currentUserId, scriptId, data.rate);
     }
 
     @Delete(':scriptId/rate')
@@ -208,8 +208,8 @@ export class ScriptsController {
             throw new BadRequestException('Invalid scriptId');
         }
         const currentUserId = req.user.userId;
-        if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
-        return this.scriptsService.deleteRate(userId, scriptId);
+        //if (currentUserId != userId) throw new ForbiddenException('You can only access your own property!');
+        return this.scriptsService.deleteRate(currentUserId, scriptId);
     }
 
 }
