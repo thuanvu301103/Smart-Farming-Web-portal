@@ -2265,12 +2265,12 @@
 								{
 									"key": "page",
 									"value": "1",
-									"description": "(Optional) Default = 1"
+									"description": "Default = 1"
 								},
 								{
 									"key": "limit",
 									"value": "1",
-									"description": "(Optional) Default = 10"
+									"description": "Default = 10"
 								},
 								{
 									"key": "sortBy",
@@ -2321,12 +2321,12 @@
 								{
 									"key": "page",
 									"value": "1",
-									"description": "(Optional) Default = 1"
+									"description": "Default = 1"
 								},
 								{
 									"key": "limit",
 									"value": "2",
-									"description": "(Optional) Default = 10"
+									"description": "Default = 10"
 								},
 								{
 									"key": "sortBy",
@@ -2447,7 +2447,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDEyMzE3NCwiZXhwIjoxNzQ0MTI2Nzc0fQ.ym1iHiQ2_h6QNtoTOUL7JxTkYXvGU5w1V4PcrmlBQMg",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc5MTQ5NCwiZXhwIjoxNzQ0Nzk1MDk0fQ.ZpQCBGG9vgb16BuWQVN0DiD7Ll5j0voqjsCcBqN2RX0",
 									"type": "string"
 								}
 							]
@@ -2455,7 +2455,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/notification/:userId?notifyId=67da4457757caa91dba509d5",
+							"raw": "{{be-server}}/notification/:userId?page=1&limit=4&sortBy=createdAt&order=desc",
 							"host": [
 								"{{be-server}}"
 							],
@@ -2466,7 +2466,29 @@
 							"query": [
 								{
 									"key": "notifyId",
-									"value": "67da4457757caa91dba509d5"
+									"value": "67da4457757caa91dba509d5",
+									"description": "(Optional)",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "4",
+									"description": "Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"description": "(Optional) Default = 'createdAt'"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
 								}
 							],
 							"variable": [

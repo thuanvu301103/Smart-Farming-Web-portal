@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Notification } from '../../schemas/notifications.schema';
 import { NotificationGateway } from '../../gateway/notify/notify.gateway';
+// DTO
+import { BaseSearchNotificationQueryDto } from '../../dto/notifications.dto';
 
 @Injectable()
 export class NotificationsService {
@@ -22,13 +24,51 @@ export class NotificationsService {
     }
 
     // Get notification sent to a user
-    async getNotificationSentTo(userId: string) {
+    async getNotificationSentTo(userId: string, query: BaseSearchNotificationQueryDto) {
+        try {
+            const {
+                page, limit,
+                sortBy, order,
+                notifyId,
+            } = query;
+
+            if (notifyId) return await this.notificationModel.findById(notifyId)
+                .populate('from', 'username profile_image')
+                .populate('script_id', 'name')
+                .lean().exec();
+
+            const filterCondition: any = {};
+            filterCondition.to = new Types.ObjectId(userId);
+            const sortOrder = order === 'asc' ? 1 : -1;
+            const skip = (page - 1) * limit;
+            const scripts = await this.notificationModel.find(filterCondition)
+                .sort({ [sortBy]: sortOrder })
+                .skip(skip)
+                .limit(limit)
+                .populate('from', 'username profile_image')
+                .populate('script_id', 'name')
+                .lean().exec();
+
+            const total = await this.notificationModel.countDocuments(filterCondition);
+            return {
+                data: scripts,
+                total,
+                page,
+                totalPages: Math.ceil(total / limit),
+            };
+
+        } catch (error) {
+            console.error('Error fetching notification:', error);
+            return [];
+        }
+        /*
         const result = await this.notificationModel
             .find({ to: new Types.ObjectId(userId) })
             .populate('from', 'username profile_image')
             .populate('script_id', 'name')
             .lean().exec();
         return result;
+        */
     }
 
     /* Create Notifications */
