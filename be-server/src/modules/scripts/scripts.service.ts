@@ -134,7 +134,7 @@ export class ScriptsService {
         const sortOrder = order === 'asc' ? 1 : -1;
         const skip = (page - 1) * limit;
         const scripts = await this.scriptModel.find(filterCondition)
-            .select('_id name description owner_id privacy favorite location plant_type updatedAt createdAt')
+            .select('_id name description owner_id privacy favorite rating location plant_type updatedAt createdAt')
             .sort({ [sortBy]: sortOrder })
             .skip(skip)
             .limit(limit).lean()
