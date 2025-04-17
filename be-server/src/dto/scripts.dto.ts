@@ -2,7 +2,7 @@ import {
     IsOptional,
     IsString,
     IsEnum,
-    IsNumberString,
+    IsNumberString, IsInt, Min,
     IsArray,
     IsMongoId,
     IsNotEmpty,
@@ -16,11 +16,15 @@ enum SortOrder {
 
 class BaseSearchScriptQueryDto {
     @IsOptional()
-    @IsNumberString()
+    @Type(() => Number)
+    @IsInt()
+    @Min(1)
     page?: number = 1;
 
     @IsOptional()
-    @IsNumberString()
+    @Type(() => Number)
+    @IsInt()
+    @Min(1)
     limit?: number = 10;
 
     @IsOptional()
