@@ -6,6 +6,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Comment } from '../../schemas/comments.schema';
 import { ActivitiesService } from "../activities/activities.service";
+// DTO
+import { BaseSearchCommentQueryDto } from '../../dto/comments.dto';
 
 @Injectable()
 export class CommentsService {
@@ -24,8 +26,40 @@ export class CommentsService {
     }
 
     // Find all comments of a script
-    async findAllComments(scriptId: string):
-        Promise<Comment[]> {
+    async findAllComments(scriptId: string, query: BaseSearchCommentQueryDto) {
+        try {
+            const {
+                page, limit,
+                sortBy, order
+            } = query;
+
+            const filterCondition: any = {
+                script_id: new Types.ObjectId(scriptId),
+                sub_comment_id: { $eq: null }
+            };
+
+            const sortOrder = order === 'asc' ? 1 : -1;
+            const skip = (page - 1) * limit;
+            const scripts = await this.commentModel.find(filterCondition)
+                .sort({ [sortBy]: sortOrder })
+                .skip(skip)
+                .limit(limit)
+                .populate('owner_id', 'username profile_image')
+                .lean().exec();
+
+            const total = await this.commentModel.countDocuments(filterCondition);
+            return {
+                data: scripts,
+                total,
+                page,
+                totalPages: Math.ceil(total / limit),
+            };
+
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            return [];
+        }
+        /*
         const result = await this.commentModel.find({
             script_id: new Types.ObjectId(scriptId),
             sub_comment_id: { $eq: null }
@@ -33,6 +67,7 @@ export class CommentsService {
             .populate('owner_id', 'username profile_image')
             .lean().exec();
         return result;
+        */
     }
 
     // Find all sub-comments of a comment

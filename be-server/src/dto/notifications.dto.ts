@@ -1,7 +1,7 @@
 import {
     IsOptional,
     IsString,
-    IsEnum,
+    IsEnum, IsInt, Min,
     IsNumberString,
     IsArray,
     IsMongoId,
@@ -16,11 +16,15 @@ enum SortOrder {
 
 class BaseSearchNotificationQueryDto {
     @IsOptional()
-    @IsNumberString()
+    @Type(() => Number)
+    @IsInt()
+    @Min(1)
     page?: number = 1;
 
     @IsOptional()
-    @IsNumberString()
+    @Type(() => Number)
+    @IsInt()
+    @Min(1)
     limit?: number = 10;
 
     @IsOptional()

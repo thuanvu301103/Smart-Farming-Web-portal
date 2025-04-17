@@ -1,7 +1,13 @@
-import { Controller, Body, Get, Post, Put, Delete, Param, UseGuards } from '@nestjs/common';
+import {
+    Controller, Body, Get, Post, Put, Delete,
+    Param, Query,
+    UseGuards
+} from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { Comment } from '../../schemas/comments.schema';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
+// DTO
+import { BaseSearchCommentQueryDto } from '../../dto/comments.dto';
 
 @Controller(':userId/scripts/:scriptId/comments')
 export class CommentsController {
@@ -9,10 +15,12 @@ export class CommentsController {
 
     @Get()
     @UseGuards(JwtAuthGuard)
-    async findAllComments(@Param('scriptId') scriptId: string):
-        Promise<Comment[]> {
+    async findAllComments(
+        @Param('scriptId') scriptId: string,
+        @Query() query: BaseSearchCommentQueryDto,
+    ) {
         //console.log(userId);
-        return this.commentsService.findAllComments(scriptId);
+        return this.commentsService.findAllComments(scriptId, query);
     }
 
     @Get(':commentId/history')
