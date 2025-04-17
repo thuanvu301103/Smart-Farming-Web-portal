@@ -1,8 +1,8 @@
 import {
     IsOptional,
     IsString,
-    IsEnum,
-    IsNumberString, IsInt, Min,
+    IsEnum, IsInt, Min,
+    IsNumberString,
     IsArray,
     IsMongoId,
     IsNotEmpty,
@@ -14,7 +14,7 @@ enum SortOrder {
     DESC = 'desc',
 }
 
-class BaseSearchUserQueryDto {
+class BaseSearchCommentQueryDto {
     @IsOptional()
     @Type(() => Number)
     @IsInt()
@@ -29,25 +29,11 @@ class BaseSearchUserQueryDto {
 
     @IsOptional()
     @IsString()
-    sortBy?: string = 'username';
+    sortBy?: string = 'createdAt';
 
     @IsOptional()
     @IsEnum(SortOrder)
     order?: SortOrder = SortOrder.DESC;
 }
 
-class SearchUserByIdQueryDto extends BaseSearchUserQueryDto {
-    @IsOptional()
-    @Transform(({ value }) => Array.isArray(value) ? value : [value])
-    @IsArray()
-    @IsMongoId({ each: true })
-    ids?: string[];
-}
-
-class SearchUserByNameQueryDto extends BaseSearchUserQueryDto {
-    @IsString()
-    username: string;
-}
-
-
-export { SearchUserByIdQueryDto, SearchUserByNameQueryDto }
+export { BaseSearchCommentQueryDto }

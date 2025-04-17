@@ -61,14 +61,6 @@ export class NotificationsService {
             console.error('Error fetching notification:', error);
             return [];
         }
-        /*
-        const result = await this.notificationModel
-            .find({ to: new Types.ObjectId(userId) })
-            .populate('from', 'username profile_image')
-            .populate('script_id', 'name')
-            .lean().exec();
-        return result;
-        */
     }
 
     /* Create Notifications */
