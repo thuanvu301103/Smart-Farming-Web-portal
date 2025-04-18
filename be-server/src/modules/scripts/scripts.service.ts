@@ -143,7 +143,7 @@ export class ScriptsService {
             .limit(limit).lean()
             .exec();
 
-        const data = scripts.reverse().map(script => ({
+        const data = scripts.map(script => ({
             ...script,
             isFavorite: favoriteScripts.some(fav => fav.toString() === script._id.toString())
         }));
