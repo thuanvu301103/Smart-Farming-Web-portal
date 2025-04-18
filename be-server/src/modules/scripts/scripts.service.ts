@@ -112,7 +112,8 @@ export class ScriptsService {
             page, limit,
             sortBy, order,
             locations,
-            plant_types
+            plant_types,
+            privacy
         } = query;
         // Get favorite_scripts of currentUser
         const user = await this.userModel.findById(currentUserId).select('favorite_scripts').lean();
@@ -126,6 +127,8 @@ export class ScriptsService {
         if (plant_types?.length) {
             filterCondition.plant_type = { $in: plant_types };
         }
+
+        if (privacy) filterCondition.privacy = privacy;
         //console.log(currentUserId, userId, userId == currentUserId);
         if (currentUserId !== userId) {
             filterCondition.privacy = "public";
