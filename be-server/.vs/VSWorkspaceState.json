@@ -4,9 +4,9 @@
     "\\src",
     "\\src\\dto",
     "\\src\\modules",
-    "\\src\\modules\\scripts",
-    "\\src\\schemas",
+    "\\src\\modules\\comments",
     "\\test"
   ],
+  "SelectedNode": "\\src\\modules\\comments\\comments.service.ts",
   "PreviewInSolutionExplorer": false
 }

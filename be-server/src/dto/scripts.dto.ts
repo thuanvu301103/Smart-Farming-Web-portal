@@ -6,6 +6,7 @@ import {
     IsArray,
     IsMongoId,
     IsNotEmpty,
+    IsIn,
 } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
@@ -52,6 +53,11 @@ class ScriptQueryDto extends BaseSearchScriptQueryDto {
     @IsArray()
     @IsString({ each: true })
     plant_types?: string[];
+
+    @IsOptional()
+    @IsString()
+    @IsIn(['public', 'private'])
+    privacy?: string;
 }
 
 class ScriptFileQueryDto {
