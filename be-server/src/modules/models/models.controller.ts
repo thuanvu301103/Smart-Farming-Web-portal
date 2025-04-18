@@ -7,6 +7,8 @@
 import { Model, Types } from 'mongoose';
 import { ModelsService } from './models.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
+// DTO
+import { BaseSearchModelQueryDto } from '../../dto/models.dto';
 
 @Controller(':userId/models')
 export class ModelsController {
@@ -29,9 +31,10 @@ export class ModelsController {
     @Get('get-all')
     @UseGuards(JwtAuthGuard)
     async getAllRegisteredModels(
-        @Param('userId') userId: string
+        @Param('userId') userId: string,
+        @Query() query: BaseSearchModelQueryDto
     ) {
-        return await this.modelsService.getAllRegisteredModels(userId);
+        return await this.modelsService.getAllRegisteredModels(userId, query);
     }
 
     @Get('get')

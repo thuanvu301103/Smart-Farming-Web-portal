@@ -12,6 +12,8 @@ import { ActivitiesService } from "../activities/activities.service";
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import cronParser from 'cron-parser';
+// DTO
+import { BaseSearchModelQueryDto } from '../../dto/models.dto';
 
 @Injectable()
 export class ModelsService {
@@ -78,7 +80,7 @@ export class ModelsService {
     }
 
     // Get all Registered Model of a user
-    async getAllRegisteredModels(userId: string) {
+    async getAllRegisteredModels(userId: string, query: BaseSearchModelQueryDto) {
         const models = await this.modelModel.find({ owner_id: new Types.ObjectId(userId) }).exec();
 
         return models.map(model => ({
