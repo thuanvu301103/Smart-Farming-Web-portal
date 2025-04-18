@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDgwNjI4MiwiZXhwIjoxNzQ0ODA5ODgyfQ.1Z_sKkGUdMthmQ7MKoDlxbcRadoe_PQOwAQ6H2Tdqu0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDk0NjY0MywiZXhwIjoxNzQ0OTUwMjQzfQ.IcuWV1PM0uU9_Cg4vYoyN_rTzra5QsYjbUYreyZnOio",
 									"type": "string"
 								}
 							]
@@ -25,7 +25,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/scripts?limit=1&page=1&locations=da-nang&locations=hue&plant_types=cam&plant_types=dua-hau&sortBy=updatedAt&order=asc",
+							"raw": "{{be-server}}/:userId/scripts?limit=1&page=1&locations=da-nang&locations=hue&plant_types=cam&privacy=private&plant_types=dua-hau&sortBy=updatedAt&order=asc",
 							"host": [
 								"{{be-server}}"
 							],
@@ -53,6 +53,11 @@
 								{
 									"key": "plant_types",
 									"value": "cam"
+								},
+								{
+									"key": "privacy",
+									"value": "private",
+									"description": "(Optional) Values = {'private, 'public'}"
 								},
 								{
 									"key": "plant_types",
