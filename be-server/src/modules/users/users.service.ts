@@ -133,6 +133,8 @@ export class UsersService {
             const {
                 page, limit,
                 sortBy, order,
+                locations, plant_types,
+                privacy
             } = query;
 
             // Get user's favorite scripts ids
@@ -140,6 +142,15 @@ export class UsersService {
 
             const filterCondition: any = {};
             filterCondition._id = { $in: await user.favorite_scripts.map(id => new Types.ObjectId(id)) }
+            if (locations?.length) {
+                filterCondition.location = { $in: locations };
+            }
+
+            if (plant_types?.length) {
+                filterCondition.plant_type = { $in: plant_types };
+            }
+
+            if (privacy) filterCondition.privacy = privacy;
             const sortOrder = order === 'asc' ? 1 : -1;
             const skip = (page - 1) * limit;
             const scripts = await this.scriptModel.find(filterCondition)

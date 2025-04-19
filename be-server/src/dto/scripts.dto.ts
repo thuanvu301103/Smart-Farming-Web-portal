@@ -35,6 +35,27 @@ class BaseSearchScriptQueryDto {
     @IsOptional()
     @IsEnum(SortOrder)
     order?: SortOrder = SortOrder.DESC;
+
+    @IsOptional()
+    @Transform(({ value }) =>
+        Array.isArray(value) ? value : [value]
+    )
+    @IsArray()
+    @IsString({ each: true })
+    locations?: string[];
+
+    @IsOptional()
+    @Transform(({ value }) =>
+        Array.isArray(value) ? value : [value]
+    )
+    @IsArray()
+    @IsString({ each: true })
+    plant_types?: string[];
+
+    @IsOptional()
+    @IsString()
+    @IsIn(['public', 'private'])
+    privacy?: string;
 }
 
 class ScriptQueryDto extends BaseSearchScriptQueryDto {

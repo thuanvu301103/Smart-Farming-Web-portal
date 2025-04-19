@@ -4,9 +4,9 @@
     "\\src",
     "\\src\\dto",
     "\\src\\modules",
-    "\\src\\modules\\users",
     "\\src\\schemas",
     "\\test"
   ],
+  "SelectedNode": "\\src\\dto\\scripts.dto.ts",
   "PreviewInSolutionExplorer": false
 }
