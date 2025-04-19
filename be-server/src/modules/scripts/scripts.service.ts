@@ -11,7 +11,7 @@ import { Share } from '../../schemas/share.schema';
 import { Rate } from '../../schemas/rate.schema';
 import { User } from '../../schemas/users.schema';
 // DTO
-import { BaseSearchScriptQueryDto, ScriptQueryDto } from '../../dto/scripts.dto';
+import { BaseSearchScriptQueryDto, ScriptQueryDto, CreateScriptBodyDto } from '../../dto/scripts.dto';
 
 @Injectable()
 export class ScriptsService {
@@ -249,24 +249,18 @@ export class ScriptsService {
     // Add new script
     async createScript(
         userId: string,
-        name: string,
-        description: string,
-        privacy: string,
-        share_id: string[]
+        data: CreateScriptBodyDto
     ):
-        Promise<string>
-    {
+        Promise<string> {
         // Create new script
         const newScript = new this.scriptModel({
-            name: name,
-            description: description,
-            privacy: privacy, 
+            ...data,
             owner_id: new Types.ObjectId(userId),
         });
         const scriptId = (await newScript.save())._id.toString();
         // Add shared users
-        if (share_id.length != 0) {
-            await this.setSharedUsers(scriptId, share_id)
+        if (data.share_id && data.share_id.length !== 0) {
+            await this.setSharedUsers(scriptId, data.share_id);
         }
         // Create new activity
         await this.activitiesService.createActivity("create_script", userId, scriptId);
@@ -393,9 +387,6 @@ export class ScriptsService {
             user_id: new Types.ObjectId(userId),
             script_id: new Types.ObjectId(scriptId),
         }).exec();
-        if (rate.length === 0) {
-            throw new NotFoundException("There is no rate for this script from user");
-        }
         return rate;
     }
 

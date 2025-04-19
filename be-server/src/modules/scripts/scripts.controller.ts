@@ -6,7 +6,7 @@ import { Model, Types } from 'mongoose';
 import { ScriptsService } from './scripts.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 // DTO
-import { ScriptQueryDto, ScriptFileQueryDto } from '../../dto/scripts.dto';
+import { ScriptQueryDto, CreateScriptBodyDto } from '../../dto/scripts.dto';
 
 @Controller(':userId/scripts')
 export class ScriptsController {
@@ -65,7 +65,7 @@ export class ScriptsController {
     @Post()
     @UseGuards(JwtAuthGuard)
     async createScript(
-        @Body() data: { name: string; description: string; privacy: string, share_id: string[] },
+        @Body() data: CreateScriptBodyDto,
         @Param('userId') userId: string,
         @Req() req
     ):
@@ -77,7 +77,7 @@ export class ScriptsController {
         }
 
         const newScriptId = await this.scriptsService.createScript(
-            userId, data.name, data.description, data.privacy, data.share_id
+            userId, data
         );
         return { _id: newScriptId};
     }

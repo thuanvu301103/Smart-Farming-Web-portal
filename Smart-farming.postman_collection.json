@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDk0NjY0MywiZXhwIjoxNzQ0OTUwMjQzfQ.IcuWV1PM0uU9_Cg4vYoyN_rTzra5QsYjbUYreyZnOio",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDk5NDM0OSwiZXhwIjoxNzQ0OTk3OTQ5fQ.N9PHdjzSj4Chz8gtkoNFdrudz484kF1dpUeo54g2nME",
 									"type": "string"
 								}
 							]
@@ -25,7 +25,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/scripts?limit=1&page=1&locations=da-nang&locations=hue&plant_types=cam&privacy=private&plant_types=dua-hau&sortBy=updatedAt&order=asc",
+							"raw": "{{be-server}}/:userId/scripts?limit=10&page=1&locations=da-nang&locations=hue&plant_types=cam&plant_types=dua-hau&sortBy=updatedAt&order=asc",
 							"host": [
 								"{{be-server}}"
 							],
@@ -36,7 +36,7 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "1"
+									"value": "10"
 								},
 								{
 									"key": "page",
@@ -57,7 +57,8 @@
 								{
 									"key": "privacy",
 									"value": "private",
-									"description": "(Optional) Values = {'private, 'public'}"
+									"description": "(Optional) Values = {'private, 'public'}",
+									"disabled": true
 								},
 								{
 									"key": "plant_types",
@@ -134,7 +135,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4MTYxMywiZXhwIjoxNzQ0Njg1MjEzfQ.Ne3nSLmOSyEsmHU7Vjkh84JL5GMgk-kxE5q5SP7vWvw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAyNDQ0NiwiZXhwIjoxNzQ1MDI4MDQ2fQ.U-soLJ8_NKtxBwKJWb4Pd57jkIuk9zCmLrsrJIjreUg",
 									"type": "string"
 								}
 							]
@@ -158,7 +159,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "67fdbb1c14023d2cf3d8823a"
+									"value": "6803008a971d621daa23845f"
 								}
 							]
 						}
@@ -221,7 +222,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4MTYxMywiZXhwIjoxNzQ0Njg1MjEzfQ.Ne3nSLmOSyEsmHU7Vjkh84JL5GMgk-kxE5q5SP7vWvw",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAyNDQ0NiwiZXhwIjoxNzQ1MDI4MDQ2fQ.U-soLJ8_NKtxBwKJWb4Pd57jkIuk9zCmLrsrJIjreUg",
 									"type": "string"
 								}
 							]
@@ -230,7 +231,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Kich bản tưới cây dưa hấu\",\r\n    \"description\": \"Đây là một kịch bản tưới cây đỉnh nóc kịch trần\",\r\n    \"privacy\": \"public\",\r\n    \"share_id\": []\r\n}",
+							"raw": "{\r\n    \"name\": \"Kich bản tưới cây dưa hấu\",\r\n    \"description\": \"Đây là một kịch bản tưới cây đỉnh nóc kịch trần\",\r\n    \"privacy\": \"public\",\r\n    \"share_id\": [],\r\n    \"location\": [\"da-nang\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -343,7 +344,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDgwNjI4MiwiZXhwIjoxNzQ0ODA5ODgyfQ.1Z_sKkGUdMthmQ7MKoDlxbcRadoe_PQOwAQ6H2Tdqu0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAyODg4MywiZXhwIjoxNzQ1MDMyNDgzfQ.SISDzruoeuuVCz7U3E3qX0zcQQsEiuusAWvGKAlkjBU",
 									"type": "string"
 								}
 							]
@@ -368,7 +369,7 @@
 								},
 								{
 									"key": "scriptId",
-									"value": "67f88ac799a2a6150ca64bae"
+									"value": "67fb77476e8c9b0cc63877d8"
 								}
 							]
 						}
@@ -2171,7 +2172,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/users?ids=67c2734d1fb713deae4b068f&ids=67c273401fb713deae4b068c&page=1&limit=1&sortBy=username&order=asc",
+							"raw": "{{be-server}}/users?ids=67c2734d1fb713deae4b068f&ids=67c273401fb713deae4b068c&page=1&limit=10&sortBy=username&order=asc",
 							"host": [
 								"{{be-server}}"
 							],
@@ -2193,7 +2194,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "1"
+									"value": "10"
 								},
 								{
 									"key": "sortBy",
@@ -2272,7 +2273,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDgwNjI4MiwiZXhwIjoxNzQ0ODA5ODgyfQ.1Z_sKkGUdMthmQ7MKoDlxbcRadoe_PQOwAQ6H2Tdqu0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDk5NDM0OSwiZXhwIjoxNzQ0OTk3OTQ5fQ.N9PHdjzSj4Chz8gtkoNFdrudz484kF1dpUeo54g2nME",
 									"type": "string"
 								}
 							]
@@ -2280,7 +2281,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/favorite-script?page=1&limit=1&sortBy=updatedAt&order=desc",
+							"raw": "{{be-server}}/:userId/favorite-script?page=1&limit=10&sortBy=updatedAt&order=desc",
 							"host": [
 								"{{be-server}}"
 							],
@@ -2296,7 +2297,7 @@
 								},
 								{
 									"key": "limit",
-									"value": "1",
+									"value": "10",
 									"description": "Default = 10"
 								},
 								{
