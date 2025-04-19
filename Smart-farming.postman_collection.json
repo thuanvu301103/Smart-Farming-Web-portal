@@ -2273,7 +2273,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDk5NDM0OSwiZXhwIjoxNzQ0OTk3OTQ5fQ.N9PHdjzSj4Chz8gtkoNFdrudz484kF1dpUeo54g2nME",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAzNjQxOCwiZXhwIjoxNzQ1MDQwMDE4fQ.98w5XfIzGJKuBjOYWAWuAndMbuWA0swbae7MCLoCWtY",
 									"type": "string"
 								}
 							]
@@ -2281,7 +2281,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/favorite-script?page=1&limit=10&sortBy=updatedAt&order=desc",
+							"raw": "{{be-server}}/:userId/favorite-script?page=1&limit=10&sortBy=updatedAt&order=desc&locations=hue&locations=da-nang&plant_types=dua-hau&plant_types=cam&privacy=public",
 							"host": [
 								"{{be-server}}"
 							],
@@ -2309,6 +2309,31 @@
 									"key": "order",
 									"value": "desc",
 									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
+								},
+								{
+									"key": "locations",
+									"value": "hue",
+									"description": "(Optional)"
+								},
+								{
+									"key": "locations",
+									"value": "da-nang",
+									"description": "(Optional)"
+								},
+								{
+									"key": "plant_types",
+									"value": "dua-hau",
+									"description": "(Optional)"
+								},
+								{
+									"key": "plant_types",
+									"value": "cam",
+									"description": "(Optional)"
+								},
+								{
+									"key": "privacy",
+									"value": "public",
+									"description": "(Optional) Values = {'private', 'public'}; Default = 'pubic'"
 								}
 							],
 							"variable": [
@@ -2329,7 +2354,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDgwNjI4MiwiZXhwIjoxNzQ0ODA5ODgyfQ.1Z_sKkGUdMthmQ7MKoDlxbcRadoe_PQOwAQ6H2Tdqu0",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAzNjQxOCwiZXhwIjoxNzQ1MDQwMDE4fQ.98w5XfIzGJKuBjOYWAWuAndMbuWA0swbae7MCLoCWtY",
 									"type": "string"
 								}
 							]
@@ -2337,7 +2362,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{be-server}}/:userId/shared-script?page=1&limit=2&sortBy=updatedAt&order=desc",
+							"raw": "{{be-server}}/:userId/shared-script?page=1&limit=2&sortBy=updatedAt&order=desc&locations=hue&locations=da-nang&plant_types=dua-hau&plant_types=cam&privacy=private",
 							"host": [
 								"{{be-server}}"
 							],
@@ -2365,6 +2390,31 @@
 									"key": "order",
 									"value": "desc",
 									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
+								},
+								{
+									"key": "locations",
+									"value": "hue",
+									"description": "(Optional)"
+								},
+								{
+									"key": "locations",
+									"value": "da-nang",
+									"description": "(Optional)"
+								},
+								{
+									"key": "plant_types",
+									"value": "dua-hau",
+									"description": "(Optional)"
+								},
+								{
+									"key": "plant_types",
+									"value": "cam",
+									"description": "(Optional)"
+								},
+								{
+									"key": "privacy",
+									"value": "private",
+									"description": "(Optional) Values = {'private', 'public'}; Default = 'pubic'"
 								}
 							],
 							"variable": [
