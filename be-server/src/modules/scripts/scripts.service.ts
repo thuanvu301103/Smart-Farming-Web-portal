@@ -48,12 +48,23 @@ export class ScriptsService {
             const {
                 page, limit,
                 sortBy, order,
+                locations, plant_types,
+                privacy
             } = query;
 
             const searchRes = await this.shareModel.find({ user_id: new Types.ObjectId(userId) }).select("script_id").exec();
 
             const filterCondition: any = {};
             filterCondition._id = { $in: await searchRes.map(obj => obj.script_id) }
+            if (locations?.length) {
+                filterCondition.location = { $in: locations };
+            }
+
+            if (plant_types?.length) {
+                filterCondition.plant_type = { $in: plant_types };
+            }
+
+            if (privacy) filterCondition.privacy = privacy;
             const sortOrder = order === 'asc' ? 1 : -1;
             const skip = (page - 1) * limit;
             const scripts = await this.scriptModel.find(filterCondition)
