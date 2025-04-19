@@ -139,10 +139,9 @@ export class ScriptsService {
             filterCondition.plant_type = { $in: plant_types };
         }
 
-        if (privacy) filterCondition.privacy = privacy;
-        //console.log(currentUserId, userId, userId == currentUserId);
         if (currentUserId !== userId) {
-            filterCondition.privacy = "public";
+            if (privacy) filterCondition.privacy = privacy;
+            else filterCondition.privacy = "public";
         }
 
         const sortOrder = order === 'asc' ? 1 : -1;
