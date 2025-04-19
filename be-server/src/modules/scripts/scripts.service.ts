@@ -140,9 +140,9 @@ export class ScriptsService {
         }
 
         if (currentUserId !== userId) {
-            if (privacy) filterCondition.privacy = privacy;
-            else filterCondition.privacy = "public";
-        }
+            filterCondition.privacy = "public";
+        } else if (privacy) filterCondition.privacy = privacy;
+
 
         const sortOrder = order === 'asc' ? 1 : -1;
         const skip = (page - 1) * limit;
