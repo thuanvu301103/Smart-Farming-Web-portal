@@ -6,7 +6,7 @@ export class Script extends Document {
     @Prop()
     name: string;
 
-    @Prop()
+    @Prop({ default: '' })
     description: string;
 
     @Prop()

@@ -70,4 +70,30 @@ class ScriptFileQueryDto {
     version: number = 10;
 }
 
-export { BaseSearchScriptQueryDto,  ScriptQueryDto, ScriptFileQueryDto }
+class CreateScriptBodyDto {
+    @IsNotEmpty()
+    @IsString()
+    name: string;
+
+    @IsOptional()
+    @IsString()
+    description?: string;
+
+    @IsOptional()
+    @IsString()
+    privacy?: string;
+
+    @IsOptional()
+    @IsString({ each: true })
+    share_id?: string[];
+
+    @IsOptional()
+    @IsString({ each: true })
+    location?: string[];
+    
+    @IsOptional()
+    @IsString({ each: true })
+    plant_type?: string[];
+}
+
+export { BaseSearchScriptQueryDto, ScriptQueryDto, ScriptFileQueryDto, CreateScriptBodyDto }
