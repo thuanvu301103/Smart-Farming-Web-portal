@@ -8,7 +8,7 @@
 import { Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 
-@WebSocketGateway(3004, { cors: { origin: '*' } }) // ✅ Ensure correct port & CORS
+@WebSocketGateway({ cors: { origin: '*' } }) // ✅ Ensure correct port & CORS
 export class NotificationGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private logger = new Logger('NotificationGateway');
 
