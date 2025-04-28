@@ -2,10 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\gateway",
+    "\\src\\gateway\\notify",
     "\\src\\modules",
+    "\\src\\modules\\models",
+    "\\src\\modules\\notifications",
     "\\src\\modules\\scripts",
     "\\src\\schemas",
     "\\test"
   ],
+  "SelectedNode": "\\src\\gateway\\notify\\notify.gateway.ts",
   "PreviewInSolutionExplorer": false
 }
