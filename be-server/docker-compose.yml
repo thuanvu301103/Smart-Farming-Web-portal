@@ -1,11 +1,29 @@
 version: '3.8'
 
 services:
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+
   nestjs-app:
-    image: thuanvu301103/nestjs-app:latest  # Replace with your actual image name
+    image: thuanvu301103/nestjs-app:latest
     container_name: nestjs-app
     ports:
-      - '3002:3000'
+      - "3002:3000"
     environment:
-      NODE_ENV: production
+      NODE_ENV: production  
+      MONGODB_URI: ${MONGODB_URI}
+    depends_on:
+      - mongo
     restart: unless-stopped
+
+volumes:
+  mongo_data:
