@@ -8,4 +8,6 @@ services:
       - '3002:3000'
     environment:
       NODE_ENV: production
+    env_file:
+      - .env
     restart: unless-stopped
