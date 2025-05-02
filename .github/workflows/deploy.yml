@@ -41,7 +41,7 @@ jobs:
       - name: 🚀 Deploy NestJS app via SSH
         run: |
           sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@10.1.8.52 "
-            cd /home/ubuntu/Smart-Farming-Web-portal &&
+            cd /home/ubuntu/Smart-Farming-Web-portal/be-server &&
             git pull origin main &&
             docker pull ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest &&
             docker compose up -d --build
