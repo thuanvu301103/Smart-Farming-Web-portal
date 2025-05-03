@@ -27,8 +27,6 @@ export class ModelsService {
         private readonly configService: ConfigService,
     ) {
         this.mlflowUrl = this.configService.get<string>('MLFLOW_TRACKING_SERVER');
-        console.log("Env mlflow url:", process.env.MLFLOW_TRACKING_SERVER)
-        console.log("Config mlflow url:", this.configService.get<string>('MLFLOW_TRACKING_SERVER'))
     }
 
     async isExist(obj_id) {
