@@ -20,9 +20,8 @@ services:
       - "3002:3000"
     environment:
       NODE_ENV: production  
-      MONGODB_URI: ${MONGODB_URI}
-      JWT_SECRET: ${JWT_SECRET}
-      MLFLOW_TRACKING_SERVER: ${MLFLOW_TRACKING_SERVER}
+    env_file:
+      - .env
     depends_on:
       - mongo
     restart: unless-stopped
