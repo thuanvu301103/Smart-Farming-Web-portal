@@ -12,4 +12,6 @@ CMD ["mlflow", "server", \
      "--port=5000", \
      "--backend-store-uri=sqlite:///mlflow.db", \
      "--default-artifact-root=file:/app/mlruns", \
+     "--serve-artifacts", \
+     "--cors-allow-origin=*", \
      "--workers=1"]
