@@ -10,6 +10,6 @@ EXPOSE 5000
 CMD ["mlflow", "server", \
      "--host=0.0.0.0", \
      "--port=5000", \
-     "--backend-store-uri=sqlite:////app/mlflow.db", \
+     "--backend-store-uri=sqlite:///app/mlflow.db", \
      "--default-artifact-root=file:/app/mlruns", \
      "--workers=1"]
