@@ -7,6 +7,6 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./mlruns:/mlflow/mlruns
-      - ./mlflow.db:/mlflow/mlflow.db
+      - ./mlruns:/app/mlruns
+      - ./mlflow.db:/app/mlflow.db
     restart: unless-stopped
