@@ -1,7 +1,7 @@
 import {
     Injectable, Inject, forwardRef,
     NotFoundException, BadRequestException,
-    InternalServerErrorException, 
+    InternalServerErrorException,
     HttpException, HttpStatus,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -27,6 +27,7 @@ export class ModelsService {
         private readonly configService: ConfigService,
     ) {
         this.mlflowUrl = this.configService.get<string>('MLFLOW_TRACKING_SERVER');
+        console.log("Server đây", this.configService.get<string>('MLFLOW_TRACKING_SERVER'))
     }
 
     async isExist(obj_id) {
@@ -431,10 +432,10 @@ export class ModelsService {
                     description: description
                 }
             );
-            
+
             return response.data;
         } catch (error) {
-            
+
             if (error.response) {
                 throw new HttpException(
                     `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
