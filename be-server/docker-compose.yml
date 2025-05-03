@@ -22,6 +22,7 @@ services:
       NODE_ENV: production  
       MONGODB_URI: ${MONGODB_URI}
       JWT_SECRET: ${JWT_SECRET}
+      MLFLOW_TRACKING_SERVER: ${MLFLOW_TRACKING_SERVER}
     depends_on:
       - mongo
     restart: unless-stopped
