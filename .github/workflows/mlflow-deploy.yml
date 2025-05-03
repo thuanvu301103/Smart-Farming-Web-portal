@@ -43,7 +43,7 @@ jobs:
       # SSH into VM and pull the latest updates if needed
       - name: 🚀 Deploy MLflow app via SSH
         run: |
-          sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_HOST }} "
+          sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@10.1.8.52 "
             cd /home/ubuntu/Smart-Farming-Web-portal/mlflow-server &&
             git pull origin main &&
             docker pull ${{ secrets.DOCKER_USERNAME }}/mlflow-app:latest &&
