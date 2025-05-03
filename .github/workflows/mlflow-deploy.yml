@@ -1,21 +1,51 @@
 name: MLflow CI
 
 on:
-  workflow_dispatch:	# Munual Run
+  push:
+    branches:
+      - main
+    paths:
+      - "mlflow-server/**"
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: 🔄 Checkout code
         uses: actions/checkout@v3
 
-      - name: Log in to DockerHub
+      # DockerHub login and push image first
+      - name: 🐳 Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build Docker image
+      - name: 🛠️ Build Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/mlflow-app:latest ./mlflow-server
 
-      - name: Push image to DockerHub
+      - name: 📤 Push image to DockerHub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/mlflow-app:latest
+
+      # Install OpenVPN and sshpass
+      - name: 📥 Install OpenVPN and sshpass
+        run: sudo apt-get update && sudo apt-get install -y openvpn sshpass
+
+      # Set up VPN connection
+      - name: 🔐 Setup VPN config and connect
+        run: |
+          echo "${{ secrets.VPN_CONFIG }}" | base64 -d > vpn.ovpn
+          echo -e "${{ secrets.VPN_USERNAME }}\n${{ secrets.VPN_PASSWORD }}" > auth.txt
+          sudo openvpn --config vpn.ovpn --auth-user-pass auth.txt --daemon
+
+      # Wait for VPN connection to establish
+      - name: ⏱️ Wait for VPN to connect
+        run: sleep 15
+
+      # SSH into VM and pull the latest updates if needed
+      - name: 🚀 Deploy MLflow app via SSH
+        run: |
+          sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VM_USERNAME }}@${{ secrets.VM_HOST }} "
+            cd /home/ubuntu/Smart-Farming-Web-portal/mlflow-server &&
+            git pull origin main &&
+            docker pull ${{ secrets.DOCKER_USERNAME }}/mlflow-app:latest &&
+            docker compose up --build -d
+          "
