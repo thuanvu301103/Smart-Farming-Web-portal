@@ -17,25 +17,25 @@ import { ApiModule } from './modules/api/api.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-        isGlobal: true,
-        ignoreEnvFile: process.env.NODE_ENV === 'production',
-        envFilePath: '.env',
+      isGlobal: true,
+      // ignoreEnvFile: process.env.NODE_ENV === 'production',
+      envFilePath: '.env',
     }),
-      // For Outsider call
-      ApiModule,
-      // Import ConfigModule at the root level
-        DatabaseModule,
-        ScriptsModule,
-        UsersModule,
-        FilesModule,
-        ModelsModule,
-        CommentsModule,
-        NotificationsModule,
-        NotificationGateway,
-        AuthModule,
-        ActivitiesModule,
+    // For Outsider call
+    ApiModule,
+    // Import ConfigModule at the root level
+    DatabaseModule,
+    ScriptsModule,
+    UsersModule,
+    FilesModule,
+    ModelsModule,
+    CommentsModule,
+    NotificationsModule,
+    NotificationGateway,
+    AuthModule,
+    ActivitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService, NotificationGateway],
 })
-export class AppModule {}
+export class AppModule { }
