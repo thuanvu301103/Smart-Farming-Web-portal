@@ -18,7 +18,7 @@ import { ApiModule } from './modules/api/api.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      // ignoreEnvFile: process.env.NODE_ENV === 'production',
+      ignoreEnvFile: process.env.NODE_ENV === 'production',
       envFilePath: '.env',
     }),
     // For Outsider call
