@@ -13,6 +13,9 @@ export class FilesService {
     private ftpPassword: string;
     private ftpSecure: boolean;
     private ftpUploadDir: string;
+    private ftpPassiveMode: boolean;
+    private ftpPassivePortMin: number;
+    private ftpPassivePortMax: number;
     //private queue: any;
 
     constructor(private readonly configService: ConfigService) {
@@ -23,12 +26,21 @@ export class FilesService {
         this.ftpPassword = this.configService.get<string>('FTP_PASSWORD');
         this.ftpSecure = this.configService.get<boolean>('FTP_SECURE') || false;
         this.ftpUploadDir = this.configService.get<string>('FTP_UPLOAD_DIR') || '/uploads';
+        this.ftpPassiveMode = this.configService.get<boolean>('FTP_PASSIVE_MODE') || false;
+        this.ftpPassivePortMin = this.configService.get<number>('FTP_PASSIVE_PORT_MIN') || 30000;
+        this.ftpPassivePortMax = this.configService.get<number>('FTP_PASSIVE_PORT_MAX') || 31000;
         //this.queue = Promise.resolve()
     }
 
     async connectToFTP() {
         const newFtpClient = new ftp.Client();
         //console.log(`✅ Connected to FTP: ${this.ftpHost}`);
+        // Enable passive mode if configured in environment variables
+        if (this.ftpPassiveMode) {
+            newFtpClient.ftp.passive = true;
+            newFtpClient.ftp.passivePorts = [this.ftpPassivePortMin, this.ftpPassivePortMax]; // Set the passive port range
+        }
+
         await newFtpClient.access({
             host: this.ftpHost,
             user: this.ftpUser,
@@ -45,21 +57,21 @@ export class FilesService {
     async uploadFilesToFTP(files: Express.Multer.File[], remote_path: string) {
         const connect = await this.connectToFTP();
         try {
-            
+
             // Ensure remote directory exists
             await connect.ensureDir(remote_path);
             for (const file of files) {
-                    const remotePath = `${remote_path}/${file.originalname}`;
-                    await connect.uploadFrom(Readable.from(file.buffer), remotePath);
+                const remotePath = `${remote_path}/${file.originalname}`;
+                await connect.uploadFrom(Readable.from(file.buffer), remotePath);
             }
-                //console.log("✅ All files uploaded and deleted successfully");
+            //console.log("✅ All files uploaded and deleted successfully");
         } catch (error) {
             connect.close();
-                console.error("❌ FTP Upload Error:", error);
-                throw new Error("FTP Upload Failed");
+            console.error("❌ FTP Upload Error:", error);
+            throw new Error("FTP Upload Failed");
         }
         connect.close();
-       
+
     }
 
     // Delete a file from FTP Server
@@ -71,7 +83,7 @@ export class FilesService {
             connect.close();
             throw new NotFoundException(`File not found: ${remoteFilePath}`);
         }
-        try {   
+        try {
             // Delete the file from FTP
             await connect.remove(remoteFilePath);
         } catch (error) {
@@ -149,17 +161,17 @@ export class FilesService {
     // Rename a file
     async renameFile(oldFilePath: string, newFilePath: string) {
         const connect = await this.connectToFTP();
-            try {
-                await connect.rename(oldFilePath, newFilePath);
-                //console.log(`✅ Rename ${oldFilePath}:`, newFilePath);
-                return { message: "Renaming file successed" }
+        try {
+            await connect.rename(oldFilePath, newFilePath);
+            //console.log(`✅ Rename ${oldFilePath}:`, newFilePath);
+            return { message: "Renaming file successed" }
 
-            } catch (error) {
-                //console.error("❌ Error renaming file:", error);
-                throw new Error("Failed to get rename");
-            } finally {
-                connect.close();
-            }
+        } catch (error) {
+            //console.error("❌ Error renaming file:", error);
+            throw new Error("Failed to get rename");
+        } finally {
+            connect.close();
+        }
         //});
     }
 
@@ -194,7 +206,7 @@ export class FilesService {
         } finally {
             ftpConnect.close();
         }
-      
+
     }
 
     private async checkFileExists(filePath: string, ftpConnect): Promise<boolean> {
