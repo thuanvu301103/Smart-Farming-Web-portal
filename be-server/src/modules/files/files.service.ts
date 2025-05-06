@@ -13,24 +13,22 @@ export class FilesService {
     private ftpPassword: string;
     private ftpSecure: boolean;
     private ftpUploadDir: string;
-    private ftpPassivePortMin: number;
-    private ftpPassivePortMax: number;
+    //private queue: any;
 
     constructor(private readonly configService: ConfigService) {
+        //this.ftpClient = new ftp.Client();
+        //this.ftpClient.ftp.verbose = true; // Enable logs for debugging
         this.ftpHost = this.configService.get<string>('FTP_HOST');
         this.ftpUser = this.configService.get<string>('FTP_USER');
         this.ftpPassword = this.configService.get<string>('FTP_PASSWORD');
         this.ftpSecure = this.configService.get<boolean>('FTP_SECURE') || false;
         this.ftpUploadDir = this.configService.get<string>('FTP_UPLOAD_DIR') || '/uploads';
-        this.ftpPassivePortMin = this.configService.get<number>('FTP_PASSIVE_PORT_MIN') || 30000;
-        this.ftpPassivePortMax = this.configService.get<number>('FTP_PASSIVE_PORT_MAX') || 31000;
+        //this.queue = Promise.resolve()
     }
 
     async connectToFTP() {
         const newFtpClient = new ftp.Client();
-        newFtpClient.ftp.pasvMinPort = this.ftpPassivePortMin;
-        newFtpClient.ftp.pasvMaxPort = this.ftpPassivePortMax;
-
+        //console.log(`✅ Connected to FTP: ${this.ftpHost}`);
         await newFtpClient.access({
             host: this.ftpHost,
             user: this.ftpUser,
