@@ -18,6 +18,7 @@ services:
     container_name: nestjs-app
     ports:
       - "3002:3000"
+      - "30000-31000:30000-31000"
     environment:
       NODE_ENV: production  
     env_file:
