@@ -13,33 +13,23 @@ export class FilesService {
     private ftpPassword: string;
     private ftpSecure: boolean;
     private ftpUploadDir: string;
-    private ftpPassiveMode: boolean;
     private ftpPassivePortMin: number;
     private ftpPassivePortMax: number;
-    //private queue: any;
 
     constructor(private readonly configService: ConfigService) {
-        //this.ftpClient = new ftp.Client();
-        //this.ftpClient.ftp.verbose = true; // Enable logs for debugging
         this.ftpHost = this.configService.get<string>('FTP_HOST');
         this.ftpUser = this.configService.get<string>('FTP_USER');
         this.ftpPassword = this.configService.get<string>('FTP_PASSWORD');
         this.ftpSecure = this.configService.get<boolean>('FTP_SECURE') || false;
         this.ftpUploadDir = this.configService.get<string>('FTP_UPLOAD_DIR') || '/uploads';
-        this.ftpPassiveMode = this.configService.get<boolean>('FTP_PASSIVE_MODE') || false;
         this.ftpPassivePortMin = this.configService.get<number>('FTP_PASSIVE_PORT_MIN') || 30000;
         this.ftpPassivePortMax = this.configService.get<number>('FTP_PASSIVE_PORT_MAX') || 31000;
-        //this.queue = Promise.resolve()
     }
 
     async connectToFTP() {
         const newFtpClient = new ftp.Client();
-        //console.log(`✅ Connected to FTP: ${this.ftpHost}`);
-        // Enable passive mode if configured in environment variables
-        if (this.ftpPassiveMode) {
-            newFtpClient.ftp.passive = true;
-            newFtpClient.ftp.passivePorts = [this.ftpPassivePortMin, this.ftpPassivePortMax]; // Set the passive port range
-        }
+        newFtpClient.ftp.pasvMinPort = this.ftpPassivePortMin;
+        newFtpClient.ftp.pasvMaxPort = this.ftpPassivePortMax;
 
         await newFtpClient.access({
             host: this.ftpHost,
