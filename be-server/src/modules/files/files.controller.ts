@@ -66,7 +66,7 @@ export class FilesController {
     }
 
     // Endpoint to get file content from FTP
-    @Get('file-content/:path')
+    @Get('file-content/:path(*)')
     @UseGuards(JwtAuthGuard)
     async getFileContent(
         @Param('path') filePath: string,
