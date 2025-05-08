@@ -129,22 +129,29 @@ export class FilesService {
 
     // Get the contents of a folder on FTP server
     async getFolderContents(ftpFolderPath: string): Promise<any[]> {
-        const connect = await this.connectToFTP();
+        let connect: ftp.Client;
+        console.log(`📂 Attempting to get folder contents for: "${ftpFolderPath}"`);
         try {
-            console.log(ftpFolderPath);
+            console.log("🔌 Connecting to FTP server...");
+            connect = await this.connectToFTP();
+            console.log("✅ FTP connection established");
+
             // Get the list of files and directories in the specified folder
             const fileList = await connect.list(ftpFolderPath);
-            console.log(`✅ Contents of folder ${ftpFolderPath}:`, fileList);
+            console.log(`✅ Contents of folder "${ftpFolderPath}":`, fileList);
 
-            // Return the file/folder list
             return fileList;
         } catch (error) {
             console.error("❌ Error retrieving folder contents:", error);
             throw new Error("Failed to get folder contents");
         } finally {
-            connect.close();
+            if (connect) {
+                connect.close();
+                console.log("🔌 FTP connection closed");
+            }
         }
     }
+
 
     // Rename a file
     async renameFile(oldFilePath: string, newFilePath: string) {
