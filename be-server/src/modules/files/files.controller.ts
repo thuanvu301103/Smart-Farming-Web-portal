@@ -55,7 +55,7 @@ export class FilesController {
         return { message: 'Delete folder successfully' };
     }
 
-    @Get('folder-contents/:folderPath')
+    @Get('folder-contents/:folderPath(*)')
     async getFolderContents(@Param('folderPath') folderPath: string) {
         try {
             const contents = await this.filesService.getFolderContents(folderPath);
