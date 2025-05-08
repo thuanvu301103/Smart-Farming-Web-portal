@@ -5,7 +5,7 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
-FROM node:18 as production
+FROM node:18 AS production
 WORKDIR /app
 COPY --from=builder /app /app
 EXPOSE 3002
