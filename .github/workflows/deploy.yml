@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "be-server/**"
+      - .github/workflows/deploy.yml
 
 jobs:
   build_and_deploy:
@@ -47,4 +48,5 @@ jobs:
             git pull origin main &&
             docker pull ${{ secrets.DOCKER_USERNAME }}/nestjs-app:latest &&
             docker compose up -d --build
+            docker image prune -f
           "
