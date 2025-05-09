@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "mlflow-server/**"
+      - .github/workflows/mlflow-deploy.yml
 
 jobs:
   build_and_deploy:
@@ -48,4 +49,5 @@ jobs:
             git pull origin main &&
             docker pull ${{ secrets.DOCKER_USERNAME }}/mlflow-app:latest &&
             docker compose up --build -d
+            docker image prune -f
           "
