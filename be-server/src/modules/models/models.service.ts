@@ -104,6 +104,7 @@ export class ModelsService {
             response.data.registered_model['alt_name'] = model.name.includes("/") ? model.name.split("/").pop() : model.name;
             return response.data;
         } catch (error) {
+            console.log("Lỗi kết nối:", error)
             if (error.response) {
                 throw new HttpException(
                     `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
