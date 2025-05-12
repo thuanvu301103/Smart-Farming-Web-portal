@@ -94,6 +94,7 @@ export class ModelsService {
     async getRegisteredModel(userId: string, name: string) {
         const unique_name = `${userId}/${name}`;
         try {
+            console.log("Url when call", this.mlflowUrl)
             const response = await axios.get(
                 `${this.mlflowUrl}/api/2.0/mlflow/registered-models/get`,
                 { params: { name: unique_name } }
