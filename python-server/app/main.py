@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from uuid import uuid4
 
-from .model_utils import predict_and_generate_json
+from .model_utils import train_and_save_model, predict_and_generate_json
 from .minio_client import get_s3_client
 
 app = FastAPI()
