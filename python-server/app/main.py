@@ -187,12 +187,22 @@ def generate_script(req: GenerateScriptRequest):
 
     # Bước 6: Upload file JSON
     try:
+        # Fetch the length of the scripts (for version)
+        version_resp = requests.get(
+            f"{BE_SERVER}/{user_id}/models/scripts/get-all?model_id={model_id}",
+            headers=headers
+        )
+        
+        if version_resp.status_code != 200:
+            raise HTTPException(status_code=version_resp.status_code, detail="Failed to fetch scripts length")
+        
+        res_data = version_resp.json()
         with open(json_filename, "rb") as file:
-            files = {
-                "files": (json_filename, file, "application/json")
-            }
+            files = [
+                ("files", (json_filename, file, "application/json"))
+            ]
             data = {
-                "version": "0",
+                "version": len(res_data),
                 "model_id": model_id,
                 "model_version": model_version
             }
