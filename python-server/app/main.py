@@ -73,7 +73,7 @@ def download_model_from_minio(source_url: str, model_filename: str):
 @app.post("/generate-model")
 def generate_model(request: GenerateModelRequest):
     try:
-        access_token, user_id = login_and_get_user_info(req.username, req.password)
+        access_token, user_id = login_and_get_user_info(request.username, request.password)
     except HTTPException as e:
         raise HTTPException(status_code=e.status_code, detail="Login failed or token not obtained")
     
