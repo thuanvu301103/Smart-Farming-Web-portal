@@ -49,7 +49,7 @@ def login_and_get_user_info(username: str, password: str):
         f"{BE_SERVER}/auth/login",
         json={"username": username, "password": password}
     )
-    if login_resp.status_code != 200:
+    if login_resp.status_code != 201:
         raise HTTPException(status_code=401, detail="Login failed")
 
     login_data = login_resp.json()
