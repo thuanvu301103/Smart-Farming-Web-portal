@@ -1,0 +1,28 @@
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore environment virtual environment folder
+venv/
+
+# Ignore local configuration files
+*.env
+*.local
+
+# Ignore IDE/editor configuration files (e.g., VSCode, PyCharm)
+.vscode/
+.idea/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore MinIO credentials file if exists
+.minio/
+
+# Ignore logs
+*.log
+
+# Ignore pipenv or poetry lock files if you're not using them
+Pipfile.lock
+poetry.lock
