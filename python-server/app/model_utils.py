@@ -1,6 +1,6 @@
-from sklearn.linear_model import LinearRegression
 import pickle
 import numpy as np
+from sklearn.linear_model import LinearRegression
 
 def train_and_save_model(file_path: str):
     # Giả sử chúng ta có một số dữ liệu ngẫu nhiên cho 3 yếu tố: water, soil, time
@@ -25,10 +25,15 @@ def train_and_save_model(file_path: str):
     # Lưu mô hình vào file
     with open(file_path, "wb") as f:
         pickle.dump((model_water, model_soil, model_time), f)
+        
 def load_model(file_path: str):
-    with open(file_path, "rb") as f:
-        model_water, model_soil, model_time = pickle.load(f)
-    return model_water, model_soil, model_time
+    try:
+        # Kiểm tra và tải mô hình
+        with open(file_path, "rb") as f:
+            model_water, model_soil, model_time = pickle.load(f)
+        return model_water, model_soil, model_time
+    except Exception as e:
+        raise Exception(f"Error loading model: {str(e)}")
 
 def predict_and_generate_json(input_data: np.ndarray, model_file_path: str):
     # Tải mô hình đã huấn luyện
