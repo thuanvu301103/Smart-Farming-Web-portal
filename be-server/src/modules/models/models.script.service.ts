@@ -21,10 +21,12 @@ export class ModelScriptsService {
         @InjectModel(ModelScript.name) private modelScriptModel: Model<ModelScript>,
         @Inject(FilesService) private readonly filesService: FilesService,
         private readonly configService: ConfigService,
-    ) {}
+    ) { }
 
     // Upload Model Script
     async uploadModelScript(scriptFiles, version, user_id, model_id, model_version) {
+        console.log('FILES:', scriptFiles);
+        console.log('BODY:', version, model_id, model_version);
         if (await this.isVersionExist(model_id, version)) {
             throw new ConflictException(`Model Script Version ${version} already exists`);
         }
