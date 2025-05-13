@@ -90,7 +90,8 @@ def generate_script(req: GenerateScriptRequest):
         access_token, user_id = login_and_get_user_info(req.username, req.password)
     except HTTPException as e:
         raise HTTPException(status_code=e.status_code, detail="Login failed or token not obtained")
-
+    
+    headers = {"Authorization": f"Bearer {access_token}"}
     # Bước 1: Lấy thông tin model version
     version_resp = requests.post(
         f"{BE_SERVER}/{user_id}/models/get-latest-version",
