@@ -28,7 +28,7 @@ export class ModelScriptsController {
 
     @Post('upload')
     @UseGuards(JwtAuthGuard)
-    @UseInterceptors(FilesInterceptor('files', 50, { storage }))
+    @UseInterceptors(FilesInterceptor('files', 50, { storage: multer.memoryStorage() }))
     async uploadModelScript(
         @UploadedFiles() files: Express.Multer.File[],
         @Body('version') version: string,
