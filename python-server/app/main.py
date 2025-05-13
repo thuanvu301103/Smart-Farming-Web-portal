@@ -198,9 +198,9 @@ def generate_script(req: GenerateScriptRequest):
         
         res_data = version_resp.json()
         with open(json_filename, "rb") as file:
-            files = {
-                "files": (json_filename, file, "application/json")
-            }
+            files = [
+                ("files", (json_filename, file, "application/json"))
+            ]
             data = {
                 "version": len(res_data),
                 "model_id": model_id,
@@ -210,7 +210,7 @@ def generate_script(req: GenerateScriptRequest):
             upload_resp = requests.post(
                 f"{BE_SERVER}/{user_id}/models/scripts/upload",
                 headers={"Authorization": f"Bearer {access_token}"},
-                files=[files],
+                files=files,
                 data=data
             )
 
