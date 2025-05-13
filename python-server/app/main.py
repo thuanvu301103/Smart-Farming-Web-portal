@@ -15,34 +15,21 @@ BUCKET_NAME = "models"
 DOWNLOAD_DIR = "./downloaded_models"
 BE_SERVER = "http://10.1.8.52:3002"
 
-@app.post("/generate-model")
-def generate_model():
-    # 1. Train & save model
-    file_name = f"model-{uuid4().hex}.pkl"
-    file_path = f"/tmp/{file_name}"
-    train_and_save_model(file_path)
-
-    # 2. Upload to MinIO
-    s3 = get_s3_client()
-    try:
-        s3.create_bucket(Bucket=BUCKET_NAME)
-    except:
-        pass  # Nếu bucket đã tồn tại
-
-    s3.upload_file(file_path, BUCKET_NAME, file_name)
-    os.remove(file_path)
-
-    # 3. Trả link model trên MinIO
-    uri = f"http://10.1.8.52:9000/{BUCKET_NAME}/{file_name}"
-    return {"source": uri}
-
+class GenerateModelRequest(BaseModel):
+    username: str
+    password: str
+    name: str  # Tên model do người dùng nhập
+    run_id: str = None
+    tags: list[dict] = []
+    run_link: str = None
+    description: str = None
+    
 # Define the request schema
 class GenerateScriptRequest(BaseModel):
     username: str
     password: str
     model_name: str
-
-
+    
 # Function to handle login and return access_token and user_id
 def login_and_get_user_info(username: str, password: str):
     login_resp = requests.post(
@@ -83,6 +70,50 @@ def download_model_from_minio(source_url: str, model_filename: str):
     except Exception as e:
         raise Exception(f"Failed to download model from MinIO: {str(e)}")
 
+@app.post("/generate-model")
+def generate_model(request: GenerateModelRequest):
+    try:
+        access_token, user_id = login_and_get_user_info(req.username, req.password)
+    except HTTPException as e:
+        raise HTTPException(status_code=e.status_code, detail="Login failed or token not obtained")
+    
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    # Step 2: Train & save model
+    file_name = f"model-{uuid4().hex}.pkl"
+    file_path = f"/tmp/{file_name}"
+    train_and_save_model(file_path)
+
+    # Step 3: Upload to MinIO
+    s3 = get_s3_client()
+    try:
+        s3.create_bucket(Bucket=BUCKET_NAME)
+    except:
+        pass  # bucket đã tồn tại
+    s3.upload_file(file_path, BUCKET_NAME, file_name)
+    os.remove(file_path)
+    uri = f"http://10.1.8.52:9000/{BUCKET_NAME}/{file_name}"
+
+    # Step 4: Gọi API tạo version model
+    version_payload = {
+        "name": request.name,
+        "source": uri,
+        "run_id": request.run_id,
+        "tags": request.tags,
+        "run_link": request.run_link,
+        "description": request.description
+    }
+
+    version_resp = requests.post(
+        f"{BE_SERVER}/{user_id}/models/versions/create",
+        headers=headers,
+        json=version_payload
+    )
+
+    if version_resp.status_code != 201:
+        raise HTTPException(status_code=version_resp.status_code, detail="Failed to register model version")
+
+    return {"message": "Model trained, uploaded and registered successfully", "source": uri}
 
 @app.post("/generate-script")
 def generate_script(req: GenerateScriptRequest):
