@@ -38,7 +38,7 @@ export class FilesController {
         if (currentUserId !== userId) {
             throw new ForbiddenException('You can only upload your own file.');
         }
-
+        console.log("STATIC FILES", files)
         await this.filesService.uploadFilesToFTP(files, remotePath);
         return { message: 'Files uploaded successfully to FTP' };
     }

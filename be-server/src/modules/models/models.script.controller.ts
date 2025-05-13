@@ -38,10 +38,10 @@ export class ModelScriptsController {
     ) {
         //console.log(version, model_id);
         const currentUserId = req.user.userId;
-        console.log("FILES:", files);
-        console.log("VERSION:", version);
-        console.log("MODEL ID:", model_id);
-        console.log("MODEL VERSION:", model_version);
+        // console.log("FILES:", files);
+        // console.log("VERSION:", version);
+        // console.log("MODEL ID:", model_id);
+        // console.log("MODEL VERSION:", model_version);
         try {
             await this.modelScriptService.uploadModelScript(files, version, currentUserId, model_id, model_version);
         } catch (error) {
