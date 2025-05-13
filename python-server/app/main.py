@@ -98,7 +98,7 @@ def generate_script(req: GenerateScriptRequest):
         headers=headers,
         json={"name": req.model_name}
     )
-    if version_resp.status_code != 200:
+    if version_resp.status_code != 201:
         raise HTTPException(status_code=400, detail="Failed to get model version")
 
     version_data = version_resp.json()
@@ -173,7 +173,7 @@ def generate_script(req: GenerateScriptRequest):
                 data=data
             )
 
-        if upload_resp.status_code != 200:
+        if upload_resp.status_code != 201:
             raise HTTPException(status_code=upload_resp.status_code, detail="Failed to upload script")
 
         return {"message": "Script uploaded successfully"}
