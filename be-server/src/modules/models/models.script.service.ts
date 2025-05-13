@@ -25,8 +25,6 @@ export class ModelScriptsService {
 
     // Upload Model Script
     async uploadModelScript(scriptFiles, version, user_id, model_id, model_version) {
-        console.log('FILES:', scriptFiles);
-        console.log('BODY:', version, model_id, model_version);
         if (await this.isVersionExist(model_id, version)) {
             throw new ConflictException(`Model Script Version ${version} already exists`);
         }
