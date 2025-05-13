@@ -177,7 +177,7 @@ def generate_script(req: GenerateScriptRequest):
         input_data = np.array([[0.5, 0.3, 0.2]])
         predictions = predict_and_generate_json(input_data, local_model_path)
 
-        json_filename = "predictions.json"
+        json_filename: str = "predictions.json"
         with open(json_filename, "w") as f:
             json.dump(predictions, f, indent=4)
 
