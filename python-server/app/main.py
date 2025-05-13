@@ -86,8 +86,10 @@ def download_model_from_minio(source_url: str, model_filename: str):
 
 @app.post("/generate-script")
 def generate_script(req: GenerateScriptRequest):
-    access_token, user_id = login_and_get_user_info(req.username, req.password)
-    headers = {"Authorization": f"Bearer {access_token}"}
+    try:
+        access_token, user_id = login_and_get_user_info(req.username, req.password)
+    except HTTPException as e:
+        raise HTTPException(status_code=e.status_code, detail="Login failed or token not obtained")
 
     # Bước 1: Lấy thông tin model version
     version_resp = requests.post(
