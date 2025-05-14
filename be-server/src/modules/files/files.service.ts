@@ -54,7 +54,23 @@ export class FilesService {
             await connect.ensureDir(remote_path);
             for (const file of files) {
                 const remotePath = `${remote_path}/${file.originalname}`;
-                await connect.uploadFrom(Readable.from(file.buffer), remotePath);
+                if (file.buffer && file.buffer.length > 0) {
+                    // Upload from memory buffer
+                    await connect.uploadFrom(Readable.from(file.buffer), remotePath);
+                } else if (file.path) {
+                    const fileContent = fs.readFileSync(file.path, 'utf-8');
+
+                    try {
+                        const json = JSON.parse(fileContent);
+                        console.log('Parsed JSON:', json);
+                        await connect.uploadFrom(Readable.from(fileContent), remotePath);
+                    } catch (err) {
+                        console.error(`Invalid JSON in file ${file.originalname}`);
+                        throw err;
+                    }
+                } else {
+                    console.warn(`⚠️ Skipping file "${file.originalname}" due to missing buffer and path.`);
+                }
             }
             //console.log("✅ All files uploaded and deleted successfully");
         } catch (error) {
