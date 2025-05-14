@@ -58,8 +58,18 @@ export class FilesService {
                     // Upload from memory buffer
                     await connect.uploadFrom(Readable.from(file.buffer), remotePath);
                 } else if (file.path) {
-                    // Fallback: upload from file system path
-                    await connect.uploadFrom(file.path, remotePath);
+                    const fileContent = fs.readFileSync(file.path, 'utf-8');
+
+                    try {
+                        const json = JSON.parse(fileContent);
+                        console.log('Parsed JSON:', json);
+                        // You can also re-buffer it before upload, if needed
+                        const buffer = Buffer.from(JSON.stringify(json));
+                        await connect.uploadFrom(Readable.from(buffer), remotePath);
+                    } catch (err) {
+                        console.error(`Invalid JSON in file ${file.originalname}`);
+                        throw err;
+                    }
                 } else {
                     console.warn(`⚠️ Skipping file "${file.originalname}" due to missing buffer and path.`);
                 }
