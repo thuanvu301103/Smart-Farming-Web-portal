@@ -63,7 +63,9 @@ export class FilesService {
                     try {
                         const json = JSON.parse(fileContent);
                         console.log('Parsed JSON:', json);
-                        await connect.uploadFrom(Readable.from(fileContent), remotePath);
+                        // Ensure to upload the content as a proper string
+                        const buffer = Buffer.from(fileContent, 'utf-8'); // Convert string to Buffer
+                        await connect.uploadFrom(Readable.from(buffer), remotePath);
                     } catch (err) {
                         console.error(`Invalid JSON in file ${file.originalname}`);
                         throw err;
@@ -213,7 +215,17 @@ export class FilesService {
                 },
             });
             await ftpConnect.download(writable, filePath);
-            return Buffer.concat(chunks);
+            // Convert buffer to string (if it's text)
+            const fileContent = Buffer.concat(chunks).toString('utf-8');
+
+            try {
+                const json = JSON.parse(fileContent);  // Parse the JSON if needed
+                return json;  // Return JSON object
+            } catch (err) {
+                console.error(`Error parsing JSON: ${err}`);
+                throw new Error('Invalid JSON format');
+            }
+
         } catch (error) {
             console.error("❌ Error fetching file:", error);
             throw new Error('Fail to fetch file');
