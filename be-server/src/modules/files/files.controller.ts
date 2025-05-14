@@ -75,14 +75,22 @@ export class FilesController {
     ) {
         const buffer = await this.filesService.getFileContent(filePath);
         const filename = filePath.split('/').pop() || 'file.json';
+
+        // Xác định Content-Type dựa trên phần mở rộng của file
+        const isJson = filename.endsWith('.json');
+        const contentType = isJson ? 'application/json' : 'application/octet-stream';
+
         res.set({
-            'Content-Type': 'json',
-            'Content-Disposition': `attachment; filename=${filename}`,
-            'Content-Length': buffer.length,
+            'Content-Type': contentType,
+            'Content-Disposition': `attachment; filename="${filename}"`,
+            'Content-Length': Buffer.isBuffer(buffer) ? buffer.length : Buffer.byteLength(JSON.stringify(buffer)),
         });
 
-        res.send(buffer);
+        // Nếu là JSON object → stringify, còn lại thì gửi buffer
+        const responseContent = Buffer.isBuffer(buffer) ? buffer : JSON.stringify(buffer);
+        res.send(responseContent);
     }
+
 
     // Endpoint to get file content from FTP
     @Put('rename')
