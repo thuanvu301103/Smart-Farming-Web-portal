@@ -25,7 +25,6 @@ export class ModelScriptsService {
 
     // Upload Model Script
     async uploadModelScript(scriptFiles, version, user_id, model_id, model_version) {
-        console.log("DYNAMIC FILE", scriptFiles)
         if (await this.isVersionExist(model_id, version)) {
             throw new ConflictException(`Model Script Version ${version} already exists`);
         }
@@ -38,6 +37,7 @@ export class ModelScriptsService {
         for (const file of scriptFiles) {
             file.originalname = `version${version}.json`
         }
+        console.log("DYNAMIC FILE", scriptFiles)
         if (savedModelScript && savedModelScript._id) {
             await this.filesService.uploadFilesToFTP(scriptFiles, `/${user_id}/model/${model_id}/script`)
         } else {
