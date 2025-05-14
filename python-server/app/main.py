@@ -29,6 +29,7 @@ class GenerateScriptRequest(BaseModel):
     username: str
     password: str
     model_name: str
+    input_data: list[list[float]]
     
 # Function to handle login and return access_token and user_id
 def login_and_get_user_info(username: str, password: str):
@@ -174,7 +175,7 @@ def generate_script(req: GenerateScriptRequest):
 
     # Bước 5: Dự đoán và tạo file JSON
     try:
-        input_data = np.array([[0.5, 0.3, 0.2]])
+        input_data = np.array(req.input_data)
         predictions = predict_and_generate_json(input_data, local_model_path)
 
         json_filename: str = "predictions.json"
