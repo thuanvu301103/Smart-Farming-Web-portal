@@ -12,7 +12,15 @@ import * as multer from 'multer';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
-const storage = multer.memoryStorage()
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, "./../uploads"), // Temporary folder
+    filename: (req, file, cb) => {
+        const uniqueSuffix = `${Date.now()}-${uuidv4()}`; // Timestamp + UUID
+        const extension = path.extname(file.originalname);
+        const newFilename = `${path.basename(file.originalname, extension)}-${uniqueSuffix}${extension}`;
+        cb(null, newFilename);
+    }
+});
 
 @Controller(':userId/models/scripts')
 export class ModelScriptsController {
