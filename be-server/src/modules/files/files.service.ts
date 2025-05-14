@@ -216,15 +216,15 @@ export class FilesService {
             });
             await ftpConnect.download(writable, filePath);
             // Convert buffer to string (if it's text)
-            const fileContent = Buffer.concat(chunks);
+            const bufferContent = Buffer.concat(chunks);
 
             try {
-                const fileContent = fileContent.toString('utf-8');
+                const fileContent = bufferContent.toString('utf-8');
                 const json = JSON.parse(fileContent);  // Parse the JSON if needed
                 return json;  // Return JSON object
             } catch (err) {
-                console.log("File is not JSON, returning raw content.");
-                return fileContent;  // Return as string (or you can handle text differently)
+                // console.log("File is not JSON, returning raw content.");
+                return bufferContent;  // Return as string (or you can handle text differently)
             }
 
         } catch (error) {
