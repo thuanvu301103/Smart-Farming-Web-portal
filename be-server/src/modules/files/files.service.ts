@@ -54,7 +54,15 @@ export class FilesService {
             await connect.ensureDir(remote_path);
             for (const file of files) {
                 const remotePath = `${remote_path}/${file.originalname}`;
-                await connect.uploadFrom(Readable.from(file.buffer), remotePath);
+                if (file.buffer && file.buffer.length > 0) {
+                    // Upload from memory buffer
+                    await connect.uploadFrom(Readable.from(file.buffer), remotePath);
+                } else if (file.path) {
+                    // Fallback: upload from file system path
+                    await connect.uploadFrom(file.path, remotePath);
+                } else {
+                    console.warn(`⚠️ Skipping file "${file.originalname}" due to missing buffer and path.`);
+                }
             }
             //console.log("✅ All files uploaded and deleted successfully");
         } catch (error) {
