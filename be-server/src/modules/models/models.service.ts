@@ -147,7 +147,7 @@ export class ModelsService {
         } catch (error) {
             if (error.response) {
                 throw new HttpException(
-                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    `MLflow Error: ${error.response.data || 'Unknown error'}`,
                     error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
                 );
             }
