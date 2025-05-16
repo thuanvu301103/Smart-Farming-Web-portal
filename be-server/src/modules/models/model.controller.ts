@@ -33,7 +33,7 @@ export class ModelController{
     }
 
     @Post('rename')
-    async createModel(
+    async renameModel(
         @Body() data: {
             name: string,
             new_name: string
