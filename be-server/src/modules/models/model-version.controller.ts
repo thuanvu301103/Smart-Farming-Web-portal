@@ -66,16 +66,14 @@ export class ModelVersionController{
         return await this.modelsService.getLastestVersion(data.name, data.stages);
     }
     
-    @Get('search')
-    async searchModel(
+    @Get('get-all')
+    async getAllModelVersions(
         @Query('filter') filter: string,
         @Query('max_results') max_results: number = 100,
-        @Query('order_by') order_by: string[] = ['name ASC'],
+        @Query('order_by') order_by: string[] = ['version DESC'],
         @Query('page_token') page_token?: string
     ) {
-        //const filterDecoded = decodeURIComponent(filter);
-        //console.log("Search: ", filter, max_results, order_by, page_token);
-        return await this.modelsService.searchModel(filter, max_results, order_by, page_token);
+        return await this.modelsService.getAllModelVersions(filter, max_results, order_by, page_token);
     }
 
     @Post('set-tag')
