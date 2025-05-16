@@ -41,7 +41,7 @@ export class ModelsService {
         tags: { key: string, value: string }[],
         description: string
     ) {
-        console.log("Creating new Model: ", name, '-', description);
+        //console.log("Creating new Model: ", name, '-', description);
         try {
             const response = await axios.post(
                 `${this.mlflowUrl}/api/2.0/mlflow/registered-models/create`,
@@ -77,6 +77,37 @@ export class ModelsService {
             const response = await axios.get(
                 `${this.mlflowUrl}/api/2.0/mlflow/registered-models/get`,
                 { params: { name: name } }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
+            }
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Rename Model
+    async renameModel(
+        name: string,
+        new_name: string
+    ) {
+        try {
+            const response = await axios.post(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/rename`,
+                {
+                    name: name,
+                    new_name: new_name
+                }
             );
             if (response.status !== 200) {
                 throw new BadRequestException(`MLflow returned status ${response.status}`);
