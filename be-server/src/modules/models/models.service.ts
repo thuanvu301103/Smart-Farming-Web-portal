@@ -45,7 +45,7 @@ export class ModelsService {
             const response = await axios.post(
                 `${this.mlflowUrl}/api/2.0/mlflow/registered-models/create`,
                 {
-                    name: unique_name,
+                    name: name,
                     tags: tags,
                     description: description
                 }
@@ -67,7 +67,35 @@ export class ModelsService {
             );
         }
     }
-    
+
+    // Get Model
+    async getModel(
+        name: string
+    ) {
+        try {
+            const response = await axios.get(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/get`,
+                { params: { name: name } }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
+            }
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////--- Old things
     // Create Registered Model
     async createRegisteredModel(
         userId: string,
