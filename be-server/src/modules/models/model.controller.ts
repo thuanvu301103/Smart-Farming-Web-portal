@@ -21,7 +21,7 @@ export class ModelController{
             description: string
         }
     ) {
-        console.log("Creating new Model: ", name, '-', description);
+        console.log("Creating new Model: ", data.name, '-', data.description);
         return await this.modelsService.createModel(data.name, data.tags, data.description);
     }
 }
