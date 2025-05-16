@@ -35,33 +35,25 @@ export class ModelVersionController{
         return await this.modelsService.getVersion(name, version);
     }
 
-    @Post('rename')
-    async renameModel(
-        @Body() data: {
-            name: string,
-            new_name: string
-        }
-    ) {
-        return await this.modelsService.renameModel(data.name, data.new_name);
-    }
-
     @Patch('update')
-    async updateModel(
+    async updateVersion(
         @Body() data: {
             name: string,
+            version: string,
             description: string
         }
     ) {
-        return await this.modelsService.updateModel(data.name, data.description);
+        return await this.modelsService.updateVersion(data.name, data.version, data.description);
     }
 
     @Delete('delete')
     async deleteModel(
         @Body() data: {
-            name: string
+            name: string,
+            version: string
         }
     ) {
-        return await this.modelsService.deleteModel(data.name);
+        return await this.modelsService.deleteVersion(data.name, data.version);
     }
 
     @Get('search')
