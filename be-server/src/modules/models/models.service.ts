@@ -200,6 +200,67 @@ export class ModelsService {
         }
     }
 
+    // Set Model Tag
+    async setModelTag(
+        name: string,
+        key: string,
+        value: string
+    ) {
+         try {
+            const response = await axios.post(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/set-tag`,
+                {
+                    name: name,
+                    key: key,
+                    value: value
+                }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
+            }
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Set Model Tag
+    async deleteModelTag(
+        name: string,
+        key: string
+    ) {
+         try {
+            const response = await axios.delete(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/delete-tag`,
+                { data: { name: name, key: key } }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
+            }
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////--- Old things
     // Create Registered Model
     async createRegisteredModel(
