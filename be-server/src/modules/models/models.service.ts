@@ -177,14 +177,27 @@ export class ModelsService {
         order_by: string[],
         page_token: string
     ) {
-        const response = await axios.get(
-            `${this.mlflowUrl}/api/2.0/mlflow/registered-models/search`,
-            { params: {filter, max_results, order_by, page_token } }
-        );
-        if (response.status !== 200) {
-            throw new BadRequestException(`MLflow returned status ${response.status}`);
+         try {
+            const response = await axios.get(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/search`,
+                { params: {filter, max_results, order_by, page_token } }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
+            }
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
         }
-        return { message: "Model deleted successfully" };
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////--- Old things
