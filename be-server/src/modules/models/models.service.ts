@@ -133,7 +133,7 @@ export class ModelsService {
         description: string
     ) {
         try {
-            const response = await axios.post(
+            const response = await axios.patch(
                 `${this.mlflowUrl}/api/2.0/mlflow/registered-models/update`,
                 {
                     name: name,
