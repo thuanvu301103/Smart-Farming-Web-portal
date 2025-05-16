@@ -69,7 +69,28 @@ export class ModelController{
         @Query('page_token') page_token?: string
     ) {
         //const filterDecoded = decodeURIComponent(filter);
-        console.log("Search: ", filter, max_results, order_by, page_token);
+        //console.log("Search: ", filter, max_results, order_by, page_token);
         return await this.modelsService.searchModel(filter, max_results, order_by, page_token);
+    }
+
+    @Post('set-tag')
+    async setModelTag(
+        @Body() data: {
+            name: string,
+            key: string, 
+            value: string
+        }
+    ) {
+        return await this.modelsService.setModelTag(data.name, data.key, data.value);
+    }
+
+    @Delete('delete')
+    async deleteModelTag(
+        @Body() data: {
+            name: string,
+            key: string
+        }
+    ) {
+        return await this.modelsService.deleteModelTag(data.name, data.key);
     }
 }
