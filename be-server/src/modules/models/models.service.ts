@@ -41,6 +41,7 @@ export class ModelsService {
         tags: { key: string, value: string }[],
         description: string
     ) {
+        console.log("Creating new Model: ", name, '-', description);
         try {
             const response = await axios.post(
                 `${this.mlflowUrl}/api/2.0/mlflow/registered-models/create`,
