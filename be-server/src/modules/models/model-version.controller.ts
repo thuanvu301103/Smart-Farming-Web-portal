@@ -73,7 +73,7 @@ export class ModelVersionController{
         @Query('order_by') order_by: string[] = ['version DESC'],
         @Query('page_token') page_token?: string
     ) {
-        return await this.modelsService.getAllModelVersions(filter, max_results, order_by, page_token);
+        return await this.modelsService.getAllModelVersion(filter, max_results, order_by, page_token);
     }
 
     @Post('set-tag')
