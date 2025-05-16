@@ -42,7 +42,7 @@ export class ModelController{
         return await this.modelsService.renameModel(data.name, data.new_name);
     }
 
-    @Post('update')
+    @Patch('update')
     async updateModel(
         @Body() data: {
             name: string,
