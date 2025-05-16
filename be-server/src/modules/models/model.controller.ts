@@ -31,4 +31,24 @@ export class ModelController{
     ) {
         return await this.modelsService.getModel(name);
     }
+
+    @Post('rename')
+    async createModel(
+        @Body() data: {
+            name: string,
+            new_name: string
+        }
+    ) {
+        return await this.modelsService.renameModel(data.name, data.new_name);
+    }
+
+    @Post('update')
+    async updateModel(
+        @Body() data: {
+            name: string,
+            description: string
+        }
+    ) {
+        return await this.modelsService.updateModel(data.name, data.description);
+    }
 }
