@@ -64,9 +64,9 @@ export class ModelController{
     @Get('search')
     async searchModel(
         @Query('filter') filter: string,
-        @Query('max_results') max_results: number,
-        @Query('order_by') order_by: string[],
-        @Query('page_token') page_token: string
+        @Query('max_results') max_results: number = 100,
+        @Query('order_by') order_by: string[] = ['name ASC'],
+        @Query('page_token') page_token?: string
     ) {
         return await this.modelsService.searchModel(filter, max_results, order_by, page_token);
     }
