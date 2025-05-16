@@ -56,6 +56,16 @@ export class ModelVersionController{
         return await this.modelsService.deleteVersion(data.name, data.version);
     }
 
+    @Post('get-latest-versions')
+    async getLastestVersion(
+        @Body() data: {
+            name: string,
+            stages: string[]
+        }
+    ) {
+        return await this.modelsService.getLastestVersion(data.name, data.stages);
+    }
+    
     @Get('search')
     async searchModel(
         @Query('filter') filter: string,
