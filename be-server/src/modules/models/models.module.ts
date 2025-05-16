@@ -2,6 +2,7 @@ import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ModelsController } from './models.controller';
 import { ModelController } from './model.controller';
+import { ModelVersionController } from './model-version.controller';
 import { ModelScriptsController } from './models.script.controller';
 import { ModelsService } from './models.service';
 import { ModelScriptsService } from './models.script.service';
@@ -20,7 +21,7 @@ import { ModelScript, ModelScriptSchema } from '../../schemas/models.scripts.sch
             { name: ModelScript.name, schema: ModelScriptSchema }
         ])
     ],
-    controllers: [ModelsController, ModelController, ModelScriptsController],
+    controllers: [ModelsController, ModelController,ModelVersionController, ModelScriptsController],
     providers: [ModelsService, ModelScriptsService, FilesService],
     exports: [ModelsService, ModelScriptsService, MongooseModule],
 })
