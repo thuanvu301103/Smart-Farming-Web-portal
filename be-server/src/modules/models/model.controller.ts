@@ -1,7 +1,6 @@
 ﻿import {
     Controller, Get, Post, Patch, Delete, Body,
     Param, Query, Req,
-    UseGuards,
     ForbiddenException, BadRequestException,
 } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
@@ -15,7 +14,6 @@ export class ModelController{
     constructor(private readonly modelsService: ModelsService) { }
 
     @Post('create')
-    @UseGuards(JwtAuthGuard)
     async createModel(
         @Body() data: {
             name: string,
