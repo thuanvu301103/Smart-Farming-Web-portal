@@ -158,6 +158,18 @@ export class ModelsService {
         }
     }
 
+    // Delete Model
+    async deleteModel(name: string) {
+        const response = await axios.delete(
+            `${this.mlflowUrl}/api/2.0/mlflow/registered-models/delete`,
+            { data: { name: name } }
+        );
+        if (response.status !== 200) {
+            throw new BadRequestException(`MLflow returned status ${response.status}`);
+        }
+        return { message: "Model deleted successfully" };
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////--- Old things
     // Create Registered Model
     async createRegisteredModel(
