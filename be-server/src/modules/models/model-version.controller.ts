@@ -9,29 +9,30 @@ import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 // DTO
 import { BaseSearchModelQueryDto } from '../../dto/models.dto';
 
-@Controller('models')
+@Controller('model-versions')
 export class ModelVersionController{
     constructor(private readonly modelsService: ModelsService) { }
 
     /*----- Registered Model Version -----*/
 
     @Post('create')
-    async createModel(
+    async createModelVersion(
         @Body() data: {
             name: string,
+            source: string,
             tags: {key: string, value: string}[],
             description: string
         }
     ) {
-        //console.log("Creating new Model: ", data.name, '-', data.description);
-        return await this.modelsService.createModel(data.name, data.tags, data.description);
+        return await this.modelsService.createModel(data.name, data.source, data.tags, data.description);
     }
 
     @Get('get')
-    async getModel(
-        @Query('name') name: string
+    async getModelVersion(
+        @Query('name') name: string,
+        @Query('version') version: string
     ) {
-        return await this.modelsService.getModel(name);
+        return await this.modelsService.getModelVersion(name, version);
     }
 
     @Post('rename')
