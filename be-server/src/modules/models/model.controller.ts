@@ -60,4 +60,14 @@ export class ModelController{
     ) {
         return await this.modelsService.deleteModel(data.name);
     }
+
+    @Get('search')
+    async searchModel(
+        @Query('filter') filter: string,
+        @Query('max_results') max_results: number,
+        @Query('order_by') order_by: string[],
+        @Query('page_token') page_token: string
+    ) {
+        return await this.modelsService.searchModel(filter, max_results, order_by, page_token);
+    }
 }
