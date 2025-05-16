@@ -84,7 +84,7 @@ export class ModelController{
         return await this.modelsService.setModelTag(data.name, data.key, data.value);
     }
 
-    @Delete('delete')
+    @Delete('delete-tag')
     async deleteModelTag(
         @Body() data: {
             name: string,
