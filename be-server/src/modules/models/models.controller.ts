@@ -10,25 +10,8 @@ import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 // DTO
 import { BaseSearchModelQueryDto } from '../../dto/models.dto';
 
-@Controller('models')
-class ModelController{
-    constructor(private readonly modelsService: ModelsService) { }
-
-    @Post('create')
-    @UseGuards(JwtAuthGuard)
-    async createModel(
-        @Body() data: {
-            name: string,
-            tags: {key: string, value: string}[],
-            description: string
-        }
-    ) {
-        return await this.modelsService.createModel(data.name, data.tags, data.description);
-    }
-}
-
 @Controller(':userId/models')
-class ModelsController {
+export class ModelsController {
     constructor(private readonly modelsService: ModelsService) { }
 
     /* ----- Registered Model ----- */
@@ -333,4 +316,3 @@ class ModelsController {
     }
 }
 
-export {ModelsController}
