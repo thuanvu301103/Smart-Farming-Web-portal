@@ -179,12 +179,7 @@ export class ModelsService {
     ) {
         const response = await axios.get(
             `${this.mlflowUrl}/api/2.0/mlflow/registered-models/search`,
-            { params: { 
-                filter: filter,
-                max_results: max_results,
-                order_by: order_by,
-                page_token: page_token
-            } }
+            { params: {filter, max_results, order_by, page_token } }
         );
         if (response.status !== 200) {
             throw new BadRequestException(`MLflow returned status ${response.status}`);
