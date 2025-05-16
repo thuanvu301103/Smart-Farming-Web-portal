@@ -263,7 +263,7 @@ export class ModelsService {
 
     /* ----- Model Version ----- */
     // Create Model Vesrion 
-    async createModelVersion(
+    async createVersion(
         name: string,
         source: string,
         tags: { key: string, value: string }[],
@@ -298,7 +298,7 @@ export class ModelsService {
     }
 
     // Get Model Version 
-    async getModelVersion(
+    async getVersion(
         name: string,
         version: string
     ) {
