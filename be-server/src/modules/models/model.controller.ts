@@ -51,4 +51,13 @@ export class ModelController{
     ) {
         return await this.modelsService.updateModel(data.name, data.description);
     }
+
+    @Delete('delete')
+    async deleteModel(
+        @Body() data: {
+            name: string
+        }
+    ) {
+        return await this.modelsService.deleteModel(data.name);
+    }
 }

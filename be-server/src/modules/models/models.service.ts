@@ -147,7 +147,7 @@ export class ModelsService {
         } catch (error) {
             if (error.response) {
                 throw new HttpException(
-                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    `MLflow Error: ${error.response.data || 'Unknown error'}`,
                     error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
                 );
             }
@@ -156,6 +156,18 @@ export class ModelsService {
                 HttpStatus.SERVICE_UNAVAILABLE
             );
         }
+    }
+
+    // Delete Model
+    async deleteModel(name: string) {
+        const response = await axios.delete(
+            `${this.mlflowUrl}/api/2.0/mlflow/registered-models/delete`,
+            { data: { name: name } }
+        );
+        if (response.status !== 200) {
+            throw new BadRequestException(`MLflow returned status ${response.status}`);
+        }
+        return { message: "Model deleted successfully" };
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////--- Old things
