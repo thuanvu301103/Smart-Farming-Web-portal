@@ -69,7 +69,7 @@ export class ModelController{
         @Query('page_token') page_token?: string
     ) {
         const filterDecoded = decodeURIComponent(filter);
-        
+        consol.log("Search: ", filterDecoded, max_results, order_by, page_token);
         return await this.modelsService.searchModel(filterDecoded, max_results, order_by, page_token);
     }
 }
