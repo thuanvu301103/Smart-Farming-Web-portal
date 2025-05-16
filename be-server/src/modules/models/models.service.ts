@@ -324,6 +324,51 @@ export class ModelsService {
             );
         }
     }
+
+     // Update Model Version
+    async updateVersion(
+        name: string,
+        version: string,
+        description: string
+    ) {
+        try {
+            const response = await axios.patch(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/update`,
+                {
+                    name: name,
+                    version: version, 
+                    description: description
+                }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
+            }
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Delete Model Version
+    async deleteVersion(name: string, version: string) {
+        const response = await axios.delete(
+            `${this.mlflowUrl}/api/2.0/mlflow/model-versions/delete`,
+            { data: { name: name, version: version } }
+        );
+        if (response.status !== 200) {
+            throw new BadRequestException(`MLflow returned status ${response.status}`);
+        }
+        return { message: "Model deleted successfully" };
+    }
     
 
     /////////////////////////////////////////////////////////////////////////////////////////--- Old things
