@@ -68,8 +68,8 @@ export class ModelController{
         @Query('order_by') order_by: string[] = ['name ASC'],
         @Query('page_token') page_token?: string
     ) {
-        const filterDecoded = decodeURIComponent(filter);
-        console.log("Search: ", filterDecoded, max_results, order_by, page_token);
-        return await this.modelsService.searchModel(filterDecoded, max_results, order_by, page_token);
+        //const filterDecoded = decodeURIComponent(filter);
+        console.log("Search: ", filter, max_results, order_by, page_token);
+        return await this.modelsService.searchModel(filter, max_results, order_by, page_token);
     }
 }
