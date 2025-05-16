@@ -402,7 +402,7 @@ export class ModelsService {
     }
 
     // Get all Model Version
-    async getAllModelVersions(
+    async getAllModelVersion(
         filter: string,
         max_results: number,
         order_by: string[],
