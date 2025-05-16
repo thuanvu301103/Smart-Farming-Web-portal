@@ -24,7 +24,7 @@ export class ModelVersionController{
             description: string
         }
     ) {
-        return await this.modelsService.createModel(data.name, data.source, data.tags, data.description);
+        return await this.modelsService.createVersion(data.name, data.source, data.tags, data.description);
     }
 
     @Get('get')
@@ -32,7 +32,7 @@ export class ModelVersionController{
         @Query('name') name: string,
         @Query('version') version: string
     ) {
-        return await this.modelsService.getModelVersion(name, version);
+        return await this.modelsService.getVersion(name, version);
     }
 
     @Post('rename')
