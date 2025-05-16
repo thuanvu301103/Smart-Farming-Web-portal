@@ -170,6 +170,28 @@ export class ModelsService {
         return { message: "Model deleted successfully" };
     }
 
+    // Search Model - Get all Model
+    async searchModel(
+        filter: string,
+        max_results: number,
+        order_by: string[],
+        page_token: string
+    ) {
+        const response = await axios.get(
+            `${this.mlflowUrl}/api/2.0/mlflow/registered-models/search`,
+            { params: { 
+                filter: filter,
+                max_results: max_results,
+                order_by: order_by,
+                page_token: page_token
+            } }
+        );
+        if (response.status !== 200) {
+            throw new BadRequestException(`MLflow returned status ${response.status}`);
+        }
+        return { message: "Model deleted successfully" };
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////--- Old things
     // Create Registered Model
     async createRegisteredModel(
