@@ -401,6 +401,36 @@ export class ModelsService {
         }
     }
 
+    // Get all Model Version
+    async getAllModelVersions(
+        filter: string,
+        max_results: number,
+        order_by: string[],
+        page_token: string
+    ) {
+         try {
+            const response = await axios.get(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/search`,
+                { params: {filter, max_results, order_by, page_token } }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
+            }
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
 
     /////////////////////////////////////////////////////////////////////////////////////////--- Old things
     // Create Registered Model
