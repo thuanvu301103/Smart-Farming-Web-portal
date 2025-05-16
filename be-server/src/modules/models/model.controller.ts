@@ -21,7 +21,14 @@ export class ModelController{
             description: string
         }
     ) {
-        console.log("Creating new Model: ", data.name, '-', data.description);
+        //console.log("Creating new Model: ", data.name, '-', data.description);
         return await this.modelsService.createModel(data.name, data.tags, data.description);
+    }
+
+    @Get('get')
+    async getModel(
+        @Query('name') name: string
+    ) {
+        return await this.modelsService.getModel(name);
     }
 }
