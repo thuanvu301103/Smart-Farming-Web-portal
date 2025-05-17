@@ -4,6 +4,9 @@ from pydantic import BaseModel
 import requests
 import time
 import json
+import dill
+import random
+import io
 
 app = FastAPI()
 
@@ -15,6 +18,14 @@ BE_SERVER = "http://10.1.8.52:3002"
 class Tag(BaseModel):
     key: str
     value: str
+
+class GenerateRequest(BaseModel):
+    name: str
+    version: str
+    location: str
+    temp: float
+    humid: float
+    rainfall: float
 
 @app.get("/")
 async def root():
@@ -57,3 +68,48 @@ async def create_model_version(
         raise HTTPException(status_code=resp.status_code, detail="Failed to register model version")
 
     return {"message": "Create new Model Version successfully", "source": source}
+
+def gen_script(file_like, location, temp, humid, rainfall):
+    try:
+        loaded_predict = dill.load(file_like)
+    except Exception as e:
+        raise RuntimeError(f"❌ Failed to load pickle object: {e}")
+
+    try:
+        result = loaded_predict(location, temp, humid, rainfall)
+        return result
+    except Exception as e:
+        raise RuntimeError(f"❌ Error running loaded function: {e}")
+
+@app.post("/model-versions/generate")
+async def gen(request: GenerateRequest):
+    # 🔄 Gọi backend để lấy thông tin model
+    resp = requests.get(
+        f"{BE_SERVER}/model-versions/get", 
+        params={"name": request.name, "version": request.version}
+    )
+    if resp.status_code != 200:
+        raise HTTPException(status_code=resp.status_code, detail="❌ Model version not found.")
+
+    model_info = resp.json()
+    source = model_info.get("source")
+    if not source:
+        raise HTTPException(status_code=400, detail="❌ Source not found in response.")
+
+    file_key = source.split("/", 3)[-1]
+
+    # 📥 Tải file từ S3 vào bộ nhớ (RAM)
+    s3 = get_s3_client()
+    buffer = io.BytesIO()
+    s3.download_fileobj(BUCKET_NAME, file_key, buffer)
+    buffer.seek(0)  # Reset về đầu stream để đọc
+
+    # 🧠 Gọi hàm từ buffer
+    return gen_script(
+        buffer,
+        request.location,
+        request.temp,
+        request.humid,
+        request.rainfall
+    )
+    
