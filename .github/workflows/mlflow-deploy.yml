@@ -49,4 +49,5 @@ jobs:
             git pull origin main &&
             docker pull ${{ secrets.DOCKER_USERNAME }}/mlflow-app:latest &&
             docker compose up --build -d
+            docker image prune -f
           "
