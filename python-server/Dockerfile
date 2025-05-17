@@ -1,11 +1,8 @@
 # Sử dụng Python 3.9
 FROM python:3.9
 
-# Đặt thư mục làm việc là thư mục gốc
-WORKDIR /
-
-# Sao chép toàn bộ mã nguồn vào container
-COPY . /
+WORKDIR /app
+COPY . /app
 
 # Cài đặt thư viện
 RUN pip install fastapi uvicorn
