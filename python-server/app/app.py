@@ -15,52 +15,45 @@ class Tag(BaseModel):
     key: str
     value: str
 
-# Define Request Model
-class ModelVersionRequest(BaseModel):
-    name: str
-    tags: list[Tag]  # ✅ Structured tags data
-    description: str
-
 @app.get("/")
 async def root():
     return {"message": "FastAPI server running on Docker - Port 7000"}
 
 @app.post("/model-versions/create")
 async def create_model_version(
-    request_data: ModelVersionRequest,  # ✅ Parses JSON body correctly
+    name: str = Form(...),
+    description: str = Form(...),
+    tags: str = Form(...),  # Send as JSON string, then parse
     file: UploadFile = File(...)
 ):
+    try:
+        tag_objs: List[Tag] = [Tag(**t) for t in json.loads(tags)]
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid tags format: {e}")
+
     file_name = f'predict-{int(time.time())}.pkl'
     source = f's3://minio/{BUCKET_NAME}/{file_name}'
 
-    # ✅ Upload model file to MinIO Server
+    # ✅ Upload to MinIO
     s3 = get_s3_client()
     try:
         s3.create_bucket(Bucket=BUCKET_NAME)
     except s3.exceptions.BucketAlreadyExists:
-        pass  # Bucket already exists
+        pass
 
     s3.upload_fileobj(file.file, BUCKET_NAME, file_name)
 
-    # ✅ Convert request data to JSON payload
+    # ✅ Prepare JSON payload for backend
     payload = {
-        "name": request_data.name,
+        "name": name,
         "source": source,
-        "tags": [tag.dict() for tag in request_data.tags],  # Convert Pydantic model to dict
-        "description": request_data.description
+        "tags": [tag.dict() for tag in tag_objs],
+        "description": description
     }
 
-    # ✅ Make POST request to register Model Version
-    resp = requests.post(
-        f"{BE_SERVER}/model-versions/create",
-        json=payload
-    )
+    resp = requests.post(f"{BE_SERVER}/model-versions/create", json=payload)
 
     if resp.status_code != 201:
         raise HTTPException(status_code=resp.status_code, detail="Failed to register model version")
 
     return {"message": "Create new Model Version successfully", "source": source}
-
-    
-    
-
