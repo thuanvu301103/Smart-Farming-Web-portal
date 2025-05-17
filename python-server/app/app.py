@@ -92,9 +92,13 @@ async def gen(request: GenerateRequest):
         raise HTTPException(status_code=resp.status_code, detail="❌ Model version not found.")
 
     model_info = resp.json()
-    source = model_info.get("source")
+    model_version = model_info.get("model_version")
+    if not model_version:
+        raise HTTPException(status_code=400, detail="❌ 'model_version' not found in response.")
+
+    source = model_version.get("source")
     if not source:
-        raise HTTPException(status_code=400, detail="❌ Source not found in response.")
+        raise HTTPException(status_code=400, detail=f"❌ 'source' not found in model_version: {model_version}")
 
     file_key = source.split("/", 3)[-1]
 
