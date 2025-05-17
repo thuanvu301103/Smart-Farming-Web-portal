@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  mlflow:
+    image: thuanvu301103/python-app:latest  
+    container_name: python-server
+    ports:
+      - "7000:7000"
+    restart: unless-stopped

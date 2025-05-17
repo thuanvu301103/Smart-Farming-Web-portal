@@ -1,12 +1,12 @@
-name: MLflow CI
+name: Helper CI
 
 on:
   push:
     branches:
       - main
     paths:
-      - "mlflow-server/**"
-      - .github/workflows/mlflow-deploy.yml
+      - "python-server/**"
+      - .github/workflows/python-deploy.yml
 
 jobs:
   build_and_deploy:
@@ -21,10 +21,10 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: 🛠️ Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/mlflow-app:latest ./mlflow-server
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/pyhon-app:latest ./python-server
 
       - name: 📤 Push image to DockerHub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/mlflow-app:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/python-app:latest
 
       # Install OpenVPN and sshpass
       - name: 📥 Install OpenVPN and sshpass
@@ -42,12 +42,12 @@ jobs:
         run: sleep 15
 
       # SSH into VM and pull the latest updates if needed
-      - name: 🚀 Deploy MLflow app via SSH
+      - name: 🚀 Deploy Python app via SSH
         run: |
           sshpass -p "${{ secrets.VM_PASSWORD }}" ssh -o StrictHostKeyChecking=no root@10.1.8.52 "
-            cd /home/ubuntu/Smart-Farming-Web-portal/mlflow-server &&
+            cd /home/ubuntu/Smart-Farming-Web-portal/python-server &&
             git pull origin main &&
-            docker pull ${{ secrets.DOCKER_USERNAME }}/mlflow-app:latest &&
+            docker pull ${{ secrets.DOCKER_USERNAME }}/python-app:latest &&
             docker compose up --build -d
             docker image prune -f
           "
