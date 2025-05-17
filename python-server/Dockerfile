@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . /app
 
 # Cài đặt thư viện
-RUN pip install fastapi uvicorn boto3 python-multipart
+RUN pip install fastapi uvicorn boto3 python-multipart pydantic requests
 
 # Mở cổng 7000
 EXPOSE 7000
