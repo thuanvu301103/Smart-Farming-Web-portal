@@ -2557,7 +2557,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"tags\": [\r\n        {\r\n            \"key\": \"plant\", \r\n            \"value\": \"Táo\"\r\n        }\r\n    ],\r\n    \"description\": \"Mô hình thông minh tạo kịch bản tưới cây táo ta theo thời tiết và địa phương\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"tags\": [\r\n        {\r\n            \"key\": \"plant\", \r\n            \"value\": \"Táo\"\r\n        },\r\n        {\r\n            \"key\": \"schedule\", \r\n            \"value\": \"* * * * *\"\r\n        },\r\n        {\r\n            \"key\": \"enable\", \r\n            \"value\": \"true\"\r\n        }\r\n    ],\r\n    \"description\": \"Mô hình thông minh tạo kịch bản tưới cây táo ta theo thời tiết và địa phương\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2717,7 +2717,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Xoài\",\r\n    \"key\": \"plant\",\r\n    \"value\": \"Xoài\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Xoài\",\r\n    \"key\": \"enable\",\r\n    \"value\": \"false\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2738,7 +2738,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Xoài\",\r\n    \"key\": \"fruit\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Xoài\",\r\n    \"key\": \"123\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2746,6 +2746,206 @@
 									}
 								},
 								"url": "{{be-server}}/models/delete-tag"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "model vesions",
+					"item": [
+						{
+							"name": "Create Model Version",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"source\": \"http://localhost:8000/tao2.0\",\r\n    \"tags\": [\r\n        {\r\n            \"key\": \"plant\",\r\n            \"value\": \"Táo\"\r\n        },\r\n        {\r\n            \"key\": \"algorithm\",\r\n            \"value\": \"Decision Tree\"\r\n        }\r\n    ],\r\n    \"description\": \"Phiên bản mô hình dùng cây quyết định đẻ tạo kịch bản tốt hơn\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Model Version",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/model-versions/get?name=Mô hình tưới cây Táo&version=1",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										"model-versions",
+										"get"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Mô hình tưới cây Táo"
+										},
+										{
+											"key": "version",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Model Version's description",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"version\": \"1\",\r\n    \"description\": \"Đây là phiên bản mô hình tưới cây táo đầu tiên dùng mô hình cây quyết định\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/update"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model Version",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"version\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Latest Model Verion",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"stages\": [\"None\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/get-latest-versions"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Model Versions",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/model-versions/get-all?max_results=10&filter=name='Mô hình tưới cây Táo'",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										"model-versions",
+										"get-all"
+									],
+									"query": [
+										{
+											"key": "max_results",
+											"value": "10"
+										},
+										{
+											"key": "page_token",
+											"value": "eyJvZmZzZXQiOiAxfQ==",
+											"description": "disable for 1st call",
+											"disabled": true
+										},
+										{
+											"key": "filter",
+											"value": "name='Mô hình tưới cây Táo'",
+											"description": "The name of Model that version belong to"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Model Version Tag",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"version\": \"3\",\r\n    \"key\": \"algorithm\",\r\n    \"value\": \"Linear Regression\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/set-tag"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model Version Tag",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"version\": \"3\",\r\n    \"key\": \"algorithm\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/delete-tag"
 							},
 							"response": []
 						}
