@@ -37,10 +37,9 @@ async def create_model_version(
 
     # ✅ Upload to MinIO
     s3 = get_s3_client()
-    try:
+    bucket_names = [b['Name'] for b in s3.list_buckets().get('Buckets', [])]
+    if BUCKET_NAME not in bucket_names:
         s3.create_bucket(Bucket=BUCKET_NAME)
-    except s3.exceptions.BucketAlreadyExists:
-        pass
 
     s3.upload_fileobj(file.file, BUCKET_NAME, file_name)
 
