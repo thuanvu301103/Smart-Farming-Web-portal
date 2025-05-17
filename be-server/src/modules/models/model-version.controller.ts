@@ -92,7 +92,7 @@ export class ModelVersionController{
     async deleteModelVersionTag(
         @Body() data: {
             name: string,
-            version: version,
+            version: string,
             key: string
         }
     ) {
