@@ -469,7 +469,7 @@ export class ModelsService {
     // Delete Model Version Tag
     async deleteModelversionTag(
         name: string,
-        version: veersion,
+        version: string,
         key: string
     ) {
          try {
