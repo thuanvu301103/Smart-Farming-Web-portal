@@ -11,4 +11,4 @@ RUN pip install fastapi uvicorn
 EXPOSE 7000
 
 # Chạy FastAPI server trên cổng 7000 từ thư mục gốc
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7000"]
+CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "7000"]
