@@ -13,8 +13,8 @@ async def root():
 
 @app.post("/model-versions/create")
 async def create_model_version(
-    file: UploadFile = File(...),
-    name, tags, description
+    name, tags, description,
+    file: UploadFile = File(...)
 ):
     file_name = f'predict-{int(time.time())}.pkl'
     source = f's3://minio/{BUCKET_NAME}/{file_name}'
