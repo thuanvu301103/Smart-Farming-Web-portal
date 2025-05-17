@@ -100,7 +100,7 @@ async def gen(request: GenerateRequest):
     if not source:
         raise HTTPException(status_code=400, detail=f"❌ 'source' not found in model_version: {model_version}")
 
-    file_key = source.split("/", 3)[-1]
+    file_key = source.split("/")[-1]
 
     # 📥 Tải file từ S3 vào bộ nhớ (RAM)
     s3 = get_s3_client()
