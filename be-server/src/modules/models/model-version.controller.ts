@@ -77,23 +77,25 @@ export class ModelVersionController{
     }
 
     @Post('set-tag')
-    async setModelTag(
+    async setModelVersionTag(
         @Body() data: {
             name: string,
+            version: string,
             key: string, 
             value: string
         }
     ) {
-        return await this.modelsService.setModelTag(data.name, data.key, data.value);
+        return await this.modelsService.setModelversionTag(data.name, data.version, data.key, data.value);
     }
 
     @Delete('delete-tag')
-    async deleteModelTag(
+    async deleteModelVersionTag(
         @Body() data: {
             name: string,
+            version: version,
             key: string
         }
     ) {
-        return await this.modelsService.deleteModelTag(data.name, data.key);
+        return await this.modelsService.deleteModelversionTag(data.name, data.version, data.key);
     }
 }

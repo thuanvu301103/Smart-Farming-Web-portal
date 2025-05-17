@@ -431,6 +431,69 @@ export class ModelsService {
         }
     }
 
+    // Set Model Version Tag
+    async setModelversionTag(
+        name: string,
+        version: string,
+        key: string,
+        value: string
+    ) {
+         try {
+            const response = await axios.post(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/set-tag`,
+                {
+                    name: name,
+                    version: version,
+                    key: key,
+                    value: value
+                }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
+            }
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    // Delete Model Version Tag
+    async deleteModelversionTag(
+        name: string,
+        version: veersion,
+        key: string
+    ) {
+         try {
+            const response = await axios.delete(
+                `${this.mlflowUrl}/api/2.0/mlflow/model-versions/delete-tag`,
+                { data: { name: name, version: version ,key: key } }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`MLflow returned status ${response.status}`);
+            }
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `MLflow Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to MLflow API. Check your mlflowUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////--- Old things
     // Create Registered Model
