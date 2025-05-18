@@ -1,0 +1,3197 @@
+{
+	"info": {
+		"_postman_id": "d2f3872b-6747-4ecb-a8a6-68841291ed25",
+		"name": "Smart-farming",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "37417008"
+	},
+	"item": [
+		{
+			"name": "scripts",
+			"item": [
+				{
+					"name": "Get all scripts that belong to a user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDk5NDM0OSwiZXhwIjoxNzQ0OTk3OTQ5fQ.N9PHdjzSj4Chz8gtkoNFdrudz484kF1dpUeo54g2nME"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts?limit=10&page=1&locations=da-nang&locations=hue&plant_types=cam&plant_types=dua-hau&sortBy=updatedAt&order=asc",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "locations",
+									"value": "da-nang"
+								},
+								{
+									"key": "locations",
+									"value": "hue"
+								},
+								{
+									"key": "plant_types",
+									"value": "cam"
+								},
+								{
+									"key": "privacy",
+									"value": "private",
+									"description": "(Optional) Values = {'private, 'public'}",
+									"disabled": true
+								},
+								{
+									"key": "plant_types",
+									"value": "dua-hau"
+								},
+								{
+									"key": "sortBy",
+									"value": "updatedAt",
+									"description": "Default = \"updatedAt\""
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"description": "Sort Order (asc/desc)"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Top Script(s) of a user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc4Nzg1NCwiZXhwIjoxNzQ0NzkxNDU0fQ.Zo3QJQ11KkRtSWso3SP5c3nDUtJK4KVCVVVa9pNNWUQ"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/top?filterBy=rating",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								"top"
+							],
+							"query": [
+								{
+									"key": "filterBy",
+									"value": "rating",
+									"description": "\"favorite\" or \"rating\""
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get info of a script",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAyNDQ0NiwiZXhwIjoxNzQ1MDI4MDQ2fQ.U-soLJ8_NKtxBwKJWb4Pd57jkIuk9zCmLrsrJIjreUg"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "scriptId",
+									"value": "6803008a971d621daa23845f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change info of a script",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDA4MzA2NiwiZXhwIjoxNzQ0MDg2NjY2fQ.DWeuI13_xZQ_tPV0fjV_PyWUZOirUnRL4stfAXsIJIQ"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Magic\",\r\n    \"share_id\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "scriptId",
+									"value": "67f4a3ae448b8cda15f09bfe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new script",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAyNDQ0NiwiZXhwIjoxNzQ1MDI4MDQ2fQ.U-soLJ8_NKtxBwKJWb4Pd57jkIuk9zCmLrsrJIjreUg"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Kich bản tưới cây dưa hấu\",\r\n    \"description\": \"Đây là một kịch bản tưới cây đỉnh nóc kịch trần\",\r\n    \"privacy\": \"public\",\r\n    \"share_id\": [],\r\n    \"location\": [\"da-nang\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a script",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4ODE5OSwiZXhwIjoxNzQ0NjkxNzk5fQ.OKRPkWy7utpoivBExkD6n73HuYHoXnlshAY6sh9zBgk"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "scriptId",
+									"value": "67fdbb1c14023d2cf3d8823a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Script's total rate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4MTYxMywiZXhwIjoxNzQ0Njg1MjEzfQ.Ne3nSLmOSyEsmHU7Vjkh84JL5GMgk-kxE5q5SP7vWvw"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/total-rate",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"total-rate"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "scriptId",
+									"value": "67fdbb1c14023d2cf3d8823a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Script's rate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAyODg4MywiZXhwIjoxNzQ1MDMyNDgzfQ.SISDzruoeuuVCz7U3E3qX0zcQQsEiuusAWvGKAlkjBU"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/rate",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"rate"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c2730b1fb713deae4b0689"
+								},
+								{
+									"key": "scriptId",
+									"value": "67fb77476e8c9b0cc63877d8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Rate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDgwNjI4MiwiZXhwIjoxNzQ0ODA5ODgyfQ.1Z_sKkGUdMthmQ7MKoDlxbcRadoe_PQOwAQ6H2Tdqu0"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rate\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/rate",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"rate"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c2730b1fb713deae4b0689"
+								},
+								{
+									"key": "scriptId",
+									"value": "67f88ac799a2a6150ca64bae"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upadte Script's rate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4NTIyMywiZXhwIjoxNzQ0Njg4ODIzfQ.u4uXDmpkjgquDOtIy93QWHRe5pB3uGwyLHnCaqi8YW8"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rate\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/rate",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"rate"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "scriptId",
+									"value": "67fdbb1c14023d2cf3d8823a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Script's rate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDcwMDQ0NiwiZXhwIjoxNzQ0NzA0MDQ2fQ.7Edo195jNwaxTU0ccQSeRtUACbim86PybyZSJkK49iY"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/rate",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"rate"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "scriptId",
+									"value": "67fb77476e8c9b0cc63877d8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "files",
+			"item": [
+				{
+					"name": "Get folder's contents",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/files/folder-contents/:folder-path",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"folder-contents",
+								":folder-path"
+							],
+							"variable": [
+								{
+									"key": "folder-path",
+									"value": "thuan_vu%2Fchanh%2Fv2.1%2Faction%2Fnew%2Fnew"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a file",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDQ0MzU4OCwiZXhwIjoxNzQ0NDQ3MTg4fQ.brsdEX2uJfWxioplPsOucUzQrMI_aNXDl1a7UbjUu34"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/files/file-content/:path",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"file-content",
+								":path"
+							],
+							"variable": [
+								{
+									"key": "path",
+									"value": "67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02%2Fv1.0.json"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload files or create Folder path",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDQ0MzU4OCwiZXhwIjoxNzQ0NDQ3MTg4fQ.brsdEX2uJfWxioplPsOucUzQrMI_aNXDl1a7UbjUu34"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/C:/Users/PC/OneDrive/Documents/v1.0.json"
+								},
+								{
+									"key": "remote_path",
+									"value": "/67c273401fb713deae4b068c/script/67e75e0b2f8c12e06092ee02",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{be-server}}/files/upload"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a File",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDQ0MjYwNCwiZXhwIjoxNzQ0NDQ2MjA0fQ.psqGdobROvxW27sqUtb4byde0BebngMLdlkhC4KTFhE"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/files/deleteFile?path=67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02%2Fv1.0.json",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"deleteFile"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02%2Fv1.0.json"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Folder and its contents",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDQ0MzQ0NywiZXhwIjoxNzQ0NDQ3MDQ3fQ.WnRQs08KA_w7C2dfZJXXDQ_fm2haQXbr25qIcArrmyU"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/files/deleteFolder?path=67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"files",
+								"deleteFolder"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "67c273401fb713deae4b068c%2Fscript%2F67e75e0b2f8c12e06092ee02"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename file",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTMxMjk4NywiZXhwIjoxNzQxMzE2NTg3fQ.Qz9E4-pYWfudN6TAhGN4wdv4E_3rQ15Axgf5cYOa_I0"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"old_path\": \"67c273401fb713deae4b068c/script/67c94c998be9ec2f58eb1579/v1.2.json\",\r\n    \"new_path\": \"67c273401fb713deae4b068c/67c94c998be9ec2f58eb1579/v1.3.json\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{be-server}}/files/rename"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "old models",
+			"item": [
+				{
+					"name": "models.scripts",
+					"item": [
+						{
+							"name": "Upload Model Script file",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzIyMTg2MiwiZXhwIjoxNzQzMjI1NDYyfQ.5j468qHKCToFuKWTXTQVrzyz7aS1m_ITP_H9YSQ-5ZY"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/C:/Users/PC/Downloads/temp.json"
+										},
+										{
+											"key": "version",
+											"value": "3",
+											"description": "Script version",
+											"type": "text"
+										},
+										{
+											"key": "model_id",
+											"value": "67e3566250f058dd1da09bc0",
+											"description": "Model ID",
+											"type": "text"
+										},
+										{
+											"key": "model_version",
+											"value": "1",
+											"description": "Model Version used to create this Script Version",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/upload",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"upload"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Model Scripts generated by a Model",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzIyMTg2MiwiZXhwIjoxNzQzMjI1NDYyfQ.5j468qHKCToFuKWTXTQVrzyz7aS1m_ITP_H9YSQ-5ZY"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/get-all?model_id=67e3566250f058dd1da09bc0",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"get-all"
+									],
+									"query": [
+										{
+											"key": "model_id",
+											"value": "67e3566250f058dd1da09bc0"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a Model Version",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzEzODEzOCwiZXhwIjoxNzQzMTQxNzM4fQ.THQuGrENaky9vtidmSr8DYxto8EF4tRbLf1sOKHybl4"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/get?model_id=67e3566250f058dd1da09bc0&version=3",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"get"
+									],
+									"query": [
+										{
+											"key": "model_id",
+											"value": "67e3566250f058dd1da09bc0"
+										},
+										{
+											"key": "version",
+											"value": "3"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a Model Script",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzIxMzQzNSwiZXhwIjoxNzQzMjE3MDM1fQ.-dbIrcBZakgNRV09568JV3sSZjwyQ-krUqNGc0RteAc"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"script_id\": \"67e62741503cc6d161d77f3c\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/delete",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"delete"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "models.versions",
+					"item": [
+						{
+							"name": "Create Model Version",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk3MDExNywiZXhwIjoxNzQyOTczNzE3fQ.-fL58t_NAJbaGHzw7Gjx9J2MHd0brY6Qaxdc4TGLw2I"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"source\": \"runs:/06c25499871d4cfc871d313318cec13c/decision_tree\",\r\n    \"run_id\": \"optional\",\r\n    \"tags\": [{\"key\": \"fruit\", \"value\": \"orange\"}],\r\n    \"run_link\": \"optional\",\r\n    \"description\": \"This is a version of model\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/create",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"create"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Latest Versions of Registered Model",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzA3NzU0OSwiZXhwIjoxNzQzMDgxMTQ5fQ.z3oNGazodf7kxoxK5KIouZmnms-WPUJ0uEoT4D8nXPU"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"stages\": [\"Production\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/get-latest-version",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"get-latest-version"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Model Versions",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDM0MDQwMSwiZXhwIjoxNzQ0MzQ0MDAxfQ.ivixInYQK0lLMsR_Q245HYTRoJQeY-1dGqh78_HOLww"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/get-all?name=New Model",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"get-all"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "New Model"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Model Version",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1NTcwMiwiZXhwIjoxNzQyOTU5MzAyfQ.MthUCDA9M-R0FQxTnNuD1k1az98Ai5SMvSGTkQIyk4w"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/get?name=New Model&version=5",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"get"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "New Model"
+										},
+										{
+											"key": "version",
+											"value": "5"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Model Version",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE"
+									}
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"version\": \"2\",\r\n    \"description\": \"Đây là ...\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/update",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"update"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model Version",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"version\": \"2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/delete",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"delete"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Model Version Tag",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"version\": \"1\",\r\n    \"key\": \"fruit\",\r\n    \"value\": \"strawberry\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/set-tag",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"set-tag"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model Version tag",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"version\": \"1\",\r\n    \"key\": \"fruit\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/versions/delete-tag",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"versions",
+										"delete-tag"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create Registered Model",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDU5NTkyNCwiZXhwIjoxNzQ0NTk5NTI0fQ.w2cXfyk04NIRu1TlffJxaqoSNgvoq_QQwB-ApwRFUZk"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Model 3\",\r\n    \"tags\": [\r\n        {\"key\": \"fruit\", \"value\": \"orange\"}\r\n    ],\r\n    \"description\": \"Đây là một model đơn giản\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/create",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"create"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Registered Models",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDI3NjAwMCwiZXhwIjoxNzQ0Mjc5NjAwfQ.C_cqS9Mg2MmJyPJQEOV00od5rKr-Mm27JaI0iW63C8k"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/models/get-all",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"get-all"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Registered Model by name",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDY4ODE5OSwiZXhwIjoxNzQ0NjkxNzk5fQ.OKRPkWy7utpoivBExkD6n73HuYHoXnlshAY6sh9zBgk"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/models/get?name=New Model 1",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"get"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "New Model 1"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename Registered Model",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"new_name\": \"Very New Model\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/rename",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"rename"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Registered Model",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Very New Model\",\r\n    \"description\": \"This is a very new model\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/update",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"update"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Registered Model",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjg3MzIyMSwiZXhwIjoxNzQyODc2ODIxfQ.l2RECtHg2Kc_FgShvZuErgdrA3LMcxl2BLP4JosRjME"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Very New Model\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/delete",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Registered Model tag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"key\": \"fruit\",\r\n    \"value\": \"thunder\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/set-tag",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"set-tag"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Registered Model tag",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0Mjk1OTM2NSwiZXhwIjoxNzQyOTYyOTY1fQ.pi-AbEcul9KiCOTnoDxxJppQxo6kXU-saQ4vQXJphQE"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New Model\",\r\n    \"key\": \"fruit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/delete-tag?=",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"delete-tag"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Model Schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzM5MDIxNiwiZXhwIjoxNzQzMzkzODE2fQ.FRwkD5lU-rVvFCMDcAHRH85ReOYLoH8x9VHEW1K4ACk"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"model_id\": \"67e3566250f058dd1da09bc9\",\r\n    \"cron_string\": \"0 * * * *\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/set-schedule",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"set-schedule"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Model Schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzU1Nzk0MiwiZXhwIjoxNzQzNTYxNTQyfQ.Uh5CEl7Z_gSQzSlxujx7aN8r4FALoj3pBX0Zhalds4k"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/models/get-schedule?model_id=67e3566250f058dd1da09bc0",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"get-schedule"
+							],
+							"query": [
+								{
+									"key": "model_id",
+									"value": "67e3566250f058dd1da09bc0"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Schedule Plan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDU5Mzg3MywiZXhwIjoxNzQ0NTk3NDczfQ.l_1HOUFqZFUefArTrqndBzFZiuqWOzVmVSsWTXHCMow"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/models/get-schedule-plan?end_date=2025-04-16&modelId=67ec95ec0d25ffd98f583261",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"get-schedule-plan"
+							],
+							"query": [
+								{
+									"key": "end_date",
+									"value": "2025-04-16"
+								},
+								{
+									"key": "modelId",
+									"value": "67ec95ec0d25ffd98f583261",
+									"description": "Optional"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Enable Schedule",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MzU1Nzk0MiwiZXhwIjoxNzQzNTYxNTQyfQ.Uh5CEl7Z_gSQzSlxujx7aN8r4FALoj3pBX0Zhalds4k"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"enableSchedule\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/models/set-enable-schedule?model_id=67e3566250f058dd1da09bc0",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"models",
+								"set-enable-schedule"
+							],
+							"query": [
+								{
+									"key": "model_id",
+									"value": "67e3566250f058dd1da09bc0"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comments",
+			"item": [
+				{
+					"name": "Get all comments of a script",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDg1ODIzMiwiZXhwIjoxNzQ0ODYxODMyfQ.SdIUrw7KCfDJN6zRLcZ1XOe3rSxKF4Cj9KD4qKO9u4o"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments?page=1&limit=4&sortBy=createdAt&order=desc",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "(Optional) Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "4",
+									"description": "(Optional) Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"description": "(Optional) Default = 'createdAt'"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "scriptId",
+									"value": "67d7d369c26632e1982612cd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get history of a comment",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments/:commentId/history",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments",
+								":commentId",
+								"history"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad9b237fbd427b0f974140"
+								},
+								{
+									"key": "commentId",
+									"value": "67b426709e61c8b5e2596d3e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all sub-comments of a comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTM5NzQzNCwiZXhwIjoxNzQxNDAxMDM0fQ.sWbjb9e1i1rgX1D2mNBb9TOsYW3sxSieWS6-Dj7buu0"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments/:commentId/subcomments",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments",
+								":commentId",
+								"subcomments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "scriptId",
+									"value": "67c94c998be9ec2f58eb1579"
+								},
+								{
+									"key": "commentId",
+									"value": "67cb9aef64051c16a8ea4282"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new comment",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Đây là một sub comment ví dụ\",\r\n    \"ownerId\": \"679b765e8496f00b99063cb8\"\r\n    //\"subCommentId\": \"67b296a77e2b958e79b8d5f1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad9b237fbd427b0f974140"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update comment's content",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Đây là một ví dụ về sub comment đã được thay đổi rất OK\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments/:commentId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad9b237fbd427b0f974140"
+								},
+								{
+									"key": "commentId",
+									"value": "67b426709e61c8b5e2596d3e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a comment (and all its sub-comments)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/scripts/:scriptId/comments/:commentId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"scripts",
+								":scriptId",
+								"comments",
+								":commentId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "679b765e8496f00b99063cb8"
+								},
+								{
+									"key": "scriptId",
+									"value": "67ad7db648588ac08535042e"
+								},
+								{
+									"key": "commentId",
+									"value": "67aff7fe7ecb3d630c6feb05"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Get a user profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MTkxNjQyMCwiZXhwIjoxNzQxOTIwMDIwfQ.E08QrHFU2BU9FrjqcDGv9D3hgILuZpq5mAXanItw61o"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/profile",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"profile"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users by Id(s)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc4Nzg1NCwiZXhwIjoxNzQ0NzkxNDU0fQ.Zo3QJQ11KkRtSWso3SP5c3nDUtJK4KVCVVVa9pNNWUQ"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/users?ids=67c2734d1fb713deae4b068f&ids=67c273401fb713deae4b068c&page=1&limit=10&sortBy=username&order=asc",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "67c2734d1fb713deae4b068f"
+								},
+								{
+									"key": "ids",
+									"value": "67c273401fb713deae4b068c"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sortBy",
+									"value": "username",
+									"description": "Default = \"username\""
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"description": "{'asc', 'desc'} Default = 'desc'"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for user(s) by username",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDc5MTQ5NCwiZXhwIjoxNzQ0Nzk1MDk0fQ.ZpQCBGG9vgb16BuWQVN0DiD7Ll5j0voqjsCcBqN2RX0"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/users/search?username=kat&page=1&limit=1&sortBy=username&order=asc",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "kat"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "(Optional) Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"description": "(Optional) Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "username",
+									"description": "(Optional) Default = 'username'"
+								},
+								{
+									"key": "order",
+									"value": "asc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user's favorite script(s)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAzNjQxOCwiZXhwIjoxNzQ1MDQwMDE4fQ.98w5XfIzGJKuBjOYWAWuAndMbuWA0swbae7MCLoCWtY"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/favorite-script?page=1&limit=10&sortBy=updatedAt&order=desc&locations=hue&locations=da-nang&plant_types=dua-hau&plant_types=cam&privacy=public",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"favorite-script"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "updatedAt",
+									"description": "(Optional) Default = 'updatedAt'"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
+								},
+								{
+									"key": "locations",
+									"value": "hue",
+									"description": "(Optional)"
+								},
+								{
+									"key": "locations",
+									"value": "da-nang",
+									"description": "(Optional)"
+								},
+								{
+									"key": "plant_types",
+									"value": "dua-hau",
+									"description": "(Optional)"
+								},
+								{
+									"key": "plant_types",
+									"value": "cam",
+									"description": "(Optional)"
+								},
+								{
+									"key": "privacy",
+									"value": "public",
+									"description": "(Optional) Values = {'private', 'public'}; Default = 'pubic'"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get shared scripts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NTAzNjQxOCwiZXhwIjoxNzQ1MDQwMDE4fQ.98w5XfIzGJKuBjOYWAWuAndMbuWA0swbae7MCLoCWtY"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/shared-script?page=1&limit=2&sortBy=updatedAt&order=desc&locations=hue&locations=da-nang&plant_types=dua-hau&plant_types=cam&privacy=private",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"shared-script"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"description": "Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "updatedAt",
+									"description": "(Optional) Default = 'updatedAt'"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
+								},
+								{
+									"key": "locations",
+									"value": "hue",
+									"description": "(Optional)"
+								},
+								{
+									"key": "locations",
+									"value": "da-nang",
+									"description": "(Optional)"
+								},
+								{
+									"key": "plant_types",
+									"value": "dua-hau",
+									"description": "(Optional)"
+								},
+								{
+									"key": "plant_types",
+									"value": "cam",
+									"description": "(Optional)"
+								},
+								{
+									"key": "privacy",
+									"value": "private",
+									"description": "(Optional) Values = {'private', 'public'}; Default = 'pubic'"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change user's info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphamEiLCJzdWIiOiI2N2MyNzMwYjFmYjcxM2RlYWU0YjA2ODkiLCJpYXQiOjE3NDA5NzM5MjQsImV4cCI6MTc0MDk3NzUyNH0.WqBcmNC3rSQk_Pw5CY7NEFgxaOylcoPBD6C0jBeY4iw"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"katbot\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add/remove favourite script",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MDk3NDg0NSwiZXhwIjoxNzQwOTc4NDQ1fQ.rePWu4F9JxcCX-zlkjG7Wajew7ehA-lvIDMPdHqzAOM"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"scriptId\": \"67ad9cfeba6e69372ba8712a\",\r\n    \"action\": \"add\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/favorite",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"favorite"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notification",
+			"item": [
+				{
+					"name": "Get notification sent to a user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NDg1Njk3MywiZXhwIjoxNzQ0ODYwNTczfQ.Z46KeJ3TGMfEIB__fh97hwW2iIkT_5f9HOZHfJT9neQ"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/notification/:userId?page=1&limit=4&sortBy=createdAt&order=desc",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"notification",
+								":userId"
+							],
+							"query": [
+								{
+									"key": "notifyId",
+									"value": "67da4457757caa91dba509d5",
+									"description": "(Optional)",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Default = 1"
+								},
+								{
+									"key": "limit",
+									"value": "4",
+									"description": "Default = 10"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"description": "(Optional) Default = 'createdAt'"
+								},
+								{
+									"key": "order",
+									"value": "desc",
+									"description": "(Optional) Values = {'asc', 'desc'}; Default = 'desc'"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create share notification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MjM1NTQ1MiwiZXhwIjoxNzQyMzU5MDUyfQ.KXjgl93jjPleaV6kudMS095OiIqrk3nFxkMX6-CJmto"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"from\": \"67c2730b1fb713deae4b0689\",\r\n    \"to\": [],\r\n    \"script_id\": \"67ad9b237fbd427b0f974140\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{be-server}}/notification/share"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a notification",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/notification/:notificationId",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								"notification",
+								":notificationId"
+							],
+							"variable": [
+								{
+									"key": "notificationId",
+									"value": "67bd421b1927899743bfe891"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"RedRanger\",\r\n    \"password\": \"1234\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{be-server}}/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"KatBOT\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{be-server}}/auth/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "activities",
+			"item": [
+				{
+					"name": "Create new activity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0MjE4MTIzMywiZXhwIjoxNzQyMTg0ODMzfQ.TawGyBflGRA82oqyCnHS55zqXYuPGdd8Vnl9cKHkP08"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"create_model\",\r\n    \"obj_id\": \"67aecd1e0d59336166486c10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{be-server}}/:userId/activities",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"activities"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user's activities",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphamEiLCJzdWIiOiI2N2MyNzMwYjFmYjcxM2RlYWU0YjA2ODkiLCJpYXQiOjE3NDQxMDcyMzIsImV4cCI6MTc0NDExMDgzMn0.Kv5lazQW2gfmMaSCfg7UM_2fmLKrg0_ckyO5PJNVWs4"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{be-server}}/:userId/activities?year=2025",
+							"host": [
+								"{{be-server}}"
+							],
+							"path": [
+								":userId",
+								"activities"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2025"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "67c273401fb713deae4b068c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "models",
+			"item": [
+				{
+					"name": "registered models",
+					"item": [
+						{
+							"name": "Create Model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"tags\": [\r\n        {\r\n            \"key\": \"plant\", \r\n            \"value\": \"Táo\"\r\n        },\r\n        {\r\n            \"key\": \"schedule\", \r\n            \"value\": \"* * * * *\"\r\n        },\r\n        {\r\n            \"key\": \"enable\", \r\n            \"value\": \"true\"\r\n        }\r\n    ],\r\n    \"description\": \"Mô hình thông minh tạo kịch bản tưới cây táo ta theo thời tiết và địa phương\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/models/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Get a Model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/models/get?name=Mô hình tưới cây Táo",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										"models",
+										"get"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Mô hình tưới cây Táo"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rename Model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"67c273401fb713deae4b068c/Mô hình cây xoài\",\r\n    \"new_name\": \"Mô hình tưới cây Xoài\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/models/rename"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Model's description",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Xoài\",\r\n    \"description\": \"Mô hình thông minh tạo kịch bản tưới cây xoài xiêm theo từng loai thời tiết và địa phương\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/models/update"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"67c273401fb713deae4b068c/Mô hình mới\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/models/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "Search Models - Get all Models",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/models/search?max_results=1&order_by=name ASC&page_token=eyJvZmZzZXQiOiAxfQ==&filter=name LIKE '%25'",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										"models",
+										"search"
+									],
+									"query": [
+										{
+											"key": "max_results",
+											"value": "1",
+											"description": "Number of result for each request"
+										},
+										{
+											"key": "order_by",
+											"value": "name ASC",
+											"description": "ASC or DESC "
+										},
+										{
+											"key": "page_token",
+											"value": "eyJvZmZzZXQiOiAxfQ==",
+											"description": "Page token (disable for 1st call)"
+										},
+										{
+											"key": "filter",
+											"value": "name LIKE '%25Táo%25'",
+											"description": "For searching models by name (part of name)",
+											"disabled": true
+										},
+										{
+											"key": "filter",
+											"value": "name LIKE '%25'",
+											"description": "For getting all models"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Model Tag",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Xoài\",\r\n    \"key\": \"enable\",\r\n    \"value\": \"false\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/models/set-tag"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model Tag",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Xoài\",\r\n    \"key\": \"123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/models/delete-tag"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "model vesions",
+					"item": [
+						{
+							"name": "Create Model Version",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"source\": \"http://localhost:8000/tao2.0\",\r\n    \"tags\": [\r\n        {\r\n            \"key\": \"plant\",\r\n            \"value\": \"Táo\"\r\n        },\r\n        {\r\n            \"key\": \"algorithm\",\r\n            \"value\": \"Decision Tree\"\r\n        }\r\n    ],\r\n    \"description\": \"Phiên bản mô hình dùng cây quyết định đẻ tạo kịch bản tốt hơn\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Model Version",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/model-versions/get?name=Mô hình tưới cây Táo&version=4",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										"model-versions",
+										"get"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Mô hình tưới cây Táo"
+										},
+										{
+											"key": "version",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Model Version's description",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"version\": \"1\",\r\n    \"description\": \"Đây là phiên bản mô hình tưới cây táo đầu tiên dùng mô hình cây quyết định\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/update"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model Version",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"version\": \"1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/delete"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Latest Model Verion",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"stages\": [\"None\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/get-latest-versions"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Model Versions",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/model-versions/get-all?max_results=10&filter=name='Mô hình tưới cây Táo'",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										"model-versions",
+										"get-all"
+									],
+									"query": [
+										{
+											"key": "max_results",
+											"value": "10"
+										},
+										{
+											"key": "page_token",
+											"value": "eyJvZmZzZXQiOiAxfQ==",
+											"description": "disable for 1st call",
+											"disabled": true
+										},
+										{
+											"key": "filter",
+											"value": "name='Mô hình tưới cây Táo'",
+											"description": "The name of Model that version belong to"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Model Version Tag",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"version\": \"3\",\r\n    \"key\": \"algorithm\",\r\n    \"value\": \"Linear Regression\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/set-tag"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Model Version Tag",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"version\": \"3\",\r\n    \"key\": \"algorithm\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/model-versions/delete-tag"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "scripts",
+					"item": [
+						{
+							"name": "Generate Script",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzUzODQxNCwiZXhwIjoxNzQ3NTQyMDE0fQ.4tfJea-kRqr5em-Bee8bfjIvL9407nifO9buktojwZc"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"model_name\": \"Mô hình tưới cây Táo\",\r\n    \"model_version\": \"4\",\r\n    \"location\": \"Đà Nẵng\",\r\n    \"avg_temp\": 40,\r\n    \"avg_humid\": 80,\r\n    \"avg_rainfall\": 30\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/generate",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"generate"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Model Script stored in User's side",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU0NTIzMSwiZXhwIjoxNzQ3NTQ4ODMxfQ.vHO8GnbVFvk1SWlU54v1SA7Sr843-0NZKfaf1ZRUz0E"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"model_name\": \"Mô hình tưới cây Táo\",\r\n    \"model_version\": \"4\",\r\n    \"location\": \"Đà Nẵng\",\r\n    \"avg_temp\": 40,\r\n    \"avg_humid\": 80,\r\n    \"avg_rainfall\": 30\r\n}"
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/get-all?limit=10&page=1&sortBy=createdAt&order=desc",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"get-all"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "sortBy",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "desc",
+											"description": "asc/desc"
+										},
+										{
+											"key": "location",
+											"value": "Đà Nẵng",
+											"description": "optional",
+											"disabled": true
+										},
+										{
+											"key": "model_name",
+											"value": "Mô hình tưới cây Xoài",
+											"description": "optional",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a Model Script's Info",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzUzODQxNCwiZXhwIjoxNzQ3NTQyMDE0fQ.4tfJea-kRqr5em-Bee8bfjIvL9407nifO9buktojwZc"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"model_name\": \"Mô hình tưới cây Táo\",\r\n    \"model_version\": \"4\",\r\n    \"location\": \"Đà Nẵng\",\r\n    \"avg_temp\": 40,\r\n    \"avg_humid\": 80,\r\n    \"avg_rainfall\": 30\r\n}"
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/get?scriptId=68295203e8eca93f736e6211",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"get"
+									],
+									"query": [
+										{
+											"key": "scriptId",
+											"value": "68295203e8eca93f736e6211"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a Model Script's file",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzUzODQxNCwiZXhwIjoxNzQ3NTQyMDE0fQ.4tfJea-kRqr5em-Bee8bfjIvL9407nifO9buktojwZc"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/get-file?scriptId=68295203e8eca93f736e6211",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"get-file"
+									],
+									"query": [
+										{
+											"key": "scriptId",
+											"value": "68295203e8eca93f736e6211"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Script Model",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU0NTIzMSwiZXhwIjoxNzQ3NTQ4ODMxfQ.vHO8GnbVFvk1SWlU54v1SA7Sr843-0NZKfaf1ZRUz0E"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"script_id\": \"68295203e8eca93f736e6211\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/delete",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"delete"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
