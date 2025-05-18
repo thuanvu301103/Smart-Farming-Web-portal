@@ -52,9 +52,9 @@ export class ModelScriptsController {
         @Body('model_name') model_name: string,
         @Body('model_version') model_version: string,
         @Body('location') location: string,
-        @Body('avg_temp') temp: string,
-        @Body('avg_humid') humid: string,
-        @Body('avg_rainfall') rainfall: string,
+        @Body('avg_temp') temp: number,
+        @Body('avg_humid') humid: number,
+        @Body('avg_rainfall') rainfall: number,
         @Param("userId") userId: string,
     ) {
         try {
