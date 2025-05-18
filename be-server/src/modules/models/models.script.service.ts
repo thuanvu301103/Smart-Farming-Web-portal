@@ -59,9 +59,19 @@ export class ModelScriptsService {
                 throw new BadRequestException(`PythonServer returned status ${response.status}`);
             }
             const fileBuffer = Buffer.from(response.data, 'utf-8');
+            const newModelScript = new this.modelScriptModel({
+                model_name: name,
+                model_version: version,
+                location: location,
+                avg_temp: temp,
+                avg_humid: humid,
+                avg_rainfall: rainfall,
+                owner_id: new Types.ObjectId(userId)
+            })
+            const savedModelScript = await newModelScript.save();
             const scriptFile: Express.Multer.File = {
                 fieldname: 'file',
-                originalname: `script.json`,
+                originalname: `${savedModelScript._id}.json`,
                 encoding: '7bit',
                 mimetype: 'application/json',
                 size: fileBuffer.length,
@@ -73,16 +83,6 @@ export class ModelScriptsService {
             };
             const scriptFiles: Express.Multer.File[] = [scriptFile];
             await this.filesService.uploadFilesToFTP(scriptFiles, `/${userId}/model/${name}/script`);
-            const newModelScript = new this.modelScriptModel({
-                model_name: name,
-                model_version: version,
-                location: location,
-                avg_temp: temp,
-                avg_humid: humid,
-                avg_rainfall: rainfall,
-                owner_id: new Types.ObjectId(userId)
-            })
-            const savedModelScript = await newModelScript.save();
             return savedModelScript;
         } catch (error) {
             if (error.response) {
@@ -143,7 +143,7 @@ export class ModelScriptsService {
     async getModelScriptFile(user_id, script_id) {
         const script = await this.modelScriptModel.findById(script_id).lean().exec();
         const model_name = script.model_name;
-        return await this.filesService.getFileContent(`${user_id}/model/${model_name}/script/script.json`);
+        return await this.filesService.getFileContent(`${user_id}/model/${model_name}/script/${script_id}.json`);
     }
 
     // Delete scripts
