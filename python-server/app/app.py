@@ -1,3 +1,7 @@
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
+from apscheduler.executors.pool import ThreadPoolExecutor
+from apscheduler.triggers.cron import CronTrigger
 from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Form
 from .minio_client import get_s3_client
 from pydantic import BaseModel
@@ -121,4 +125,80 @@ async def gen(request: GenerateRequest):
         request.humid,
         request.rainfall
     )
+
+########### ==========Scheduler 
+jobstores = {
+    'default': SQLAlchemyJobStore(url='sqlite:///jobs.sqlite')
+}
+
+executors = {
+    'default': ThreadPoolExecutor(20)
+}
+
+job_defaults = {
+    'coalesce': False,
+    'max_instances': 3
+}
+
+scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
+scheduler.start()
+
+# Define a sample job function
+def sample_job(model_name: str):
+    resp = requests.post(
+        f"{BE_SERVER}/model-versions/get-latest-versions", 
+        json={"name": model_name, "stages": ["None"]}
+    )
+    model_info = resp.json()
+    version = model_info.registered_model.version
+    source = model_info.registered_model.source
+    ile_key = source.split("/")[-1]
+
+    # 📥 Tải file từ S3 vào bộ nhớ (RAM)
+    s3 = get_s3_client()
+    buffer = io.BytesIO()
+    s3.download_fileobj(BUCKET_NAME, file_key, buffer)
+    buffer.seek(0)  # Reset về đầu stream để đọc
+
+    # 🧠 Gọi hàm từ buffer
+    return gen_script(
+        buffer,
+        "Đà Nẵng",
+        35,
+        70,
+        60
+    )
+
+
+class JobResponse(BaseModel):
+    job_id: str
+    cron_expression: str
     
+# Add a job to the scheduler
+@app.post("/models/add-job")
+async def add_job(model_name: string):
+    resp = requests.get(
+        f"{BE_SERVER}/models/get", 
+        params={"name": model_name}
+    )
+    job_id = model_name
+    model_info = resp.json()
+    tags = model_info.registered_model.tags
+    cron_expression = next((tag["value"] for tag in tags if tag["key"] == "schedule"), None)
+
+    scheduler.add_job(
+        sample_job,
+        CronTrigger.from_crontab(cron_expression),
+        id=job_id,
+        args=[job_id]
+    )
+    return JobResponse(job_id=job_id, cron_expression=cron_expression)
+
+# Remove a job from the scheduler
+@app.delete("/remove-job/{job_id}")
+async def remove_job(job_id: str):
+    try:
+        scheduler.remove_job(job_id)
+        return {"msg": f"Job {job_id} removed successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=f"Job {job_id} not found: {e}")
