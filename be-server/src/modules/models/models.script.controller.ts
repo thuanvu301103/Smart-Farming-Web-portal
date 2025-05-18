@@ -79,7 +79,7 @@ export class ModelScriptsController {
     @Get('get')
     @UseGuards(JwtAuthGuard)
     async getModelScript(
-        @Param("scriptId") scriptId: string,
+        @Query("scriptId") scriptId: string,
     ) {
         return await this.modelScriptService.getModelScript(scriptId);
     }
