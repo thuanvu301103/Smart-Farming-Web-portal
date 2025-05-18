@@ -68,6 +68,7 @@ export class ModelScriptsService {
                 owner_id: new Types.ObjectId(userId)
             })
             const savedModelScript = await newModelScript.save();
+            return savedModelScript;
         } catch (error) {
             if (error.response) {
                 throw new HttpException(
