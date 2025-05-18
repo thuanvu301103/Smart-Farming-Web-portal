@@ -24,7 +24,7 @@ function bufferToStream(buffer: Buffer) {
 @Injectable()
 export class ModelScriptsService {
 
-    private python_server: string = 'http:10.1.8.52:7000';
+    private python_server: string = 'http://10.1.8.52:7000';
     
     constructor(
         @InjectModel(Models.name) private modelModel: Model<Models>,
