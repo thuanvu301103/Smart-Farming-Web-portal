@@ -17,9 +17,8 @@ import { BaseSearchModelScriptQueryDto } from '../../dto/model.scripts.dto';
 const storage = multer.diskStorage({
     destination: path.join(__dirname, "./../uploads"), // Temporary folder
     filename: (req, file, cb) => {
-        const uniqueSuffix = `${Date.now()}-${uuidv4()}`; // Timestamp + UUID
         const extension = path.extname(file.originalname);
-        const newFilename = `${path.basename(file.originalname, extension)}-${uniqueSuffix}${extension}`;
+        const newFilename = `${path.basename(file.originalname, extension)}${extension}`;
         cb(null, newFilename);
     }
 });
@@ -47,23 +46,19 @@ export class ModelScriptsController {
     }
 
     @Post('upload')
-    @UseGuards(JwtAuthGuard)
-    @UseInterceptors(FilesInterceptor('files', 50, { storage }))
+    @UseInterceptors(FilesInterceptor('file', 50, { storage }))
     async uploadModelScript(
-        @UploadedFiles() files: Express.Multer.File[],
-        @Body('version') version: string,
-        @Body('model_id') model_id: string,
+        @UploadedFiles() file: Express.Multer.File,
+        @Body('model_name') model_name: string,
         @Body('model_version') model_version: string,
-        @Req() req
+        @Body('location') location: string,
+        @Body('avg_temp') temp: string,
+        @Body('avg_humid') humid: string,
+        @Body('avg_rainfall') rainfall: string,
+        @Param("userId") userId: string,
     ) {
-        //console.log(version, model_id);
-        const currentUserId = req.user.userId;
-        // console.log("FILES:", files);
-        // console.log("VERSION:", version);
-        // console.log("MODEL ID:", model_id);
-        // console.log("MODEL VERSION:", model_version);
         try {
-            await this.modelScriptService.uploadModelScript(files, version, currentUserId, model_id, model_version);
+            await this.modelScriptService.uploadModelScript(file, userId, model_name, model_version, location, temp);
         } catch (error) {
             throw error;
         }
