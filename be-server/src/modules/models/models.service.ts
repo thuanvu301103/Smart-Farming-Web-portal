@@ -326,7 +326,7 @@ export class ModelsService {
                     occurrences.push({ time: nextTime, model_name: s.model_name });
                 }
             } catch (err) {
-                console.error(`Invalid CRON expression: ${schedule}`, err);
+                console.error(`Invalid CRON expression: ${s.cron_str}`, err);
             }
         });
 
