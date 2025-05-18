@@ -72,6 +72,9 @@ async def create_model_version(
 def gen_script(file_like, location, temp, humid, rainfall):
     try:
         loaded_predict = dill.load(file_like)
+        loaded_predict.__globals__['random'] = random
+        loaded_predict.__globals__['json'] = json
+
     except Exception as e:
         raise RuntimeError(f"❌ Failed to load pickle object: {e}")
 
@@ -79,7 +82,9 @@ def gen_script(file_like, location, temp, humid, rainfall):
         result = loaded_predict(location, temp, humid, rainfall)
         return result
     except Exception as e:
-        raise RuntimeError(f"❌ Error running loaded function: {e}")
+        import traceback
+        tb = traceback.format_exc()
+        raise RuntimeError(f"❌ Error running loaded function: {e}\n📄 Traceback:\n{tb}")
 
 @app.post("/model-versions/generate")
 async def gen(request: GenerateRequest):
