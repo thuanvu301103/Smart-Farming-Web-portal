@@ -3190,6 +3190,89 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "subscribe model",
+					"item": [
+						{
+							"name": "Subscribe/Update Subscribed Model",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU1OTE5MSwiZXhwIjoxNzQ3NTYyNzkxfQ.qSwFbNUJ6P9LG2o9a7SLAh9JnzNlpOnmjkRoQXgk5zo"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\": \"67c273401fb713deae4b068c\",\r\n    \"model_name\": \"Mô hình tưới cây Táo\",\r\n    \"location\": \"Đà Nẵng\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/models/subscribe"
+							},
+							"response": []
+						},
+						{
+							"name": "Get all User's Subscribed Models",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU1OTE5MSwiZXhwIjoxNzQ3NTYyNzkxfQ.qSwFbNUJ6P9LG2o9a7SLAh9JnzNlpOnmjkRoQXgk5zo"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/models/get-all-subscribed?user_id=67c273401fb713deae4b068c",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										"models",
+										"get-all-subscribed"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Un-subscribe Model",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU1OTE5MSwiZXhwIjoxNzQ3NTYyNzkxfQ.qSwFbNUJ6P9LG2o9a7SLAh9JnzNlpOnmjkRoQXgk5zo"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\": \"67c273401fb713deae4b068c\",\r\n    \"model_name\": \"Mô hình tưới cây Táo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{be-server}}/models/un-subscribe"
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
