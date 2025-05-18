@@ -8,6 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Models } from '../../schemas/models.schema';
 import { Script } from '../../schemas/scripts.schema';
+import { Register } from '../../schemas/register.schema';
 import { ActivitiesService } from "../activities/activities.service";
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
@@ -24,6 +25,7 @@ export class ModelsService {
     constructor(
         @InjectModel(Models.name) private modelModel: Model<Models>,
         @InjectModel(Script.name) private scriptModel: Model<Script>,
+        @InjectModel(Register.name) private registerModel: Model<Register>,
         @Inject(forwardRef(() => ActivitiesService)) private readonly activitiesService: ActivitiesService,
         private readonly configService: ConfigService,
     ) {
@@ -260,6 +262,30 @@ export class ModelsService {
                 HttpStatus.SERVICE_UNAVAILABLE
             );
         }
+    }
+
+    // Get all Subscribed Model
+    async getSubscribedModel(userId: string) {
+        return await this.registerModel.find(
+            { user_id: new Types.ObjectId(userId)}
+        ).select('model_name location').exec();
+    }
+
+    //Subscribe Model
+    async subscribeModel(userId: string, modelName: string, location: string) {
+        return await this.registerModel.findOneAndUpdate(
+            { user_id: new Types.ObjectId(userId), model_name: modelName }, // filter criteria
+            { location }, // update
+            { new: true, upsert: true } // options: return updated doc, create if not exists
+        );
+    }
+
+    // Un-Subscribe Model
+    async unSubscribeModel(userId: string, modelName: string) {
+        return await this.registerModel.findOneAndDelete({
+            user_id: new Types.ObjectId(userId),
+            model_name: modelName
+        });
     }
 
     /* ----- Model Version ----- */

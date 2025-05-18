@@ -93,4 +93,32 @@ export class ModelController{
     ) {
         return await this.modelsService.deleteModelTag(data.name, data.key);
     }
+
+    @Post('subscribe')
+    async subcribeModel(
+        @Body() data: {
+            user_id: string,
+            model_name: string,
+            location: string
+        }
+    ){
+        return await this.modelsService.subscribeModel(data.user_id, data.model_name, data.location);
+    }
+
+    @Get('get-all-subscribed')
+    async getSubcribedModel(
+        @Query('user_id') userId: string
+    ){
+        return await this.modelsService.getSubscribedModel(userId);
+    }
+
+    @Delete('un-subscribe')
+    async unSubcribeModel(
+        @Body() data: {
+            user_id: string,
+            model_name: string
+        }
+    ){
+        return await this.modelsService.unSubscribeModel(data.user_id, data.model_name);
+    }
 }

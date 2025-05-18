@@ -10,6 +10,7 @@ import { FilesService } from '../files/files.service';
 import { ActivitiesModule } from "../activities/activities.module";
 import { Models, ModelSchema } from '../../schemas/models.schema';
 import { Script, ScriptSchema } from '../../schemas/scripts.schema';
+import { Register, RegisterSchema } from '../../schemas/register.schema';
 import { ModelScript, ModelScriptSchema } from '../../schemas/models.scripts.schema';
 
 @Module({
@@ -18,6 +19,7 @@ import { ModelScript, ModelScriptSchema } from '../../schemas/models.scripts.sch
         MongooseModule.forFeature([
             { name: Models.name, schema: ModelSchema },
             { name: Script.name, schema: ScriptSchema },
+            { name: Register.name, schema: RegisterSchema },
             { name: ModelScript.name, schema: ModelScriptSchema }
         ])
     ],
