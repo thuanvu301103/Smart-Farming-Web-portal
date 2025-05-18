@@ -58,7 +58,7 @@ export class ModelScriptsController {
         @Param("userId") userId: string,
     ) {
         try {
-            await this.modelScriptService.uploadModelScript(file, userId, model_name, model_version, location, temp);
+            await this.modelScriptService.uploadModelScript(file, userId, model_name, model_version, location, temp, humid, rainfall);
         } catch (error) {
             throw error;
         }
