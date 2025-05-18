@@ -121,10 +121,10 @@ export class ModelScriptsService {
                 owner_id: new Types.ObjectId(userId)
             });
         const savedModelScript = await newModelScript.save();
-        scriptFile.originalname = `${savedModelScript._id}.json`
-        console.log("DYNAMIC FILE", scriptFile.originalname);
+        for (const file in scriptFile) file.originalname = `${savedModelScript._id}.json`
+        //console.log("DYNAMIC FILE", scriptFile.originalname);
         if (savedModelScript && savedModelScript._id) {
-            await this.filesService.uploadFilesToFTP([scriptFile], `/${userId}/model/${name}/script`);
+            await this.filesService.uploadFilesToFTP(scriptFile, `/${userId}/model/${name}/script`);
         } else {
             throw new InternalServerErrorException('Error while saving Model Script');
         }
