@@ -19,6 +19,7 @@ import { BaseSearchModelQueryDto } from '../../dto/models.dto';
 export class ModelsService {
 
     private mlflowUrl: string;
+    private python_server: string = 'http:10.1.8.52:7000';
 
     constructor(
         @InjectModel(Models.name) private modelModel: Model<Models>,
@@ -494,7 +495,7 @@ export class ModelsService {
             );
         }
     }
-
+    
     /////////////////////////////////////////////////////////////////////////////////////////--- Old things
     // Create Registered Model
     async createRegisteredModel(

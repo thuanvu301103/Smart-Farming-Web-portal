@@ -16,6 +16,8 @@ import axios from 'axios';
 @Injectable()
 export class ModelScriptsService {
 
+    private python_server: string = 'http:10.1.8.52:7000';
+    
     constructor(
         @InjectModel(Models.name) private modelModel: Model<Models>,
         @InjectModel(ModelScript.name) private modelScriptModel: Model<ModelScript>,
@@ -23,6 +25,66 @@ export class ModelScriptsService {
         private readonly configService: ConfigService,
     ) { }
 
+    /*----- Model Script -----*/
+    async genScript(
+        userId: string,
+        name: string,
+        version: string,
+        location: string,
+        temp: number,
+        humid: number,
+        rainfall: number
+    ) {
+        try {
+            const response = await axios.post(
+                `${this.python_server}/model-versions/generate`,
+                { 
+                    name: name, 
+                    version: version,
+                    location": location,
+                    temp: temp,
+                    humid: humid,
+                    rainfall: rainfall 
+                }
+            );
+            if (response.status !== 200) {
+                throw new BadRequestException(`PythonServer returned status ${response.status}`);
+            }
+            const fileBuffer = Buffer.from(rawJsonString, 'utf-8');
+            const scriptFile = {
+                originalname: `script.json`,
+                mimetype: 'application/json',
+                buffer: fileBuffer
+            };
+            const scriptFiles = [scriptFile];
+            await this.filesService.uploadFilesToFTP(scriptFiles, `/${user_id}/model/${name}/script`);
+            const newModelScript = new this.modelScriptModel({
+                model_name: name,
+                model_version: version,
+                location": location,
+                avg_temp: temp,
+                avg_humid: humid,
+                avg_rainfall: rainfall,
+                owner_id: new Types.ObjectId(userId)
+            })
+            const savedModelScript = await newModelScript.save();
+            return savedModelScript;
+        } catch (error) {
+            if (error.response) {
+                throw new HttpException(
+                    `Python Server Error: ${error.response.data.message || 'Unknown error'}`,
+                    error.response.status || HttpStatus.INTERNAL_SERVER_ERROR
+                );
+            }
+            throw new HttpException(
+                `Failed to connect to Python Server API. Check your pythonUrl.`,
+                HttpStatus.SERVICE_UNAVAILABLE
+            );
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+    
     // Upload Model Script
     async uploadModelScript(scriptFiles, version, user_id, model_id, model_version) {
         if (await this.isVersionExist(model_id, version)) {
