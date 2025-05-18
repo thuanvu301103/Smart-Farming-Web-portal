@@ -122,7 +122,7 @@ export class ModelScriptsService {
             });
         const savedModelScript = await newModelScript.save();
         scriptFile.originalname = `${savedModelScript._id}.json`
-        //console.log("DYNAMIC FILE", scriptFiles)
+        console.log("DYNAMIC FILE", scriptFile.originalname);
         if (savedModelScript && savedModelScript._id) {
             await this.filesService.uploadFilesToFTP(scriptFile, `/${userId}/model/${name}/script`);
         } else {
