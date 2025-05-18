@@ -62,9 +62,9 @@ export class ModelScriptsService {
                 model_name: name,
                 model_version: version,
                 location": location,
-                temp: temp,
-                humid: humid,
-                rainfall: rainfall,
+                avg_temp: temp,
+                avg_humid: humid,
+                avg_rainfall: rainfall,
                 owner_id: new Types.ObjectId(userId)
             })
             const savedModelScript = await newModelScript.save();
