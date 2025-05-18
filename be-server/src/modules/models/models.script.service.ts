@@ -12,6 +12,14 @@ import { ModelScript } from '../../schemas/models.scripts.schema';
 import { FilesService } from "../files/files.service";
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
+import { Readable } from 'stream';
+
+function bufferToStream(buffer: Buffer) {
+    const stream = new Readable();
+    stream.push(buffer);
+    stream.push(null);
+    return stream;
+}
 
 @Injectable()
 export class ModelScriptsService {
@@ -41,7 +49,7 @@ export class ModelScriptsService {
                 { 
                     name: name, 
                     version: version,
-                    location": location,
+                    location: location,
                     temp: temp,
                     humid: humid,
                     rainfall: rainfall 
@@ -50,18 +58,25 @@ export class ModelScriptsService {
             if (response.status !== 200) {
                 throw new BadRequestException(`PythonServer returned status ${response.status}`);
             }
-            const fileBuffer = Buffer.from(rawJsonString, 'utf-8');
-            const scriptFile = {
+            const fileBuffer = Buffer.from(response.data, 'utf-8');
+            const scriptFile: Express.Multer.File = {
+                fieldname: 'file',
                 originalname: `script.json`,
+                encoding: '7bit',
                 mimetype: 'application/json',
-                buffer: fileBuffer
+                size: fileBuffer.length,
+                buffer: fileBuffer,
+                stream: bufferToStream(fileBuffer),
+                destination: '',
+                filename: '',
+                path: ''
             };
-            const scriptFiles = [scriptFile];
-            await this.filesService.uploadFilesToFTP(scriptFiles, `/${user_id}/model/${name}/script`);
+            const scriptFiles: Express.Multer.File[] = [scriptFile];
+            await this.filesService.uploadFilesToFTP(scriptFiles, `/${userId}/model/${name}/script`);
             const newModelScript = new this.modelScriptModel({
                 model_name: name,
                 model_version: version,
-                location": location,
+                location: location,
                 avg_temp: temp,
                 avg_humid: humid,
                 avg_rainfall: rainfall,
@@ -91,8 +106,8 @@ export class ModelScriptsService {
             throw new ConflictException(`Model Script Version ${version} already exists`);
         }
         const newModelScript = new this.modelScriptModel({
-            version: version,
-            model_id: new Types.ObjectId(model_id),
+            //version: version,
+            //model_id: new Types.ObjectId(model_id),
             model_version: model_version
         })
         const savedModelScript = await newModelScript.save();
