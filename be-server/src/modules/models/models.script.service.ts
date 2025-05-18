@@ -64,7 +64,8 @@ export class ModelScriptsService {
                 location": location,
                 temp: temp,
                 humid: humid,
-                rainfall: rainfall 
+                rainfall: rainfall,
+                owner_id: new Types.ObjectId(userId)
             })
             const savedModelScript = await newModelScript.save();
         } catch (error) {
