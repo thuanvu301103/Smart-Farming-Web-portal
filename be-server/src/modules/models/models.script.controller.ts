@@ -90,7 +90,7 @@ export class ModelScriptsController {
         @Query('scriptId') scriptId: string,
         @Param("userId") userId: string,
     ) {
-        return await this.modelScriptService.getModelScriptFile(userId, script_id);
+        return await this.modelScriptService.getModelScriptFile(userId, scriptId);
     }
 
     @Delete('delete')
