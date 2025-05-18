@@ -26,6 +26,24 @@ const storage = multer.diskStorage({
 export class ModelScriptsController {
     constructor(private readonly modelScriptService: ModelScriptsService) { }
 
+    @Post('generate')
+    @UseGuards(JwtAuthGuard)
+    async generateModelScript(
+        @Body('model_name') model_name: string,
+        @Body('model_version') model_version: string,
+        @Body('location') location: string,
+        @Body('avg_temp') temp: number,
+        @Body('avg_humid') humid: number,
+        @Body('avg_rainfall') rainfall: number,
+        @Param("userId") userId: string,
+    ) {
+        try {
+            return await this.modelScriptService.genScript(userId, model_name, model_version, location, temp, humid, rainfall);
+        } catch (error) {
+            throw error;
+        }
+    }
+
     @Post('upload')
     @UseGuards(JwtAuthGuard)
     @UseInterceptors(FilesInterceptor('files', 50, { storage }))
