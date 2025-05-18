@@ -20,6 +20,13 @@ export class ModelScript extends Document {
 
     @Prop()
     avg_rainfall: number;
+
+    @Prop({
+        type: Types.ObjectId,
+        ref: 'User'
+    })
+    owner_id: Types.ObjectId;
+
     
     @Prop()
     createdAt: Date;
