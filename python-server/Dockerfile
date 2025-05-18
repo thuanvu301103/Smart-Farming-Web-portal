@@ -1,5 +1,5 @@
 # Sử dụng Python 3.9
-FROM python:3.9
+FROM python:3.11
 
 WORKDIR /app
 COPY . /app
