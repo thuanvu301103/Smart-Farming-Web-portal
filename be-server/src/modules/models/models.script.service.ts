@@ -121,7 +121,9 @@ export class ModelScriptsService {
                 owner_id: new Types.ObjectId(userId)
             });
         const savedModelScript = await newModelScript.save();
-        for (const file in scriptFile) file.originalname = `${savedModelScript._id}.json`
+        for (const file of scriptFile) {
+            file.originalname = `${savedModelScript._id}.json`;
+        }
         //console.log("DYNAMIC FILE", scriptFile.originalname);
         if (savedModelScript && savedModelScript._id) {
             await this.filesService.uploadFilesToFTP(scriptFile, `/${userId}/model/${name}/script`);

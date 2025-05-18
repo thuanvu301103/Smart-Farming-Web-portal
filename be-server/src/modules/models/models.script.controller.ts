@@ -14,14 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 // DTO
 import { BaseSearchModelScriptQueryDto } from '../../dto/model.scripts.dto';
 
-const storage = multer.diskStorage({
-    destination: path.join(__dirname, "./../uploads"), // Temporary folder
-    filename: (req, file, cb) => {
-        const extension = path.extname(file.originalname);
-        const newFilename = `${path.basename(file.originalname, extension)}${extension}`;
-        cb(null, newFilename);
-    }
-});
+const storage = multer.memoryStorage();
 
 @Controller(':userId/models/scripts')
 export class ModelScriptsController {
