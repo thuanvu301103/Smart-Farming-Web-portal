@@ -124,7 +124,7 @@ export class ModelScriptsService {
         scriptFile.originalname = `${savedModelScript._id}.json`
         console.log("DYNAMIC FILE", scriptFile.originalname);
         if (savedModelScript && savedModelScript._id) {
-            await this.filesService.uploadFilesToFTP(scriptFile, `/${userId}/model/${name}/script`);
+            await this.filesService.uploadFilesToFTP([scriptFile], `/${userId}/model/${name}/script`);
         } else {
             throw new InternalServerErrorException('Error while saving Model Script');
         }
