@@ -328,7 +328,7 @@ export class ModelsService {
             } catch (err) {
                 console.error(`Invalid CRON expression: ${s.cron_str}`, err);
             }
-        });
+        }
 
         return occurrences.sort((a, b) => a.time - b.time);
     }
