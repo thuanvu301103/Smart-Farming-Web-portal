@@ -71,20 +71,26 @@ export class ModelScriptsController {
     @Get('get-all')
     @UseGuards(JwtAuthGuard)
     async getAllModelScripts(
-        @Query('model_id') model_id: string,
+        @Param("userId") userId: string,
     ) {
-        return await this.modelScriptService.getAllModelScripts(model_id);
+        return await this.modelScriptService.getAllModelScripts(userId);
     }
 
     @Get('get')
     @UseGuards(JwtAuthGuard)
     async getModelScript(
-        @Query('model_id') model_id: string,
-        @Query('version') version: string,
-        @Req() req
+        @Param("scriptId") scriptId: string,
     ) {
-        const currentUserId = req.user.userId;
-        return await this.modelScriptService.getModelScript(currentUserId, model_id, version);
+        return await this.modelScriptService.getModelScript(scriptId);
+    }
+
+    @Get('get-file')
+    @UseGuards(JwtAuthGuard)
+    async getModelScriptFile(
+        @Query('scriptId') scriptId: string,
+        @Param("userId") userId: string,
+    ) {
+        return await this.modelScriptService.getModelScriptFile(userId, script_id);
     }
 
     @Delete('delete')
