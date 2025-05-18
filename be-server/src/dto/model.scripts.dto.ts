@@ -38,7 +38,7 @@ class BaseSearchModelScriptQueryDto {
 
     @IsOptional()
     @IsString()
-    locations?: string;
+    location?: string;
 
     @IsOptional()
     @IsString()
