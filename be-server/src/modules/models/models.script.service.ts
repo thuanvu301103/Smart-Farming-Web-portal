@@ -175,10 +175,10 @@ export class ModelScriptsService {
     }
 
     // Delete scripts
-    async deleteModelScript(userId, modelScriptId) {
-        const deletedModelScript = await this.modelScriptModel.findByIdAndDelete(modelScriptId);
+    async deleteModelScript(script_id) {
+        const deletedModelScript = await this.modelScriptModel.findByIdAndDelete(script_id);
         if (deletedModelScript) {
-            await this.filesService.deleteFileFromFTP(`/${userId}/model/script/script.json`)
+            await this.filesService.deleteFileFromFTP(`/${userId}/model/${deletedModelScript.model_name}/script/${script_id}.json`)
         } else {
             throw new InternalServerErrorException('Error while deleting Model Script');
         }
