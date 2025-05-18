@@ -102,7 +102,7 @@ export class ModelScriptsService {
 
     // Upload Model Script
     async uploadModelScript(
-        scriptFile, 
+        scriptFile: Express.Multer.File[], 
         userId: string,
         name: string,
         version: string,
@@ -124,7 +124,7 @@ export class ModelScriptsService {
         for (const file of scriptFile) {
             file.originalname = `${savedModelScript._id}.json`;
         }
-        //console.log("DYNAMIC FILE", scriptFile.originalname);
+        console.log("DYNAMIC FILE", scriptFile);
         if (savedModelScript && savedModelScript._id) {
             await this.filesService.uploadFilesToFTP(scriptFile, `/${userId}/model/${name}/script`);
         } else {
