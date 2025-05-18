@@ -3198,16 +3198,13 @@
 							"name": "Subscribe/Update Subscribed Model",
 							"request": {
 								"auth": {
-									"type": "bearer",
-									"bearer": {
-										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU1OTE5MSwiZXhwIjoxNzQ3NTYyNzkxfQ.qSwFbNUJ6P9LG2o9a7SLAh9JnzNlpOnmjkRoQXgk5zo"
-									}
+									"type": "noauth"
 								},
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"user_id\": \"67c273401fb713deae4b068c\",\r\n    \"model_name\": \"Mô hình tưới cây Táo\",\r\n    \"location\": \"Đà Nẵng\"\r\n}",
+									"raw": "{\r\n    \"user_id\": \"67c273401fb713deae4b068c\",\r\n    \"model_name\": \"Mô hình tưới cây Xoài\",\r\n    \"location\": \"Đà Nẵng\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3269,6 +3266,42 @@
 									}
 								},
 								"url": "{{be-server}}/models/un-subscribe"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "schedule",
+					"item": [
+						{
+							"name": "Get Schedule Plan",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/models/get-schedule-plan?userId=67c273401fb713deae4b068c&end_date=2025-05-20",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										"models",
+										"get-schedule-plan"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										},
+										{
+											"key": "end_date",
+											"value": "2025-05-20"
+										}
+									]
+								}
 							},
 							"response": []
 						}
