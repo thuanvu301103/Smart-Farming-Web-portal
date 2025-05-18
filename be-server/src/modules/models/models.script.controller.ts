@@ -48,7 +48,7 @@ export class ModelScriptsController {
     @Post('upload')
     @UseInterceptors(FilesInterceptor('file', 50, { storage }))
     async uploadModelScript(
-        @UploadedFiles() file: Express.Multer.File,
+        @UploadedFiles() file: Express.Multer.File[],
         @Body('model_name') model_name: string,
         @Body('model_version') model_version: string,
         @Body('location') location: string,
