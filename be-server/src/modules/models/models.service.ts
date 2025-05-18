@@ -288,6 +288,51 @@ export class ModelsService {
         });
     }
 
+    // Get schedule Plane
+    async getSchedulePlan(userId: string, startTime: Date, endTime: Date) {
+        const query = {user_id: userId};
+        // Get all subscribed models
+        const models = await this.registerModel.find(query)
+            .select("model_name").exec()
+        // Get model cron and enable
+        let model_schedule = [];
+        for (const model of models) {
+            const res = await axios.get(
+                `${this.mlflowUrl}/api/2.0/mlflow/registered-models/get`,
+                { params: { name: model.model_name } }
+            );
+            const tags = res.data.registered_model.tags;
+            let cron_str = null;
+            let enable = true; 
+            for (const tag of tags){
+                if (tag.key == "schedule") cron_str = tag.value;
+                if (tag.key == "enable") enable = tag.value == "false"?false: true;
+            }
+            model_schedule.push({cron_str: cron_str, enable: enable, model_name: model.model_name});
+        }
+        // Gen schedule
+        let occurrences = [];
+        for (const s of model_schedule) {
+            if (!s.enable) continue;
+            try {
+                let interval = cronParser.parse(s.cron_str, { currentDate: startTime });
+                //console.log("Interval: ", interval);
+                while (true) {
+                    let nextTime = interval.next().toDate();
+                    //console.log("Next time: ", nextTime);
+                    //console.log("End time: ", endTime);
+
+                    if (nextTime > endTime) break;
+                    occurrences.push({ time: nextTime, model_name: s.model_name });
+                }
+            } catch (err) {
+                console.error(`Invalid CRON expression: ${schedule}`, err);
+            }
+        });
+
+        return occurrences.sort((a, b) => a.time - b.time);
+    }
+
     /* ----- Model Version ----- */
     // Create Model Vesrion 
     async createVersion(
