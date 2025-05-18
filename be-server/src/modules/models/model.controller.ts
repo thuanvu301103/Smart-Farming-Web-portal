@@ -121,4 +121,21 @@ export class ModelController{
     ){
         return await this.modelsService.unSubscribeModel(data.user_id, data.model_name);
     }
+
+    @Get('get-schedule-plan')
+    async getModelSchedulePlan(
+        @Query('userId') userId: string,
+        @Query('end_date') endDate: string,
+        @Req() req
+    ) {
+        const currTime = new Date();
+        //currTime.setHours(0, 0, 0, 0);
+        const endTime = new Date(endDate);
+        endTime.setHours(23, 59, 59, 999);
+        if (currTime > endTime) {
+            throw new BadRequestException('Invalid end_date. end_date must be after or equal to current date time.');
+        }
+        
+        return this.modelsService.getSchedulePlan(userId, currTime, endTime);
+    }
 }
