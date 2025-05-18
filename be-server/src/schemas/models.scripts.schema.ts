@@ -4,17 +4,23 @@ import { Document, Types } from 'mongoose';
 @Schema({ timestamps: true })
 export class ModelScript extends Document {
     @Prop()
-    version: string;
-
-    @Prop({
-        type: Types.ObjectId,
-        ref: 'Models'
-    })
-    model_id: Types.ObjectId;
-
+    model_name: string;
+    
     @Prop()
     model_version: string;
 
+    @Prop()
+    location: string;
+
+    @Prop()
+    avg_temp: number;
+
+    @Prop()
+    avg_humid: number;
+
+    @Prop()
+    avg_rainfall: number;
+    
     @Prop()
     createdAt: Date;
 }
