@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "43ccbd5a-dc49-4ee5-b6ba-591074637e53",
+		"name": "Python - Helper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "37417008"
+	},
+	"item": [
+		{
+			"name": "Check",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{python-server}}/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Model Version",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "request_data",
+							"value": "{\"name\": \"Mô hình tưới cây Táo\", \"tags\": [{\"key\": \"plant\", \"value\": \"Táo\"}, {\"key\": \"algorithm\", \"value\": \"Decision Tree\"}], \"description\": \"Phiên bản mô hình dùng dùng xác xuất tạo kịch bản tưới thử nghiệm\"}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Mô hình tưới cây Táo",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "[{\"key\": \"plant\", \"value\": \"Táo\"}, {\"key\": \"algorithm\", \"value\": \"Decision Tree\"}]",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Phiên bản mô hình dùng dùng xác xuất tạo kịch bản tưới thử nghiệm",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/DELL/Downloads/predict.pkl"
+						}
+					]
+				},
+				"url": "{{python-server}}/model-versions/create"
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Script",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Mô hình tưới cây Táo\",\r\n    \"version\": \"4\",\r\n    \"location\": \"Đà Nẵng\",\r\n    \"temp\": 32,\r\n    \"humid\": 80,\r\n    \"rainfall\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{python-server}}/model-versions/generate"
+			},
+			"response": []
+		}
+	]
+}
