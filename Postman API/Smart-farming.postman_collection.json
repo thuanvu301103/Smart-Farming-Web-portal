@@ -2784,7 +2784,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{be-server}}/model-versions/get?name=Mô hình tưới cây Táo&version=1",
+									"raw": "{{be-server}}/model-versions/get?name=Mô hình tưới cây Táo&version=4",
 									"host": [
 										"{{be-server}}"
 									],
@@ -2799,7 +2799,7 @@
 										},
 										{
 											"key": "version",
-											"value": "1"
+											"value": "4"
 										}
 									]
 								}
@@ -2946,6 +2946,246 @@
 									}
 								},
 								"url": "{{be-server}}/model-versions/delete-tag"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "scripts",
+					"item": [
+						{
+							"name": "Generate Script",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzUzODQxNCwiZXhwIjoxNzQ3NTQyMDE0fQ.4tfJea-kRqr5em-Bee8bfjIvL9407nifO9buktojwZc"
+									}
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"model_name\": \"Mô hình tưới cây Táo\",\r\n    \"model_version\": \"4\",\r\n    \"location\": \"Đà Nẵng\",\r\n    \"avg_temp\": 40,\r\n    \"avg_humid\": 80,\r\n    \"avg_rainfall\": 30\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/generate",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"generate"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Model Script stored in User's side",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU0NTIzMSwiZXhwIjoxNzQ3NTQ4ODMxfQ.vHO8GnbVFvk1SWlU54v1SA7Sr843-0NZKfaf1ZRUz0E"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"model_name\": \"Mô hình tưới cây Táo\",\r\n    \"model_version\": \"4\",\r\n    \"location\": \"Đà Nẵng\",\r\n    \"avg_temp\": 40,\r\n    \"avg_humid\": 80,\r\n    \"avg_rainfall\": 30\r\n}"
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/get-all?limit=10&page=1&sortBy=createdAt&order=desc",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"get-all"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "sortBy",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "desc",
+											"description": "asc/desc"
+										},
+										{
+											"key": "location",
+											"value": "Đà Nẵng",
+											"description": "optional",
+											"disabled": true
+										},
+										{
+											"key": "model_name",
+											"value": "Mô hình tưới cây Xoài",
+											"description": "optional",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a Model Script's Info",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzUzODQxNCwiZXhwIjoxNzQ3NTQyMDE0fQ.4tfJea-kRqr5em-Bee8bfjIvL9407nifO9buktojwZc"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"model_name\": \"Mô hình tưới cây Táo\",\r\n    \"model_version\": \"4\",\r\n    \"location\": \"Đà Nẵng\",\r\n    \"avg_temp\": 40,\r\n    \"avg_humid\": 80,\r\n    \"avg_rainfall\": 30\r\n}"
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/get?scriptId=68295203e8eca93f736e6211",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"get"
+									],
+									"query": [
+										{
+											"key": "scriptId",
+											"value": "68295203e8eca93f736e6211"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a Model Script's file",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzUzODQxNCwiZXhwIjoxNzQ3NTQyMDE0fQ.4tfJea-kRqr5em-Bee8bfjIvL9407nifO9buktojwZc"
+									}
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/get-file?scriptId=68295203e8eca93f736e6211",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"get-file"
+									],
+									"query": [
+										{
+											"key": "scriptId",
+											"value": "68295203e8eca93f736e6211"
+										}
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Script Model",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": {
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU0NTIzMSwiZXhwIjoxNzQ3NTQ4ODMxfQ.vHO8GnbVFvk1SWlU54v1SA7Sr843-0NZKfaf1ZRUz0E"
+									}
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"script_id\": \"68295203e8eca93f736e6211\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/delete",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"delete"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
 							},
 							"response": []
 						}
