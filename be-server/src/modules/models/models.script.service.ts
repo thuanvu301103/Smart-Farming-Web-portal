@@ -69,7 +69,7 @@ export class ModelScriptsService {
                 avg_humid: humid,
                 avg_rainfall: rainfall,
                 owner_id: new Types.ObjectId(userId)
-            })
+            });
             const savedModelScript = await newModelScript.save();
             const scriptFile: Express.Multer.File = {
                 fieldname: 'file',
@@ -100,25 +100,31 @@ export class ModelScriptsService {
         }
     }
 
-    //////////////////////////////////////////////////////////////////////////
-    
     // Upload Model Script
-    async uploadModelScript(scriptFiles, version, user_id, model_id, model_version) {
-        if (await this.isVersionExist(model_id, version)) {
-            throw new ConflictException(`Model Script Version ${version} already exists`);
-        }
+    async uploadModelScript(
+        scriptFile, 
+        userId: string,
+        name: string,
+        version: string,
+        location: string,
+        temp: number,
+        humid: number,
+        rainfall: number
+    ) {
         const newModelScript = new this.modelScriptModel({
-            //version: version,
-            //model_id: new Types.ObjectId(model_id),
-            model_version: model_version
-        })
+                model_name: name,
+                model_version: version,
+                location: location,
+                avg_temp: temp,
+                avg_humid: humid,
+                avg_rainfall: rainfall,
+                owner_id: new Types.ObjectId(userId)
+            });
         const savedModelScript = await newModelScript.save();
-        for (const file of scriptFiles) {
-            file.originalname = `version${version}.json`
-        }
+        scriptFile.originalname = `${savedModelScript._id}.json`
         console.log("DYNAMIC FILE", scriptFiles)
         if (savedModelScript && savedModelScript._id) {
-            await this.filesService.uploadFilesToFTP(scriptFiles, `/${user_id}/model/${model_id}/script`)
+            await this.filesService.uploadFilesToFTP(scriptFile, `/${userId}/model/${name}/script`);
         } else {
             throw new InternalServerErrorException('Error while saving Model Script');
         }
