@@ -146,13 +146,13 @@ export class ModelScriptsService {
         }
         const sortOrder = order === 'asc' ? 1 : -1;
         const skip = (page - 1) * limit;
-        const scripts = await this.scriptModel.find(filterCondition)
+        const scripts = await this.modelScriptModel.find(filterCondition)
             .sort({ [sortBy]: sortOrder })
             .skip(skip)
             .limit(limit).lean()
             .exec();
 
-        const total = await this.scriptModel.countDocuments(filterCondition);
+        const total = await this.modelScriptModel.countDocuments(filterCondition);
            return {
                 data: scripts,
                 total,

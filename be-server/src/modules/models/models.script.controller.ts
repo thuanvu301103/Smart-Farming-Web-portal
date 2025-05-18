@@ -76,7 +76,7 @@ export class ModelScriptsController {
         @Query() query: BaseSearchModelScriptQueryDto,
         @Param("userId") userId: string,
     ) {
-        return await this.modelScriptService.getAllModelScripts(userId);
+        return await this.modelScriptService.getAllModelScripts(userId, query);
     }
 
     @Get('get')
