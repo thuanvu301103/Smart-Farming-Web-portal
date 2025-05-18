@@ -100,9 +100,7 @@ export class ModelScriptsController {
     @UseGuards(JwtAuthGuard)
     async deleteModelScript(
         @Body('script_id') script_id: string,
-        @Req() req
     ) {
-        const currentUserId = req.user.userId;
-        return await this.modelScriptService.deleteModelScript(currentUserId, script_id);
+        return await this.modelScriptService.deleteModelScript(script_id);
     }
 }
