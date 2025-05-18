@@ -290,7 +290,7 @@ export class ModelsService {
 
     // Get schedule Plane
     async getSchedulePlan(userId: string, startTime: Date, endTime: Date) {
-        const query = {user_id: userId};
+        const query = {user_id: new Types.ObjectId(userId)};
         // Get all subscribed models
         const models = await this.registerModel.find(query)
             .select("model_name").exec();
