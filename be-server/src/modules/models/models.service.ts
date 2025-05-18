@@ -293,7 +293,8 @@ export class ModelsService {
         const query = {user_id: userId};
         // Get all subscribed models
         const models = await this.registerModel.find(query)
-            .select("model_name").exec()
+            .select("model_name").exec();
+        console.log("Get subscribed model: ", models);
         // Get model cron and enable
         let model_schedule = [];
         for (const model of models) {
@@ -309,6 +310,7 @@ export class ModelsService {
                 if (tag.key == "enable") enable = tag.value == "false"?false: true;
             }
             model_schedule.push({cron_str: cron_str, enable: enable, model_name: model.model_name});
+            console.log("Model schedule: ", model_schedule);
         }
         // Gen schedule
         let occurrences = [];
@@ -329,6 +331,7 @@ export class ModelsService {
                 console.error(`Invalid CRON expression: ${s.cron_str}`, err);
             }
         }
+        console.log("occur: ", occurrences);
 
         return occurrences.sort((a, b) => a.time - b.time);
     }
