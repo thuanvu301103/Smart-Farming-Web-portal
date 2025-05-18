@@ -11,6 +11,8 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+// DTO
+import { BaseSearchModelScriptQueryDto } from '../../dto/model.scripts.dto';
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname, "./../uploads"), // Temporary folder
@@ -71,6 +73,7 @@ export class ModelScriptsController {
     @Get('get-all')
     @UseGuards(JwtAuthGuard)
     async getAllModelScripts(
+        @Query() query: BaseSearchModelScriptQueryDto,
         @Param("userId") userId: string,
     ) {
         return await this.modelScriptService.getAllModelScripts(userId);
