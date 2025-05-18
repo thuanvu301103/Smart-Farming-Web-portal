@@ -13,6 +13,8 @@ import { FilesService } from "../files/files.service";
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
 import { Readable } from 'stream';
+// DTO
+import { BaseSearchModelScriptQueryDto } from '../../dto/model.scripts.dto';
 
 function bufferToStream(buffer: Buffer) {
     const stream = new Readable();
@@ -128,9 +130,35 @@ export class ModelScriptsService {
     }
 
     // get all Model Script stored in user'side
-    async getAllModelScripts(owner_id) {
-        const scripts = await this.modelScriptModel.find({ owner_id: new Types.ObjectId(owner_id) }).lean().exec();
-        return scripts;
+    async getAllModelScripts(owner_id: string, query: BaseSearchModelScriptQueryDto) {
+        const {
+                page, limit,
+                sortBy, order,
+                location, model_name
+            } = query;
+        const filterCondition: any = {};
+        filterCondition.owner_id = new Types.ObjectId(owner_id)
+        if (location) {
+            filterCondition.location = location;
+        }
+        if (model_name) {
+            filterCondition.model_name = model_name;
+        }
+        const sortOrder = order === 'asc' ? 1 : -1;
+        const skip = (page - 1) * limit;
+        const scripts = await this.scriptModel.find(filterCondition)
+            .sort({ [sortBy]: sortOrder })
+            .skip(skip)
+            .limit(limit).lean()
+            .exec();
+
+        const total = await this.scriptModel.countDocuments(filterCondition);
+           return {
+                data: scripts,
+                total,
+                page,
+                totalPages: Math.ceil(total / limit),
+            };
     }
 
     // get a Model Script MetaData
