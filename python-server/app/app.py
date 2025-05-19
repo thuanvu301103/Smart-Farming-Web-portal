@@ -176,7 +176,7 @@ class JobResponse(BaseModel):
     
 # Add a job to the scheduler
 @app.post("/models/add-job")
-async def add_job(model_name: string):
+async def add_job(model_name: str):
     resp = requests.get(
         f"{BE_SERVER}/models/get", 
         params={"name": model_name}
