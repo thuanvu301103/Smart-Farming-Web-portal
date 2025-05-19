@@ -147,7 +147,7 @@ export class ModelScriptsService {
         const users = await this.registerModel.find({model_name: name, location: location})
             .select('user_id').exec();
         for (const user of users) {
-            await this.uploadModelScript(scriptFile, user.user_id, name, version, location, temp, humid, rainfall)
+            await this.uploadModelScript(scriptFile, user.user_id.toString(), name, version, location, temp, humid, rainfall)
         }
     }
 
