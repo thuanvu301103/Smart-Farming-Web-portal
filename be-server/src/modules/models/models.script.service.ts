@@ -9,6 +9,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Models } from '../../schemas/models.schema';
 import { ModelScript } from '../../schemas/models.scripts.schema';
+import { Register } from '../../schemas/register.schema';
 import { FilesService } from "../files/files.service";
 import { ConfigService } from '@nestjs/config';
 import axios from 'axios';
@@ -31,6 +32,7 @@ export class ModelScriptsService {
     constructor(
         @InjectModel(Models.name) private modelModel: Model<Models>,
         @InjectModel(ModelScript.name) private modelScriptModel: Model<ModelScript>,
+        @InjectModel(Register.name) private registerModel: Model<Register>,
         @Inject(FilesService) private readonly filesService: FilesService,
         private readonly configService: ConfigService,
     ) { }
@@ -129,6 +131,23 @@ export class ModelScriptsService {
             await this.filesService.uploadFilesToFTP(scriptFile, `/${userId}/model/${name}/script`);
         } else {
             throw new InternalServerErrorException('Error while saving Model Script');
+        }
+    }
+
+    // Broadcast script
+    async broadcastScript (
+        scriptFile: Express.Multer.File[], 
+        name: string,
+        version: string,
+        location: string,
+        temp: number,
+        humid: number,
+        rainfall: number
+    ) {
+        const users = await this.registerModel.find({model_name: name, location: location})
+            .select('user_id').exec();
+        for (const user of users) {
+            await this.uploadModelScript(scriptFile, user.user_id, name, version, location, temp, humid, rainfall)
         }
     }
 
