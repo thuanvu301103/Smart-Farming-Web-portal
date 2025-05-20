@@ -146,47 +146,6 @@ scheduler.start()
 # Define a sample job function
 def sample_job(model_name: str):
     try:
-        # 🔁 Gọi backend lấy version mới nhất
-        resp = requests.post(
-            f"{BE_SERVER}/model-versions/get-latest-versions", 
-            json={"name": model_name, "stages": ["None"]}
-        )
-
-        if resp.status_code != 200:
-            print(f"❌ Failed to fetch model version for '{model_name}'")
-            return
-
-        model_info = resp.json()
-        latest_versions = model_info.get("registered_model", {}).get("latest_versions", [])
-        if not latest_versions:
-            print(f"❌ No latest versions found for model '{model_name}'")
-            return
-
-        version_info = latest_versions[0]
-        version = version_info["version"]
-        source = version_info["source"]
-        file_key = source.split("/")[-1]
-
-        # 📥 Tải file từ S3
-        s3 = get_s3_client()
-        buffer = io.BytesIO()
-        s3.download_fileobj(BUCKET_NAME, file_key, buffer)
-        buffer.seek(0)
-
-        # 🧠 Chạy hàm dự đoán
-        result = gen_script(
-            buffer,
-            "Đà Nẵng",
-            35,
-            70,
-            60
-        )
-
-        # 📄 Tạo file JSON từ kết quả
-        json_bytes = json.dumps(result, ensure_ascii=False, indent=2).encode("utf-8")
-        file_stream = io.BytesIO(json_bytes)
-        filename = f"{model_name}_{version}_{int(time.time())}.json"
-
         # 🔐 Đăng nhập để lấy token
         login_resp = requests.post(f"{BE_SERVER}/auth/login", json={
             "username": "KatBOT",
@@ -197,48 +156,51 @@ def sample_job(model_name: str):
             return
 
         token = login_resp.json().get("access_token")
+        user_id = login_resp.json().get("user_id")
         if not token:
             print("❌ No access_token received from login.")
             return
 
-        # 🔍 Lấy model_id từ model name
-        model_resp = requests.get(
-            f"{BE_SERVER}/models/get",
-            params={"name": model_name},
-            headers={"Authorization": f"Bearer {token}"}
+        # 🔍 Lấy version mới nhất từ model name
+        latest_version_resp = requests.post(
+            f"{BE_SERVER}/model-versions/get-latest-versions",
+            json={"name": model_name, "stages": ["None"]},
         )
-        if model_resp.status_code != 200:
-            print(f"❌ Failed to get model info for '{model_name}'")
+
+        if latest_version_resp.status_code != 201:
+            print("❌ Failed to fetch latest version.")
             return
 
-        model_data = model_resp.json()
-        model_id = model_data.get("registered_model", {}).get("id")
-        if not model_id:
-            print("❌ model_id not found.")
+        model_info = latest_version_resp.json()
+        latest_versions = model_info.get("model_versions", [])
+        if not latest_versions:
+            print(f"❌ No latest versions found for model '{model_name}'")
             return
 
-        # 📤 Upload file kết quả lên server backend
-        upload_resp = requests.post(
-            f"{BE_SERVER}/{model_id}/models/scripts/upload",
+        model_version = latest_versions[0]["version"]
+        # 📤 Gọi API tạo script
+        generate_resp = requests.post(
+            f"{BE_SERVER}/{user_id}/models/scripts/generate",
             headers={"Authorization": f"Bearer {token}"},
-            files={"file": (filename, file_stream, "application/json")},
-            data={
-                "version": version,
-                "model_id": model_id,
-                "model_version": version
+            json={
+                "model_name": model_name,
+                "model_version": model_version,
+                "location": "Đà Nẵng",
+                "avg_temp": 40,
+                "avg_humid": 80,
+                "avg_rainfall": 30
             }
         )
 
-        if upload_resp.status_code != 201:
-            print(f"❌ Failed to upload script: {upload_resp.status_code} - {upload_resp.text}")
+        if generate_resp.status_code != 201:
+            print(f"❌ Failed to generate script: {generate_resp.status_code} - {generate_resp.text}")
         else:
-            print(f"✅ Uploaded script for model '{model_name}' version '{version}' successfully.")
+            print(f"✅ Script generated and uploaded for model '{model_name}' version '{model_version}'.")
 
     except Exception as e:
         import traceback
         print(f"❌ Error in job for model '{model_name}': {e}")
         print(traceback.format_exc())
-
 
 class JobResponse(BaseModel):
     job_id: str
