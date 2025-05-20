@@ -14,8 +14,11 @@ import dill
 import random
 import io
 import traceback
+from typing import List, Optional, Tuple
+
 app = FastAPI()
 
+OPENWEATHER_API_KEY = "a9bd0f26a67655129698b3a1dc78e692"
 BUCKET_NAME = "models"
 DOWNLOAD_DIR = "./downloaded_models"
 BE_SERVER = "http://10.1.8.52:3002"
@@ -33,9 +36,82 @@ class GenerateRequest(BaseModel):
     humid: float
     rainfall: float
 
+# Hàm chuyển địa danh -> lat/lon
+def get_lat_lon_from_location(location: str) -> Optional[Tuple[float, float]]:
+    try:
+        resp = requests.get(
+            "http://api.openweathermap.org/geo/1.0/direct",
+            params={"q": location, "limit": 1, "appid": OPENWEATHER_API_KEY},
+            timeout=5
+        )
+        if resp.status_code == 401:
+            print("❌ Invalid API key")
+            return None
+        resp.raise_for_status()
+
+        data = resp.json()
+        if not data:
+            print(f"❌ Không tìm thấy dữ liệu địa lý cho '{location}'")
+            return None
+
+        return data[0]['lat'], data[0]['lon']
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Exception in get_lat_lon_from_location: {e}")
+        return None
+
+# Hàm lấy thời tiết từ lat/lon
+def get_weather_by_coordinates(lat: float, lon: float) -> Optional[dict]:
+    try:
+        url = "https://api.openweathermap.org/data/2.5/weather"
+        params = {
+            "lat": lat,
+            "lon": lon,
+            "appid": OPENWEATHER_API_KEY,
+            "units": "metric"
+        }
+        resp = requests.get(url, params=params, timeout=5)
+
+        if resp.status_code == 401:
+            print("❌ Invalid API key khi lấy weather")
+            return None
+        resp.raise_for_status()
+
+        data = resp.json()
+        temperature = data["main"]["temp"]
+        humidity = data["main"]["humidity"]
+        rainfall = data.get("rain", {}).get("1h", 0)
+
+        return {
+            "temp": temperature,
+            "humid": humidity,
+            "rainfall": rainfall
+        }
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Exception in get_weather_by_coordinates: {e}")
+        return None
+    
 @app.get("/")
 async def root():
     return {"message": "FastAPI server running on Docker - Port 7000"}
+
+@app.get("/weather")
+async def get_weather_by_location(location: str):
+    latlon = get_lat_lon_from_location(location)
+    if not latlon:
+        raise HTTPException(status_code=404, detail=f"Không tìm thấy vị trí '{location}'")
+
+    lat, lon = latlon
+    weather = get_weather_by_coordinates(lat, lon)
+    if not weather:
+        raise HTTPException(status_code=502, detail="Lỗi khi lấy dữ liệu thời tiết")
+
+    # Trả về JSON đầy đủ thông tin
+    return {
+        "location": location,
+        "lat": lat,
+        "lon": lon,
+        **weather
+}
 
 @app.post("/model-versions/create")
 async def create_model_version(
@@ -237,9 +313,6 @@ def sample_job(model_name: str):
                 "model_name": model_name,
                 "model_version": model_version,
                 "location": location,
-                "avg_temp": 40,
-                "avg_humid": 80,
-                "avg_rainfall": 30
             }
         )
 
@@ -285,12 +358,12 @@ async def add_job(model_name: str):
             raise HTTPException(status_code=400, detail=f"❌ Cron expression lỗi: {e}")
 
         job = scheduler.add_job(
-        sample_job,
-        trigger,
-        id=job_id,
-        args=[job_id],
-        replace_existing=True
-    )
+            sample_job,
+            trigger,
+            id=job_id,
+            args=[job_id],
+            replace_existing=True
+        )
         
         print(f"🧩 Current jobs: {[job.id for job in scheduler.get_jobs()]}")
         print(f"⏰ Job {job_id} will run next at: {job.next_run_time}")
