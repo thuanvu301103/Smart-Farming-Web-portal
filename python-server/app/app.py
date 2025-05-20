@@ -3,6 +3,7 @@ from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.triggers.cron import CronTrigger
 from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Form
+import pytz
 from .minio_client import get_s3_client
 from pydantic import BaseModel
 import requests
@@ -140,7 +141,7 @@ job_defaults = {
     'max_instances': 3
 }
 
-scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
+scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults, timezone=pytz.timezone("Asia/Ho_Chi_Minh"))
 scheduler.start()
 
 # Define a sample job functiondef sample_job(model_name: str):
