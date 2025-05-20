@@ -177,14 +177,38 @@ def sample_job(model_name: str):
         login_data = login_resp.json()
         token = login_data.get("access_token")
         user_id = login_data.get("user_id")
-        # print(f"🔐 Token: {token[:10]}... | user_id: {user_id}")
 
         if not token or not user_id:
             print("❌ Token hoặc user_id không tồn tại.")
             return
 
-        print(f"🔍 Đang lấy version mới nhất cho model '{model_name}'...")
+        # 🔍 Gọi get-all-subscribed
+        print(f"🌐 Đang lấy danh sách model đã đăng ký của user_id={user_id}...")
+        subscribed_resp = requests.get(
+            f"{BE_SERVER}/models/get-all-subscribed",
+            params={"user_id": user_id},
+            headers={"Authorization": f"Bearer {token}"}
+        )
+        if subscribed_resp.status_code != 200:
+            print(f"❌ Không thể lấy danh sách model đã đăng ký: {subscribed_resp.text}")
+            return
 
+        subscribed_models = subscribed_resp.json()
+        location = None
+
+        for model in subscribed_models:
+            if model.get("model_name") == model_name:
+                location = model.get("location")
+                break
+
+        if not location:
+            print(f"❌ Không tìm thấy location cho model '{model_name}' trong danh sách đã đăng ký.")
+            return
+
+        print(f"📍 Tìm thấy location: {location} cho model: {model_name}")
+
+        # 🔍 Lấy version mới nhất
+        print(f"🔍 Đang lấy version mới nhất cho model '{model_name}'...")
         latest_version_resp = requests.post(
             f"{BE_SERVER}/model-versions/get-latest-versions",
             json={"name": model_name, "stages": ["None"]},
@@ -203,6 +227,7 @@ def sample_job(model_name: str):
         model_version = latest_versions[0]["version"]
         print(f"📌 Dùng version: {model_version}")
 
+        # 📤 Gọi API generate script
         print(f"📤 Gọi API generate script cho model '{model_name}'...")
 
         generate_resp = requests.post(
@@ -211,7 +236,7 @@ def sample_job(model_name: str):
             json={
                 "model_name": model_name,
                 "model_version": model_version,
-                "location": "Đà Nẵng",
+                "location": location,
                 "avg_temp": 40,
                 "avg_humid": 80,
                 "avg_rainfall": 30
@@ -227,6 +252,7 @@ def sample_job(model_name: str):
     except Exception as e:
         print(f"❌ Lỗi trong job cho model '{model_name}': {e}")
         print(traceback.format_exc())
+
 class JobResponse(BaseModel):
     job_id: str
     cron_expression: str
