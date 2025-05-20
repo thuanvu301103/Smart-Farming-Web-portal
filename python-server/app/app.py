@@ -147,8 +147,19 @@ scheduler = BackgroundScheduler(
     job_defaults=job_defaults,
     timezone=pytz.timezone("Asia/Ho_Chi_Minh")
 )
-scheduler.start()
 
+# Kiểm soát việc start/shutdown trong lifecycle của ứng dụng
+@app.on_event("startup")
+async def startup_event():
+    if not scheduler.running:
+        scheduler.start()
+        print(f"✅ Scheduler started at {datetime.now()} with timezone {scheduler.timezone}")
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    if scheduler.running:
+        scheduler.shutdown()
+        print("❌ Scheduler shutdown!")
 # Define a sample job functiondef sample_job(model_name: str):
 def sample_job(model_name: str):
     try:
@@ -159,14 +170,14 @@ def sample_job(model_name: str):
             "password": "1234"
         })
         print(f"🔐 Login status: {login_resp.status_code}")
-        if login_resp.status_code != 200:
+        if login_resp.status_code != 201:
             print(f"❌ Login failed: {login_resp.text}")
             return
 
         login_data = login_resp.json()
         token = login_data.get("access_token")
         user_id = login_data.get("user_id")
-        print(f"🔐 Token: {token[:10]}... | user_id: {user_id}")
+        # print(f"🔐 Token: {token[:10]}... | user_id: {user_id}")
 
         if not token or not user_id:
             print("❌ Token hoặc user_id không tồn tại.")
@@ -247,15 +258,16 @@ async def add_job(model_name: str):
         except ValueError as e:
             raise HTTPException(status_code=400, detail=f"❌ Cron expression lỗi: {e}")
 
-        scheduler.add_job(
-            sample_job,
-            trigger,
-            id=job_id,
-            args=[job_id],
-            replace_existing=True
-        )
+        job = scheduler.add_job(
+        sample_job,
+        trigger,
+        id=job_id,
+        args=[job_id],
+        replace_existing=True
+    )
         
         print(f"🧩 Current jobs: {[job.id for job in scheduler.get_jobs()]}")
+        print(f"⏰ Job {job_id} will run next at: {job.next_run_time}")
         return JobResponse(job_id=job_id, cron_expression=cron_expression)
 
     except Exception as e:
