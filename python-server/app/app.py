@@ -2,6 +2,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.triggers.cron import CronTrigger
+from datetime import datetime
 from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Form
 import pytz
 from .minio_client import get_s3_client
@@ -12,7 +13,7 @@ import json
 import dill
 import random
 import io
-
+import traceback
 app = FastAPI()
 
 BUCKET_NAME = "models"
@@ -87,7 +88,6 @@ def gen_script(file_like, location, temp, humid, rainfall):
         result = loaded_predict(location, temp, humid, rainfall)
         return result
     except Exception as e:
-        import traceback
         tb = traceback.format_exc()
         raise RuntimeError(f"❌ Error running loaded function: {e}\n📄 Traceback:\n{tb}")
 
