@@ -234,12 +234,23 @@ async def add_job(model_name: str):
             raise HTTPException(status_code=400, detail="❌ No schedule tag found.")
 
         job_id = model_name
+        print(f"📆 Đăng ký job '{job_id}' với cron '{cron_expression}'")
+
+        # Tạo trigger có kiểm tra lỗi
+        try:
+            trigger = CronTrigger.from_crontab(cron_expression)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=f"❌ Cron expression lỗi: {e}")
+
         scheduler.add_job(
             sample_job,
-            CronTrigger.from_crontab(cron_expression),
+            trigger,
             id=job_id,
-            args=[job_id]
+            args=[job_id],
+            replace_existing=True
         )
+        
+        print(f"🧩 Current jobs: {[job.id for job in scheduler.get_jobs()]}")
         return JobResponse(job_id=job_id, cron_expression=cron_expression)
 
     except Exception as e:
