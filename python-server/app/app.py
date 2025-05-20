@@ -143,42 +143,51 @@ job_defaults = {
 scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
 scheduler.start()
 
-# Define a sample job function
+# Define a sample job functiondef sample_job(model_name: str):
 def sample_job(model_name: str):
     try:
-        # 🔐 Đăng nhập để lấy token
+        print("🔐 Bắt đầu đăng nhập...")
+
         login_resp = requests.post(f"{BE_SERVER}/auth/login", json={
             "username": "KatBOT",
             "password": "1234"
         })
+        print(f"🔐 Login status: {login_resp.status_code}")
         if login_resp.status_code != 200:
-            print("❌ Failed to login.")
+            print(f"❌ Login failed: {login_resp.text}")
             return
 
-        token = login_resp.json().get("access_token")
-        user_id = login_resp.json().get("user_id")
-        if not token:
-            print("❌ No access_token received from login.")
+        login_data = login_resp.json()
+        token = login_data.get("access_token")
+        user_id = login_data.get("user_id")
+        print(f"🔐 Token: {token[:10]}... | user_id: {user_id}")
+
+        if not token or not user_id:
+            print("❌ Token hoặc user_id không tồn tại.")
             return
 
-        # 🔍 Lấy version mới nhất từ model name
+        print(f"🔍 Đang lấy version mới nhất cho model '{model_name}'...")
+
         latest_version_resp = requests.post(
             f"{BE_SERVER}/model-versions/get-latest-versions",
             json={"name": model_name, "stages": ["None"]},
         )
-
+        print(f"📦 Get-latest-version status: {latest_version_resp.status_code}")
         if latest_version_resp.status_code != 201:
-            print("❌ Failed to fetch latest version.")
+            print(f"❌ Không lấy được version: {latest_version_resp.text}")
             return
 
         model_info = latest_version_resp.json()
         latest_versions = model_info.get("model_versions", [])
         if not latest_versions:
-            print(f"❌ No latest versions found for model '{model_name}'")
+            print(f"❌ Không có phiên bản nào cho model '{model_name}'")
             return
 
         model_version = latest_versions[0]["version"]
-        # 📤 Gọi API tạo script
+        print(f"📌 Dùng version: {model_version}")
+
+        print(f"📤 Gọi API generate script cho model '{model_name}'...")
+
         generate_resp = requests.post(
             f"{BE_SERVER}/{user_id}/models/scripts/generate",
             headers={"Authorization": f"Bearer {token}"},
@@ -192,16 +201,15 @@ def sample_job(model_name: str):
             }
         )
 
+        print(f"📨 Generate status: {generate_resp.status_code}")
         if generate_resp.status_code != 201:
-            print(f"❌ Failed to generate script: {generate_resp.status_code} - {generate_resp.text}")
+            print(f"❌ Generate script thất bại: {generate_resp.text}")
         else:
-            print(f"✅ Script generated and uploaded for model '{model_name}' version '{model_version}'.")
+            print(f"✅ Đã tạo và upload script cho model '{model_name}' version '{model_version}'.")
 
     except Exception as e:
-        import traceback
-        print(f"❌ Error in job for model '{model_name}': {e}")
+        print(f"❌ Lỗi trong job cho model '{model_name}': {e}")
         print(traceback.format_exc())
-
 class JobResponse(BaseModel):
     job_id: str
     cron_expression: str
