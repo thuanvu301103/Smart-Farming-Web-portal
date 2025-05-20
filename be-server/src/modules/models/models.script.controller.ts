@@ -9,6 +9,7 @@ import { ModelScriptsService } from './models.script.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
+import axios from 'axios';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 // DTO
@@ -19,6 +20,7 @@ const storage = multer.memoryStorage();
 @Controller(':userId/models/scripts')
 export class ModelScriptsController {
     constructor(private readonly modelScriptService: ModelScriptsService) { }
+    private python_server: string = 'http://10.1.8.52:7000';
 
     @Post('generate')
     @UseGuards(JwtAuthGuard)
@@ -26,12 +28,14 @@ export class ModelScriptsController {
         @Body('model_name') model_name: string,
         @Body('model_version') model_version: string,
         @Body('location') location: string,
-        @Body('avg_temp') temp: number,
-        @Body('avg_humid') humid: number,
-        @Body('avg_rainfall') rainfall: number,
         @Param("userId") userId: string,
     ) {
         try {
+            const weatherResp = await axios.get(`${this.python_server}/weather`, {
+                params: { location },
+            });
+
+            const { temp, humid, rainfall } = weatherResp.data;
             return await this.modelScriptService.genScript(userId, model_name, model_version, location, temp, humid, rainfall);
         } catch (error) {
             throw error;
