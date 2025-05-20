@@ -141,7 +141,12 @@ job_defaults = {
     'max_instances': 3
 }
 
-scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults, timezone=pytz.timezone("Asia/Ho_Chi_Minh"))
+scheduler = BackgroundScheduler(
+    jobstores=jobstores,
+    executors=executors,
+    job_defaults=job_defaults,
+    timezone=pytz.timezone("Asia/Ho_Chi_Minh")
+)
 scheduler.start()
 
 # Define a sample job functiondef sample_job(model_name: str):
@@ -238,7 +243,7 @@ async def add_job(model_name: str):
 
         # Tạo trigger có kiểm tra lỗi
         try:
-            trigger = CronTrigger.from_crontab(cron_expression)
+            trigger = CronTrigger.from_crontab(cron_expression, timezone=pytz.timezone("Asia/Ho_Chi_Minh"))
         except ValueError as e:
             raise HTTPException(status_code=400, detail=f"❌ Cron expression lỗi: {e}")
 
