@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . /app
 
 # Cài đặt thư viện
-RUN pip install fastapi uvicorn boto3 python-multipart pydantic requests dill apscheduler SQLAlchemy
+RUN pip install fastapi uvicorn boto3 python-multipart pydantic requests dill apscheduler SQLAlchemy pytz
 
 # Mở cổng 7000
 EXPOSE 7000
