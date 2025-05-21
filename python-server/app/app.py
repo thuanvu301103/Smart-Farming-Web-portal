@@ -37,9 +37,10 @@ class GenerateRequest(BaseModel):
     rainfall: float
 
 class JobInfo(BaseModel):
-    job_id: str
-    next_run_time: Optional[str]
-    cron_expression: Optional[str]
+    id: str
+    name: str
+    cron: str
+    next_run: str
 
 # Hàm chuyển địa danh -> lat/lon
 def get_lat_lon_from_location(location: str) -> Optional[Tuple[float, float]]:
@@ -377,17 +378,17 @@ async def add_job(model_name: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"❌ Failed to add job: {e}")
 
+def get_cron_expression(trigger):
+    if isinstance(trigger, CronTrigger):
+        return " ".join(str(field) for field in trigger.fields[1:6])
+    return str(trigger)
+
 @app.get("/jobs", response_model=List[JobInfo])
 async def list_jobs():
     jobs = scheduler.get_jobs()
     job_list = []
     for job in jobs:
-        trigger = job.trigger
-        if isinstance(trigger, CronTrigger):
-            cron_expr = f"{trigger.minute} {trigger.hour} {trigger.day} {trigger.month} {trigger.day_of_week}"
-        else:
-            cron_expr = str(trigger)
-
+        cron_expr = get_cron_expression(job.trigger)
         job_list.append({
             "id": job.id,
             "name": job.name,
