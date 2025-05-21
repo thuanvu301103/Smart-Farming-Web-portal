@@ -2960,7 +2960,7 @@
 								"auth": {
 									"type": "bearer",
 									"bearer": {
-										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzUzODQxNCwiZXhwIjoxNzQ3NTQyMDE0fQ.4tfJea-kRqr5em-Bee8bfjIvL9407nifO9buktojwZc"
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU4NzAzNiwiZXhwIjoxNzQ3NTkwNjM2fQ.VD3gS_HYdz5k2ommRdPfN7SsPGy9vdIji0MqlJCvMFQ"
 									}
 								},
 								"method": "POST",
@@ -3004,7 +3004,7 @@
 								"auth": {
 									"type": "bearer",
 									"bearer": {
-										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU0NTIzMSwiZXhwIjoxNzQ3NTQ4ODMxfQ.vHO8GnbVFvk1SWlU54v1SA7Sr843-0NZKfaf1ZRUz0E"
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzY0NDU5NCwiZXhwIjoxNzQ3NjQ4MTk0fQ.x6VCZXnJan1_DB_Kk6XzTtZ1uKPEt0vRalW-ZNwpWGw"
 									}
 								},
 								"method": "GET",
@@ -3116,13 +3116,13 @@
 								"auth": {
 									"type": "bearer",
 									"bearer": {
-										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzUzODQxNCwiZXhwIjoxNzQ3NTQyMDE0fQ.4tfJea-kRqr5em-Bee8bfjIvL9407nifO9buktojwZc"
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU4NzAzNiwiZXhwIjoxNzQ3NTkwNjM2fQ.VD3gS_HYdz5k2ommRdPfN7SsPGy9vdIji0MqlJCvMFQ"
 									}
 								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{be-server}}/:userId/models/scripts/get-file?scriptId=68295203e8eca93f736e6211",
+									"raw": "{{be-server}}/:userId/models/scripts/get-file?scriptId=682a1b9767fad5bd6e3ff9fb",
 									"host": [
 										"{{be-server}}"
 									],
@@ -3135,7 +3135,7 @@
 									"query": [
 										{
 											"key": "scriptId",
-											"value": "68295203e8eca93f736e6211"
+											"value": "682a1b9767fad5bd6e3ff9fb"
 										}
 									],
 									"variable": [
@@ -3154,14 +3154,14 @@
 								"auth": {
 									"type": "bearer",
 									"bearer": {
-										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU0NTIzMSwiZXhwIjoxNzQ3NTQ4ODMxfQ.vHO8GnbVFvk1SWlU54v1SA7Sr843-0NZKfaf1ZRUz0E"
+										"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkthdEJPVCIsInN1YiI6IjY3YzI3MzQwMWZiNzEzZGVhZTRiMDY4YyIsImlhdCI6MTc0NzU4NzAzNiwiZXhwIjoxNzQ3NTkwNjM2fQ.VD3gS_HYdz5k2ommRdPfN7SsPGy9vdIji0MqlJCvMFQ"
 									}
 								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"script_id\": \"68295203e8eca93f736e6211\"\r\n}",
+									"raw": "{\r\n    \"script_id\": \"682a184137224d0e582d5fb1\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3183,6 +3183,144 @@
 										{
 											"key": "userId",
 											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload Script Model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/DELL/Downloads/script.json"
+										},
+										{
+											"key": "model_name",
+											"value": "Mô hình tưới cây Táo",
+											"type": "text"
+										},
+										{
+											"key": "model_version",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": "Đà Nẵng",
+											"type": "text"
+										},
+										{
+											"key": "avg_temp",
+											"value": "46",
+											"type": "text"
+										},
+										{
+											"key": "avg_humid",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "avg_rainfall",
+											"value": "70",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/upload",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"upload"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "67c273401fb713deae4b068c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Broadcast Script",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/DELL/Downloads/script.json"
+										},
+										{
+											"key": "model_name",
+											"value": "Mô hình tưới cây Táo",
+											"type": "text"
+										},
+										{
+											"key": "model_version",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "location",
+											"value": "Đà Nẵng",
+											"type": "text"
+										},
+										{
+											"key": "avg_temp",
+											"value": "46",
+											"type": "text"
+										},
+										{
+											"key": "avg_humid",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "avg_rainfall",
+											"value": "70",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{be-server}}/:userId/models/scripts/broadcast",
+									"host": [
+										"{{be-server}}"
+									],
+									"path": [
+										":userId",
+										"models",
+										"scripts",
+										"broadcast"
+									],
+									"variable": [
+										{
+											"key": "userId",
+											"value": "123456"
 										}
 									]
 								}

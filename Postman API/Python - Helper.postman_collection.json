@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "43ccbd5a-dc49-4ee5-b6ba-591074637e53",
+		"_postman_id": "559cffe1-b751-47da-9f21-4dba51938487",
 		"name": "Python - Helper",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "37417008"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31125565"
 	},
 	"item": [
 		{
@@ -14,7 +14,22 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": "{{python-server}}/"
+				"url": {
+					"raw": "{{python-server}}/models/add-job?model_name=Mô hình tưới cây Táo",
+					"host": [
+						"{{python-server}}"
+					],
+					"path": [
+						"models",
+						"add-job"
+					],
+					"query": [
+						{
+							"key": "model_name",
+							"value": "Mô hình tưới cây Táo"
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -53,11 +68,20 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/C:/Users/DELL/Downloads/predict.pkl"
+							"src": "/E:/OneDrive/Documents_Son/CODING/DATN/Smart-Farming-Web-portal/Postman API/predict-1747505663.pkl"
 						}
 					]
 				},
-				"url": "{{python-server}}/model-versions/create"
+				"url": {
+					"raw": "{{python-server}}/model-versions/create",
+					"host": [
+						"{{python-server}}"
+					],
+					"path": [
+						"model-versions",
+						"create"
+					]
+				}
 			},
 			"response": []
 		},
@@ -78,7 +102,98 @@
 						}
 					}
 				},
-				"url": "{{python-server}}/model-versions/generate"
+				"url": {
+					"raw": "{{python-server}}/model-versions/generate",
+					"host": [
+						"{{python-server}}"
+					],
+					"path": [
+						"model-versions",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add job",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{python-server}}/models/add-job?model_name=Mô hình tưới cây Táo",
+					"host": [
+						"{{python-server}}"
+					],
+					"path": [
+						"models",
+						"add-job"
+					],
+					"query": [
+						{
+							"key": "model_name",
+							"value": "Mô hình tưới cây Táo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete job",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{python-server}}/remove-job/Mô hình tưới cây Táo",
+					"host": [
+						"{{python-server}}"
+					],
+					"path": [
+						"remove-job",
+						"Mô hình tưới cây Táo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get weather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{python-server}}/weather?location=Hồ Chí Minh",
+					"host": [
+						"{{python-server}}"
+					],
+					"path": [
+						"weather"
+					],
+					"query": [
+						{
+							"key": "location",
+							"value": "Hồ Chí Minh"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get job",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{python-server}}/jobs",
+					"host": [
+						"{{python-server}}"
+					],
+					"path": [
+						"jobs"
+					]
+				}
 			},
 			"response": []
 		}

@@ -9,6 +9,7 @@ import { ModelScriptsService } from './models.script.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
+import axios from 'axios';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 // DTO
@@ -19,24 +20,46 @@ const storage = multer.memoryStorage();
 @Controller(':userId/models/scripts')
 export class ModelScriptsController {
     constructor(private readonly modelScriptService: ModelScriptsService) { }
+    private python_server: string = 'http://10.1.8.52:7000';
 
     @Post('generate')
     @UseGuards(JwtAuthGuard)
     async generateModelScript(
+        @Param("userId") userId: string,
         @Body('model_name') model_name: string,
         @Body('model_version') model_version: string,
         @Body('location') location: string,
-        @Body('avg_temp') temp: number,
-        @Body('avg_humid') humid: number,
-        @Body('avg_rainfall') rainfall: number,
-        @Param("userId") userId: string,
+        @Body('avg_temp') tempInput?: number,
+        @Body('avg_humid') humidInput?: number,
+        @Body('avg_rainfall') rainfallInput?: number,
     ) {
         try {
-            return await this.modelScriptService.genScript(userId, model_name, model_version, location, temp, humid, rainfall);
+            let temp = tempInput;
+            let humid = humidInput;
+            let rainfall = rainfallInput;
+
+            // Nếu 1 trong 3 chưa có thì gọi API thời tiết
+            if (temp === undefined || humid === undefined || rainfall === undefined) {
+                const weatherResp = await axios.get(`${this.python_server}/weather`, {
+                    params: { location },
+                });
+
+                const weatherData = weatherResp.data;
+
+                // Gán chỉ những giá trị chưa có từ input
+                temp = temp ?? weatherData.temp;
+                humid = humid ?? weatherData.humid;
+                rainfall = rainfall ?? weatherData.rainfall;
+            }
+
+            return await this.modelScriptService.genScript(
+                userId, model_name, model_version, location, temp, humid, rainfall
+            );
         } catch (error) {
             throw error;
         }
     }
+
 
     @Post('upload')
     @UseInterceptors(FilesInterceptor('file', 50, { storage }))
