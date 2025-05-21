@@ -10,14 +10,15 @@ import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
 import { BaseSearchModelQueryDto } from '../../dto/models.dto';
 
 @Controller('models')
-export class ModelController{
+export class ModelController {
     constructor(private readonly modelsService: ModelsService) { }
+    private python_server: string = 'http://10.1.8.52:7000';
 
     @Post('create')
     async createModel(
         @Body() data: {
             name: string,
-            tags: {key: string, value: string}[],
+            tags: { key: string, value: string }[],
             description: string
         }
     ) {
@@ -77,7 +78,7 @@ export class ModelController{
     async setModelTag(
         @Body() data: {
             name: string,
-            key: string, 
+            key: string,
             value: string
         }
     ) {
@@ -101,14 +102,36 @@ export class ModelController{
             model_name: string,
             location: string
         }
-    ){
-        return await this.modelsService.subscribeModel(data.user_id, data.model_name, data.location);
+    ) {
+        try {
+            // Gọi service xử lý subscribe
+            const result = await this.modelsService.subscribeModel(
+                data.user_id,
+                data.model_name,
+                data.location
+            );
+
+            // Gọi Python server để tự động add job
+            const addJobResp = await axios.post(`${this.python_server}/models/add-job`, null, {
+                params: {
+                    model_name: data.model_name
+                }
+            });
+
+            console.log("✅ Job added:", addJobResp.data);
+
+            return result;
+
+        } catch (error) {
+            console.error("❌ Error in subscribeModel:", error?.response?.data || error.message);
+            throw error;
+        }
     }
 
     @Get('get-all-subscribed')
     async getSubcribedModel(
         @Query('user_id') userId: string
-    ){
+    ) {
         return await this.modelsService.getSubscribedModel(userId);
     }
 
@@ -118,8 +141,24 @@ export class ModelController{
             user_id: string,
             model_name: string
         }
-    ){
-        return await this.modelsService.unSubscribeModel(data.user_id, data.model_name);
+    ) {
+        try {
+            const result = await this.modelsService.unSubscribeModel(
+                data.user_id,
+                data.model_name
+            );
+
+            // Gọi Python server để xóa job khỏi scheduler
+            const removeJobResp = await axios.delete(`${this.python_server}/remove-job/${data.model_name}`);
+
+            console.log("🗑️ Job removed:", removeJobResp.data);
+
+            return result;
+
+        } catch (error) {
+            console.error("❌ Error in unSubcribeModel:", error?.response?.data || error.message);
+            throw error;
+        }
     }
 
     @Get('get-schedule-plan')
@@ -135,7 +174,7 @@ export class ModelController{
         if (currTime > endTime) {
             throw new BadRequestException('Invalid end_date. end_date must be after or equal to current date time.');
         }
-        
+
         return this.modelsService.getSchedulePlan(userId, currTime, endTime);
     }
 }
