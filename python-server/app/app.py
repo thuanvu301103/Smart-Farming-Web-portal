@@ -2,6 +2,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.triggers.cron import CronTrigger
+from apscheduler.job import Job
 from datetime import datetime
 from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Form
 import pytz
@@ -35,6 +36,11 @@ class GenerateRequest(BaseModel):
     temp: float
     humid: float
     rainfall: float
+
+class JobInfo(BaseModel):
+    job_id: str
+    next_run_time: Optional[str]
+    cron_expression: Optional[str]
 
 # Hàm chuyển địa danh -> lat/lon
 def get_lat_lon_from_location(location: str) -> Optional[Tuple[float, float]]:
@@ -372,6 +378,24 @@ async def add_job(model_name: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"❌ Failed to add job: {e}")
 
+@app.get("/jobs", response_model=List[JobInfo])
+async def list_jobs():
+    jobs = scheduler.get_jobs()
+    job_list = []
+
+    for job in jobs:
+        # Lấy cron expression nếu trigger là CronTrigger
+        cron_expr = None
+        if isinstance(job.trigger, CronTrigger):
+            cron_expr = job.trigger.cronspec
+
+        job_list.append(JobInfo(
+            job_id=job.id,
+            next_run_time=job.next_run_time.isoformat() if job.next_run_time else None,
+            cron_expression=cron_expr
+        ))
+
+    return job_list
 
 # Remove a job from the scheduler
 @app.delete("/remove-job/{job_id}")
