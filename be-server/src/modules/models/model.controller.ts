@@ -6,6 +6,7 @@
 import { Model, Types } from 'mongoose';
 import { ModelsService } from './models.service';
 import { JwtAuthGuard } from "./../auth/jwt-auth.guard";
+import axios from 'axios';
 // DTO
 import { BaseSearchModelQueryDto } from '../../dto/models.dto';
 
