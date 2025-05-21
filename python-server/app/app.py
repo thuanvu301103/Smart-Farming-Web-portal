@@ -2,7 +2,6 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor
 from apscheduler.triggers.cron import CronTrigger
-from apscheduler.job import Job
 from datetime import datetime
 from fastapi import FastAPI, File, UploadFile, HTTPException, Depends, Form
 import pytz
@@ -382,19 +381,19 @@ async def add_job(model_name: str):
 async def list_jobs():
     jobs = scheduler.get_jobs()
     job_list = []
-
     for job in jobs:
-        # Lấy cron expression nếu trigger là CronTrigger
-        cron_expr = None
-        if isinstance(job.trigger, CronTrigger):
-            cron_expr = job.trigger.cronspec
+        trigger = job.trigger
+        if isinstance(trigger, CronTrigger):
+            cron_expr = f"{trigger.minute} {trigger.hour} {trigger.day} {trigger.month} {trigger.day_of_week}"
+        else:
+            cron_expr = str(trigger)
 
-        job_list.append(JobInfo(
-            job_id=job.id,
-            next_run_time=job.next_run_time.isoformat() if job.next_run_time else None,
-            cron_expression=cron_expr
-        ))
-
+        job_list.append({
+            "id": job.id,
+            "name": job.name,
+            "cron": cron_expr,
+            "next_run": str(job.next_run_time)
+        })
     return job_list
 
 # Remove a job from the scheduler
