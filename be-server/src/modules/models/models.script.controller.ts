@@ -25,22 +25,41 @@ export class ModelScriptsController {
     @Post('generate')
     @UseGuards(JwtAuthGuard)
     async generateModelScript(
+        @Param("userId") userId: string,
         @Body('model_name') model_name: string,
         @Body('model_version') model_version: string,
         @Body('location') location: string,
-        @Param("userId") userId: string,
+        @Body('avg_temp') tempInput?: number,
+        @Body('avg_humid') humidInput?: number,
+        @Body('avg_rainfall') rainfallInput?: number,
     ) {
         try {
-            const weatherResp = await axios.get(`${this.python_server}/weather`, {
-                params: { location },
-            });
+            let temp = tempInput;
+            let humid = humidInput;
+            let rainfall = rainfallInput;
 
-            const { temp, humid, rainfall } = weatherResp.data;
-            return await this.modelScriptService.genScript(userId, model_name, model_version, location, temp, humid, rainfall);
+            // Nếu 1 trong 3 chưa có thì gọi API thời tiết
+            if (temp === undefined || humid === undefined || rainfall === undefined) {
+                const weatherResp = await axios.get(`${this.python_server}/weather`, {
+                    params: { location },
+                });
+
+                const weatherData = weatherResp.data;
+
+                // Gán chỉ những giá trị chưa có từ input
+                temp = temp ?? weatherData.temp;
+                humid = humid ?? weatherData.humid;
+                rainfall = rainfall ?? weatherData.rainfall;
+            }
+
+            return await this.modelScriptService.genScript(
+                userId, model_name, model_version, location, temp, humid, rainfall
+            );
         } catch (error) {
             throw error;
         }
     }
+
 
     @Post('upload')
     @UseInterceptors(FilesInterceptor('file', 50, { storage }))
