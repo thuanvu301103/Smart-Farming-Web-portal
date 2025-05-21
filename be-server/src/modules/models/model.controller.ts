@@ -150,7 +150,8 @@ export class ModelController {
             );
 
             // Gọi Python server để xóa job khỏi scheduler
-            const removeJobResp = await axios.delete(`${this.python_server}/remove-job/${data.model_name}`);
+            const encodedModelName = encodeURIComponent(data.model_name);
+            const removeJobResp = await axios.delete(`${this.python_server}/remove-job/${encodedModelName}`);
 
             console.log("🗑️ Job removed:", removeJobResp.data);
 
